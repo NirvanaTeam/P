@@ -1,1002 +1,592 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>تولیدی مبلمان اریکا | کیفیت، تعهد، زیبایی</title>
-    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: { primary: "#8B0000", secondary: "#202020" },
-            borderRadius: {
-              none: "0px",
-              sm: "4px",
-              DEFAULT: "8px",
-              md: "12px",
-              lg: "16px",
-              xl: "20px",
-              "2xl": "24px",
-              "3xl": "32px",
-              full: "9999px",
-              button: "8px",
-            },
-          },
-        },
-      };
-    </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
-      rel="stylesheet"
-    />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منوی فست فود باران</title>
     <style>
-      :where([class^="ri-"])::before { content: "\f3c2"; }
-      @font-face {
-      font-family: 'IRANSans';
-      src: url('https://cdn.jsdelivr.net/gh/rastikerdar/iran-sans-font@master/dist/IRANSansWeb.woff2') format('woff2');
-      font-weight: normal;
-      font-style: normal;
-      }
-      @font-face {
-      font-family: 'Yekan';
-      src: url('https://cdn.jsdelivr.net/gh/rastikerdar/yekan-font@master/dist/Yekan.woff2') format('woff2');
-      font-weight: normal;
-      font-style: normal;
-      }
-      body {
-      font-family: 'IRANSans', sans-serif;
-      }
-      h1, h2, h3, h4, h5, h6 {
-      font-family: 'Yekan', sans-serif;
-      }
-      .modal {
-      transition: opacity 0.3s ease-in-out;
-      }
-      .gallery-image {
-      transition: transform 0.3s ease;
-      }
-      .gallery-image:hover {
-      transform: scale(1.05);
-      }
-      .product-card {
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
-      .product-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-      }
-      input[type="number"]::-webkit-inner-spin-button,
-      input[type="number"]::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-      }
-      .fade-in {
-      animation: fadeIn 1s ease-in-out;
-      }
-      @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-      }
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700&display=swap');
+        
+        :root {
+            --primary-color: #FF4500;
+            --secondary-color: #FF0000;
+            --accent-color: #FFFFFF;
+            --text-color: #333333;
+            --highlight-color: #FF8C00;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Naskh Arabic', serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            touch-action: manipulation;
+        }
+        
+        .container {
+            width: 100%;
+            padding: 15px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--accent-color);
+            padding: 25px 0;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            border-radius: 0 0 25px 25px;
+            height: 180px;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
+            animation: pulse 2s infinite alternate;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* انیمیشن‌های هدر */
+        .floating-food {
+            position: absolute;
+            font-size: 1.5rem;
+            z-index: 1;
+            animation: float linear infinite;
+            opacity: 0.8;
+            text-shadow: 0 0 5px rgba(0,0,0,0.3);
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+            }
+        }
+        
+        /* انیمیشن باران پیشرفته */
+        .rain-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .rain-drop {
+            position: absolute;
+            width: 2px;
+            height: 20px;
+            background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.8));
+            animation: rain linear infinite;
+            border-radius: 0 0 5px 5px;
+        }
+        
+        @keyframes rain {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+        
+        /* انیمیشن پالس برای لوگو */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                text-shadow: 0 0 5px rgba(255,255,255,0.5);
+            }
+            50% {
+                transform: scale(1.05);
+                text-shadow: 0 0 15px rgba(255,255,255,0.8);
+            }
+            100% {
+                transform: scale(1);
+                text-shadow: 0 0 5px rgba(255,255,255,0.5);
+            }
+        }
+        
+        /* استایل‌های جدید برای گزینه‌های پیتزا و ساندویچ */
+        .menu-options {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .menu-option {
+            width: 45%;
+            text-align: center;
+            background-color: white;
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary-color);
+        }
+        
+        .menu-option:hover, .menu-option:active {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(255,69,0,0.2);
+        }
+        
+        .option-image {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 10px;
+            object-fit: contain;
+        }
+        
+        .option-title {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+        
+        .menu-section {
+            margin-bottom: 30px;
+            background-color: var(--accent-color);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(255, 69, 0, 0.1);
+            border: 2px solid var(--primary-color);
+            display: none; /* ابتدا مخفی هستند */
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* پس‌زمینه برای بخش ساندویچ‌ها */
+        #sandwich-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('./f1e06c0511ad542bd4fa97c5b061be35.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3; /* اوپاسیتی کم */
+            z-index: 0;
+        }
+        
+        /* پس‌زمینه برای بخش پیتزاها */
+        #pizza-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('./pexels-cinematicamp-16767771.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.4; /* اوپاسیتی کم */
+            z-index: 0;
+        }
+        
+        .section-title {
+            color: var(--secondary-color);
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--primary-color));
+            border-radius: 3px;
+        }
+        
+        .menu-items {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .menu-item {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(255, 69, 0, 0.1);
+            border: 1px solid rgba(255, 69, 0, 0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s forwards;
+        }
+        
+        .menu-item::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+            transition: width 0.3s ease;
+        }
+        
+        .menu-item:hover, .menu-item:active {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 69, 0, 0.2);
+        }
+        
+        .menu-item:hover::before, .menu-item:active::before {
+            width: 8px;
+        }
+        
+        .item-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-right: 10px;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .item-name::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.4s ease;
+        }
+        
+        .menu-item:hover .item-name::after {
+            width: 100%;
+            right: auto;
+            left: 0;
+        }
+        
+        .menu-item:hover .item-name {
+            color: var(--primary-color);
+        }
+        
+        .item-price {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: var(--accent-color);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            min-width: 70px;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            color: var(--secondary-color);
+            font-weight: bold;
+            border-top: 2px dashed var(--primary-color);
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px 15px 0 0;
+            margin: 30px -15px 0 -15px;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 0.9rem;
+            }
+            
+            .menu-option {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            
+            .option-image {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .option-title {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 1.4rem;
+            }
+            
+            .menu-item {
+                padding: 12px;
+            }
+            
+            .item-name {
+                font-size: 1rem;
+            }
+            
+            .item-price {
+                font-size: 0.8rem;
+                min-width: 60px;
+                padding: 5px 10px;
+            }
+        }
     </style>
-  </head>
-  <body class="bg-white">
-    <!-- Header/Navbar -->
-    <nav class="bg-white shadow-md fixed top-0 left-0 right-0 z-50">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="flex justify-between h-16">
-          <div class="flex items-center">
-            <div class="font-['Pacifico'] text-primary text-2xl">logo</div>
-          </div>
-          <div class="hidden md:flex items-center space-x-4 space-x-reverse">
-            <a
-              href="#home"
-              class="px-3 py-2 text-secondary hover:text-primary transition-colors"
-              >خانه</a
-            >
-            <a
-              href="#products"
-              class="px-3 py-2 text-secondary hover:text-primary transition-colors"
-              >محصولات</a
-            >
-            <a
-              href="#about"
-              class="px-3 py-2 text-secondary hover:text-primary transition-colors"
-              >درباره ما</a
-            >
-            <a
-              href="#contact"
-              class="px-3 py-2 text-secondary hover:text-primary transition-colors"
-              >تماس با ما</a
-            >
-          </div>
-          <div class="md:hidden flex items-center">
-            <button
-              id="mobile-menu-button"
-              class="w-10 h-10 flex items-center justify-center text-secondary"
-            >
-              <i class="ri-menu-line ri-lg"></i>
-            </button>
-          </div>
+</head>
+<body>
+    <header>
+        <div class="rain-effect" id="rain"></div>
+        <div id="floating-foods"></div>
+        <div class="logo">فست فود باران</div>
+        <div class="subtitle">تجربه طعم‌های بهاری</div>
+    </header>
+    
+    <div class="container">
+        <div class="menu-options">
+            <div class="menu-option" id="sandwich-option">
+                <img src="./ساندویچ.jpg" alt="ساندویچ" class="option-image">
+                <div class="option-title">ساندویچ ها</div>
+            </div>
+            <div class="menu-option" id="pizza-option">
+                <img src="./abe65721a6d06545c99230151aab0177.jpg" alt="پیتزا" class="option-image">
+                <div class="option-title">پیتزاها</div>
+            </div>
         </div>
-      </div>
-      <!-- Mobile Menu -->
-      <div
-        id="mobile-menu"
-        class="hidden md:hidden bg-white shadow-lg absolute w-full"
-      >
-        <div class="px-2 pt-2 pb-3 space-y-1">
-          <a
-            href="#home"
-            class="block px-3 py-2 text-secondary hover:text-primary transition-colors"
-            >خانه</a
-          >
-          <a
-            href="#products"
-            class="block px-3 py-2 text-secondary hover:text-primary transition-colors"
-            >محصولات</a
-          >
-          <a
-            href="#about"
-            class="block px-3 py-2 text-secondary hover:text-primary transition-colors"
-            >درباره ما</a
-          >
-          <a
-            href="#contact"
-            class="block px-3 py-2 text-secondary hover:text-primary transition-colors"
-            >تماس با ما</a
-          >
+        
+        <section class="menu-section" id="sandwich-section">
+            <h2 class="section-title">ساندویچ ها</h2>
+            <div class="menu-items" id="sandwich-items">
+                <!-- Sandwich items will be added by JavaScript -->
+            </div>
+        </section>
+        
+        <section class="menu-section" id="pizza-section">
+            <h2 class="section-title">پیتزاها</h2>
+            <div class="menu-items" id="pizza-items">
+                <!-- Pizza items will be added by JavaScript -->
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div style="background-color: #FF8C00; color: antiquewhite;">
+        <p>فست فود باران</p>
+        <p> تلفن:66183866 </p>
         </div>
-      </div>
-    </nav>
-    <!-- Hero Section -->
-    <section id="home" class="pt-24 pb-16 md:pt-32 md:pb-24">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="flex flex-col md:flex-row items-center">
-          <div class="w-full md:w-1/2 mb-8 md:mb-0 fade-in">
-            <h1 class="text-4xl md:text-5xl font-bold mb-4 text-secondary">
-              تولیدی مبلمان اریکا
-            </h1>
-            <div class="h-1 w-24 bg-primary mb-6"></div>
-            <h2 class="text-xl md:text-2xl mb-6 text-gray-600">
-              کیفیت، تعهد، زیبایی
-            </h2>
-            <p class="text-gray-600 mb-8">
-              تولیدی مبلمان اریکا با بیش از دو دهه تجربه در طراحی و تولید مبلمان
-              خانگی لوکس، ارائه دهنده محصولاتی با کیفیت برتر و طراحی منحصر به
-              فرد برای خانه‌های ایرانی
-            </p>
-            <a
-              href="#products"
-              class="bg-primary text-white px-6 py-3 !rounded-button inline-flex items-center cursor-pointer hover:bg-opacity-90 transition-all"
-            >
-              <span>مشاهده کاتالوگ محصولات</span>
-              <i class="ri-arrow-left-line ri-lg mr-2"></i>
-            </a>
-          </div>
-          <div class="w-full md:w-1/2 fade-in">
-            <img
-              src="https://readdy.ai/api/search-image?query=luxury%20modern%20sofa%20in%20elegant%20living%20room%2C%20high-quality%20furniture%2C%20premium%20materials%2C%20warm%20lighting%2C%20sophisticated%20interior%20design%2C%20neutral%20color%20palette%2C%20professional%20product%20photography%2C%20advertisement%20quality%2C%20no%20people%2C%20centered%20composition&width=600&height=400&seq=1&orientation=landscape"
-              alt="مبلمان اریکا"
-              class="w-full h-auto rounded-lg shadow-lg"
-            />
-          </div>
+        <div style="background-color: #FF0000; color: antiquewhite;">
+            <p>طراحی شده توسط تیم نیروانا</p>
+            <q>nirvanadev.ir</q>
         </div>
-      </div>
-    </section>
-    <!-- Features Section -->
-    <section class="py-12 bg-gray-50">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div class="bg-white p-6 rounded-lg shadow-md text-center fade-in">
-            <div
-              class="w-16 h-16 mx-auto mb-4 bg-primary bg-opacity-10 rounded-full flex items-center justify-center"
-            >
-              <i class="ri-award-line ri-2x text-primary"></i>
-            </div>
-            <h3 class="text-xl font-bold mb-2">کیفیت برتر</h3>
-            <p class="text-gray-600">
-              استفاده از بهترین متریال‌ها و استانداردهای تولید برای اطمینان از
-              دوام و زیبایی محصولات
-            </p>
-          </div>
-          <div class="bg-white p-6 rounded-lg shadow-md text-center fade-in">
-            <div
-              class="w-16 h-16 mx-auto mb-4 bg-primary bg-opacity-10 rounded-full flex items-center justify-center"
-            >
-              <i class="ri-tools-line ri-2x text-primary"></i>
-            </div>
-            <h3 class="text-xl font-bold mb-2">ساخت سفارشی</h3>
-            <p class="text-gray-600">
-              امکان سفارش مبلمان با ابعاد و پارچه دلخواه شما برای تناسب کامل با
-              فضای منزل
-            </p>
-          </div>
-          <div class="bg-white p-6 rounded-lg shadow-md text-center fade-in">
-            <div
-              class="w-16 h-16 mx-auto mb-4 bg-primary bg-opacity-10 rounded-full flex items-center justify-center"
-            >
-              <i class="ri-truck-line ri-2x text-primary"></i>
-            </div>
-            <h3 class="text-xl font-bold mb-2">ارسال سراسری</h3>
-            <p class="text-gray-600">
-              ارسال محصولات به تمامی شهرهای ایران با بسته‌بندی استاندارد و حمل
-              تخصصی
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Products Section -->
-    <section id="products" class="py-16">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4 text-secondary">
-            کاتالوگ محصولات
-          </h2>
-          <div class="h-1 w-24 bg-primary mx-auto mb-6"></div>
-          <p class="text-gray-600 max-w-2xl mx-auto">
-            مجموعه‌ای از برترین مدل‌های مبلمان اریکا با طراحی‌های مدرن و کلاسیک،
-            مناسب برای سلیقه‌های مختلف
-          </p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Product 1 -->
-          <div
-            class="product-card bg-white rounded-lg overflow-hidden shadow-md cursor-pointer"
-            data-product="lorenzo"
-          >
-            <div class="h-64 overflow-hidden">
-              <img
-                src="https://readdy.ai/api/search-image?query=luxury%20classic%20sofa%20set%20with%20wooden%20frame%2C%20rich%20upholstery%2C%20elegant%20design%2C%20neutral%20beige%20color%2C%20premium%20craftsmanship%2C%20living%20room%20furniture%2C%20professional%20product%20photography%2C%20no%20people%2C%20centered%20composition%2C%20clean%20background&width=400&height=300&seq=2&orientation=landscape"
-                alt="مبل لورنزو"
-                class="w-full h-full object-cover object-top"
-              />
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2 text-secondary">مبل لورنزو</h3>
-              <p class="text-gray-600 mb-4">
-                طراحی کلاسیک با جزئیات چوبی منبت‌کاری شده و پارچه مخمل درجه یک
-              </p>
-              <button
-                class="bg-primary text-white px-4 py-2 !rounded-button inline-flex items-center cursor-pointer hover:bg-opacity-90 transition-all"
-              >
-                <span>مشاهده جزئیات</span>
-                <i class="ri-arrow-left-line ri-lg mr-2"></i>
-              </button>
-            </div>
-          </div>
-          <!-- Product 2 -->
-          <div
-            class="product-card bg-white rounded-lg overflow-hidden shadow-md cursor-pointer"
-            data-product="napico"
-          >
-            <div class="h-64 overflow-hidden">
-              <img
-                src="https://readdy.ai/api/search-image?query=modern%20sectional%20sofa%2C%20L-shaped%20design%2C%20comfortable%20seating%2C%20dark%20gray%20fabric%2C%20contemporary%20living%20room%20furniture%2C%20minimalist%20style%2C%20professional%20product%20photography%2C%20no%20people%2C%20centered%20composition%2C%20clean%20background&width=400&height=300&seq=3&orientation=landscape"
-                alt="مبل ناپی‌کو"
-                class="w-full h-full object-cover object-top"
-              />
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2 text-secondary">مبل ناپی‌کو</h3>
-              <p class="text-gray-600 mb-4">
-                طراحی مدرن و ال شکل، مناسب برای فضاهای بزرگ با راحتی فوق‌العاده
-              </p>
-              <button
-                class="bg-primary text-white px-4 py-2 !rounded-button inline-flex items-center cursor-pointer hover:bg-opacity-90 transition-all"
-              >
-                <span>مشاهده جزئیات</span>
-                <i class="ri-arrow-left-line ri-lg mr-2"></i>
-              </button>
-            </div>
-          </div>
-          <!-- Product 3 -->
-          <div
-            class="product-card bg-white rounded-lg overflow-hidden shadow-md cursor-pointer"
-            data-product="nart"
-          >
-            <div class="h-64 overflow-hidden">
-              <img
-                src="https://readdy.ai/api/search-image?query=compact%20modern%20sofa%2C%20space-saving%20design%2C%20light%20blue%20fabric%2C%20contemporary%20furniture%20for%20small%20apartments%2C%20clean%20lines%2C%20professional%20product%20photography%2C%20no%20people%2C%20centered%20composition%2C%20clean%20background&width=400&height=300&seq=4&orientation=landscape"
-                alt="مبل نارت"
-                class="w-full h-full object-cover object-top"
-              />
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2 text-secondary">مبل نارت</h3>
-              <p class="text-gray-600 mb-4">
-                طراحی کامپکت و مدرن، مناسب برای آپارتمان‌های امروزی با فضای
-                محدود
-              </p>
-              <button
-                class="bg-primary text-white px-4 py-2 !rounded-button inline-flex items-center cursor-pointer hover:bg-opacity-90 transition-all"
-              >
-                <span>مشاهده جزئیات</span>
-                <i class="ri-arrow-left-line ri-lg mr-2"></i>
-              </button>
-            </div>
-          </div>
-          <!-- Product 4 -->
-          <div
-            class="product-card bg-white rounded-lg overflow-hidden shadow-md cursor-pointer"
-            data-product="victoria"
-          >
-            <div class="h-64 overflow-hidden">
-              <img
-                src="https://readdy.ai/api/search-image?query=victorian%20style%20sofa%2C%20ornate%20wooden%20frame%2C%20luxurious%20velvet%20upholstery%20in%20deep%20burgundy%2C%20tufted%20design%2C%20classic%20furniture%2C%20elegant%20living%20room%20piece%2C%20professional%20product%20photography%2C%20no%20people%2C%20centered%20composition%2C%20clean%20background&width=400&height=300&seq=5&orientation=landscape"
-                alt="مبل ویکتوریا"
-                class="w-full h-full object-cover object-top"
-              />
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2 text-secondary">
-                مبل ویکتوریا
-              </h3>
-              <p class="text-gray-600 mb-4">
-                طراحی سلطنتی با الهام از سبک ویکتوریایی، مناسب برای فضاهای
-                کلاسیک
-              </p>
-              <button
-                class="bg-primary text-white px-4 py-2 !rounded-button inline-flex items-center cursor-pointer hover:bg-opacity-90 transition-all"
-              >
-                <span>مشاهده جزئیات</span>
-                <i class="ri-arrow-left-line ri-lg mr-2"></i>
-              </button>
-            </div>
-          </div>
-          <!-- Product 5 -->
-          <div
-            class="product-card bg-white rounded-lg overflow-hidden shadow-md cursor-pointer"
-            data-product="royal"
-          >
-            <div class="h-64 overflow-hidden">
-              <img
-                src="https://readdy.ai/api/search-image?query=luxury%20gold%20and%20cream%20sofa%20set%2C%20royal%20design%2C%20ornate%20details%2C%20premium%20quality%2C%20formal%20living%20room%20furniture%2C%20elegant%20craftsmanship%2C%20professional%20product%20photography%2C%20no%20people%2C%20centered%20composition%2C%20clean%20background&width=400&height=300&seq=6&orientation=landscape"
-                alt="مبل رویال"
-                class="w-full h-full object-cover object-top"
-              />
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2 text-secondary">مبل رویال</h3>
-              <p class="text-gray-600 mb-4">
-                طراحی لوکس و شاهانه با جزئیات طلایی و پارچه ساتن ابریشمی درجه یک
-              </p>
-              <button
-                class="bg-primary text-white px-4 py-2 !rounded-button inline-flex items-center cursor-pointer hover:bg-opacity-90 transition-all"
-              >
-                <span>مشاهده جزئیات</span>
-                <i class="ri-arrow-left-line ri-lg mr-2"></i>
-              </button>
-            </div>
-          </div>
-          <!-- Product 6 -->
-          <div
-            class="product-card bg-white rounded-lg overflow-hidden shadow-md cursor-pointer"
-            data-product="nilor"
-          >
-            <div class="h-64 overflow-hidden">
-              <img
-                src="https://readdy.ai/api/search-image?query=scandinavian%20style%20sofa%2C%20light%20wood%20frame%2C%20minimalist%20design%2C%20light%20gray%20fabric%2C%20simple%20clean%20lines%2C%20modern%20nordic%20furniture%2C%20professional%20product%20photography%2C%20no%20people%2C%20centered%20composition%2C%20clean%20background&width=400&height=300&seq=7&orientation=landscape"
-                alt="مبل نیلور"
-                class="w-full h-full object-cover object-top"
-              />
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2 text-secondary">مبل نیلور</h3>
-              <p class="text-gray-600 mb-4">
-                طراحی اسکاندیناوی با خطوط ساده و پارچه‌های روشن، مناسب برای سبک
-                مینیمال
-              </p>
-              <button
-                class="bg-primary text-white px-4 py-2 !rounded-button inline-flex items-center cursor-pointer hover:bg-opacity-90 transition-all"
-              >
-                <span>مشاهده جزئیات</span>
-                <i class="ri-arrow-left-line ri-lg mr-2"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- About Us Section -->
-    <section id="about" class="py-16 bg-gray-50">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="flex flex-col md:flex-row items-center">
-          <div class="w-full md:w-1/2 mb-8 md:mb-0">
-            <img
-              src="https://readdy.ai/api/search-image?query=furniture%20workshop%2C%20craftsmen%20working%20on%20wooden%20sofa%20frames%2C%20professional%20furniture%20manufacturing%2C%20quality%20control%2C%20skilled%20artisans%2C%20warm%20lighting%2C%20industrial%20setting%2C%20professional%20photography%2C%20no%20visible%20faces&width=600&height=400&seq=8&orientation=landscape"
-              alt="کارگاه تولیدی اریکا"
-              class="w-full h-auto rounded-lg shadow-lg"
-            />
-          </div>
-          <div class="w-full md:w-1/2 md:pr-12">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4 text-secondary">
-              درباره تولیدی مبلمان اریکا
-            </h2>
-            <div class="h-1 w-24 bg-primary mb-6"></div>
-            <p class="text-gray-600 mb-4">
-              تولیدی مبلمان اریکا از سال ۱۳۸۰ فعالیت خود را در زمینه طراحی و
-              تولید مبلمان خانگی با کیفیت آغاز کرده است. با بیش از دو دهه تجربه،
-              امروز به یکی از معتبرترین تولیدکنندگان مبلمان در ایران تبدیل
-              شده‌ایم.
-            </p>
-            <p class="text-gray-600 mb-4">
-              ما در اریکا معتقدیم که مبلمان خوب باید ترکیبی از زیبایی، راحتی و
-              دوام باشد. به همین دلیل از بهترین متریال‌ها استفاده می‌کنیم و تمام
-              مراحل تولید زیر نظر استادکاران ماهر انجام می‌شود.
-            </p>
-            <p class="text-gray-600 mb-6">
-              تمامی محصولات ما دارای ۵ سال ضمانت هستند و خدمات پس از فروش ما در
-              سراسر کشور ارائه می‌شود.
-            </p>
-            <div class="grid grid-cols-2 gap-4">
-              <div class="bg-white p-4 rounded-lg shadow-sm">
-                <div class="font-bold text-2xl text-primary mb-1">۲۰+</div>
-                <div class="text-gray-600">سال تجربه</div>
-              </div>
-              <div class="bg-white p-4 rounded-lg shadow-sm">
-                <div class="font-bold text-2xl text-primary mb-1">۵۰+</div>
-                <div class="text-gray-600">مدل مختلف</div>
-              </div>
-              <div class="bg-white p-4 rounded-lg shadow-sm">
-                <div class="font-bold text-2xl text-primary mb-1">۱۰۰+</div>
-                <div class="text-gray-600">نمایشگاه همکار</div>
-              </div>
-              <div class="bg-white p-4 rounded-lg shadow-sm">
-                <div class="font-bold text-2xl text-primary mb-1">۵</div>
-                <div class="text-gray-600">سال ضمانت</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Contact Section -->
-    <section id="contact" class="py-16">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4 text-secondary">
-            تماس با ما
-          </h2>
-          <div class="h-1 w-24 bg-primary mx-auto mb-6"></div>
-          <p class="text-gray-600 max-w-2xl mx-auto">
-            برای سفارش محصولات، همکاری با نمایشگاه‌ها و یا کسب اطلاعات بیشتر با
-            ما در تماس باشید
-          </p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-          <div class="bg-white p-6 rounded-lg shadow-md text-center">
-            <div
-              class="w-16 h-16 mx-auto mb-4 bg-primary bg-opacity-10 rounded-full flex items-center justify-center"
-            >
-              <i class="ri-phone-line ri-2x text-primary"></i>
-            </div>
-            <h3 class="text-xl font-bold mb-2">شماره تماس</h3>
-            <p class="text-gray-600">۰۲۱-۸۸۷۶۵۴۳۲</p>
-            <p class="text-gray-600">۰۹۱۲۳۴۵۶۷۸۹</p>
-          </div>
-          <div class="bg-white p-6 rounded-lg shadow-md text-center">
-            <div
-              class="w-16 h-16 mx-auto mb-4 bg-primary bg-opacity-10 rounded-full flex items-center justify-center"
-            >
-              <i class="ri-map-pin-line ri-2x text-primary"></i>
-            </div>
-            <h3 class="text-xl font-bold mb-2">آدرس کارگاه</h3>
-            <p class="text-gray-600">
-              تهران، جاده مخصوص کرج، شهرک صنعتی گلگون، خیابان صنعت ۵، پلاک ۲۳
-            </p>
-          </div>
-          <div class="bg-white p-6 rounded-lg shadow-md text-center">
-            <div
-              class="w-16 h-16 mx-auto mb-4 bg-primary bg-opacity-10 rounded-full flex items-center justify-center"
-            >
-              <i class="ri-time-line ri-2x text-primary"></i>
-            </div>
-            <h3 class="text-xl font-bold mb-2">ساعات کاری</h3>
-            <p class="text-gray-600">شنبه تا پنجشنبه: ۹ صبح تا ۶ عصر</p>
-            <p class="text-gray-600">جمعه‌ها: تعطیل</p>
-          </div>
-        </div>
-        <div class="bg-white p-8 rounded-lg shadow-md">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-              <h3 class="text-2xl font-bold mb-4 text-secondary">
-                همکاری با نمایشگاه‌ها
-              </h3>
-              <p class="text-gray-600 mb-4">
-                تولیدی مبلمان اریکا آماده عقد قرارداد با تمامی نمایشگاه‌های
-                تهران و سراسر کشور می‌باشد.
-              </p>
-              <ul class="space-y-2 mb-6">
-                <li class="flex items-center">
-                  <i class="ri-check-line ri-lg text-primary ml-2"></i>
-                  <span class="text-gray-600"
-                    >شرایط فروش ویژه برای همکاران</span
-                  >
-                </li>
-                <li class="flex items-center">
-                  <i class="ri-check-line ri-lg text-primary ml-2"></i>
-                  <span class="text-gray-600">امکان سفارش با برند اختصاصی</span>
-                </li>
-                <li class="flex items-center">
-                  <i class="ri-check-line ri-lg text-primary ml-2"></i>
-                  <span class="text-gray-600">پشتیبانی و خدمات پس از فروش</span>
-                </li>
-                <li class="flex items-center">
-                  <i class="ri-check-line ri-lg text-primary ml-2"></i>
-                  <span class="text-gray-600"
-                    >ارسال بار به تمامی شهرستان‌ها</span
-                  >
-                </li>
-              </ul>
-              <a
-                href="https://wa.me/989122209960"
-                target="_blank"
-                class="bg-[#25D366] text-white px-6 py-3 !rounded-button inline-flex items-center cursor-pointer hover:bg-opacity-90 transition-all"
-              >
-                <i class="ri-whatsapp-line ri-lg ml-2"></i>
-                <span>تماس از طریق واتساپ</span>
-              </a>
-            </div>
-            <div>
-              <img
-                src="https://readdy.ai/api/search-image?query=modern%20furniture%20showroom%2C%20elegant%20display%20of%20sofas%20and%20living%20room%20sets%2C%20professional%20retail%20space%2C%20warm%20lighting%2C%20no%20people%2C%20wide%20angle%20view%2C%20professional%20interior%20photography&width=500&height=300&seq=9&orientation=landscape"
-                alt="نمایشگاه مبلمان"
-                class="w-full h-auto rounded-lg shadow-md mb-4"
-              />
-              <div class="bg-gray-50 p-4 rounded-lg">
-                <h4 class="font-bold text-lg mb-2">شرایط ارسال</h4>
-                <p class="text-gray-600">
-                  ارسال محصولات به تمامی شهرستان‌ها با بسته‌بندی استاندارد و از
-                  طریق باربری‌های معتبر انجام می‌شود. هزینه ارسال بر اساس مسافت
-                  و حجم سفارش محاسبه می‌گردد.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- WhatsApp Floating Button -->
-    <a
-      href="https://wa.me/989122209960"
-      target="_blank"
-      class="fixed bottom-6 left-6 z-50 bg-[#25D366] w-14 h-14 rounded-full flex items-center justify-center shadow-lg cursor-pointer hover:bg-opacity-90 transition-all"
-    >
-      <i class="ri-whatsapp-line ri-2x text-white"></i>
-    </a>
-    <!-- Footer -->
-    <footer class="bg-secondary text-white py-8">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="flex flex-col md:flex-row justify-between items-center">
-          <div class="mb-6 md:mb-0">
-            <div class="font-['Pacifico'] text-white text-2xl mb-2">logo</div>
-            <p class="text-gray-300">
-              تولیدی مبلمان اریکا | کیفیت، تعهد، زیبایی
-            </p>
-          </div>
-          <div class="flex space-x-4 space-x-reverse">
-            <a
-              href="#"
-              class="w-10 h-10 flex items-center justify-center bg-white bg-opacity-10 rounded-full hover:bg-opacity-20 transition-all"
-            >
-              <i class="ri-instagram-line text-white"></i>
-            </a>
-            <a
-              href="#"
-              class="w-10 h-10 flex items-center justify-center bg-white bg-opacity-10 rounded-full hover:bg-opacity-20 transition-all"
-            >
-              <i class="ri-telegram-line text-white"></i>
-            </a>
-            <a
-              href="#"
-              class="w-10 h-10 flex items-center justify-center bg-white bg-opacity-10 rounded-full hover:bg-opacity-20 transition-all"
-            >
-              <i class="ri-whatsapp-line text-white"></i>
-            </a>
-          </div>
-        </div>
-        <div
-          class="border-t border-gray-700 mt-6 pt-6 text-center text-gray-400 text-sm"
-        >
-          © تمامی حقوق برای تولیدی مبلمان اریکا محفوظ است. ۱۴۰۴
-        </div>
-      </div>
     </footer>
-    <!-- Product Modal -->
-    <div id="product-modal" class="fixed inset-0 z-50 hidden">
-      <div class="absolute inset-0 bg-black bg-opacity-50 modal-overlay"></div>
-      <div
-        class="relative w-full max-w-4xl mx-auto my-4 md:my-16 bg-white rounded-lg shadow-xl overflow-y-auto modal"
-        style="max-height: 90vh;"
-      >
-        <div class="flex justify-between items-center p-4 border-b">
-          <h3
-            id="modal-title"
-            class="text-xl md:text-2xl font-bold text-secondary"
-          >
-            جزئیات محصول
-          </h3>
-          <button
-            id="close-modal"
-            class="w-10 h-10 flex items-center justify-center text-gray-500 hover:text-gray-700 cursor-pointer"
-          >
-            <i class="ri-close-line ri-lg"></i>
-          </button>
-        </div>
-        <div class="p-6">
-          <div class="flex flex-col md:flex-row">
-            <!-- Gallery -->
-            <div class="w-full md:w-1/2 mb-6 md:mb-0 md:ml-6">
-              <div
-                id="main-image-container"
-                class="h-64 md:h-80 mb-4 overflow-hidden rounded-lg"
-              >
-                <img
-                  id="main-image"
-                  src=""
-                  alt="تصویر محصول"
-                  class="w-full h-full object-cover object-top"
-                />
-              </div>
-              <div id="gallery-thumbnails" class="grid grid-cols-5 gap-2">
-                <!-- Thumbnails will be inserted here -->
-              </div>
-            </div>
-            <!-- Product Info -->
-            <div class="w-full md:w-1/2">
-              <div class="mb-6">
-                <h4 class="text-lg font-bold mb-2">مشخصات فنی</h4>
-                <ul id="product-specs" class="space-y-2 text-gray-600">
-                  <!-- Specs will be inserted here -->
-                </ul>
-              </div>
-              <div class="mb-6">
-                <h4 class="text-lg font-bold mb-2">قیمت و شرایط فروش</h4>
-                <div class="bg-gray-50 p-4 rounded-lg">
-                  <div class="flex justify-between mb-2">
-                    <span class="text-gray-600">قیمت نقدی:</span>
-                    <span id="cash-price" class="font-bold text-primary"></span>
-                  </div>
-                  <div class="flex justify-between">
-                    <span class="text-gray-600">قیمت با چک ۳ ماهه:</span>
-                    <span id="check-price" class="font-bold"></span>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <h4 class="text-lg font-bold mb-2">سفارش و اطلاعات بیشتر</h4>
-                <p class="text-gray-600 mb-4">
-                  برای سفارش این محصول و یا کسب اطلاعات بیشتر با شماره‌های زیر
-                  تماس بگیرید:
-                </p>
-                <div class="flex items-center mb-2">
-                  <i class="ri-phone-line text-primary ml-2"></i>
-                  <span>۰۲۱-۸۸۷۶۵۴۳۲</span>
-                </div>
-                <div class="flex items-center">
-                  <i class="ri-phone-line text-primary ml-2"></i>
-                  <span>۰۹۱۲۳۴۵۶۷۸۹</span>
-                </div>
-                <a
-                  href="https://wa.me/989122209960"
-                  target="_blank"
-                  class="mt-4 bg-[#25D366] text-white px-4 py-2 !rounded-button inline-flex items-center cursor-pointer hover:bg-opacity-90 transition-all"
-                >
-                  <i class="ri-whatsapp-line ri-lg ml-2"></i>
-                  <span>سفارش از طریق واتساپ</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Welcome Modal -->
-    <div
-      id="welcome-modal"
-      class="fixed inset-0 z-50 flex items-center justify-center"
-    >
-      <div class="absolute inset-0 bg-black bg-opacity-50"></div>
-      <div
-        class="relative bg-white rounded-lg shadow-xl p-8 max-w-md w-full mx-4"
-      >
-        <button
-          id="close-welcome-modal"
-          class="absolute top-4 left-4 w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 cursor-pointer"
-        >
-          <i class="ri-close-line ri-lg"></i>
-        </button>
-        <div class="text-center mb-6">
-          <h3 class="text-2xl font-bold text-secondary mb-2">توجه</h3>
-          <div class="h-1 w-16 bg-primary mx-auto mb-4"></div>
-        </div>
-        <p class="text-gray-600 mb-4">
-          این کاتالوگ آنلاین یک نسخه‌ی دمو است که توسط "مسعود بهرامی" برای
-          کسب‌وکار شما طراحی شده. تمامی بخش‌ها، رنگ‌ها و محتوا قابل شخصی‌سازی
-          کامل بر اساس سلیقه و برند و نیاز شما هستند.
-        </p>
-        <div class="bg-gray-50 p-4 rounded-lg mb-6">
-          <h4 class="font-bold mb-2">برای اطلاعات بیشتر:</h4>
-          <div class="flex items-center mb-2">
-            <i class="ri-global-line text-primary ml-2"></i>
-            <span>وب‌سایت: pennyroyalguy.github.io/MasoudBahrami</span>
-          </div>
-          <div class="flex items-center">
-            <i class="ri-phone-line text-primary ml-2"></i>
-            <span>شماره تماس: ۰۹۳۳۴۴۷۹۵۲۷</span>
-          </div>
-        </div>
-        <button
-          id="confirm-welcome-modal"
-          class="w-full bg-primary text-white py-3 !rounded-button cursor-pointer hover:bg-opacity-90 transition-all"
-        >
-          متوجه شدم
-        </button>
-      </div>
-    </div>
+    
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        // Mobile Menu Toggle
-        const mobileMenuButton = document.getElementById("mobile-menu-button");
-        const mobileMenu = document.getElementById("mobile-menu");
-        mobileMenuButton.addEventListener("click", function () {
-          mobileMenu.classList.toggle("hidden");
-        });
-        // Close mobile menu when clicking on a link
-        const mobileLinks = mobileMenu.querySelectorAll("a");
-        mobileLinks.forEach((link) => {
-          link.addEventListener("click", function () {
-            mobileMenu.classList.add("hidden");
-          });
-        });
-      });
-      document.addEventListener("DOMContentLoaded", function () {
-        // Product Data
-        const products = {
-          lorenzo: {
-            name: "مبل لورنزو",
-            description:
-              "طراحی کلاسیک با جزئیات چوبی منبت‌کاری شده و پارچه مخمل درجه یک",
-            specs: [
-              "ظرفیت: ۷ نفره (۳ نفره + ۲ نفره + ۱ نفره + ۱ نفره)",
-              "جنس چوب: راش روسی",
-              "نوع اسفنج: سرد HR با دانسیته ۳۵",
-              "پارچه: مخمل ضد آب و لک",
-              "متراژ پارچه: ۲۲ متر",
-              "ضمانت: ۵ سال ضمانت اسکلت و ۳ سال ضمانت اسفنج",
-              "زمان تحویل: ۱۵ روز کاری",
+        // Menu data
+        const menuData = {
+            sandwiches: [
+                {name: "ژامبون تنوری", price: "140,000"},
+                {name: "رویال برگر", price: "140,000"},
+                {name: "رویال هات داگ", price: "140,000"},
+                {name: "بندری", price: "70,000"},
+                {name: "جگر و بندری", price: "70,000"},
+                {name: "ساندویچ مرغ", price: "100,000"},
+                {name: "فلابندری", price: "PRICE"},
+                {name: "فلافل", price: "40,000"},
+                {name: "فلافل مخصوص", price: "45,000"},
+                {name: "فلافل با قارچ و پنیر", price: "80,000"},
+                {name: "آلمانی", price: "40,000"},
+                {name: "کوکتل", price: "60,000"},
+                {name: "بلغاری", price: "80,000"},
+                {name: "بلغاری با قارچ و پنیر", price: "120,000"},
+                {name: "هات داگ", price: "80,000"},
+                {name: "هات داگ با قارچ و پنیر", price: "120,000"},
+                {name: "همبرگر مخصوص", price: "80,000"},
+                {name: "همبرگر با قارچ و پنیر", price: "120,000"},
+                {name: "همبرگر معمولی", price: "PRICE"},
+                {name: "زامبون مرغ", price: "100,000"},
+                {name: "ژامبون گوشت", price: "110,000"},
+                {name: "کالباس خشک", price: "60,000"},
+                {name: "جگر", price: "70,000"}
             ],
-            cashPrice: "۴۸,۵۰۰,۰۰۰ تومان",
-            checkPrice: "۵۳,۵۰۰,۰۰۰ تومان",
-            images: [
-              "https://readdy.ai/api/search-image?query=luxury%20classic%20sofa%20set%20with%20wooden%20frame%2C%20rich%20upholstery%2C%20elegant%20design%2C%20neutral%20beige%20color%2C%20premium%20craftsmanship%2C%20living%20room%20furniture%2C%20professional%20product%20photography%2C%20no%20people%2C%20centered%20composition%2C%20clean%20background&width=400&height=300&seq=2a&orientation=landscape",
-              "https://readdy.ai/api/search-image?query=classic%20sofa%20detail%20shot%2C%20wooden%20carved%20frame%2C%20tufted%20upholstery%2C%20elegant%20armrest%20detail%2C%20premium%20craftsmanship%2C%20professional%20product%20photography&width=400&height=300&seq=2b&orientation=landscape",
-              "https://readdy.ai/api/search-image?query=classic%20sofa%20set%20in%20luxury%20living%20room%20setting%2C%20wooden%20carved%20frame%2C%20rich%20upholstery%2C%20elegant%20design%2C%20professional%20interior%20photography&width=400&height=300&seq=2c&orientation=landscape",
-              "https://readdy.ai/api/search-image?query=classic%20sofa%20fabric%20detail%2C%20premium%20velvet%20upholstery%20texture%20closeup%2C%20luxury%20furniture%20material%2C%20professional%20product%20photography&width=400&height=300&seq=2d&orientation=landscape",
-              "https://readdy.ai/api/search-image?query=classic%20sofa%20from%20side%20angle%2C%20wooden%20carved%20frame%2C%20rich%20upholstery%2C%20elegant%20design%2C%20professional%20product%20photography&width=400&height=300&seq=2e&orientation=landscape",
-            ],
-          },
-          napico: {
-            name: "مبل ناپی‌کو",
-            description:
-              "طراحی مدرن و ال شکل، مناسب برای فضاهای بزرگ با راحتی فوق‌العاده",
-            specs: [
-              "ظرفیت: ۶ نفره (مبل ال شکل)",
-              "جنس چوب: چوب روسی با اتصالات پیچ و مهره",
-              "نوع اسفنج: فوم سرد با دانسیته ۴۰",
-              "پارچه: شانل ضد آب و لک",
-              "متراژ پارچه: ۱۸ متر",
-              "ضمانت: ۵ سال ضمانت اسکلت و ۳ سال ضمانت اسفنج",
-              "زمان تحویل: ۱۰ روز کاری",
-            ],
-            cashPrice: "۴۲,۸۰۰,۰۰۰ تومان",
-            checkPrice: "۴۷,۵۰۰,۰۰۰ تومان",
-            images: [
-              "https://readdy.ai/api/search-image?query=modern%20sectional%20sofa%2C%20L-shaped%20design%2C%20comfortable%20seating%2C%20dark%20gray%20fabric%2C%20contemporary%20living%20room%20furniture%2C%20minimalist%20style%2C%20professional%20product%20photography%2C%20no%20people%2C%20centered%20composition%2C%20clean%20background&width=400&height=300&seq=3a&orientation=landscape",
-              "https://readdy.ai/api/search-image?query=modern%20sectional%20sofa%20detail%20shot%2C%20L-shaped%20design%2C%20comfortable%20seating%2C%20fabric%20texture%20closeup%2C%20professional%20product%20photography&width=400&height=300&seq=3b&orientation=landscape",
-              "https://readdy.ai/api/search-image?query=modern%20sectional%20sofa%20in%20contemporary%20living%20room%20setting%2C%20L-shaped%20design%2C%20comfortable%20seating%2C%20professional%20interior%20photography&width=400&height=300&seq=3c&orientation=landscape",
-              "https://readdy.ai/api/search-image?query=modern%20sectional%20sofa%20cushion%20detail%2C%20premium%20fabric%20texture%20closeup%2C%20contemporary%20furniture%20material%2C%20professional%20product%20photography&width=400&height=300&seq=3d&orientation=landscape",
-              "https://readdy.ai/api/search-image?query=modern%20sectional%20sofa%20from%20side%20angle%2C%20L-shaped%20design%2C%20comfortable%20seating%2C%20professional%20product%20photography&width=400&height=300&seq=3e&orientation=landscape",
-            ],
-          },
-          nart: {
-            name: "مبل نارت",
-            description:
-              "طراحی کامپکت و مدرن، مناسب برای آپارتمان‌های امروزی با فضای محدود",
-            specs: [
-              "ظرفیت: ۳ نفره (۲ نفره + ۱ نفره)",
-              "جنس چوب: چنار با اتصالات دوبل و چسب",
-              "نوع اسفنج: فوم سرد با دانسیته ۳۵",
-              "پارچه: کتان ضد آب و لک",
-              "متراژ پارچه: ۱۰ متر",
-              "ضمانت: ۵ سال ضمانت اسکلت و ۲ سال ضمانت اسفنج",
-              "زمان تحویل: ۷ روز کاری",
-            ],
-            cashPrice: "۲۵,۶۰۰,۰۰۰ تومان",
-            checkPrice: "۲۸,۸۰۰,۰۰۰ تومان",
-            images: [
-              "https://readdy.ai/api/search-image?query=compact%20modern%20sofa%2C%20space-saving%20design%2C%20light%20blue%20fabric%2C%20contemporary%20furniture%20for%20small%20apartments%2C%20clean%20lines%2C%20professional%20product%20photography%2C%20no%20people%2C%20centered%20composition%2C%20clean%20background&width=400&height=300&seq=4a&orientation=landscape",
-              "https://readdy.ai/api/search-image?query=compact%20modern%20sofa%20detail%20shot%2C%20space-saving%20design%2C%20fabric%20texture%20closeup%2C%20contemporary%20furniture%20for%20small%20apartments%2C%20professional%20product%20photography&width=400&height=300&seq=4b&orientation=landscape",
-              "https://readdy.ai/api/search-image?query=compact%20modern%20sofa%20in%20small%20apartment%20setting%2C%20space-saving%20design%2C%20contemporary%20furniture%2C%20professional%20interior%20photography&width=400&height=300&seq=4c&orientation=landscape",
-              "https://readdy.ai/api/search-image?query=compact%20modern%20sofa%20cushion%20detail%2C%20premium%20fabric%20texture%20closeup%2C%20contemporary%20furniture%20material%2C%20professional%20product%20photography&width=400&height=300&seq=4d&orientation=landscape",
-              "https://readdy.ai/api/search-image?query=compact%20modern%20sofa%20from%20side%20angle%2C%20space-saving%20design%2C%20contemporary%20furniture%20for%20small%20apartments%2C%20professional%20product%20photography&width=400&height=300&seq=4e&orientation=landscape",
-            ],
-          },
-          victoria: {
-            name: "مبل ویکتوریا",
-            description:
-              "طراحی سلطنتی با الهام از سبک ویکتوریایی، مناسب برای فضاهای کلاسیک",
-            specs: [
-              "ظرفیت: ۷ نفره (۳ نفره + ۲ نفره + ۱ نفره + ۱ نفره)",
-              "جنس چوب: گردو با منبت‌کاری دستی",
-              "نوع اسفنج: فوم سرد با دانسیته ۴۵",
-              "پارچه: مخمل ابریشم با طرح برجسته",
-              "متراژ پارچه: ۲۵ متر",
-              "ضمانت: ۱۰ سال ضمانت اسکلت و ۵ سال ضمانت اسفنج",
-              "زمان تحویل: ۲۰ روز کاری",
-            ],
-            cashPrice: "۶۸,۵۰۰,۰۰۰ تومان",
-            checkPrice: "۷۵,۰۰۰,۰۰۰ تومان",
-            images: [
-              "https://readdy.ai/api/search-image?query=victorian%20style%20sofa%2C%20ornate%20wooden%20frame%2C%20luxurious%20velvet%20upholstery%20in%20deep%20burgundy%2C%20tufted%20design%2C%20classic%20furniture%2C%20elegant%20living%20room%20piece%2C%20professional%20product%20photography%2C%20no%20people%2C%20centered%20composition%2C%20clean%20background&width=400&height=300&seq=5a&orientation=landscape",
-              "https://readdy.ai/api/search-image?query=victorian%20style%20sofa%20detail%20shot%2C%20ornate%20wooden%20frame%20closeup%2C%20luxurious%20velvet%20upholstery%2C%20tufted%20design%2C%20professional%20product%20photography&width=400&height=300&seq=5b&orientation=landscape",
-              "https://readdy.ai/api/search-image?query=victorian%20style%20sofa%20in%20classic%20luxury%20living%20room%20setting%2C%20ornate%20wooden%20frame%2C%20luxurious%20velvet%20upholstery%2C%20professional%20interior%20photography&width=400&height=300&seq=5c&orientation=landscape",
-              "https://readdy.ai/api/search-image?query=victorian%20style%20sofa%20fabric%20detail%2C%20luxurious%20velvet%20upholstery%20texture%20closeup%2C%20tufted%20pattern%2C%20professional%20product%20photography&width=400&height=300&seq=5d&orientation=landscape",
-              "https://readdy.ai/api/search-image?query=victorian%20style%20sofa%20from%20side%20angle%2C%20ornate%20wooden%20frame%2C%20luxurious%20velvet%20upholstery%2C%20tufted%20design%2C%20professional%20product%20photography&width=400&height=300&seq=5e&orientation=landscape",
-            ],
-          },
-          royal: {
-            name: "مبل رویال",
-            description:
-              "طراحی لوکس و شاهانه با جزئیات طلایی و پارچه ساتن ابریشمی درجه یک",
-            specs: [
-              "ظرفیت: ۹ نفره (۳ نفره + ۳ نفره + ۱ نفره + ۱ نفره + ۱ نفره)",
-              "جنس چوب: گردو با روکش طلایی",
-              "نوع اسفنج: فوم سرد با دانسیته ۵۰",
-              "پارچه: ساتن ابریشم با گلدوزی دستی",
-              "متراژ پارچه: ۳۰ متر",
-              "ضمانت: ۱۵ سال ضمانت اسکلت و ۷ سال ضمانت اسفنج",
-              "زمان تحویل: ۳۰ روز کاری",
-            ],
-            cashPrice: "۸۵,۰۰۰,۰۰۰ تومان",
-            checkPrice: "۹۳,۵۰۰,۰۰۰ تومان",
-            images: [
-              "https://readdy.ai/api/search-image?query=luxury%20gold%20and%20cream%20sofa%20set%2C%20royal%20design%2C%20ornate%20details%2C%20premium%20quality%2C%20formal%20living%20room%20furniture%2C%20elegant%20craftsmanship%2C%20professional%20product%20photography%2C%20no%20people%2C%20centered%20composition%2C%20clean%20background&width=400&height=300&seq=6a&orientation=landscape",
-              "https://readdy.ai/api/search-image?query=luxury%20gold%20and%20cream%20sofa%20detail%20shot%2C%20royal%20design%2C%20ornate%20gold%20frame%20closeup%2C%20premium%20quality%2C%20professional%20product%20photography&width=400&height=300&seq=6b&orientation=landscape",
-              "https://readdy.ai/api/search-image?query=luxury%20gold%20and%20cream%20sofa%20in%20palace-like%20setting%2C%20royal%20design%2C%20ornate%20details%2C%20premium%20quality%2C%20professional%20interior%20photography&width=400&height=300&seq=6c&orientation=landscape",
-              "https://readdy.ai/api/search-image?query=luxury%20gold%20and%20cream%20sofa%20fabric%20detail%2C%20premium%20satin%20upholstery%20texture%20closeup%2C%20gold%20embroidery%2C%20professional%20product%20photography&width=400&height=300&seq=6d&orientation=landscape",
-              "https://readdy.ai/api/search-image?query=luxury%20gold%20and%20cream%20sofa%20from%20side%20angle%2C%20royal%20design%2C%20ornate%20gold%20frame%2C%20premium%20quality%2C%20professional%20product%20photography&width=400&height=300&seq=6e&orientation=landscape",
-            ],
-          },
-          nilor: {
-            name: "مبل نیلور",
-            description:
-              "طراحی اسکاندیناوی با خطوط ساده و پارچه‌های روشن، مناسب برای سبک مینیمال",
-            specs: [
-              "ظرفیت: ۵ نفره (۳ نفره + ۲ نفره)",
-              "جنس چوب: بلوط با روکش طبیعی",
-              "نوع اسفنج: فوم سرد با دانسیته ۳۵",
-              "پارچه: کتان طبیعی",
-              "متراژ پارچه: ۱۵ متر",
-              "ضمانت: ۵ سال ضمانت اسکلت و ۳ سال ضمانت اسفنج",
-              "زمان تحویل: ۱۰ روز کاری",
-            ],
-            cashPrice: "۳۶,۵۰۰,۰۰۰ تومان",
-            checkPrice: "۴۰,۰۰۰,۰۰۰ تومان",
-            images: [
-              "https://readdy.ai/api/search-image?query=scandinavian%20style%20sofa%2C%20light%20wood%20frame%2C%20minimalist%20design%2C%20light%20gray%20fabric%2C%20simple%20clean%20lines%2C%20modern%20nordic%20furniture%2C%20professional%20product%20photography%2C%20no%20people%2C%20centered%20composition%2C%20clean%20background&width=400&height=300&seq=7a&orientation=landscape",
-              "https://readdy.ai/api/search-image?query=scandinavian%20style%20sofa%20detail%20shot%2C%20light%20wood%20frame%20closeup%2C%20minimalist%20design%2C%20light%20gray%20fabric%2C%20professional%20product%20photography&width=400&height=300&seq=7b&orientation=landscape",
-              "https://readdy.ai/api/search-image?query=scandinavian%20style%20sofa%20in%20minimalist%20living%20room%20setting%2C%20light%20wood%20frame%2C%20light%20gray%20fabric%2C%20professional%20interior%20photography&width=400&height=300&seq=7c&orientation=landscape",
-              "https://readdy.ai/api/search-image?query=scandinavian%20style%20sofa%20fabric%20detail%2C%20light%20gray%20fabric%20texture%20closeup%2C%20natural%20linen%20material%2C%20professional%20product%20photography&width=400&height=300&seq=7d&orientation=landscape",
-              "https://readdy.ai/api/search-image?query=scandinavian%20style%20sofa%20from%20side%20angle%2C%20light%20wood%20frame%2C%20minimalist%20design%2C%20light%20gray%20fabric%2C%20professional%20product%20photography&width=400&height=300&seq=7e&orientation=landscape",
-            ],
-          },
+            pizzas: [
+                {name: "پیتزا مخلوط", price: "100,000"},
+                {name: "پیتزا مخصوص", price: "140,000"},
+                {name: "پیتزا پپرونی", price: "140,000"},
+                {name: "پیتزا مرغ و قارچ", price: "160,000"},
+                {name: "ناگت", price: "50,000"}
+            ]
         };
-        // Product Modal Functions
-        const productCards = document.querySelectorAll(".product-card");
-        const productModal = document.getElementById("product-modal");
-        const modalTitle = document.getElementById("modal-title");
-        const mainImage = document.getElementById("main-image");
-        const galleryThumbnails = document.getElementById("gallery-thumbnails");
-        const productSpecs = document.getElementById("product-specs");
-        const cashPrice = document.getElementById("cash-price");
-        const checkPrice = document.getElementById("check-price");
-        const closeModal = document.getElementById("close-modal");
-        const modalOverlay = document.querySelector(".modal-overlay");
-        function openProductModal(productId) {
-          const product = products[productId];
-          // Set product details
-          modalTitle.textContent = product.name;
-          mainImage.src = product.images[0];
-          mainImage.alt = product.name;
-          // Clear and populate thumbnails
-          galleryThumbnails.innerHTML = "";
-          product.images.forEach((image, index) => {
-            const thumbnail = document.createElement("div");
-            thumbnail.className =
-              "h-16 overflow-hidden rounded cursor-pointer gallery-image";
-            const img = document.createElement("img");
-            img.src = image;
-            img.alt = `${product.name} - تصویر ${index + 1}`;
-            img.className = "w-full h-full object-cover object-top";
-            thumbnail.appendChild(img);
-            galleryThumbnails.appendChild(thumbnail);
-            thumbnail.addEventListener("click", function () {
-              mainImage.src = image;
+        
+        // Create rain effect
+        function createRain() {
+            const rainContainer = document.getElementById('rain');
+            const rainCount = 60;
+            
+            for (let i = 0; i < rainCount; i++) {
+                const drop = document.createElement('div');
+                drop.classList.add('rain-drop');
+                drop.style.left = `${Math.random() * 100}%`;
+                drop.style.top = `${Math.random() * -100}px`;
+                drop.style.animationDuration = `${0.5 + Math.random() * 0.8}s`;
+                drop.style.animationDelay = `${Math.random() * 0.5}s`;
+                drop.style.opacity = `${0.3 + Math.random() * 0.7}`;
+                drop.style.height = `${10 + Math.random() * 10}px`;
+                rainContainer.appendChild(drop);
+            }
+        }
+        
+        // Create floating food icons
+        function createFloatingFoods() {
+            const container = document.getElementById('floating-foods');
+            const foods = ['🍔', '🍟', '🌭', '🍕', '🥪', '🥗', '🍗', '🧀', '🥤', '🍦'];
+            const count = 15;
+            
+            for (let i = 0; i < count; i++) {
+                const food = document.createElement('div');
+                food.classList.add('floating-food');
+                food.textContent = foods[Math.floor(Math.random() * foods.length)];
+                food.style.left = `${Math.random() * 100}%`;
+                food.style.top = `${Math.random() * 100}%`;
+                food.style.fontSize = `${1 + Math.random() * 1.5}rem`;
+                food.style.animationDuration = `${10 + Math.random() * 20}s`;
+                food.style.animationDelay = `${Math.random() * 5}s`;
+                container.appendChild(food);
+            }
+        }
+        
+        // Create menu items
+        function createMenuItems() {
+            const sandwichContainer = document.getElementById('sandwich-items');
+            const pizzaContainer = document.getElementById('pizza-items');
+            
+            // Add sandwich items
+            menuData.sandwiches.forEach((item, index) => {
+                const menuItem = document.createElement('div');
+                menuItem.className = 'menu-item';
+                menuItem.style.animationDelay = `${index * 0.05}s`;
+                
+                menuItem.innerHTML = `
+                    <span class="item-name">${item.name}</span>
+                    <span class="item-price">${item.price.toLocaleString()} تومان</span>
+                `;
+                
+                sandwichContainer.appendChild(menuItem);
             });
-          });
-          // Clear and populate specs
-          productSpecs.innerHTML = "";
-          product.specs.forEach((spec) => {
-            const li = document.createElement("li");
-            li.className = "flex items-start";
-            li.innerHTML = `
-      <i class="ri-checkbox-circle-line text-primary ml-2 mt-1"></i>
-      <span>${spec}</span>
-      `;
-            productSpecs.appendChild(li);
-          });
-          // Set prices
-          cashPrice.textContent = product.cashPrice;
-          checkPrice.textContent = product.checkPrice;
-          // Show modal
-          productModal.classList.remove("hidden");
-          document.body.style.overflow = "hidden";
+            
+            // Add pizza items
+            menuData.pizzas.forEach((item, index) => {
+                const menuItem = document.createElement('div');
+                menuItem.className = 'menu-item';
+                menuItem.style.animationDelay = `${index * 0.05}s`;
+                
+                menuItem.innerHTML = `
+                    <span class="item-name">${item.name}</span>
+                    <span class="item-price">${item.price.toLocaleString()} تومان</span>
+                `;
+                
+                pizzaContainer.appendChild(menuItem);
+            });
         }
-        function closeProductModal() {
-          productModal.classList.add("hidden");
-          document.body.style.overflow = "";
+        
+        // Toggle menu sections
+        function toggleMenuSection(sectionId) {
+            const allSections = document.querySelectorAll('.menu-section');
+            const targetSection = document.getElementById(sectionId);
+            
+            allSections.forEach(section => {
+                if (section.id === sectionId) {
+                    section.style.display = section.style.display === 'block' ? 'none' : 'block';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+            
+            // Scroll to the section if it's being shown
+            if (targetSection.style.display === 'block') {
+                setTimeout(() => {
+                    targetSection.scrollIntoView({behavior: 'smooth', block: 'start'});
+                }, 100);
+            }
         }
-        // Add event listeners to product cards
-        productCards.forEach((card) => {
-          card.addEventListener("click", function () {
-            const productId = this.getAttribute("data-product");
-            openProductModal(productId);
-          });
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            createRain();
+            createFloatingFoods();
+            createMenuItems();
+            
+            // Set up option click handlers
+            document.getElementById('sandwich-option').addEventListener('click', function() {
+                toggleMenuSection('sandwich-section');
+            });
+            
+            document.getElementById('pizza-option').addEventListener('click', function() {
+                toggleMenuSection('pizza-section');
+            });
+            
+            // Add touch feedback to all interactive elements
+            const interactiveElements = document.querySelectorAll('.menu-option, .menu-item');
+            
+            interactiveElements.forEach(item => {
+                item.addEventListener('touchstart', function() {
+                    this.style.transform = 'translateY(-3px)';
+                    this.style.boxShadow = '0 5px 15px rgba(255, 69, 0, 0.3)';
+                });
+                
+                item.addEventListener('touchend', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '0 3px 10px rgba(255, 69, 0, 0.1)';
+                });
+            });
         });
-        // Close modal events
-        closeModal.addEventListener("click", closeProductModal);
-        modalOverlay.addEventListener("click", closeProductModal);
-      });
-      document.addEventListener("DOMContentLoaded", function () {
-        // Welcome Modal
-        const welcomeModal = document.getElementById("welcome-modal");
-        const closeWelcomeModal = document.getElementById("close-welcome-modal");
-        const confirmWelcomeModal = document.getElementById("confirm-welcome-modal");
-        function hideWelcomeModal() {
-          welcomeModal.classList.add("opacity-0");
-          setTimeout(() => {
-            welcomeModal.style.display = "none";
-            document.body.style.overflow = "";
-          }, 300);
-          localStorage.setItem("welcomeModalShown", "true");
-        }
-        if (!localStorage.getItem("welcomeModalShown")) {
-          document.body.style.overflow = "hidden";
-        } else {
-          welcomeModal.style.display = "none";
-        }
-        closeWelcomeModal.addEventListener("click", hideWelcomeModal);
-        confirmWelcomeModal.addEventListener("click", hideWelcomeModal);
-        // Smooth scroll to catalog section
-        // فقط روی کلیک اجرا شود نه هنگام لود صفحه
-document.querySelectorAll('a[href="#products"]').forEach(link => {
-  link.addEventListener("click", function(e) {
-    e.preventDefault();
-    if (e.isTrusted) { // فقط روی کلیک واقعی کاربر اجرا شود
-      document.querySelector("#products").scrollIntoView({ behavior: "smooth" });
-    }
-  });
-});
-      });
     </script>
-  </body>
+</body>
 </html>
