@@ -67,14 +67,6 @@
             border: 1px solid #0094DA;
         }
         
-        .category-icon {
-            width: 30px;
-            height: 30px;
-            margin-bottom: 8px;
-            object-fit: contain;
-            filter: brightness(0) invert(0.8);
-        }
-        
         .category-name {
             font-size: 14px;
             font-weight: 500;
@@ -161,7 +153,6 @@
         .cafe-logo img {
             max-width: 150px;
             max-height: 80px;
-            filter: brightness(0) invert(1);
         }
         
         .footer {
@@ -261,11 +252,6 @@
                 min-height: auto;
             }
             
-            .category-icon {
-                width: 24px;
-                height: 24px;
-            }
-            
             .category-name {
                 font-size: 12px;
                 line-height: 1.4;
@@ -309,11 +295,6 @@
                 gap: 12px;
             }
             
-            .category-icon {
-                width: 20px;
-                height: 20px;
-            }
-            
             .category-name {
                 font-size: 11px;
             }
@@ -329,7 +310,7 @@
     <div class="welcome-popup" id="welcomePopup">
         <div class="welcome-content">
             <h2 class="welcome-title">به رستوران زعتر خوش آمدید</h2>
-            <p class="welcome-message">برای شروع دکمه زیر را بزنید</p>
+            <p class="welcome-message">رای شروع دکمه زیر را بزنید</p>
             <button class="start-button" id="startButton">دیدن منو</button>
         </div>
     </div>
@@ -353,7 +334,7 @@
                 
                 <!-- Cafe Logo Section -->
                 <div class="cafe-logo">
-                    <img src="./logo.jpg" alt="لوگوی رستوران">
+                    <img src="logo.png" alt="لوگوی رستوران">
                 </div>
             </div>
             
@@ -390,7 +371,7 @@
                 {name: "مینی جنبه زیتون", description: "پنیر، زیتون، ادویه مخصوص زعتر"},
                 {name: "مینی جبن بالجین", description: "پنیر پیتزا، ادویه مخصوص زعتر"}
             ],
-            "صحون (بشقاب ها)": [
+            "صحون(بشقاب ها)": [
                 {name: "کبه برنج", description: "کبۀ مخصوص با برنج عربی و ادویه‌های ویژه"},
                 {name: "سیب زمینی", description: "سیب زمینی سرخ شده با ادویه مخصوص"},
                 {name: "سیب زمینی مخصوص زعتر", description: "سیب زمینی با آویشن لبنانی و روغن زیتون"},
@@ -420,18 +401,6 @@
             ]
         };
 
-        // Category icons (using image paths)
-        const categoryIcons = {
-            "شاورما": "./img/shawarma.png",
-            "فلافل": "./img/falafel.png",
-            "معجنات": "./img/pastry.png",
-            "صحون(بشقاب ها)": "./img/plate.png",
-            "پیتزا لبنانی": "./img/pizza.png",
-            "مقبلات (سالاد)": "./img/salad.png",
-            "صحن سس سید": "./img/sauce.png",
-            "باکس ها": "./img/box.png"
-        };
-
         // DOM elements
         const categoriesSidebar = document.getElementById('categoriesSidebar');
         const menuItems = document.getElementById('menuItems');
@@ -440,12 +409,11 @@
         const startButton = document.getElementById('startButton');
         const backgroundMusic = document.getElementById('backgroundMusic');
 
-        // Create category buttons
+        // Create category buttons without icons
         Object.keys(menuData).forEach(category => {
             const categoryItem = document.createElement('div');
             categoryItem.className = 'category-item';
             categoryItem.innerHTML = `
-                <img src="${categoryIcons[category] || './img/default-icon.png'}" alt="${category}" class="category-icon">
                 <div class="category-name">${category}</div>
             `;
             
