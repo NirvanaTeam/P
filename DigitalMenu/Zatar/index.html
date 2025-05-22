@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منوی رستوران</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #111;
+            padding: 10px;
+            overflow-x: hidden;
+            color: #F0EBE3;
+        }
+        
+        .menu-container {
+            display: flex;
+            height: 100vh;
+            gap: 10px;
+            position: relative;
+        }
+        
+        .categories-sidebar {
+            width: 120px;
+            background-color: #222;
+            border-radius: 20px 0 0 20px;
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3);
+            z-index: 2;
+            overflow-y: auto;
+            border: 1px solid #333;
+        }
+        
+        .category-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 10px 5px;
+            cursor: pointer;
+            border-radius: 15px;
+            transition: all 0.4s ease;
+            color: #aaa;
+            text-align: center;
+        }
+        
+        .category-item:hover {
+            background-color: #333;
+            transform: translateY(-2px);
+        }
+        
+        .category-item.active {
+            background-color: #0052B5;
+            color: #F0EBE3;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            border: 1px solid #0094DA;
+        }
+        
+        .category-icon {
+            width: 30px;
+            height: 30px;
+            margin-bottom: 8px;
+            object-fit: contain;
+            filter: brightness(0) invert(0.8);
+        }
+        
+        .category-name {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .items-container {
+            flex: 1;
+            background-color: #1a1a1a;
+            border-radius: 0 20px 20px 0;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            overflow-y: auto;
+            position: relative;
+            border: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .items-content {
+            flex: 1;
+        }
+        
+        .items-title {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: #0094DA;
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed #444;
+            position: relative;
+            z-index: 1;
+            font-weight: 500;
+        }
+        
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .menu-item {
+            background-color: #222;
+            padding: 14px;
+            border-radius: 10px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(15px);
+            animation: fadeIn 0.8s forwards;
+            border-right: 3px solid #0094DA;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .item-name {
+            font-weight: 500;
+            font-size: 15px;
+            color: #F0EBE3;
+            margin-bottom: 5px;
+        }
+        
+        .item-description {
+            color: #aaa;
+            font-size: 13px;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        
+        .item-price {
+            color: #0094DA;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .cafe-logo {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #222;
+            border-radius: 10px;
+            border: 1px solid #0094DA;
+        }
+        
+        .cafe-logo img {
+            max-width: 150px;
+            max-height: 80px;
+            filter: brightness(0) invert(1);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 15px;
+            margin-top: auto;
+            background-color: #222;
+            border-radius: 10px;
+            border-top: 1px solid #444;
+            font-size: 14px;
+            color: #888;
+        }
+        
+        .footer a {
+            color: #0094DA;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer a:hover {
+            color: #F0EBE3;
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .menu-container {
+                flex-direction: row;
+                height: 100vh;
+            }
+            
+            .categories-sidebar {
+                width: 100px;
+                flex-direction: column;
+                flex-wrap: nowrap;
+                border-radius: 20px 0 0 20px;
+                padding: 15px 8px;
+                gap: 15px;
+                justify-content: flex-start;
+                overflow-y: auto;
+            }
+            
+            .category-item {
+                width: 100%;
+                padding: 10px 5px;
+                min-height: auto;
+            }
+            
+            .category-icon {
+                width: 24px;
+                height: 24px;
+            }
+            
+            .category-name {
+                font-size: 12px;
+                line-height: 1.4;
+            }
+            
+            .items-container {
+                border-radius: 0 20px 20px 0;
+                padding: 15px;
+            }
+            
+            .cafe-logo img {
+                max-width: 120px;
+            }
+            
+            .menu-items {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .items-title {
+                font-size: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .categories-sidebar {
+                width: 85px;
+                padding: 12px 5px;
+                gap: 12px;
+            }
+            
+            .category-icon {
+                width: 20px;
+                height: 20px;
+            }
+            
+            .category-name {
+                font-size: 11px;
+            }
+            
+            .menu-items {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-container">
+        <div class="categories-sidebar" id="categoriesSidebar">
+            <!-- Categories will be added by JavaScript -->
+        </div>
+        <div class="items-container" id="itemsContainer">
+            <div class="items-content">
+                <h2 class="items-title">منوی رستوران</h2>
+                <div class="menu-items" id="menuItems">
+                    <!-- Items will be added by JavaScript -->
+                </div>
+                
+                <!-- Cafe Logo Section -->
+                <div class="cafe-logo">
+                    <img src="./IMG_20250517_161316_855.png" alt="لوگوی رستوران">
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="footer">
+                طراحی شده توسط تیم <a href="https://nirvanadev.ir" target="_blank">نیروانا</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Menu data
+        const menuData = {
+            "شاورما": [
+                {name: "شاورما دجاج (ساندویچ)", price: "95", description: "ساندویچ شاورما مرغ با نان مخصوص"},
+                {name: "شاورما دجاج عربی", price: "115", description: "ساندویچ لقمه شده همراه سیب زمینی + سالاد + سس"},
+                {name: "مینی شاورما", price: "140", description: "نصف ساندویچ شاورما با نان مخصوص"},
+                {name: "پرس شاورما", price: "150", description: "250 گرم شاورما + سالاد + نان"}
+            ],
+            "فلافل": [
+                {name: "ساندویچ فلافل", price: "110", description: "ساندویچ فلافل با نان مخصوص و سبزیجات تازه"},
+                {name: "ساندویچ فلافل مُشَکَل", price: "120", description: "ساندویچ فلافل همراه سیب زمینی + بادمجان"},
+                {name: "ساندویچ فلافل عربی", price: "130", description: "نان صاج همراه فلافل + حمص"},
+                {name: "ساندویچ هات داگ", price: "140", description: "هات داگ با نان مخصوص و سس های ویژه"}
+            ],
+            "معجنات": [
+                {name: "مینی صفیحه", price: "170", description: "گوشت، گوجه، پیاز چرخ کرده، ادویه مخصوص"},
+                {name: "مینی دجال بالجین", price: "170", description: "مرغ شاورما، پنیر، قارچ، ذرت، زیتون"},
+                {name: "مینی پیتزا دجاج", price: "170", description: "مرغ شاورما، پنیر، قارچ، ذرت، زیتون"},
+                {name: "مینی زعتر", price: "170", description: "آویشن لبنانی، روغن زیتون، کنجد"},
+                {name: "مینی زعتر قشقوان", price: "170", description: "آویشن لبنانی، روغن زیتون، پنیر پیتزا"},
+                {name: "مینی محمره قشقوان", price: "170", description: "سس مخصوص تند، پنیر، کنجد، سیاه دانه"},
+                {name: "مینی کبابه", price: "170", description: "گوشت کبابی، ادویه مخصوص زعتر"},
+                {name: "مینی جنبه زیتون", price: "170", description: "پنیر، زیتون، ادویه مخصوص زعتر"},
+                {name: "مینی جبن بالجین", price: "170", description: "پنیر پیتزا، ادویه مخصوص زعتر"}
+            ],
+            "صحون(بشقاب ها)": [
+                {name: "کبه برنج", price: "180", description: "کبۀ مخصوص با برنج عربی و ادویه‌های ویژه"},
+                {name: "سیب زمینی", price: "120", description: "سیب زمینی سرخ شده با ادویه مخصوص"},
+                {name: "سیب زمینی مخصوص زعتر", price: "140", description: "سیب زمینی با آویشن لبنانی و روغن زیتون"},
+                {name: "سمبوسه پیتزایی", price: "150", description: "سمبوسه با پنیر پیتزا و سس مخصوص"},
+                {name: "سمبوسه ساده", price: "130", description: "سمبوسه با گوشت و سبزیجات"}
+            ],
+            "پیتزا لبنانی": [
+                {name: "پیتزا بطلکی (تک نفره)", price: "220", description: "پیتزا مخصوص سرآشپز - مرغ شاورما، مواد پیتزا، خمیر مخصوص دو طرفه"},
+                {name: "پیتزا بطلکی (دو نفره)", price: "380", description: "پیتزا مخصوص سرآشپز - مرغ شاورما، مواد پیتزا، خمیر مخصوص دو طرفه"},
+                {name: "پیتزا دجاج (تک نفره)", price: "200", description: "مرغ شاورما با پنیر و سس مخصوص"},
+                {name: "پیتزا دجاج (دو نفره)", price: "360", description: "مرغ شاورما با پنیر و سس مخصوص"},
+                {name: "پیتزا پپرونی (تک نفره)", price: "210", description: "پپرونی با پنیر و سس مخصوص"},
+                {name: "پیتزا پپرونی (دو نفره)", price: "370", description: "پپرونی با پنیر و سس مخصوص"}
+            ],
+            "مقبلات (سالاد)": [
+                {name: "تبوله", price: "150", description: "جعفری، گوجه بلغور گندم، سس مخصوص زعتر"},
+                {name: "حمص بطحینه", price: "140", description: "ارده، نخود، روغن زیتون"},
+                {name: "متبل", price: "160", description: "ماست، ارده، بادمجان ذغالی"},
+                {name: "بذنجانیه", price: "170", description: "بادمجان سرخ شده، خیار، گوجه، فلفل دلمه، پیاز، سس مخصوص"},
+                {name: "فته بذنجان", price: "180", description: "بادمجان سرخ شده، ماست، ارده"}
+            ],
+            "صحن سس سید": [
+                {name: "صحن مقبلات مُشکل", price: "250", description: "4نوع سینی مزه به دلخواه"}
+            ],
+            "باکس ها": [
+                {name: "باکس 2 نفره", price: "450", description: "2 عدد شاورما عربی + 2 مدل سالاد + سس + نوشابه"},
+                {name: "باکس 2 نفره مُشکل", price: "480", description: "1 عدد شاورما عربی + 1 عدد ساندویچ فلافل + 2 مدل سالاد + سس + نوشابه"},
+                {name: "باکس خانواده", price: "950", description: "5 عدد شاورما عربی + 4 مدل سالاد + سس + نوشابه"},
+                {name: "باکس معجنات", price: "650", description: "4 مدل مینی معجنات از هر مدل 5 عدد به دلخواه"}
+            ]
+        };
+
+        // Category icons (using image paths)
+        const categoryIcons = {
+            "شاورما": "./img/shawarma.png",
+            "فلافل": "./img/falafel.png",
+            "معجنات": "./img/pastry.png",
+            "صحون(بشقاب ها)": "./img/plate.png",
+            "پیتزا لبنانی": "./img/pizza.png",
+            "مقبلات (سالاد)": "./img/salad.png",
+            "صحن سس سید": "./img/sauce.png",
+            "باکس ها": "./img/box.png"
+        };
+
+        // DOM elements
+        const categoriesSidebar = document.getElementById('categoriesSidebar');
+        const menuItems = document.getElementById('menuItems');
+        const itemsTitle = document.querySelector('.items-title');
+
+        // Create category buttons
+        Object.keys(menuData).forEach(category => {
+            const categoryItem = document.createElement('div');
+            categoryItem.className = 'category-item';
+            categoryItem.innerHTML = `
+                <img src="${categoryIcons[category] || './img/default-icon.png'}" alt="${category}" class="category-icon">
+                <div class="category-name">${category}</div>
+            `;
+            
+            categoryItem.addEventListener('click', () => {
+                // Remove active class from all categories
+                document.querySelectorAll('.category-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Add active class to clicked category
+                categoryItem.classList.add('active');
+                
+                // Update items
+                updateItems(category);
+            });
+            
+            categoriesSidebar.appendChild(categoryItem);
+        });
+
+        // Set first category as active by default
+        document.querySelector('.category-item').classList.add('active');
+        updateItems(Object.keys(menuData)[0]);
+
+        // Function to update items based on selected category
+        function updateItems(category) {
+            // Clear previous items
+            menuItems.innerHTML = '';
+            
+            // Update title
+            itemsTitle.textContent = category;
+            
+            // Add items with animation delay
+            menuData[category].forEach((item, index) => {
+                setTimeout(() => {
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'menu-item';
+                    itemElement.style.animationDelay = `${index * 0.1}s`;
+                    itemElement.innerHTML = `
+                        <div class="item-name">${item.name}</div>
+                        ${item.description ? `<div class="item-description">${item.description}</div>` : ''}
+                        <div class="item-price">${item.price} تومان</div>
+                    `;
+                    menuItems.appendChild(itemElement);
+                }, 50);
+            });
+        }
+    </script>
+</body>
+</html>
