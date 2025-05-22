@@ -70,6 +70,7 @@
         .category-name {
             font-size: 14px;
             font-weight: 500;
+            white-space: pre-line;
         }
         
         .items-container {
@@ -346,13 +347,21 @@
     </div>
 
     <script>
-        // Menu data
+        // Function to convert English numbers to Persian
+        function toPersianNumbers(num) {
+            const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+            return num.toString().replace(/\d/g, function(match) {
+                return persianNumbers[parseInt(match)];
+            });
+        }
+
+        // Menu data with Persian numbers
         const menuData = {
             "شاورما": [
                 {name: "شاورما دجاج (ساندویچ)", description: "ساندویچ شاورما مرغ با نان مخصوص"},
                 {name: "شاورما دجاج عربی", description: "ساندویچ لقمه شده همراه سیب زمینی + سالاد + سس"},
                 {name: "مینی شاورما", description: "نصف ساندویچ شاورما با نان مخصوص"},
-                {name: "پرس شاورما", description: "250 گرم شاورما + سالاد + نان"}
+                {name: "پرس شاورما", description: "۲۵۰ گرم شاورما + سالاد + نان"}
             ],
             "فلافل": [
                 {name: "ساندویچ فلافل", description: "ساندویچ فلافل با نان مخصوص و سبزیجات تازه"},
@@ -371,7 +380,7 @@
                 {name: "مینی جنبه زیتون", description: "پنیر، زیتون، ادویه مخصوص زعتر"},
                 {name: "مینی جبن بالجین", description: "پنیر پیتزا، ادویه مخصوص زعتر"}
             ],
-            "صحون (بشقاب ها)": [
+            "صحون\n(بشقاب ها)": [
                 {name: "کبه برنج", description: "کبۀ مخصوص با برنج عربی و ادویه‌های ویژه"},
                 {name: "سیب زمینی", description: "سیب زمینی سرخ شده با ادویه مخصوص"},
                 {name: "سیب زمینی مخصوص زعتر", description: "سیب زمینی با آویشن لبنانی و روغن زیتون"},
@@ -391,13 +400,13 @@
                 {name: "فته بذنجان", description: "بادمجان سرخ شده، ماست، ارده"}
             ],
             "صحن سس سید": [
-                {name: "صحن مقبلات مُشکل", description: "4نوع سینی مزه به دلخواه"}
+                {name: "صحن مقبلات مُشکل", description: "۴نوع سینی مزه به دلخواه"}
             ],
             "باکس ها": [
-                {name: "باکس 2 نفره", description: "2 عدد شاورما عربی + 2 مدل سالاد + سس + نوشابه"},
-                {name: "باکس 2 نفره مُشکل", description: "1 عدد شاورما عربی + 1 عدد ساندویچ فلافل + 2 مدل سالاد + سس + نوشابه"},
-                {name: "باکس خانواده", description: "5 عدد شاورما عربی + 4 مدل سالاد + سس + نوشابه"},
-                {name: "باکس معجنات", description: "4 مدل مینی معجنات از هر مدل 5 عدد به دلخواه"}
+                {name: "باکس ۲ نفره", description: "۲ عدد شاورما عربی + ۲ مدل سالاد + سس + نوشابه"},
+                {name: "باکس ۲ نفره مُشکل", description: "۱ عدد شاورما عربی + ۱ عدد ساندویچ فلافل + ۲ مدل سالاد + سس + نوشابه"},
+                {name: "باکس خانواده", description: "۵ عدد شاورما عربی + ۴ مدل سالاد + سس + نوشابه"},
+                {name: "باکس معجنات", description: "۴ مدل مینی معجنات از هر مدل ۵ عدد به دلخواه"}
             ]
         };
 
