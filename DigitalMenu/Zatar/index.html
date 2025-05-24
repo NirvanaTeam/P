@@ -5,18 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منوی رستوران</title>
     <style>
+        @font-face {
+            font-family: 'ZFont';
+            src: url('z.ttf') format('truetype');
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'ZFont', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            background-color: #111;
+            background-color: #f5f5f5;
             padding: 10px;
             overflow-x: hidden;
-            color: #F0EBE3;
+            color: #333;
         }
         
         .menu-container {
@@ -28,17 +33,17 @@
         
         .categories-sidebar {
             width: 120px;
-            background-color: #222;
+            background-color: #fff;
             border-radius: 20px 0 0 20px;
             padding: 20px 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 30px;
-            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
             z-index: 2;
             overflow-y: auto;
-            border: 1px solid #333;
+            border: 1px solid #e0e0e0;
         }
         
         .category-item {
@@ -51,20 +56,20 @@
             cursor: pointer;
             border-radius: 15px;
             transition: all 0.4s ease;
-            color: #aaa;
+            color: #666;
             text-align: center;
         }
         
         .category-item:hover {
-            background-color: #333;
+            background-color: #f0f0f0;
             transform: translateY(-2px);
         }
         
         .category-item.active {
-            background-color: #0052B5;
-            color: #F0EBE3;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-            border: 1px solid #0094DA;
+            background-color: #0094DA;
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(0, 148, 218, 0.3);
+            border: 1px solid #007bb5;
         }
         
         .category-name {
@@ -75,13 +80,13 @@
         
         .items-container {
             flex: 1;
-            background-color: #1a1a1a;
+            background-color: #fff;
             border-radius: 0 20px 20px 0;
             padding: 20px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             overflow-y: auto;
             position: relative;
-            border: 1px solid #333;
+            border: 1px solid #e0e0e0;
             display: flex;
             flex-direction: column;
         }
@@ -96,7 +101,7 @@
             color: #0094DA;
             text-align: center;
             padding-bottom: 10px;
-            border-bottom: 2px dashed #444;
+            border-bottom: 2px dashed #ddd;
             position: relative;
             z-index: 1;
             font-weight: 500;
@@ -110,15 +115,16 @@
         }
         
         .menu-item {
-            background-color: #222;
+            background-color: #fff;
             padding: 14px;
             border-radius: 10px;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
             transition: all 0.4s ease;
             opacity: 0;
             transform: translateY(15px);
             animation: fadeIn 0.8s forwards;
             border-right: 3px solid #0094DA;
+            border: 1px solid #e0e0e0;
         }
         
         @keyframes fadeIn {
@@ -131,24 +137,31 @@
         .item-name {
             font-weight: 500;
             font-size: 15px;
-            color: #F0EBE3;
+            color: #333;
             margin-bottom: 5px;
         }
         
         .item-description {
-            color: #aaa;
+            color: #666;
             font-size: 13px;
             margin-bottom: 8px;
             line-height: 1.4;
+        }
+        
+        .item-price {
+            color: #0052B5;
+            font-weight: 600;
+            font-size: 16px;
+            margin-top: 5px;
         }
         
         .cafe-logo {
             text-align: center;
             margin: 20px 0;
             padding: 15px;
-            background-color: #222;
+            background-color: #fff;
             border-radius: 10px;
-            border: 1px solid #444;
+            border: 1px solid #e0e0e0;
         }
         
         .cafe-logo img {
@@ -160,11 +173,11 @@
             text-align: center;
             padding: 15px;
             margin-top: auto;
-            background-color: #222;
+            background-color: #fff;
             border-radius: 10px;
-            border-top: 1px solid #444;
+            border-top: 1px solid #e0e0e0;
             font-size: 14px;
-            color: #888;
+            color: #666;
         }
         
         .footer a {
@@ -174,7 +187,7 @@
         }
         
         .footer a:hover {
-            color: #F0EBE3;
+            color: #0052B5;
             text-decoration: underline;
         }
 
@@ -195,7 +208,7 @@
         }
 
         .welcome-content {
-            background-color: #1a1a1a;
+            background-color: #fff;
             padding: 30px;
             border-radius: 15px;
             border: 2px solid #0094DA;
@@ -210,13 +223,13 @@
 
         .welcome-message {
             font-size: 18px;
-            color: #F0EBE3;
+            color: #333;
             margin-bottom: 30px;
         }
 
         .start-button {
             background-color: #0094DA;
-            color: #F0EBE3;
+            color: #fff;
             border: none;
             padding: 12px 30px;
             font-size: 16px;
@@ -358,55 +371,55 @@
         // Menu data with Persian numbers
         const menuData = {
             "شاورما": [
-                {name: "شاورما دجاج (ساندویچ)", description: "ساندویچ شاورما مرغ با نان مخصوص"},
-                {name: "شاورما دجاج عربی", description: "ساندویچ لقمه شده همراه سیب زمینی + سالاد + سس"},
-                {name: "مینی شاورما", description: "نصف ساندویچ شاورما با نان مخصوص"},
-                {name: "پرس شاورما", description: "۲۵۰ گرم شاورما + سالاد + نان"}
+                {name: "شاورما دجاج (ساندویچ)", description: "ساندویچ شاورما مرغ با نان مخصوص", price: "۹۵,۰۰۰"},
+                {name: "شاورما دجاج عربی", description: "ساندویچ لقمه شده همراه سیب زمینی + سالاد + سس", price: "۱۱۵,۰۰۰"},
+                {name: "مینی شاورما", description: "نصف ساندویچ شاورما با نان مخصوص", price: "۱۴۰,۰۰۰"},
+                {name: "پرس شاورما", description: "۲۵۰ گرم شاورما + سالاد + نان", price: "۱۵۰,۰۰۰"}
             ],
             "فلافل": [
-                {name: "ساندویچ فلافل", description: "ساندویچ فلافل با نان مخصوص و سبزیجات تازه"},
-                {name: "ساندویچ فلافل مُشَکَل", description: "ساندویچ فلافل همراه سیب زمینی + بادمجان"},
-                {name: "ساندویچ فلافل عربی", description: "نان صاج همراه فلافل + حمص"},
-                {name: "ساندویچ هات داگ", description: "هات داگ با نان مخصوص و سس های ویژه"}
+                {name: "ساندویچ فلافل", description: "ساندویچ فلافل با نان مخصوص و سبزیجات تازه", price: "۱۱۰,۰۰۰"},
+                {name: "ساندویچ فلافل مُشَکَل", description: "ساندویچ فلافل همراه سیب زمینی + بادمجان", price: "۱۲۰,۰۰۰"},
+                {name: "ساندویچ فلافل عربی", description: "نان صاج همراه فلافل + حمص", price: "۱۳۰,۰۰۰"},
+                {name: "ساندویچ هات داگ", description: "هات داگ با نان مخصوص و سس های ویژه", price: "۱۴۰,۰۰۰"}
             ],
             "معجنات": [
-                {name: "مینی صفیحه", description: "گوشت، گوجه، پیاز چرخ کرده، ادویه مخصوص"},
-                {name: "مینی دجاج بالعجین", description: "مرغ شاورما، پنیر، قارچ، ذرت، زیتون"},
-                {name: "مینی پیتزا دجاج", description: "مرغ شاورما، پنیر، قارچ، ذرت، زیتون"},
-                {name: "مینی زعتر", description: "آویشن لبنانی، روغن زیتون، کنجد"},
-                {name: "مینی زعتر قشقوان", description: "آویشن لبنانی، روغن زیتون، پنیر پیتزا"},
-                {name: "مینی محمره قشقوان", description: "سس مخصوص تند، پنیر، کنجد، سیاه دانه"},
-                {name: "مینی کبابه", description: "گوشت کبابی، ادویه مخصوص زعتر"},
-                {name: "مینی جنبه زیتون", description: "پنیر، زیتون، ادویه مخصوص زعتر"},
-                {name: "مینی جبن بالعجین", description: "پنیر پیتزا، ادویه مخصوص زعتر"}
+                {name: "مینی صفیحه", description: "گوشت، گوجه، پیاز چرخ کرده، ادویه مخصوص", price: "۱۷۰,۰۰۰"},
+                {name: "مینی دجاج بالعجین", description: "مرغ شاورما، پنیر، قارچ، ذرت، زیتون", price: "۱۷۰,۰۰۰"},
+                {name: "مینی پیتزا دجاج", description: "مرغ شاورما، پنیر، قارچ، ذرت، زیتون", price: "۱۷۰,۰۰۰"},
+                {name: "مینی زعتر", description: "آویشن لبنانی، روغن زیتون، کنجد", price: "۱۷۰,۰۰۰"},
+                {name: "مینی زعتر قشقوان", description: "آویشن لبنانی، روغن زیتون، پنیر پیتزا", price: "۱۷۰,۰۰۰"},
+                {name: "مینی محمره قشقوان", description: "سس مخصوص تند، پنیر، کنجد، سیاه دانه", price: "۱۷۰,۰۰۰"},
+                {name: "مینی کبابه", description: "گوشت کبابی، ادویه مخصوص زعتر", price: "۱۷۰,۰۰۰"},
+                {name: "مینی جنبه زیتون", description: "پنیر، زیتون، ادویه مخصوص زعتر", price: "۱۷۰,۰۰۰"},
+                {name: "مینی جبن بالعجین", description: "پنیر پیتزا، ادویه مخصوص زعتر", price: "۱۷۰,۰۰۰"}
             ],
             "صحون\n(بشقاب ها)": [
-                {name: "کبه برنج", description: "کبۀ مخصوص با برنج عربی و ادویه‌های ویژه"},
-                {name: "سیب زمینی", description: "سیب زمینی سرخ شده با ادویه مخصوص"},
-                {name: "سیب زمینی مخصوص زعتر", description: "سیب زمینی با آویشن لبنانی و روغن زیتون"},
-                {name: "سمبوسه پیتزایی", description: "سمبوسه با پنیر پیتزا و سس مخصوص"},
-                {name: "سمبوسه ساده", description: "سمبوسه با گوشت و سبزیجات"}
+                {name: "کبه برنج", description: "کبۀ مخصوص با برنج عربی و ادویه‌های ویژه", price: "۱۸۰,۰۰۰"},
+                {name: "سیب زمینی", description: "سیب زمینی سرخ شده با ادویه مخصوص", price: "۱۲۰,۰۰۰"},
+                {name: "سیب زمینی مخصوص زعتر", description: "سیب زمینی با آویشن لبنانی و روغن زیتون", price: "۱۴۰,۰۰۰"},
+                {name: "سمبوسه پیتزایی", description: "سمبوسه با پنیر پیتزا و سس مخصوص", price: "۱۵۰,۰۰۰"},
+                {name: "سمبوسه ساده", description: "سمبوسه با گوشت و سبزیجات", price: "۱۳۰,۰۰۰"}
             ],
             "پیتزا لبنانی": [
-                {name: "پیتزا بعلبکی", description: "پیتزا مخصوص سرآشپز - مرغ شاورما، مواد پیتزا، خمیر مخصوص دو طرفه"},
-                {name: "پیتزا دجاج", description: "مرغ شاورما با پنیر و سس مخصوص"},
-                {name: "پیتزا پپرونی", description: "پپرونی با پنیر و سس مخصوص"}
+                {name: "پیتزا بعلبکی", description: "پیتزا مخصوص سرآشپز - مرغ شاورما، مواد پیتزا، خمیر مخصوص دو طرفه", price: "۲۲۰,۰۰۰"},
+                {name: "پیتزا دجاج", description: "مرغ شاورما با پنیر و سس مخصوص", price: "۲۰۰,۰۰۰"},
+                {name: "پیتزا پپرونی", description: "پپرونی با پنیر و سس مخصوص", price: "۲۱۰,۰۰۰"}
             ],
             "مقبلات (سالاد)": [
-                {name: "تبوله", description: "جعفری، گوجه بلغور گندم، سس مخصوص زعتر"},
-                {name: "حمص بطحینه", description: "ارده، نخود، روغن زیتون"},
-                {name: "متبل", description: "ماست، ارده، بادمجان ذغالی"},
-                {name: "بذنجانیه", description: "بادمجان سرخ شده، خیار، گوجه، فلفل دلمه، پیاز، سس مخصوص"},
-                {name: "فته بذنجان", description: "بادمجان سرخ شده، ماست، ارده"}
+                {name: "تبوله", description: "جعفری، گوجه بلغور گندم، سس مخصوص زعتر", price: "۱۵۰,۰۰۰"},
+                {name: "حمص بطحینه", description: "ارده، نخود، روغن زیتون", price: "۱۴۰,۰۰۰"},
+                {name: "متبل", description: "ماست، ارده، بادمجان ذغالی", price: "۱۶۰,۰۰۰"},
+                {name: "بذنجانیه", description: "بادمجان سرخ شده، خیار، گوجه، فلفل دلمه، پیاز، سس مخصوص", price: "۱۷۰,۰۰۰"},
+                {name: "فته بذنجان", description: "بادمجان سرخ شده، ماست، ارده", price: "۱۸۰,۰۰۰"}
             ],
             "صحن سس سید": [
-                {name: "صحن مقبلات مُشکل", description: "۴نوع سینی مزه به دلخواه"}
+                {name: "صحن مقبلات مُشکل", description: "۴نوع سینی مزه به دلخواه", price: "۲۵۰,۰۰۰"}
             ],
             "باکس ها": [
-                {name: "باکس ۲ نفره", description: "۲ عدد شاورما عربی + ۲ مدل سالاد + سس + نوشابه"},
-                {name: "باکس ۲ نفره مُشکل", description: "۱ عدد شاورما عربی + ۱ عدد ساندویچ فلافل + ۲ مدل سالاد + سس + نوشابه"},
-                {name: "باکس خانواده", description: "۵ عدد شاورما عربی + ۴ مدل سالاد + سس + نوشابه"},
-                {name: "باکس معجنات", description: "۴ مدل مینی معجنات از هر مدل ۵ عدد به دلخواه"}
+                {name: "باکس ۲ نفره", description: "۲ عدد شاورما عربی + ۲ مدل سالاد + سس + نوشابه", price: "۴۵۰,۰۰۰"},
+                {name: "باکس ۲ نفره مُشکل", description: "۱ عدد شاورما عربی + ۱ عدد ساندویچ فلافل + ۲ مدل سالاد + سس + نوشابه", price: "۴۸۰,۰۰۰"},
+                {name: "باکس خانواده", description: "۵ عدد شاورما عربی + ۴ مدل سالاد + سس + نوشابه", price: "۹۵۰,۰۰۰"},
+                {name: "باکس معجنات", description: "۴ مدل مینی معجنات از هر مدل ۵ عدد به دلخواه", price: "۶۵۰,۰۰۰"}
             ]
         };
 
@@ -467,6 +480,7 @@
                     itemElement.innerHTML = `
                         <div class="item-name">${item.name}</div>
                         ${item.description ? `<div class="item-description">${item.description}</div>` : ''}
+                        ${item.price ? `<div class="item-price">${item.price} تومان</div>` : ''}
                     `;
                     menuItems.appendChild(itemElement);
                 }, 50);
