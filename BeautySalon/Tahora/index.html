@@ -30,13 +30,13 @@
         .date {
             position: absolute;
             top: 0;
-            right: 0;
+            left: 0;
             color: #888;
             font-size: 14px;
         }
         
         .logo {
-            height: 40px;
+            height: 60px;
             margin-bottom: 15px;
         }
         
@@ -78,6 +78,7 @@
         .service-price {
             text-align: left;
             color: #888;
+            font-family: 'Vazir', sans-serif;
         }
         
         .packages {
@@ -99,8 +100,22 @@
         }
         
         .contact-info {
-            text-align: center;
+            text-align: right;
             font-size: 15px;
+            line-height: 2;
+        }
+        
+        .contact-info p {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-info p::before {
+            content: "•";
+            color: #DDB7E4;
+            margin-left: 10px;
+            font-size: 20px;
         }
         
         .notes {
@@ -156,7 +171,7 @@
             .date {
                 position: static;
                 display: block;
-                text-align: center;
+                text-align: right;
                 margin-bottom: 10px;
             }
         }
@@ -166,7 +181,8 @@
     <div class="container">
         <header>
             <div class="date" id="current-date">تاریخ: </div>
-            <img src="logo.png" alt="سالن زیبایی طهورا" class="logo">
+            <!-- لوگو - شما باید این لینک را به عکس لوگوی خود تغییر دهید -->
+            <!-- <img src="logo.png" alt="سالن زیبایی طهورا" class="logo"> -->
             <h1>سالن زیبایی طهورا</h1>
             <div class="subtitle">لیست خدمات و قیمت‌ها</div>
         </header>
@@ -176,27 +192,27 @@
             <h2>💄 خدمات صورت</h2>
             <div class="service-item">
                 <span class="service-name">میکاپ پایه</span>
-                <span class="service-price">از 1000 تومان</span>
+                <span class="service-price">از ۱,۰۰۰ تومان</span>
             </div>
             <div class="service-item">
                 <span class="service-name">میکاپ تخصصی</span>
-                <span class="service-price">1600 تومان</span>
+                <span class="service-price">۱,۶۰۰ تومان</span>
             </div>
             <div class="service-item">
                 <span class="service-name">فشیال و پاکسازی پوست</span>
-                <span class="service-price">از 800 تومان</span>
+                <span class="service-price">از ۸۰۰ تومان</span>
             </div>
             <div class="service-item">
                 <span class="service-name">فشیال Vip و تخصصی</span>
-                <span class="service-price">از 1500 تومان</span>
+                <span class="service-price">از ۱,۵۰۰ تومان</span>
             </div>
             <div class="service-item">
                 <span class="service-name">برداشتن خال</span>
-                <span class="service-price">از 300 تومان</span>
+                <span class="service-price">از ۳۰۰ تومان</span>
             </div>
             <div class="service-item">
                 <span class="service-name">پرسینگ</span>
-                <span class="service-price">از 300 تومان</span>
+                <span class="service-price">از ۳۰۰ تومان</span>
             </div>
         </div>
         
@@ -205,35 +221,35 @@
             <h2>💇‍♀️ خدمات مو</h2>
             <div class="service-item">
                 <span class="service-name">شینیون پایه</span>
-                <span class="service-price">از 700 تومان</span>
+                <span class="service-price">از ۷۰۰ تومان</span>
             </div>
             <div class="service-item">
                 <span class="service-name">شینیون تخصصی</span>
-                <span class="service-price">1100 تومان</span>
+                <span class="service-price">۱,۱۰۰ تومان</span>
             </div>
             <div class="service-item">
                 <span class="service-name">کراتینه و صافی مو</span>
-                <span class="service-price">از 4000 تومان</span>
+                <span class="service-price">از ۴,۰۰۰ تومان</span>
             </div>
             <div class="service-item">
                 <span class="service-name">پروتئین تراپی</span>
-                <span class="service-price">از 2000 تومان</span>
+                <span class="service-price">از ۲,۰۰۰ تومان</span>
             </div>
             <div class="service-item">
                 <span class="service-name">فر دائم</span>
-                <span class="service-price">از 5000 تومان</span>
+                <span class="service-price">از ۵,۰۰۰ تومان</span>
             </div>
             <div class="service-item">
                 <span class="service-name">کوتاهی و کوپ</span>
-                <span class="service-price">از 300 تومان</span>
+                <span class="service-price">از ۳۰۰ تومان</span>
             </div>
             <div class="service-item">
                 <span class="service-name">کوتاهی ژورنالی</span>
-                <span class="service-price">از 600 تومان</span>
+                <span class="service-price">از ۶۰۰ تومان</span>
             </div>
             <div class="service-item">
                 <span class="service-name">انواع بافت ها</span>
-                <span class="service-price">از 150 تومان</span>
+                <span class="service-price">از ۱۵۰ تومان</span>
             </div>
         </div>
         
@@ -242,23 +258,23 @@
             <h2>👁‍🗨 خدمات مژه و ابرو</h2>
             <div class="service-item">
                 <span class="service-name">اصلاح ابرو</span>
-                <span class="service-price">از 100 تومان</span>
+                <span class="service-price">از ۱۰۰ تومان</span>
             </div>
             <div class="service-item">
                 <span class="service-name">کاشت موقت مژه</span>
-                <span class="service-price">از 350 تومان</span>
+                <span class="service-price">از ۳۵۰ تومان</span>
             </div>
             <div class="service-item">
                 <span class="service-name">کاشت اکستنشن مژه</span>
-                <span class="service-price">از 650 تومان</span>
+                <span class="service-price">از ۶۵۰ تومان</span>
             </div>
             <div class="service-item">
                 <span class="service-name">لیفت مژه</span>
-                <span class="service-price">550 تومان</span>
+                <span class="service-price">۵۵۰ تومان</span>
             </div>
             <div class="service-item">
                 <span class="service-name">لیفت ابرو</span>
-                <span class="service-price">550 تومان</span>
+                <span class="service-price">۵۵۰ تومان</span>
             </div>
         </div>
         
@@ -267,23 +283,23 @@
             <h2>💅 خدمات ناخن</h2>
             <div class="service-item">
                 <span class="service-name">کاشت ژورنالی و گریم</span>
-                <span class="service-price">1500 تومان</span>
+                <span class="service-price">۱,۵۰۰ تومان</span>
             </div>
             <div class="service-item">
                 <span class="service-name">کاشت ناخن با ژل</span>
-                <span class="service-price">700 تومان</span>
+                <span class="service-price">۷۰۰ تومان</span>
             </div>
             <div class="service-item">
                 <span class="service-name">کاشت ناخن با پودر</span>
-                <span class="service-price">600 تومان</span>
+                <span class="service-price">۶۰۰ تومان</span>
             </div>
             <div class="service-item">
                 <span class="service-name">ترمیم</span>
-                <span class="service-price">450 تومان</span>
+                <span class="service-price">۴۵۰ تومان</span>
             </div>
             <div class="service-item">
                 <span class="service-name">طراحی ناخن</span>
-                <span class="service-price">از 40 تومان</span>
+                <span class="service-price">از ۴۰ تومان</span>
             </div>
         </div>
         
@@ -292,23 +308,23 @@
             <h2>👣 خدمات پا</h2>
             <div class="service-item">
                 <span class="service-name">ژلیش پا</span>
-                <span class="service-price">300 تومان</span>
+                <span class="service-price">۳۰۰ تومان</span>
             </div>
             <div class="service-item">
                 <span class="service-name">پدیکور خیس</span>
-                <span class="service-price">400 تومان</span>
+                <span class="service-price">۴۰۰ تومان</span>
             </div>
             <div class="service-item">
                 <span class="service-name">پدیکور اسمارت</span>
-                <span class="service-price">500 تومان</span>
+                <span class="service-price">۵۰۰ تومان</span>
             </div>
             <div class="service-item">
                 <span class="service-name">پارافین تراپی دست و پا</span>
-                <span class="service-price">250 تومان</span>
+                <span class="service-price">۲۵۰ تومان</span>
             </div>
             <div class="service-item">
                 <span class="service-name">سم زدایی دست و پا</span>
-                <span class="service-price">300 تومان</span>
+                <span class="service-price">۳۰۰ تومان</span>
             </div>
         </div>
         
@@ -317,27 +333,27 @@
             <h2>✍️ خدمات آرایش دائم</h2>
             <div class="service-item">
                 <span class="service-name">فیبروز ابرو</span>
-                <span class="service-price">2500 تومان</span>
+                <span class="service-price">۲,۵۰۰ تومان</span>
             </div>
             <div class="service-item">
                 <span class="service-name">شیدینگ ابرو</span>
-                <span class="service-price">از 1500 تومان</span>
+                <span class="service-price">از ۱,۵۰۰ تومان</span>
             </div>
             <div class="service-item">
                 <span class="service-name">شیدینگ لب</span>
-                <span class="service-price">از 1500 تومان</span>
+                <span class="service-price">از ۱,۵۰۰ تومان</span>
             </div>
             <div class="service-item">
                 <span class="service-name">خط چشم</span>
-                <span class="service-price">از 1500 تومان</span>
+                <span class="service-price">از ۱,۵۰۰ تومان</span>
             </div>
             <div class="service-item">
                 <span class="service-name">بن مژه</span>
-                <span class="service-price">از 1500 تومان</span>
+                <span class="service-price">از ۱,۵۰۰ تومان</span>
             </div>
             <div class="service-item">
                 <span class="service-name">تاتو بدن</span>
-                <span class="service-price">از 800 تومان</span>
+                <span class="service-price">از ۸۰۰ تومان</span>
             </div>
         </div>
         
@@ -346,31 +362,31 @@
             <h2>💆‍♀️ خدمات ماساژ و درمانی</h2>
             <div class="service-item">
                 <span class="service-name">ماساژ ریلکسی</span>
-                <span class="service-price">800 تومان</span>
+                <span class="service-price">۸۰۰ تومان</span>
             </div>
             <div class="service-item">
                 <span class="service-name">ماساژ درمانی</span>
-                <span class="service-price">1000 تومان</span>
+                <span class="service-price">۱,۰۰۰ تومان</span>
             </div>
             <div class="service-item">
                 <span class="service-name">حجامت</span>
-                <span class="service-price">از 200 تومان</span>
+                <span class="service-price">از ۲۰۰ تومان</span>
             </div>
             <div class="service-item">
                 <span class="service-name">خدمات لاغری (جلسه ای)</span>
-                <span class="service-price">700 تومان</span>
+                <span class="service-price">۷۰۰ تومان</span>
             </div>
             <div class="service-item">
                 <span class="service-name">خدمات لیزر فول بادی</span>
-                <span class="service-price">750 تومان</span>
+                <span class="service-price">۷۵۰ تومان</span>
             </div>
         </div>
         
         <!-- پکیج های ویژه -->
         <div class="packages">
             <div class="package">
-                <h3 class="package-title">پکیج عروس</h3>
-                <p>میکاپ و شینیون عروس: 5000 تومان</p>
+                <h3 class="package-title">خدمات ویژه عروس</h3>
+                <p>میکاپ و شینیون عروس: ۵,۰۰۰ تومان</p>
                 <p>(پک فول خدمات عروس مجزا می‌باشد)</p>
             </div>
         </div>
@@ -378,9 +394,9 @@
         <!-- اطلاعات تماس -->
         <div class="card contact-info">
             <h2>📍 اطلاعات تماس</h2>
-            <p>موبایل: 09124661175</p>
-            <p>تلفن ثابت: 021-66267765</p>
-            <p>آدرس: خیابان خلبان نبش کوچه طالقانی پلاک ۳۵۹ ساختمان اهورا طبقه‌ی اول واحد ۲</p>
+            <p>موبایل: ۰۹۱۲۴۶۶۱۱۷۵</p>
+            <p>تلفن ثابت: ۶۶۲۶۷۷۶۵-۰۲۱</p>
+            <p>آدرس: تهران، خیابان خلبان، نبش کوچه طالقانی، پلاک ۳۵۹، ساختمان اهورا، طبقه اول، واحد ۲</p>
             <p>ساعات کاری: از ۱۰ صبح تا ۸ شب</p>
             <p>اینستاگرام: Tahota_vip</p>
         </div>
@@ -423,6 +439,19 @@
         
         // نمایش سال جاری
         document.getElementById('current-year').textContent = new Date().toLocaleDateString('fa-IR', { year: 'numeric' });
+        
+        // تبدیل اعداد انگلیسی به فارسی
+        function toPersianNumbers(input) {
+            const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+            return input.toString().replace(/\d/g, d => persianDigits[d]);
+        }
+        
+        // افزودن کاما به اعداد 4 رقمی و تبدیل به فارسی
+        document.querySelectorAll('.service-price').forEach(el => {
+            let text = el.textContent;
+            text = text.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+            el.textContent = toPersianNumbers(text);
+        });
     </script>
 </body>
 </html>
