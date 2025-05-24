@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>زیبایی طهورا - کاتالوگ خدمات</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Vazir, sans-serif;
+            background-color: #F9F2F4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .date {
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: #888;
+            font-size: 14px;
+        }
+        
+        .logo {
+            position: absolute;
+            top: 0;
+            right: 0;
+            color: #DDB7E4;
+            font-size: 14px;
+        }
+        
+        h1 {
+            margin: 20px 0 10px;
+            color: #555;
+        }
+        
+        .subtitle {
+            color: #888;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        
+        h2 {
+            color: #666;
+            margin-top: 0;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        .service-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+        }
+        
+        .service-name {
+            text-align: right;
+        }
+        
+        .service-price {
+            text-align: left;
+            color: #888;
+        }
+        
+        .packages {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .package {
+            background-color: #F0E4F4;
+            border-radius: 12px;
+            padding: 15px;
+            flex: 1;
+        }
+        
+        .package-title {
+            color: #8E44AD;
+            margin-top: 0;
+        }
+        
+        .contact-info {
+            text-align: center;
+            font-size: 15px;
+        }
+        
+        .notes {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .notes ul {
+            padding-right: 20px;
+        }
+        
+        .cta-button {
+            background-color: #8E44AD;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 15px;
+            width: 100%;
+            font-size: 16px;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .cta-button:hover {
+            background-color: #7D3C98;
+        }
+        
+        footer {
+            text-align: center;
+            color: #888;
+            font-size: 14px;
+            margin-top: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .packages {
+                flex-direction: column;
+            }
+            
+            .date, .logo {
+                position: static;
+                display: block;
+                text-align: center;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="date" id="current-date">تاریخ: </div>
+            <div class="logo">Tahora</div>
+            <h1>زیبایی طهورا</h1>
+            <div class="subtitle">لیست خدمات و قیمت‌ها</div>
+        </header>
+        
+        <!-- خدمات صورت -->
+        <div class="card">
+            <h2>💄 خدمات صورت</h2>
+            <div class="service-item">
+                <span class="service-name">میکاپ پایه</span>
+                <span class="service-price">از 1,000,000 تومان</span>
+            </div>
+            <div class="service-item">
+                <span class="service-name">میکاپ تخصصی</span>
+                <span class="service-price">1,600,000 تومان</span>
+            </div>
+            <div class="service-item">
+                <span class="service-name">فشیال و پاکسازی پوست</span>
+                <span class="service-price">از 800,000 تومان</span>
+            </div>
+            <div class="service-item">
+                <span class="service-name">فشیال Vip و تخصصی</span>
+                <span class="service-price">از 1,500,000 تومان</span>
+            </div>
+            <div class="service-item">
+                <span class="service-name">برداشتن خال</span>
+                <span class="service-price">از 300,000 تومان</span>
+            </div>
+            <div class="service-item">
+                <span class="service-name">پرسینگ</span>
+                <span class="service-price">از 300,000 تومان</span>
+            </div>
+        </div>
+        
+        <!-- خدمات مو -->
+        <div class="card">
+            <h2>💇‍♀️ خدمات مو</h2>
+            <div class="service-item">
+                <span class="service-name">شینیون پایه</span>
+                <span class="service-price">از 700,000 تومان</span>
+            </div>
+            <div class="service-item">
+                <span class="service-name">شینیون تخصصی</span>
+                <span class="service-price">1,100,000 تومان</span>
+            </div>
+            <div class="service-item">
+                <span class="service-name">کراتینه و صافی مو</span>
+                <span class="service-price">از 4,000,000 تومان</span>
+            </div>
+            <div class="service-item">
+                <span class="service-name">پروتئین تراپی</span>
+                <span class="service-price">از 2,000,000 تومان</span>
+            </div>
+            <div class="service-item">
+                <span class="service-name">فر دائم</span>
+                <span class="service-price">از 5,000,000 تومان</span>
+            </div>
+            <div class="service-item">
+                <span class="service-name">کوتاهی و کوپ</span>
+                <span class="service-price">از 300,000 تومان</span>
+            </div>
+            <div class="service-item">
+                <span class="service-name">کوتاهی ژورنالی</span>
+                <span class="service-price">از 600,000 تومان</span>
+            </div>
+            <div class="service-item">
+                <span class="service-name">انواع بافت ها</span>
+                <span class="service-price">از 150,000 تومان</span>
+            </div>
+        </div>
+        
+        <!-- خدمات مژه و ابرو -->
+        <div class="card">
+            <h2>👁‍🗨 خدمات مژه و ابرو</h2>
+            <div class="service-item">
+                <span class="service-name">اصلاح ابرو</span>
+                <span class="service-price">از 100,000 تومان</span>
+            </div>
+            <div class="service-item">
+                <span class="service-name">کاشت موقت مژه</span>
+                <span class="service-price">از 350,000 تومان</span>
+            </div>
+            <div class="service-item">
+                <span class="service-name">کاشت اکستنشن مژه</span>
+                <span class="service-price">از 650,000 تومان</span>
+            </div>
+            <div class="service-item">
+                <span class="service-name">لیفت مژه</span>
+                <span class="service-price">550,000 تومان</span>
+            </div>
+            <div class="service-item">
+                <span class="service-name">لیفت ابرو</span>
+                <span class="service-price">550,000 تومان</span>
+            </div>
+        </div>
+        
+        <!-- خدمات ناخن -->
+        <div class="card">
+            <h2>💅 خدمات ناخن</h2>
+            <div class="service-item">
+                <span class="service-name">کاشت ژورنالی و گریم</span>
+                <span class="service-price">1,500,000 تومان</span>
+            </div>
+            <div class="service-item">
+                <span class="service-name">کاشت ناخن با ژل</span>
+                <span class="service-price">700,000 تومان</span>
+            </div>
+            <div class="service-item">
+                <span class="service-name">کاشت ناخن با پودر</span>
+                <span class="service-price">600,000 تومان</span>
+            </div>
+            <div class="service-item">
+                <span class="service-name">ترمیم</span>
+                <span class="service-price">450,000 تومان</span>
+            </div>
+            <div class="service-item">
+                <span class="service-name">طراحی ناخن</span>
+                <span class="service-price">از 40,000 تومان</span>
+            </div>
+        </div>
+        
+        <!-- خدمات پا -->
+        <div class="card">
+            <h2>👣 خدمات پا</h2>
+            <div class="service-item">
+                <span class="service-name">ژلیش پا</span>
+                <span class="service-price">300,000 تومان</span>
+            </div>
+            <div class="service-item">
+                <span class="service-name">پدیکور خیس</span>
+                <span class="service-price">400,000 تومان</span>
+            </div>
+            <div class="service-item">
+                <span class="service-name">پدیکور اسمارت</span>
+                <span class="service-price">500,000 تومان</span>
+            </div>
+            <div class="service-item">
+                <span class="service-name">پارافین تراپی دست و پا</span>
+                <span class="service-price">250,000 تومان</span>
+            </div>
+            <div class="service-item">
+                <span class="service-name">سم زدایی دست و پا</span>
+                <span class="service-price">300,000 تومان</span>
+            </div>
+        </div>
+        
+        <!-- خدمات آرایش دائم -->
+        <div class="card">
+            <h2>✍️ خدمات آرایش دائم</h2>
+            <div class="service-item">
+                <span class="service-name">فیبروز ابرو</span>
+                <span class="service-price">2,500,000 تومان</span>
+            </div>
+            <div class="service-item">
+                <span class="service-name">شیدینگ ابرو</span>
+                <span class="service-price">از 1,500,000 تومان</span>
+            </div>
+            <div class="service-item">
+                <span class="service-name">شیدینگ لب</span>
+                <span class="service-price">از 1,500,000 تومان</span>
+            </div>
+            <div class="service-item">
+                <span class="service-name">خط چشم</span>
+                <span class="service-price">از 1,500,000 تومان</span>
+            </div>
+            <div class="service-item">
+                <span class="service-name">بن مژه</span>
+                <span class="service-price">از 1,500,000 تومان</span>
+            </div>
+            <div class="service-item">
+                <span class="service-name">تاتو بدن</span>
+                <span class="service-price">از 800,000 تومان</span>
+            </div>
+        </div>
+        
+        <!-- خدمات ماساژ و درمانی -->
+        <div class="card">
+            <h2>💆‍♀️ خدمات ماساژ و درمانی</h2>
+            <div class="service-item">
+                <span class="service-name">ماساژ ریلکسی</span>
+                <span class="service-price">800,000 تومان</span>
+            </div>
+            <div class="service-item">
+                <span class="service-name">ماساژ درمانی</span>
+                <span class="service-price">1,000,000 تومان</span>
+            </div>
+            <div class="service-item">
+                <span class="service-name">حجامت</span>
+                <span class="service-price">از 200,000 تومان</span>
+            </div>
+            <div class="service-item">
+                <span class="service-name">خدمات لاغری (جلسه ای)</span>
+                <span class="service-price">700,000 تومان</span>
+            </div>
+            <div class="service-item">
+                <span class="service-name">خدمات لیزر فول بادی</span>
+                <span class="service-price">750,000 تومان</span>
+            </div>
+        </div>
+        
+        <!-- پکیج های ویژه -->
+        <div class="packages">
+            <div class="package">
+                <h3 class="package-title">پکیج عروس</h3>
+                <p>میکاپ و شینیون عروس: 5,000,000 تومان</p>
+                <p>(پک فول خدمات عروس مجزا می‌باشد)</p>
+            </div>
+        </div>
+        
+        <!-- اطلاعات تماس -->
+        <div class="card contact-info">
+            <h2>📍 اطلاعات تماس</h2>
+            <p>موبایل: 09124661175</p>
+            <p>تلفن ثابت: 021-66267765</p>
+            <p>آدرس: خیابان خلبان نبش کوچه طالقانی پلاک ۳۵۹ ساختمان اهورا طبقه‌ی اول واحد ۲</p>
+            <p>ساعات کاری: از ۱۰ صبح تا ۸ شب</p>
+            <p>اینستاگرام: Tahota_vip</p>
+        </div>
+        
+        <!-- نکات مهم -->
+        <div class="card notes">
+            <h2>⚠️ نکات مهم</h2>
+            <ul>
+                <li>یک روز قبل هماهنگ بکنید</li>
+                <li>در صورت تأخیر، نوبت شما لغو خواهد شد</li>
+                <li>خدمات فقط با پرداخت کامل انجام می‌شود</li>
+                <li>برخی خدمات نیاز به مشاوره قبلی دارند</li>
+            </ul>
+        </div>
+        
+        <!-- دکمه ثبت نوبت -->
+        <button class="cta-button" onclick="window.open('https://wa.me/989124661175')">ثبت نوبت از طریق واتساپ</button>
+        
+        <footer>
+            © <span id="current-year"></span> سالن زیبایی طهورا - تمامی حقوق محفوظ است.
+        </footer>
+    </div>
+
+    <script>
+        // نمایش تاریخ امروز به صورت فارسی
+        function getPersianDate() {
+            const today = new Date();
+            const options = { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+            return today.toLocaleDateString('fa-IR', options);
+        }
+        
+        document.getElementById('current-date').textContent += getPersianDate();
+        
+        // نمایش سال جاری
+        document.getElementById('current-year').textContent = new Date().toLocaleDateString('fa-IR', { year: 'numeric' });
+    </script>
+</body>
+</html>
