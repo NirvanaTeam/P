@@ -35,53 +35,8 @@
             font-size: 14px;
         }
         
-        .header-actions {
-            position: absolute;
-            top: 0;
-            right: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        
-        .working-status {
-            background: #F0E4F4;
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-size: 12px;
-            align-self: flex-end;
-        }
-        
-        .working-status.open {
-            color: #2ecc71;
-        }
-        
-        .quick-icons {
-            display: flex;
-            gap: 8px;
-            justify-content: flex-end;
-        }
-        
-        .quick-icons a {
-            background: #F9F2F4;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            transition: all 0.3s;
-            border: 1px solid #E2CFEA;
-        }
-        
-        .quick-icons a:hover {
-            background: #E2CFEA;
-            transform: translateY(-2px);
-        }
-        
         .logo {
-            height: 60px;
+            height: 100px;
             margin-bottom: 15px;
         }
         
@@ -147,21 +102,13 @@
         .contact-info {
             text-align: right;
             font-size: 15px;
-            line-height: 2;
         }
         
-        .contact-info p {
-            margin: 10px 0;
+        .contact-row {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-        }
-        
-        .contact-info p::before {
-            content: "•";
-            color: #DDB7E4;
-            margin-left: 10px;
-            font-size: 20px;
+            align-items: center;
+            padding: 8px 0;
         }
         
         .contact-btn {
@@ -169,16 +116,34 @@
             color: white;
             border: none;
             border-radius: 15px;
-            padding: 3px 10px;
+            padding: 5px 10px;
             font-size: 12px;
             cursor: pointer;
             transition: all 0.3s;
             margin-right: 5px;
+            white-space: nowrap;
         }
         
         .contact-btn:hover {
             background: #7D3C98;
-            transform: translateY(-1px);
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-right: 10px;
+        }
+        
+        .status-open {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .status-closed {
+            background-color: #ffebee;
+            color: #c62828;
         }
         
         .notes {
@@ -232,18 +197,14 @@
                 flex-direction: column;
             }
             
-            .date, .header-actions {
+            .date {
                 position: static;
                 display: block;
-                text-align: center;
+                text-align: left;
                 margin-bottom: 10px;
             }
             
-            .quick-icons {
-                justify-content: center;
-            }
-            
-            .contact-info p {
+            .contact-row {
                 flex-direction: column;
                 align-items: flex-start;
             }
@@ -259,19 +220,10 @@
     <div class="container">
         <header>
             <div class="date" id="current-date">تاریخ: </div>
-            
-            <div class="header-actions">
-                <div class="working-status open">● باز است</div>
-                <div class="quick-icons">
-                    <a href="tel:09124661175">📞</a>
-                    <a href="https://wa.me/989124661175">💬</a>
-                    <a href="https://instagram.com/Tahota_vip">📷</a>
-                </div>
-            </div>
-            
             <img src="logo.png" alt="سالن زیبایی طهورا" class="logo">
             <h1>سالن زیبایی طهورا</h1>
             <div class="subtitle">لیست خدمات و قیمت‌ها</div>
+            <div id="status-badge"></div>
         </header>
         
         <!-- خدمات صورت -->
@@ -481,25 +433,25 @@
         <!-- اطلاعات تماس -->
         <div class="card contact-info">
             <h2>📍 اطلاعات تماس</h2>
-            <p>
-                موبایل: ۰۹۱۲۴۶۶۱۱۷۵
+            <div class="contact-row">
+                <span>موبایل: ۰۹۱۲۴۶۶۱۱۷۵</span>
                 <button class="contact-btn" onclick="window.open('tel:09124661175')">تماس بگیرید</button>
-            </p>
-            <p>
-                تلفن ثابت: ۶۶۲۶۷۷۶۵-۰۲۱
+            </div>
+            <div class="contact-row">
+                <span>تلفن ثابت: ۶۶۲۶۷۷۶۵-۰۲۱</span>
                 <button class="contact-btn" onclick="window.open('tel:02166267765')">تماس بگیرید</button>
-            </p>
-            <p>
-                آدرس: تهران، خیابان خلبان، نبش کوچه طالقانی، پلاک ۳۵۹، ساختمان اهورا، طبقه اول، واحد ۲
-                <button class="contact-btn" onclick="window.open('https://maps.app.goo.gl/FsT7h2FBZNuXMc4s9')">نمایش لوکیشن</button>
-            </p>
-            <p>
-                ساعات کاری: از ۱۰ صبح تا ۸ شب
-            </p>
-            <p>
-                اینستاگرام: Tahota_vip
+            </div>
+            <div class="contact-row">
+                <span>آدرس: تهران، خیابان خلبان، نبش کوچه طالقانی، پلاک ۳۵۹، ساختمان اهورا، طبقه اول، واحد ۲</span>
+                <button class="contact-btn" onclick="openLocation()">نمایش لوکیشن</button>
+            </div>
+            <div class="contact-row">
+                <span>ساعات کاری: از ۱۰ صبح تا ۸ شب</span>
+            </div>
+            <div class="contact-row">
+                <span>اینستاگرام: Tahota_vip</span>
                 <button class="contact-btn" onclick="window.open('https://instagram.com/Tahota_vip')">فالو کنید</button>
-            </p>
+            </div>
         </div>
         
         <!-- نکات مهم -->
@@ -554,6 +506,43 @@
             text = text.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
             el.textContent = toPersianNumbers(text);
         });
+        
+        // مدیریت وضعیت باز/بسته بودن سالن
+        function updateBusinessStatus() {
+            const now = new Date();
+            const hours = now.getHours();
+            const day = now.getDay(); // 0 is Sunday, 6 is Saturday
+            const statusElement = document.getElementById('status-badge');
+            
+            // ساعت کاری: 10 تا 20 (8 شب)
+            const isOpen = hours >= 10 && hours < 20 && day !== 0; // یکشنبه ها تعطیل
+            
+            if (isOpen) {
+                statusElement.innerHTML = '<span class="status-badge status-open">● باز است</span>';
+            } else {
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                
+                if (hours < 10) {
+                    statusElement.innerHTML = '<span class="status-badge status-closed">مجموعه ساعت ۱۰ باز می‌شود</span>';
+                } else if (day === 0) {
+                    statusElement.innerHTML = '<span class="status-badge status-closed">مجموعه فردا ساعت ۱۰ باز می‌شود</span>';
+                } else {
+                    statusElement.innerHTML = '<span class="status-badge status-closed">مجموعه فردا ساعت ۱۰ باز می‌شود</span>';
+                }
+            }
+        }
+        
+        // باز کردن لوکیشن با مختصات
+        function openLocation() {
+            const latitude = 35.6726125;
+            const longitude = 51.2660469;
+            window.open(`geo:${latitude},${longitude}?q=${latitude},${longitude}(سالن زیبایی طهورا)`);
+        }
+        
+        // به روزرسانی وضعیت در هنگام لود و هر دقیقه
+        updateBusinessStatus();
+        setInterval(updateBusinessStatus, 60000);
     </script>
 </body>
 </html>
