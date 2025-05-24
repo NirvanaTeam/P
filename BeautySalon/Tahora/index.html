@@ -35,8 +35,53 @@
             font-size: 14px;
         }
         
+        .header-actions {
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .working-status {
+            background: #F0E4F4;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            align-self: flex-end;
+        }
+        
+        .working-status.open {
+            color: #2ecc71;
+        }
+        
+        .quick-icons {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+        
+        .quick-icons a {
+            background: #F9F2F4;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: all 0.3s;
+            border: 1px solid #E2CFEA;
+        }
+        
+        .quick-icons a:hover {
+            background: #E2CFEA;
+            transform: translateY(-2px);
+        }
+        
         .logo {
-            height: 100px;
+            height: 60px;
             margin-bottom: 15px;
         }
         
@@ -109,6 +154,7 @@
             margin: 10px 0;
             display: flex;
             align-items: center;
+            justify-content: space-between;
         }
         
         .contact-info p::before {
@@ -116,6 +162,23 @@
             color: #DDB7E4;
             margin-left: 10px;
             font-size: 20px;
+        }
+        
+        .contact-btn {
+            background: #8E44AD;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            padding: 3px 10px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-right: 5px;
+        }
+        
+        .contact-btn:hover {
+            background: #7D3C98;
+            transform: translateY(-1px);
         }
         
         .notes {
@@ -169,11 +232,25 @@
                 flex-direction: column;
             }
             
-            .date {
+            .date, .header-actions {
                 position: static;
                 display: block;
-                text-align: left;
+                text-align: center;
                 margin-bottom: 10px;
+            }
+            
+            .quick-icons {
+                justify-content: center;
+            }
+            
+            .contact-info p {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .contact-btn {
+                margin-top: 5px;
+                align-self: flex-end;
             }
         }
     </style>
@@ -182,7 +259,16 @@
     <div class="container">
         <header>
             <div class="date" id="current-date">تاریخ: </div>
-            <!-- لوگو - شما باید این لینک را به عکس لوگوی خود تغییر دهید -->
+            
+            <div class="header-actions">
+                <div class="working-status open">● باز است</div>
+                <div class="quick-icons">
+                    <a href="tel:09124661175">📞</a>
+                    <a href="https://wa.me/989124661175">💬</a>
+                    <a href="https://instagram.com/Tahota_vip">📷</a>
+                </div>
+            </div>
+            
             <img src="logo.png" alt="سالن زیبایی طهورا" class="logo">
             <h1>سالن زیبایی طهورا</h1>
             <div class="subtitle">لیست خدمات و قیمت‌ها</div>
@@ -395,11 +481,25 @@
         <!-- اطلاعات تماس -->
         <div class="card contact-info">
             <h2>📍 اطلاعات تماس</h2>
-            <p>موبایل: ۰۹۱۲۴۶۶۱۱۷۵</p>
-            <p>تلفن ثابت: ۶۶۲۶۷۷۶۵-۰۲۱</p>
-            <p>آدرس: تهران، خیابان خلبان، نبش کوچه طالقانی، پلاک ۳۵۹، ساختمان اهورا، طبقه اول، واحد ۲</p>
-            <p>ساعات کاری: از ۱۰ صبح تا ۸ شب</p>
-            <p>اینستاگرام: Tahota_vip</p>
+            <p>
+                موبایل: ۰۹۱۲۴۶۶۱۱۷۵
+                <button class="contact-btn" onclick="window.open('tel:09124661175')">تماس بگیرید</button>
+            </p>
+            <p>
+                تلفن ثابت: ۶۶۲۶۷۷۶۵-۰۲۱
+                <button class="contact-btn" onclick="window.open('tel:02166267765')">تماس بگیرید</button>
+            </p>
+            <p>
+                آدرس: تهران، خیابان خلبان، نبش کوچه طالقانی، پلاک ۳۵۹، ساختمان اهورا، طبقه اول، واحد ۲
+                <button class="contact-btn" onclick="window.open('https://maps.app.goo.gl/FsT7h2FBZNuXMc4s9')">نمایش لوکیشن</button>
+            </p>
+            <p>
+                ساعات کاری: از ۱۰ صبح تا ۸ شب
+            </p>
+            <p>
+                اینستاگرام: Tahota_vip
+                <button class="contact-btn" onclick="window.open('https://instagram.com/Tahota_vip')">فالو کنید</button>
+            </p>
         </div>
         
         <!-- نکات مهم -->
