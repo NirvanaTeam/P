@@ -273,6 +273,7 @@
             border-right: 3px solid #000;
             border: 1px solid #e0c9a6;
             position: relative;
+            padding-bottom: 40px; /* فضای بیشتر برای دکمه + */
         }
         
         @keyframes fadeIn {
@@ -306,7 +307,7 @@
         .add-to-cart {
             position: absolute;
             left: 10px;
-            top: 10px;
+            bottom: 10px; /* تغییر موقعیت به پایین */
             background-color: #000;
             color: #e0c9a6;
             border: none;
@@ -349,6 +350,76 @@
             border-top: 1px solid #e0c9a6;
             font-size: 14px;
             color: #666;
+        }
+        
+        /* پاپ آپ واتساپ */
+        .whatsapp-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .whatsapp-popup.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .whatsapp-popup-content {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+        
+        .whatsapp-popup h3 {
+            color: #000;
+            margin-bottom: 20px;
+        }
+        
+        .whatsapp-popup input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: Vazir, Tahoma, sans-serif;
+        }
+        
+        .whatsapp-popup-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        
+        .whatsapp-popup-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .whatsapp-popup-continue {
+            background-color: #25D366;
+            color: white;
+        }
+        
+        .whatsapp-popup-cancel {
+            background-color: #f44336;
+            color: white;
         }
         
         @media (max-width: 768px) {
@@ -419,6 +490,10 @@
             .menu-items {
                 grid-template-columns: 1fr;
             }
+            
+            .whatsapp-popup-content {
+                padding: 20px;
+            }
         }
     </style>
 </head>
@@ -443,6 +518,18 @@
         <button class="whatsapp-btn" id="whatsappBtn">
             ارسال از طریق واتساپ
         </button>
+    </div>
+
+    <!-- پاپ آپ واتساپ -->
+    <div class="whatsapp-popup" id="whatsappPopup">
+        <div class="whatsapp-popup-content">
+            <h3>لطفا نام خود را وارد کنید</h3>
+            <input type="text" id="customerName" placeholder="نام و نام خانوادگی">
+            <div class="whatsapp-popup-buttons">
+                <button class="whatsapp-popup-btn whatsapp-popup-cancel" id="whatsappCancel">انصراف</button>
+                <button class="whatsapp-popup-btn whatsapp-popup-continue" id="whatsappContinue">ادامه</button>
+            </div>
+        </div>
     </div>
 
     <div class="menu-container">
@@ -574,9 +661,14 @@
         const cartCount = document.getElementById('cartCount');
         const cartTotal = document.getElementById('cartTotal');
         const whatsappBtn = document.getElementById('whatsappBtn');
+        const whatsappPopup = document.getElementById('whatsappPopup');
+        const whatsappCancel = document.getElementById('whatsappCancel');
+        const whatsappContinue = document.getElementById('whatsappContinue');
+        const customerName = document.getElementById('customerName');
 
         // سبد خرید
         let cart = [];
+        let customerLocation = null;
 
         // ایجاد دکمه‌های دسته‌بندی
         Object.keys(menuData).forEach(category => {
@@ -623,10 +715,10 @@
                 itemElement.style.animationDelay = `${index * 0.1}s`;
                 
                 itemElement.innerHTML = `
-                    <button class="add-to-cart" data-name="${item.name}" data-price="${item.price}">+</button>
                     <div class="item-name">${item.name}</div>
                     ${item.description ? `<div class="item-description">${item.description}</div>` : ''}
                     <div class="item-price">${toPersianNumbers(item.price)} تومان</div>
+                    <button class="add-to-cart" data-name="${item.name}" data-price="${item.price}">+</button>
                 `;
                 
                 // اضافه کردن رویداد کلیک به دکمه اضافه به سبد خرید
@@ -740,25 +832,81 @@
             cartSidebar.classList.remove('open');
         });
         
+        // تابع برای دریافت موقعیت مکانی
+        function getLocation() {
+            return new Promise((resolve, reject) => {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        position => {
+                            const lat = position.coords.latitude;
+                            const lng = position.coords.longitude;
+                            resolve({ lat, lng });
+                        },
+                        error => {
+                            reject(error);
+                        }
+                    );
+                } else {
+                    reject(new Error("مرورگر شما از موقعیت مکانی پشتیبانی نمی‌کند"));
+                }
+            });
+        }
+        
+        // رویداد کلیک روی دکمه واتساپ
         whatsappBtn.addEventListener('click', () => {
             if (cart.length === 0) {
                 alert('سبد خرید شما خالی است!');
                 return;
             }
             
-            let message = 'سفارش من:\n\n';
-            let total = 0;
+            whatsappPopup.classList.add('active');
+        });
+        
+        // رویدادهای پاپ آپ واتساپ
+        whatsappCancel.addEventListener('click', () => {
+            whatsappPopup.classList.remove('active');
+        });
+        
+        whatsappContinue.addEventListener('click', async () => {
+            const name = customerName.value.trim();
+            if (!name) {
+                alert('لطفا نام خود را وارد کنید');
+                return;
+            }
             
-            cart.forEach(item => {
-                message += `${item.name} (${toPersianNumbers(item.quantity)} عدد) - ${toPersianNumbers(item.totalPrice)} تومان\n`;
-                total += item.totalPrice;
-            });
-            
-            message += `\nمجموع: ${toPersianNumbers(total)} تومان`;
-            
-            const phoneNumber = '+989928889663';
-            const encodedMessage = encodeURIComponent(message);
-            window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
+            try {
+                // دریافت موقعیت مکانی
+                const location = await getLocation();
+                customerLocation = location;
+                
+                // ایجاد پیام واتساپ
+                let message = `سفارش از: ${name}\n\n`;
+                message += 'سفارش من:\n\n';
+                let total = 0;
+                
+                cart.forEach(item => {
+                    message += `${item.name} (${toPersianNumbers(item.quantity)} عدد) - ${toPersianNumbers(item.totalPrice)} تومان\n`;
+                    total += item.totalPrice;
+                });
+                
+                message += `\nمجموع: ${toPersianNumbers(total)} تومان\n\n`;
+                
+                // افزودن موقعیت مکانی به پیام
+                if (customerLocation) {
+                    const mapUrl = `https://www.google.com/maps?q=${customerLocation.lat},${customerLocation.lng}`;
+                    message += `موقعیت مکانی:\n${mapUrl}`;
+                }
+                
+                const phoneNumber = '+989928889663';
+                const encodedMessage = encodeURIComponent(message);
+                window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
+                
+                // بستن پاپ آپ
+                whatsappPopup.classList.remove('active');
+            } catch (error) {
+                console.error('خطا در دریافت موقعیت مکانی:', error);
+                alert('خطا در دریافت موقعیت مکانی. لطفا دسترسی به موقعیت مکانی را فعال کنید.');
+            }
         });
     </script>
 </body>
