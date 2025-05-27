@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رستوران شبانه - غذا در هر ساعتی از شب</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config={theme:{extend:{colors:{primary:'#FFD369',secondary:'#08D9D6'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background-color: #0B0F1A;
+            color: #FFFFFF;
+        }
+        
+        .neon-glow {
+            text-shadow: 0 0 10px #FFD369, 0 0 20px #FFD369, 0 0 30px #FFD369;
+        }
+        
+        .neon-box {
+            box-shadow: 0 0 10px rgba(255, 211, 105, 0.5);
+        }
+        
+        .accent-glow {
+            text-shadow: 0 0 10px #08D9D6, 0 0 20px #08D9D6;
+        }
+        
+        .accent-box {
+            box-shadow: 0 0 10px rgba(8, 217, 214, 0.5);
+        }
+        
+        .cart-sidebar {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .cart-sidebar.open {
+            transform: translateX(0);
+        }
+        
+        .modal-backdrop {
+            background-color: rgba(11, 15, 26, 0.8);
+            backdrop-filter: blur(5px);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .modal-backdrop.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .quick-order-modal {
+            transform: translateY(20px);
+            opacity: 0;
+            visibility: hidden;
+            transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .quick-order-modal.open {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .menu-item-image {
+            transition: transform 0.3s ease;
+        }
+        
+        .menu-item:hover .menu-item-image {
+            transform: scale(1.05);
+        }
+        
+        .category-tab.active {
+            border-color: #FFD369;
+            color: #FFD369;
+        }
+        
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Header Navigation -->
+    <header class="fixed top-0 w-full bg-[#0B0F1A]/90 backdrop-blur-md z-50 border-b border-gray-800">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="font-['Pacifico'] text-primary text-2xl">logo</div>
+            
+            <nav class="hidden md:flex items-center space-x-6 space-x-reverse">
+                <a href="#" class="text-white hover:text-primary transition-colors">خانه</a>
+                <a href="#menu" class="text-white hover:text-primary transition-colors">منو</a>
+                <a href="#" class="text-white hover:text-primary transition-colors">سفارش سریع</a>
+                <a href="#about" class="text-white hover:text-primary transition-colors">درباره ما</a>
+                <a href="#contact" class="text-white hover:text-primary transition-colors">تماس با ما</a>
+            </nav>
+            
+            <div class="flex items-center space-x-4 space-x-reverse">
+                <div class="hidden md:block text-sm text-gray-400">
+                    <span id="current-time">۱۷:۳۰</span>
+                </div>
+                
+                <button class="bg-primary text-[#0B0F1A] px-4 py-2 !rounded-button font-medium hover:bg-opacity-90 transition-colors cursor-pointer" id="order-button">
+                    ثبت سفارش
+                </button>
+                
+                <div class="md:hidden w-8 h-8 flex items-center justify-center cursor-pointer" id="mobile-menu-button">
+                    <i class="ri-menu-line ri-lg"></i>
+                </div>
+                
+                <div class="relative md:hidden">
+                    <div class="w-8 h-8 flex items-center justify-center cursor-pointer" id="cart-button-mobile">
+                        <i class="ri-shopping-cart-line ri-lg"></i>
+                        <span class="absolute -top-1 -right-1 bg-[#FF2E63] text-white text-xs w-5 h-5 rounded-full flex items-center justify-center" id="cart-count-mobile">۲</span>
+                    </div>
+                </div>
+                
+                <div class="hidden md:block relative">
+                    <div class="w-8 h-8 flex items-center justify-center cursor-pointer" id="cart-button">
+                        <i class="ri-shopping-cart-line ri-lg"></i>
+                        <span class="absolute -top-1 -right-1 bg-[#FF2E63] text-white text-xs w-5 h-5 rounded-full flex items-center justify-center" id="cart-count">۲</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Menu -->
+    <div class="fixed inset-0 bg-[#0B0F1A]/95 z-50 transform translate-x-full transition-transform duration-300 md:hidden" id="mobile-menu">
+        <div class="flex justify-end p-4">
+            <button class="text-white w-8 h-8 flex items-center justify-center cursor-pointer" id="close-mobile-menu">
+                <i class="ri-close-line ri-lg"></i>
+            </button>
+        </div>
+        <div class="flex flex-col items-center justify-center h-full space-y-8 -mt-16">
+            <a href="#" class="text-white text-xl hover:text-primary transition-colors">خانه</a>
+            <a href="#menu" class="text-white text-xl hover:text-primary transition-colors">منو</a>
+            <a href="#" class="text-white text-xl hover:text-primary transition-colors">سفارش سریع</a>
+            <a href="#about" class="text-white text-xl hover:text-primary transition-colors">درباره ما</a>
+            <a href="#contact" class="text-white text-xl hover:text-primary transition-colors">تماس با ما</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="pt-16 pb-20">
+        <!-- Hero Section -->
+        <section class="relative h-[70vh] flex items-center justify-center overflow-hidden">
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://readdy.ai/api/search-image?query=Tehran%20city%20at%20night%2C%20cityscape%20with%20lights%2C%20dark%20moody%20atmosphere%2C%20blurred%20background%2C%20neon%20lights%2C%20urban%20nightlife%20scene%2C%20high-quality%20cinematic%20shot%2C%20dark%20blue%20tones&width=1200&height=800&seq=1&orientation=landscape'); filter: brightness(0.4);"></div>
+            <div class="relative z-10 text-center px-4 max-w-3xl mx-auto">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4 neon-glow">غذا در هر ساعتی از شب</h1>
+                <p class="text-xl md:text-2xl mb-8 text-gray-200">ما اینجاییم وقتی همه خوابن</p>
+                <button class="bg-primary text-[#0B0F1A] px-8 py-3 !rounded-button font-medium text-lg hover:bg-opacity-90 transition-colors neon-box cursor-pointer" id="hero-order-button">
+                    سفارش بده
+                </button>
+            </div>
+        </section>
+
+        <!-- Special Offers -->
+        <section class="py-12 px-4">
+            <div class="container mx-auto">
+                <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center">پیشنهادات ویژه امشب</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-[#141B2D] rounded-lg overflow-hidden group cursor-pointer">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://readdy.ai/api/search-image?query=Delicious%20gourmet%20burger%20with%20fries%2C%20dark%20moody%20food%20photography%2C%20professional%20lighting%2C%20high-end%20restaurant%20presentation%2C%20on%20dark%20background%2C%20mouth-watering%2C%20detailed%20texture&width=600&height=400&seq=2&orientation=landscape" alt="برگر ویژه" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="text-lg font-medium">برگر ویژه شبانه</h3>
+                                <span class="text-primary font-bold">۱۸۵,۰۰۰ تومان</span>
+                            </div>
+                            <p class="text-gray-400 text-sm mb-4">برگر دست‌ساز با گوشت گوساله، پنیر چدار و سس مخصوص</p>
+                            <button class="w-full bg-[#FF2E63] text-white py-2 !rounded-button hover:bg-opacity-90 transition-colors">افزودن به سبد خرید</button>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-[#141B2D] rounded-lg overflow-hidden group cursor-pointer">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://readdy.ai/api/search-image?query=Gourmet%20pizza%20with%20melted%20cheese%20and%20toppings%2C%20dark%20moody%20food%20photography%2C%20professional%20lighting%2C%20high-end%20restaurant%20presentation%2C%20on%20dark%20background%2C%20steam%20rising%2C%20detailed%20texture&width=600&height=400&seq=3&orientation=landscape" alt="پیتزا مخصوص" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="text-lg font-medium">پیتزا مخلوط ویژه</h3>
+                                <span class="text-primary font-bold">۲۴۵,۰۰۰ تومان</span>
+                            </div>
+                            <p class="text-gray-400 text-sm mb-4">خمیر تازه با مخلوط گوشت، قارچ، فلفل دلمه و پنیر موزارلا</p>
+                            <button class="w-full bg-[#FF2E63] text-white py-2 !rounded-button hover:bg-opacity-90 transition-colors">افزودن به سبد خرید</button>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-[#141B2D] rounded-lg overflow-hidden group cursor-pointer">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://readdy.ai/api/search-image?query=Gourmet%20sandwich%20with%20fresh%20ingredients%2C%20dark%20moody%20food%20photography%2C%20professional%20lighting%2C%20high-end%20restaurant%20presentation%2C%20on%20dark%20background%2C%20detailed%20texture&width=600&height=400&seq=4&orientation=landscape" alt="ساندویچ ویژه" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="text-lg font-medium">ساندویچ فیله مرغ</h3>
+                                <span class="text-primary font-bold">۱۶۵,۰۰۰ تومان</span>
+                            </div>
+                            <p class="text-gray-400 text-sm mb-4">فیله مرغ گریل شده با سبزیجات تازه و سس مخصوص</p>
+                            <button class="w-full bg-[#FF2E63] text-white py-2 !rounded-button hover:bg-opacity-90 transition-colors">افزودن به سبد خرید</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Menu Section -->
+        <section id="menu" class="py-12 px-4 bg-[#0D121F]">
+            <div class="container mx-auto">
+                <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center">منوی رستوران</h2>
+                
+                <!-- Category Tabs -->
+                <div class="flex overflow-x-auto pb-4 mb-8 scrollbar-hide">
+                    <div class="flex space-x-4 space-x-reverse mx-auto">
+                        <button class="category-tab active whitespace-nowrap px-6 py-3 border-2 border-primary text-primary !rounded-button bg-[#141B2D] font-medium cursor-pointer" data-category="pizza">پیتزا</button>
+                        <button class="category-tab whitespace-nowrap px-6 py-3 border-2 border-gray-700 text-white !rounded-button bg-[#141B2D] font-medium cursor-pointer" data-category="burger">برگر</button>
+                        <button class="category-tab whitespace-nowrap px-6 py-3 border-2 border-gray-700 text-white !rounded-button bg-[#141B2D] font-medium cursor-pointer" data-category="sandwich">ساندویچ</button>
+                        <button class="category-tab whitespace-nowrap px-6 py-3 border-2 border-gray-700 text-white !rounded-button bg-[#141B2D] font-medium cursor-pointer" data-category="drinks">نوشیدنی</button>
+                        <button class="category-tab whitespace-nowrap px-6 py-3 border-2 border-gray-700 text-white !rounded-button bg-[#141B2D] font-medium cursor-pointer" data-category="sides">پیش غذا</button>
+                    </div>
+                </div>
+                
+                <!-- Menu Items -->
+                <div class="menu-category active" id="pizza-menu">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="menu-item bg-[#141B2D] rounded-lg overflow-hidden cursor-pointer">
+                            <div class="h-48 overflow-hidden">
+                                <img src="https://readdy.ai/api/search-image?query=Pepperoni%20pizza%20with%20melted%20cheese%2C%20dark%20moody%20food%20photography%2C%20professional%20lighting%2C%20high-end%20restaurant%20presentation%2C%20on%20dark%20background%2C%20detailed%20texture&width=600&height=400&seq=5&orientation=landscape" alt="پیتزا پپرونی" class="menu-item-image w-full h-full object-cover">
+                            </div>
+                            <div class="p-4">
+                                <div class="flex justify-between items-center mb-2">
+                                    <h3 class="text-lg font-medium">پیتزا پپرونی</h3>
+                                    <span class="text-primary font-bold">۲۲۵,۰۰۰ تومان</span>
+                                </div>
+                                <p class="text-gray-400 text-sm mb-4">خمیر تازه با سس مخصوص، پپرونی و پنیر موزارلا</p>
+                                <button class="w-full bg-[#FF2E63] text-white py-2 !rounded-button hover:bg-opacity-90 transition-colors">افزودن به سبد خرید</button>
+                            </div>
+                        </div>
+                        
+                        <div class="menu-item bg-[#141B2D] rounded-lg overflow-hidden cursor-pointer">
+                            <div class="h-48 overflow-hidden">
+                                <img src="https://readdy.ai/api/search-image?query=Vegetarian%20pizza%20with%20colorful%20vegetables%20and%20cheese%2C%20dark%20moody%20food%20photography%2C%20professional%20lighting%2C%20high-end%20restaurant%20presentation%2C%20on%20dark%20background%2C%20detailed%20texture&width=600&height=400&seq=6&orientation=landscape" alt="پیتزا سبزیجات" class="menu-item-image w-full h-full object-cover">
+                            </div>
+                            <div class="p-4">
+                                <div class="flex justify-between items-center mb-2">
+                                    <h3 class="text-lg font-medium">پیتزا سبزیجات</h3>
+                                    <span class="text-primary font-bold">۱۹۵,۰۰۰ تومان</span>
+                                </div>
+                                <p class="text-gray-400 text-sm mb-4">خمیر تازه با سبزیجات فصل، قارچ و پنیر موزارلا</p>
+                                <button class="w-full bg-[#FF2E63] text-white py-2 !rounded-button hover:bg-opacity-90 transition-colors">افزودن به سبد خرید</button>
+                            </div>
+                        </div>
+                        
+                        <div class="menu-item bg-[#141B2D] rounded-lg overflow-hidden cursor-pointer">
+                            <div class="h-48 overflow-hidden">
+                                <img src="https://readdy.ai/api/search-image?query=Chicken%20BBQ%20pizza%20with%20red%20onions%20and%20cheese%2C%20dark%20moody%20food%20photography%2C%20professional%20lighting%2C%20high-end%20restaurant%20presentation%2C%20on%20dark%20background%2C%20detailed%20texture&width=600&height=400&seq=7&orientation=landscape" alt="پیتزا مرغ و قارچ" class="menu-item-image w-full h-full object-cover">
+                            </div>
+                            <div class="p-4">
+                                <div class="flex justify-between items-center mb-2">
+                                    <h3 class="text-lg font-medium">پیتزا مرغ و قارچ</h3>
+                                    <span class="text-primary font-bold">۲۳۵,۰۰۰ تومان</span>
+                                </div>
+                                <p class="text-gray-400 text-sm mb-4">خمیر تازه با مرغ گریل شده، قارچ و پنیر موزارلا</p>
+                                <button class="w-full bg-[#FF2E63] text-white py-2 !rounded-button hover:bg-opacity-90 transition-colors">افزودن به سبد خرید</button>
+                            </div>
+                        </div>
+                        
+                        <div class="menu-item bg-[#141B2D] rounded-lg overflow-hidden cursor-pointer">
+                            <div class="h-48 overflow-hidden">
+                                <img src="https://readdy.ai/api/search-image?query=Meat%20lovers%20pizza%20with%20multiple%20types%20of%20meat%20and%20cheese%2C%20dark%20moody%20food%20photography%2C%20professional%20lighting%2C%20high-end%20restaurant%20presentation%2C%20on%20dark%20background%2C%20detailed%20texture&width=600&height=400&seq=8&orientation=landscape" alt="پیتزا گوشت و قارچ" class="menu-item-image w-full h-full object-cover">
+                            </div>
+                            <div class="p-4">
+                                <div class="flex justify-between items-center mb-2">
+                                    <h3 class="text-lg font-medium">پیتزا گوشت و قارچ</h3>
+                                    <span class="text-primary font-bold">۲۵۵,۰۰۰ تومان</span>
+                                </div>
+                                <p class="text-gray-400 text-sm mb-4">خمیر تازه با گوشت چرخ کرده، قارچ و پنیر موزارلا</p>
+                                <button class="w-full bg-[#FF2E63] text-white py-2 !rounded-button hover:bg-opacity-90 transition-colors">افزودن به سبد خرید</button>
+                            </div>
+                        </div>
+                        
+                        <div class="menu-item bg-[#141B2D] rounded-lg overflow-hidden cursor-pointer">
+                            <div class="h-48 overflow-hidden">
+                                <img src="https://readdy.ai/api/search-image?query=Margherita%20pizza%20with%20fresh%20basil%20and%20mozzarella%2C%20dark%20moody%20food%20photography%2C%20professional%20lighting%2C%20high-end%20restaurant%20presentation%2C%20on%20dark%20background%2C%20detailed%20textur
