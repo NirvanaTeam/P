@@ -47,22 +47,20 @@
         }
         
         .loading-logo {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.1);
             display: flex;
             justify-content: center;
             align-items: center;
             margin-bottom: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
-        .loading-logo-text {
-            color: white;
-            text-align: center;
-            font-size: 12px;
-            line-height: 1.8;
+        .loading-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
         }
         
         .loading-bar-container {
@@ -105,7 +103,8 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: center;
+            align-items: center;
             padding: 20px;
             opacity: 0;
             transition: opacity 0.5s;
@@ -115,43 +114,45 @@
             opacity: 1;
         }
         
-        .logo-section {
-            flex: 1;
+        .main-content {
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            text-align: center;
+            width: 100%;
+            max-width: 500px;
+            margin-top: -50px;
+        }
+        
+        .logo-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
         }
         
         .logo-circle {
-            width: 140px;
-            height: 140px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            background-color: rgba(0, 0, 0, 0.6);
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
+            margin-bottom: 15px;
         }
         
-        .logo-text {
-            color: white;
-            text-align: center;
-            font-size: 14px;
-            line-height: 1.8;
-            padding: 0 15px;
+        .logo-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
         }
         
         .persian-title {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: bold;
             text-align: center;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
         
         .nav-container {
@@ -159,14 +160,12 @@
             border-radius: 20px;
             padding: 15px;
             width: 100%;
-            max-width: 100%;
             display: flex;
             justify-content: space-between;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             box-shadow: 0 5px 25px rgba(0, 0, 0, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 10px;
         }
         
         .nav-btn {
@@ -227,12 +226,12 @@
             }
             
             .logo-circle {
-                width: 120px;
-                height: 120px;
+                width: 100px;
+                height: 100px;
             }
             
             .persian-title {
-                font-size: 2.5rem;
+                font-size: 2rem;
             }
             
             .nav-container {
@@ -255,7 +254,7 @@
     <!-- صفحه لودینگ -->
     <div class="loading-screen" id="loadingScreen">
         <div class="loading-logo">
-            <div class="loading-logo-text">دونریتو<br>Donerito</div>
+            <img src="logo.png" alt="دونریتو">
         </div>
         <div class="loading-bar-container">
             <div class="loading-bar" id="loadingBar"></div>
@@ -275,22 +274,24 @@
     </button>
     
     <div class="content" id="mainContent">
-        <div class="logo-section">
-            <div class="logo-circle">
-                <div class="logo-text">دونریتو<br>Donerito</div>
+        <div class="main-content">
+            <div class="logo-section">
+                <div class="logo-circle">
+                    <img src="logo.png" alt="دونریتو">
+                </div>
+                <h1 class="persian-title">دونریتو</h1>
             </div>
-            <h1 class="persian-title">دونریتو</h1>
-        </div>
-        
-        <div class="nav-container">
-            <a href="#" class="nav-btn">
-                <i class="fas fa-info-circle"></i>
-                <span>اطلاعات رستوران</span>
-            </a>
-            <a href="menu.html" class="nav-btn">
-                <i class="fas fa-clipboard-list"></i>
-                <span>مشاهده منو</span>
-            </a>
+            
+            <div class="nav-container">
+                <a href="#" class="nav-btn">
+                    <i class="fas fa-info-circle"></i>
+                    <span>اطلاعات رستوران</span>
+                </a>
+                <a href="menu.html" class="nav-btn">
+                    <i class="fas fa-clipboard-list"></i>
+                    <span>مشاهده منو</span>
+                </a>
+            </div>
         </div>
     </div>
     
