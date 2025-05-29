@@ -107,6 +107,12 @@
             flex-direction: column;
             justify-content: space-between;
             padding: 20px;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        
+        .content.show {
+            opacity: 1;
         }
         
         .logo-section {
@@ -205,6 +211,12 @@
             color: white;
             cursor: pointer;
             border: 1px solid rgba(255, 255, 255, 0.2);
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        
+        .volume-control.show {
+            opacity: 1;
         }
         
         /* نسخه موبایل */
@@ -262,7 +274,7 @@
         <i class="fas fa-volume-up"></i>
     </button>
     
-    <div class="content">
+    <div class="content" id="mainContent">
         <div class="logo-section">
             <div class="logo-circle">
                 <div class="logo-text">دونریتو<br>Donerito</div>
@@ -288,39 +300,61 @@
             const loadingScreen = document.getElementById('loadingScreen');
             const loadingBar = document.getElementById('loadingBar');
             const volumeBtn = document.getElementById('volumeBtn');
+            const mainContent = document.getElementById('mainContent');
             
             // پخش صدا به صورت پیشفرض
             video.muted = false;
             volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
             
-            // شبیه‌سازی پیشرفت بارگذاری
-            let progress = 0;
-            const loadingInterval = setInterval(() => {
-                progress += Math.random() * 10;
-                if (progress > 100) progress = 100;
-                loadingBar.style.width = progress + '%';
-                
-                if (progress >= 100) {
-                    clearInterval(loadingInterval);
-                    checkVideoReady();
-                }
-            }, 200);
+            // رویدادهای ویدیو
+            video.addEventListener('loadedmetadata', function() {
+                adjustVideoSize();
+                startLoadingAnimation();
+            });
             
-            function checkVideoReady() {
-                if (video.readyState >= 3) {
-                    hideLoadingScreen();
-                    adjustVideoSize();
-                } else {
-                    setTimeout(checkVideoReady, 100);
-                }
+            video.addEventListener('canplaythrough', function() {
+                // ویدیو آماده پخش است
+                completeLoading();
+            });
+            
+            video.addEventListener('error', function() {
+                console.error('خطای ویدیو:', video.error);
+                completeLoading();
+            });
+            
+            // شروع انیمیشن لودینگ
+            function startLoadingAnimation() {
+                let progress = 0;
+                const loadingInterval = setInterval(() => {
+                    progress += Math.random() * 15;
+                    if (progress > 90) progress = 90; // تا 90% پیش می‌رود و منتظر ویدیو می‌ماند
+                    loadingBar.style.width = progress + '%';
+                }, 200);
             }
             
-            function hideLoadingScreen() {
-                loadingScreen.style.opacity = '0';
+            // تکمیل لودینگ وقتی ویدیو آماده است
+            function completeLoading() {
+                // پر کردن کامل نوار لودینگ
+                loadingBar.style.width = '100%';
+                
+                // پس از تاخیر کوتاه، مخفی کردن صفحه لودینگ
                 setTimeout(() => {
-                    loadingScreen.style.display = 'none';
-                    video.play().catch(e => console.log('خطای پخش:', e));
-                }, 500);
+                    loadingScreen.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                        mainContent.classList.add('show');
+                        volumeBtn.classList.add('show');
+                        
+                        // تلاش برای پخش ویدیو
+                        video.play().catch(e => {
+                            console.log('خطای پخش:', e);
+                            // اگر خطا خورد، صدا را قطع می‌کنیم و دوباره تلاش می‌کنیم
+                            video.muted = true;
+                            video.play();
+                        });
+                    }, 500);
+                }, 300);
             }
             
             // کنترل صدا
@@ -333,6 +367,8 @@
             
             // تنظیم نسبت تصویر ویدیو بدون برش
             function adjustVideoSize() {
+                if (!video.videoWidth) return;
+                
                 const videoRatio = video.videoWidth / video.videoHeight;
                 const screenRatio = window.innerWidth / window.innerHeight;
                 
@@ -347,14 +383,7 @@
                 }
             }
             
-            video.addEventListener('loadedmetadata', adjustVideoSize);
             window.addEventListener('resize', adjustVideoSize);
-            
-            // مدیریت خطاهای ویدیو
-            video.addEventListener('error', function() {
-                console.error('خطای ویدیو:', video.error);
-                hideLoadingScreen();
-            });
         });
     </script>
 </body>
