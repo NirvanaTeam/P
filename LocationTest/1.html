@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تست روش ۱ - چندبار درخواست</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #25D366;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .loading {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <button id="getLocation">دریافت موقعیت (روش ۱)</button>
+        <div id="loading" class="loading">در حال دریافت موقعیت...</div>
+    </div>
+
+    <script>
+        document.getElementById('getLocation').addEventListener('click', async () => {
+            const loading = document.getElementById('loading');
+            loading.style.display = 'block';
+            
+            try {
+                const location = await getLocationCombination1();
+                sendToWhatsApp(location);
+            } catch (error) {
+                alert(`خطا: ${error.message}`);
+            } finally {
+                loading.style.display = 'none';
+            }
+        });
+
+        async function getLocationCombination1() {
+            let lastError;
+            
+            // تلاش اول
+            try {
+                return await getLocationWithOptions({
+                    enableHighAccuracy: false,
+                    timeout: 10000
+                });
+            } catch (error) {
+                lastError = error;
+            }
+            
+            // تلاش دوم
+            try {
+                return await getLocationWithOptions({
+                    enableHighAccuracy: true,
+                    timeout: 15000
+                });
+            } catch (error) {
+                throw lastError;
+            }
+        }
+
+        function getLocationWithOptions(options) {
+            return new Promise((resolve, reject) => {
+                navigator.geolocation.getCurrentPosition(
+                    position => resolve({
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    }),
+                    error => reject(error),
+                    options
+                );
+            });
+        }
+
+        function sendToWhatsApp(location) {
+            const phone = '+989928889663';
+            const message = `آدرس من: https://www.google.com/maps?q=${location.lat},${location.lng}`;
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+        }
+    </script>
+</body>
+</html>
