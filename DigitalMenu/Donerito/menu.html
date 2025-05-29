@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منوی دونریتو</title>
-    <!-- اضافه کردن فونت Vazir -->
-    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -28,7 +28,6 @@
             position: relative;
         }
         
-        /* سبد خرید و آیکون آن */
         .cart-icon {
             position: fixed;
             top: 20px;
@@ -204,13 +203,6 @@
             border: 1px solid #e0c9a6;
         }
         
-        .category-icon {
-            width: 30px;
-            height: 30px;
-            margin-bottom: 5px;
-            object-fit: contain;
-        }
-        
         .category-name {
             font-size: 14px;
             font-weight: 500;
@@ -270,10 +262,9 @@
             opacity: 0;
             transform: translateY(15px);
             animation: fadeIn 0.8s forwards;
-            border-right: 3px solid #000;
             border: 1px solid #e0c9a6;
             position: relative;
-            padding-bottom: 40px; /* فضای بیشتر برای دکمه + */
+            padding-bottom: 40px;
         }
         
         @keyframes fadeIn {
@@ -307,7 +298,7 @@
         .add-to-cart {
             position: absolute;
             left: 10px;
-            bottom: 10px; /* تغییر موقعیت به پایین */
+            bottom: 10px;
             background-color: #000;
             color: #e0c9a6;
             border: none;
@@ -336,11 +327,6 @@
             border: 1px solid #e0c9a6;
         }
         
-        .cafe-logo img {
-            max-width: 150px;
-            max-height: 80px;
-        }
-        
         .footer {
             text-align: center;
             padding: 15px;
@@ -352,152 +338,30 @@
             color: #666;
         }
         
-        /* پاپ آپ واتساپ */
-        .whatsapp-popup {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-        
-        .whatsapp-popup.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .whatsapp-popup-content {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-        }
-        
-        .whatsapp-popup h3 {
-            color: #000;
-            margin-bottom: 20px;
-        }
-        
-        .whatsapp-popup input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-family: Vazir, Tahoma, sans-serif;
-        }
-        
-        .whatsapp-popup-buttons {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-        }
-        
-        .whatsapp-popup-btn {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        
-        .whatsapp-popup-continue {
-            background-color: #25D366;
-            color: white;
-        }
-        
-        .whatsapp-popup-cancel {
-            background-color: #f44336;
-            color: white;
-        }
-        
         @media (max-width: 768px) {
             .menu-container {
                 flex-direction: row;
-                height: 100vh;
             }
             
             .categories-sidebar {
                 width: 100px;
-                flex-direction: column;
-                flex-wrap: nowrap;
-                border-radius: 20px 0 0 20px;
                 padding: 15px 8px;
                 gap: 15px;
-                justify-content: flex-start;
-                overflow-y: auto;
-            }
-            
-            .category-item {
-                width: 100%;
-                padding: 10px 5px;
-                min-height: auto;
             }
             
             .category-name {
                 font-size: 12px;
-                line-height: 1.4;
             }
             
             .items-container {
-                border-radius: 0 20px 20px 0;
                 padding: 15px;
-            }
-            
-            .cafe-logo img {
-                max-width: 120px;
             }
             
             .menu-items {
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             }
-            
-            .items-title {
-                font-size: 20px;
-            }
-            
-            .items-english-title {
-                font-size: 14px;
-            }
-            
-            .cart-sidebar {
-                width: 300px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .categories-sidebar {
-                width: 85px;
-                padding: 12px 5px;
-                gap: 12px;
-            }
-            
-            .category-name {
-                font-size: 11px;
-            }
-            
-            .menu-items {
-                grid-template-columns: 1fr;
-            }
-            
-            .whatsapp-popup-content {
-                padding: 20px;
-            }
         }
     </style>
-    <!-- اضافه کردن Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <!-- سبد خرید -->
@@ -511,48 +375,25 @@
             <h3>سبد خرید شما</h3>
             <button class="close-cart" id="closeCart">✕</button>
         </div>
-        <div class="cart-items" id="cartItems">
-            <!-- آیتم‌های سبد خرید اینجا نمایش داده می‌شوند -->
-        </div>
-        <div class="cart-total" id="cartTotal">
-            مجموع: ۰ تومان
-        </div>
-        <button class="whatsapp-btn" id="whatsappBtn">
-            ارسال از طریق واتساپ
-        </button>
+        <div class="cart-items" id="cartItems"></div>
+        <div class="cart-total" id="cartTotal">مجموع: ۰ تومان</div>
+        <button class="whatsapp-btn" id="whatsappBtn">ارسال از طریق واتساپ</button>
     </div>
 
-    <!-- پاپ آپ واتساپ -->
-    <div class="whatsapp-popup" id="whatsappPopup">
-        <div class="whatsapp-popup-content">
-            <h3>لطفا نام خود را وارد کنید</h3>
-            <input type="text" id="customerName" placeholder="نام شما">
-            <div class="whatsapp-popup-buttons">
-                <button class="whatsapp-popup-btn whatsapp-popup-cancel" id="whatsappCancel">انصراف</button>
-                <button class="whatsapp-popup-btn whatsapp-popup-continue" id="whatsappContinue">ادامه</button>
-            </div>
-        </div>
-    </div>
-
+    <!-- ساختار اصلی منو -->
     <div class="menu-container">
-        <div class="categories-sidebar" id="categoriesSidebar">
-            <!-- دسته‌بندی‌ها توسط جاوااسکریپت اضافه می‌شوند -->
-        </div>
+        <div class="categories-sidebar" id="categoriesSidebar"></div>
         <div class="items-container" id="itemsContainer">
             <div class="items-content">
                 <h2 class="items-title" id="itemsTitle">منوی رستوران</h2>
                 <div class="items-english-title" id="itemsEnglishTitle"></div>
-                <div class="menu-items" id="menuItems">
-                    <!-- آیتم‌ها توسط جاوااسکریپت اضافه می‌شوند -->
-                </div>
+                <div class="menu-items" id="menuItems"></div>
                 
-                <!-- لوگوی رستوران -->
                 <div class="cafe-logo">
                     <img src="https://nirvanateam.github.io/P/DigitalMenu/Donerito/logo.png" alt="لوگوی رستوران">
                 </div>
             </div>
             
-            <!-- فوتر -->
             <div class="footer">
                 تمامی حقوق محفوظ است | دونریتو 2025 ©
             </div>
@@ -560,78 +401,169 @@
     </div>
 
     <script>
-        // تابع برای تبدیل اعداد انگلیسی به فارسی
+        // تابع تبدیل اعداد به فارسی
         function toPersianNumbers(num) {
-            const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-            return num.toString().replace(/\d/g, function(match) {
-                return persianNumbers[parseInt(match)];
-            });
+            const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+            return num.toString().replace(/\d/g, d => persianDigits[d]);
         }
 
-        // داده‌های منو
+        // داده‌های کامل منو
         const menuData = {
             "کباب دونر": {
                 english: "DONER KEBAB",
                 items: [
-                    {name: "دونر کلاسیک", description: "مرغ گرم، نان تورتیلا، خیارشور، سیب زمینی، سس سیر", price: "220"},
-                    {name: "دونر هاتای", description: "مرغ گرم، نان تورتیلا، کاهو، گوجه، خیارشور، سس سیر، سس هاتای", price: "210"}
+                    {name: "دونر کلاسیک", description: "مرغ گرم، نان تورتیلا، خیارشور، سیب زمینی، سس سیر", price: 220},
+                    {name: "دونر هاتای", description: "مرغ گرم، نان تورتیلا، کاهو، گوجه، خیارشور، سس سیر، سس هاتای", price: 210}
                 ]
             },
             "هات داگ": {
                 english: "HOT DOG",
                 items: [
-                    {name: "هات داگ کلاسیک", description: "کریسپی، پنیر چدار، خیارشور", price: "190"},
-                    {name: "هات داگ بیکن", description: "بیکن، گودا دیپ، پیاز کاراملیزه، کریسپی، هالوپینو", price: "220"},
-                    {name: "هات داگ ماشروم", description: "سس ماشروم، کریسپی، هالوپینو", price: "230"}
+                    {name: "هات داگ کلاسیک", description: "کریسپی، پنیر چدار، خیارشور", price: 190},
+                    {name: "هات داگ بیکن", description: "بیکن، گودا دیپ، پیاز کاراملیزه، کریسپی، هالوپینو", price: 220},
+                    {name: "هات داگ ماشروم", description: "سس ماشروم، کریسپی، هالوپینو", price: 230}
                 ]
             },
             "برگر دست‌ساز": {
                 english: "HANDMADE BURGER",
                 items: [
-                    {name: "برگر کلاسیک", description: "گوشت گرم ۱۵۰ گرمی، پنیر امنتال، سس، ماشروم، کریسپی، لوپینو", price: "280"},
-                    {name: "برگر بیکن", description: "گوشت گرم ۱۵۰ گرمی، بیکن، پنیر چدار، پیاز کاراملیزه، گوجه، کاهو، خیارشور", price: "325"},
-                    {name: "برگر ماشروم", description: "گوشت گرم ۱۵۰ گرمی، بیکن، پیاز کاراملیزه، کریسپی، دیپ چدار، لوپینو", price: "315"},
-                    {name: "برگر اسپشیال", description: "گوشت گرم ۱۵۰ گرمی استیک، نان کره و سیر، پنیر چدار، دیپ چدار، کریسپی، لوپینو، کاهو، گوجه", price: "355"}
+                    {name: "برگر کلاسیک", description: "گوشت گرم ۱۵۰ گرمی، پنیر امنتال، سس، ماشروم، کریسپی، لوپینو", price: 280},
+                    {name: "برگر بیکن", description: "گوشت گرم ۱۵۰ گرمی، بیکن، پنیر چدار، پیاز کاراملیزه، گوجه، کاهو، خیارشور", price: 325},
+                    {name: "برگر ماشروم", description: "گوشت گرم ۱۵۰ گرمی، بیکن، پیاز کاراملیزه، کریسپی، دیپ چدار، لوپینو", price: 315}
                 ]
             },
             "ساندویچ گرم": {
                 english: "HOT SANDWICH",
                 items: [
-                    {name: "رست بیف", description: "استیک گرم ۱۳۵ گرمی، سس رومسکو، پنیر گودا، کریسپی، لوپینو", price: "320"},
-                    {name: "ساندویچ استیک", description: "بیف رست ۱۳۵ گرمی، پنیر امنتال، سس ماشروم، سس مخصوص، کریسپی، لوپینو", price: "325"},
-                    {name: "ساندویچ بیکن", description: "بیکن %98، پنیر امنتال، خیارشور، کریسپی، لوپینو", price: "315"}
+                    {name: "رست بیف", description: "استیک گرم ۱۳۵ گرمی، سس رومسکو، پنیر گودا، کریسپی، لوپینو", price: 320},
+                    {name: "ساندویچ استیک", description: "بیف رست ۱۳۵ گرمی، پنیر امنتال، سس ماشروم، سس مخصوص، کریسپی، لوپینو", price: 325}
                 ]
-            },
-            "توست": {
-                english: "TOAST",
-                items: [
-                    {name: "توست سالامی", description: "پنیر موزارلا، لوپینو، سالامی", price: "200"},
-                    {name: "توست کراکوف", description: "پنیر پنیری، کراکوف، لوپینو", price: "210"},
-                    {name: "توست پپرونی", description: "پنیر موزارلا، پپرونی، لوپینو", price: "190"}
-                ]
-            },
-            "مافین": {
-                english: "MUFFIN",
-                items: [
-                    {name: "مافین بیف", description: "نان مافین انگلیسی، چدار، بیف روست، سس مخصوص", price: "190"},
-                    {name: "مافین بیکن", description: "نان مافین انگلیسی، بیکن %98، پنیر گودا، سس مخصوص", price: "175"},
-                    {name: "مافین استیک", description: "نان مافین انگلیسی، چدار، استیک، سس مخصوص", price: "190"},
-                    {name: "مافین برگر", description: "نان مافین انگلیسی، برگر دست‌ساز، چدار، سس مخصوص", price: "200"}
-                ]
-            },
-            "ساندویچ سرد": {
-                english: "COLD SANDWICH",
-                items: [
-                    {name: "مرغ مکزیکی", description: "نان فوکاچا، مرغ، کاهو، سس گوجه، پستو، گردو، زیتون، پارمسان، سس کریسپی", price: "255"},
-                    {name: "بوقلمون دودی", description: "نان فوکاچا، بوقلمون دودی، کاهو، سس گوجه، پستو، گردو، زیتون، پارمسان، سس کریسپی", price: "250"},
-                    {name: "بیکن %98", description: "نان فوکاچا، بیکن، کاهو، گوجه، زیتون، پستو، گردو، پارمسان، سس کریسپی", price: "310"},
-                    {name: "سیمیت", description: "نان سیمیت، ژامبون مرغ، پنیر خامه‌ای، گوجه، زیتون", price: "200"}
-                ]
-            },
-            "پاستا": {
-                english: "PASTA",
-                items: [
-                    {name: "پاستا پستو", description: "پاستا با سس پستو، خامه، فیله مرغ، گوجه، پارمسان", price: "290"},
-                    {name: "پاستا آلفردو استیک", description: "استیک، سس آلفردو، گوجه چری، پارمسان", price: "315"},
-                    {name: "پاستا آلفردو مرغ", description: "فیله مرغ، سس آلفردو، گوجه چری، پارمسان", price: "290"},
-                    {name: "پاستا آربیاتا", description: "سس آربیاتا، استیک، پارمسان
+            }
+        };
+
+        // مدیریت سبد خرید
+        let cart = [];
+        
+        // تابع نمایش دسته‌بندی‌ها
+        function loadCategories() {
+            const sidebar = document.getElementById('categoriesSidebar');
+            sidebar.innerHTML = '';
+            
+            Object.keys(menuData).forEach(category => {
+                const categoryElement = document.createElement('div');
+                categoryElement.className = 'category-item';
+                categoryElement.innerHTML = `<div class="category-name">${category}</div>`;
+                categoryElement.addEventListener('click', () => showItems(category));
+                sidebar.appendChild(categoryElement);
+            });
+        }
+
+        // تابع نمایش آیتم‌های هر دسته
+        function showItems(category) {
+            const itemsContainer = document.getElementById('menuItems');
+            const categoryData = menuData[category];
+            
+            document.getElementById('itemsTitle').textContent = category;
+            document.getElementById('itemsEnglishTitle').textContent = categoryData.english;
+            
+            itemsContainer.innerHTML = '';
+            
+            categoryData.items.forEach((item, index) => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'menu-item';
+                itemElement.style.animationDelay = `${index * 0.1}s`;
+                itemElement.innerHTML = `
+                    <h3 class="item-name">${item.name}</h3>
+                    <p class="item-description">${item.description}</p>
+                    <p class="item-price">${toPersianNumbers(item.price)} هزار تومان</p>
+                    <button class="add-to-cart">+</button>
+                `;
+                
+                itemElement.querySelector('.add-to-cart').addEventListener('click', () => addToCart(item));
+                itemsContainer.appendChild(itemElement);
+            });
+        }
+
+        // تابع اضافه کردن به سبد خرید
+        function addToCart(item) {
+            const existingItem = cart.find(cartItem => cartItem.name === item.name);
+            
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({
+                    name: item.name,
+                    price: item.price,
+                    quantity: 1
+                });
+            }
+            
+            updateCart();
+        }
+
+        // تابع به‌روزرسانی سبد خرید
+        function updateCart() {
+            const cartItemsElement = document.getElementById('cartItems');
+            const cartCountElement = document.getElementById('cartCount');
+            const cartTotalElement = document.getElementById('cartTotal');
+            
+            cartItemsElement.innerHTML = '';
+            let total = 0;
+            
+            cart.forEach(item => {
+                total += item.price * item.quantity;
+                
+                const cartItemElement = document.createElement('div');
+                cartItemElement.className = 'cart-item';
+                cartItemElement.innerHTML = `
+                    <div class="cart-item-info">
+                        <div>${item.name}</div>
+                        <div>${toPersianNumbers(item.price)} هزار تومان</div>
+                    </div>
+                    <div class="cart-item-controls">
+                        <button class="cart-item-btn decrease">-</button>
+                        <div class="cart-item-quantity">${toPersianNumbers(item.quantity)}</div>
+                        <button class="cart-item-btn increase">+</button>
+                    </div>
+                `;
+                
+                cartItemElement.querySelector('.decrease').addEventListener('click', () => {
+                    if (item.quantity > 1) {
+                        item.quantity--;
+                    } else {
+                        cart = cart.filter(cartItem => cartItem !== item);
+                    }
+                    updateCart();
+                });
+                
+                cartItemElement.querySelector('.increase').addEventListener('click', () => {
+                    item.quantity++;
+                    updateCart();
+                });
+                
+                cartItemsElement.appendChild(cartItemElement);
+            });
+            
+            cartCountElement.textContent = toPersianNumbers(cart.reduce((sum, item) => sum + item.quantity, 0));
+            cartTotalElement.textContent = `مجموع: ${toPersianNumbers(total)} هزار تومان`;
+        }
+
+        // مدیریت باز و بسته شدن سبد خرید
+        document.getElementById('cartIcon').addEventListener('click', () => {
+            document.getElementById('cartSidebar').classList.add('open');
+        });
+        
+        document.getElementById('closeCart').addEventListener('click', () => {
+            document.getElementById('cartSidebar').classList.remove('open');
+        });
+
+        // بارگذاری اولیه صفحه
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCategories();
+            if (Object.keys(menuData).length > 0) {
+                showItems(Object.keys(menuData)[0]);
+            }
+        });
+    </script>
+</body>
+</html>
