@@ -3,15 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>بارگذاری...</title>
+  <title>کافی شاپ ویراگو</title>
 
   <!-- فونت فارسی (Vazirmatn از CDN) -->
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --primary-color: #d4a373;
+      --secondary-color: #fefae0;
+      --dark-color: #222222;
+      --light-color: #f8f9fa;
+    }
+    
     body {
       margin: 0;
-      background-color: #f4f4f4;
+      background-color: var(--dark-color);
       font-family: 'Vazirmatn', sans-serif;
       display: flex;
       justify-content: center;
@@ -19,70 +26,144 @@
       height: 100vh;
       flex-direction: column;
       text-align: center;
-      color: #222;
+      color: var(--light-color);
+      background-image: radial-gradient(circle at 10% 20%, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.03) 90%);
+      overflow-x: hidden;
     }
 
     .logo {
       width: 200px;
       margin-bottom: 40px;
-      filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.2));
+      filter: drop-shadow(0 0 8px rgba(212, 163, 115, 0.3));
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
     }
 
     .btn {
       padding: 15px 40px;
-      background-color: #222;
-      color: white;
+      background-color: var(--primary-color);
+      color: var(--dark-color);
       border: none;
       border-radius: 12px;
       font-size: 18px;
       cursor: pointer;
-      transition: 0.3s ease;
+      transition: all 0.3s ease;
       text-decoration: none;
+      font-weight: 500;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
     }
 
     .btn:hover {
-      background-color: #444;
+      background-color: #e6b882;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn:active {
+      transform: translateY(0);
     }
 
     .contact-info {
-      margin-top: 30px;
+      margin-top: 40px;
       font-size: 15px;
-      color: #444;
+      color: rgba(255, 255, 255, 0.8);
       line-height: 2;
-      opacity: 0.85;
     }
 
     .contact-info strong {
       font-weight: 500;
-      color: #000;
+      color: var(--secondary-color);
+    }
+
+    .contact-info a {
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .contact-info a:hover {
+      color: #e6b882;
+      text-decoration: underline;
     }
 
     .designer {
-      margin-top: 25px;
+      margin-top: 30px;
       font-size: 13.5px;
-      color: #888;
+      color: rgba(255, 255, 255, 0.6);
       font-style: italic;
     }
 
     .designer a {
-      color: #555;
+      color: var(--primary-color);
       text-decoration: none;
       font-weight: bold;
+      transition: all 0.2s ease;
     }
 
     .designer a:hover {
+      color: #e6b882;
       text-decoration: underline;
     }
+
+    /* افکت دکمه */
+    .btn::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 5px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.5);
+      opacity: 0;
+      border-radius: 100%;
+      transform: scale(1, 1) translate(-50%);
+      transform-origin: 50% 50%;
+    }
+
+    .btn:focus:not(:active)::after {
+      animation: ripple 1s ease-out;
+    }
+
+    @keyframes ripple {
+      0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+      }
+      100% {
+        transform: scale(20, 20);
+        opacity: 0;
+      }
+    }
+
+    /* انیمیشن ورود */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    body > * {
+      animation: fadeIn 0.6s ease-out forwards;
+    }
+
+    .logo { animation-delay: 0.1s; }
+    .btn { animation-delay: 0.2s; }
+    .contact-info { animation-delay: 0.3s; }
+    .designer { animation-delay: 0.4s; }
   </style>
 </head>
 <body>
 
-  <img src="./img/Untitled-2.png" alt="لوگو" class="logo"/>
+  <img src="./img/Untitled-2.png" alt="لوگو کافی شاپ ویراگو" class="logo"/>
 
-  <a href="./lo.html" class="btn">منو</a>
+  <a href="./lo.html" class="btn">مشاهده منو</a>
 
   <div class="contact-info">
-      اینستاگرام: <strong><a href="https://www.instagram.com/viragocoffee_" target="_blank">@viragocoffee_</a></strong><br>
+      اینستاگرام: <strong><a href="https://www.instagram.com/virago__coffee" target="_blank">@virago__coffee</a></strong><br>
     تلفن:
     <strong><a href="tel:09125359089">09125359089</a></strong> -
     <strong><a href="tel:88918477">02188918477</a></strong> -
