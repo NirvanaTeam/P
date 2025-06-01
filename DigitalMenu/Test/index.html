@@ -4,17 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>منوی دیجیتال فست فود | BurgerLand</title>
-  <!-- استفاده از فونت و آیکون‌های فونت‌آوسام -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    /* تنظیم متغیرهای رنگ برای تم تیره و خاکستری */
+    /* متغیرهای رنگ */
     :root {
-      --primary: #333333;       /* رنگ پایه تیره */
-      --secondary: #444444;     /* رنگ ثانویه */
-      --accent: #555555;        /* رنگ برجسته */
-      --dark: #111111;          /* رنگ بسیار تیره */
-      --light: #222222;         /* زمینه کلی تیره */
-      --text: #eeeeee;          /* متن روشن */
+      --primary: #E53935; /* قرمز - انرژی و اشتها */
+      --secondary: #FFA000; /* نارنجی - گرمی و اشتها */
+      --accent: #FFD600; /* زرد - شادی */
+      --dark: #212121; /* مشکی - لوکس */
+      --light: #F5F5F5; /* سفید */
+      --text: #424242; /* متن خاکستری */
     }
     
     * {
@@ -28,29 +28,56 @@
       background-color: var(--light);
       color: var(--text);
       overflow-x: hidden;
-      line-height: 1.6;
     }
     
     /* هدر منو */
     .menu-header {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: var(--text);
+      color: white;
       text-align: center;
       padding: 2rem 1rem;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
     
-    .menu-header h1 {
+    .menu-header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 1px, transparent 1px),
+        radial-gradient(circle at 80% 70%, rgba(255,255,255,0.1) 1px, transparent 1px);
+      background-size: 30px 30px;
+      animation: float 15s linear infinite;
+    }
+    
+    @keyframes float {
+      0% { background-position: 0 0, 0 0; }
+      100% { background-position: 30px 30px, 30px 30px; }
+    }
+    
+    .menu-title {
       font-size: 3rem;
       margin-bottom: 0.5rem;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      position: relative;
+      animation: bounce 1s ease;
     }
     
-    .menu-header p {
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-20px); }
+      60% { transform: translateY(-10px); }
+    }
+    
+    .menu-subtitle {
       font-size: 1.2rem;
       opacity: 0.9;
+      position: relative;
     }
     
     /* دسته‌بندی‌های منو */
@@ -59,11 +86,11 @@
       justify-content: center;
       flex-wrap: wrap;
       padding: 1rem;
-      background-color: var(--secondary);
+      background-color: white;
       position: sticky;
       top: 0;
       z-index: 90;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
     
     .category-btn {
@@ -86,19 +113,19 @@
       right: 0;
       width: 0;
       height: 3px;
-      background-color: var(--accent);
+      background-color: var(--primary);
       transition: width 0.3s ease;
     }
     
     .category-btn:hover, .category-btn.active {
-      color: var(--accent);
+      color: var(--primary);
     }
     
     .category-btn:hover::after, .category-btn.active::after {
       width: 100%;
     }
     
-    /* بخش آیتم‌های منو */
+    /* آیتم‌های منو */
     .menu-items {
       padding: 2rem;
       max-width: 1200px;
@@ -117,20 +144,11 @@
     
     .section-title {
       font-size: 2rem;
-      color: var(--accent);
-      margin-bottom: 1rem;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
       padding-bottom: 0.5rem;
-      border-bottom: 2px solid var(--accent);
+      border-bottom: 3px solid var(--accent);
       display: inline-block;
-    }
-    
-    /* تصویر دسته بندی – قرار دهید تصاویر را در فولدر موردنظر (مثلاً images/) قرار دهید */
-    .category-image {
-      width: 100%;
-      max-height: 200px;
-      object-fit: cover;
-      border-radius: 8px;
-      margin-bottom: 1rem;
     }
     
     .items-grid {
@@ -140,10 +158,10 @@
     }
     
     .menu-item {
-      background-color: var(--secondary);
+      background-color: white;
       border-radius: 10px;
       overflow: hidden;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
       transition: all 0.3s ease;
       position: relative;
       cursor: pointer;
@@ -151,18 +169,34 @@
     
     .menu-item:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.7);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
     }
     
     .item-image {
       height: 180px;
-      background-color: #555;
+      background-color: #e0e0e0;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 3rem;
       position: relative;
       overflow: hidden;
+    }
+    
+    .item-image::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(229,57,53,0.3), rgba(255,160,0,0.3));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .menu-item:hover .item-image::before {
+      opacity: 1;
     }
     
     .item-details {
@@ -173,7 +207,7 @@
       font-size: 1.4rem;
       font-weight: 600;
       margin-bottom: 0.5rem;
-      color: var(--text);
+      color: var(--dark);
     }
     
     .item-description {
@@ -186,14 +220,14 @@
     .item-price {
       font-size: 1.3rem;
       font-weight: 700;
-      color: var(--accent);
+      color: var(--primary);
       margin-bottom: 1rem;
       display: block;
     }
     
     .add-to-cart {
-      background-color: var(--accent);
-      color: var(--dark);
+      background-color: var(--primary);
+      color: white;
       border: none;
       padding: 0.7rem 1.5rem;
       border-radius: 50px;
@@ -207,7 +241,7 @@
     }
     
     .add-to-cart:hover {
-      background-color: #777777;
+      background-color: #C62828;
       transform: translateY(-2px);
     }
     
@@ -216,13 +250,13 @@
       font-size: 1.2rem;
     }
     
-    /* سبد خرید (قسمت‌های ساب فریم مانند نسخه‌های قبلی) */
+    /* سبد خرید */
     .cart-icon {
       position: fixed;
       bottom: 2rem;
       left: 2rem;
       background-color: var(--primary);
-      color: var(--text);
+      color: white;
       width: 60px;
       height: 60px;
       border-radius: 50%;
@@ -231,16 +265,16 @@
       justify-content: center;
       font-size: 1.5rem;
       cursor: pointer;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.7);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
       z-index: 100;
       transition: all 0.3s ease;
       animation: pulse 2s infinite;
     }
     
     @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(51,51,51,0.7); }
-      70% { box-shadow: 0 0 0 15px rgba(51,51,51,0); }
-      100% { box-shadow: 0 0 0 0 rgba(51,51,51,0); }
+      0% { box-shadow: 0 0 0 0 rgba(229,57,53,0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(229,57,53,0); }
+      100% { box-shadow: 0 0 0 0 rgba(229,57,53,0); }
     }
     
     .cart-icon:hover {
@@ -270,8 +304,8 @@
       right: -400px;
       width: 400px;
       height: 100vh;
-      background-color: var(--light);
-      box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+      background-color: white;
+      box-shadow: -5px 0 15px rgba(0,0,0,0.1);
       z-index: 200;
       transition: right 0.3s ease;
       display: flex;
@@ -285,7 +319,7 @@
     .cart-header {
       padding: 1.5rem;
       background-color: var(--primary);
-      color: var(--text);
+      color: white;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -299,7 +333,7 @@
     .close-cart {
       background: none;
       border: none;
-      color: var(--text);
+      color: white;
       font-size: 1.5rem;
       cursor: pointer;
     }
@@ -314,7 +348,7 @@
       display: flex;
       margin-bottom: 1.5rem;
       padding-bottom: 1.5rem;
-      border-bottom: 1px solid var(--accent);
+      border-bottom: 1px solid #eee;
       animation: slideIn 0.3s ease;
     }
     
@@ -326,7 +360,7 @@
     .cart-item-image {
       width: 80px;
       height: 80px;
-      background-color: #444;
+      background-color: #f5f5f5;
       border-radius: 8px;
       margin-left: 1rem;
       flex-shrink: 0;
@@ -346,7 +380,7 @@
     }
     
     .cart-item-price {
-      color: var(--accent);
+      color: var(--primary);
       font-weight: 600;
     }
     
@@ -359,7 +393,7 @@
     .quantity-btn {
       width: 25px;
       height: 25px;
-      background-color: #777;
+      background-color: #f0f0f0;
       border: none;
       border-radius: 4px;
       cursor: pointer;
@@ -384,8 +418,8 @@
     
     .cart-footer {
       padding: 1.5rem;
-      background-color: #333;
-      border-top: 1px solid var(--accent);
+      background-color: #f9f9f9;
+      border-top: 1px solid #eee;
     }
     
     .cart-total {
@@ -394,12 +428,11 @@
       font-size: 1.2rem;
       font-weight: 600;
       margin-bottom: 1.5rem;
-      color: var(--text);
     }
     
     .checkout-btn {
       background-color: var(--primary);
-      color: var(--text);
+      color: white;
       border: none;
       padding: 1rem;
       width: 100%;
@@ -411,14 +444,13 @@
     }
     
     .checkout-btn:hover {
-      background-color: #555;
+      background-color: #C62828;
     }
     
-    /* فرم تکمیل سفارش */
+    /* فرم تکمیل سفارش (به‌روزرسانی شده) */
     .checkout-form {
       display: none;
       padding: 1.5rem;
-      background-color: var(--secondary);
     }
     
     .form-group {
@@ -435,29 +467,27 @@
     .form-group textarea {
       width: 100%;
       padding: 0.8rem;
-      border: 1px solid var(--accent);
+      border: 1px solid #ddd;
       border-radius: 4px;
       font-size: 1rem;
-      background-color: var(--light);
-      color: var(--text);
     }
     
-    /* نمایش لوکیشن انتخاب‌شده */
+    /* استایل برای نمایش لوکیشن انتخاب‌شده */
     #locationDisplay {
-      background: #444;
+      background: #f0f0f0;
       padding: 0.8rem;
       border-radius: 4px;
       font-size: 0.95rem;
     }
     
-    /* پاپ‌آپ دریافت لوکیشن */
+    /* استایل پاپ‌آپ دریافت لوکیشن */
     #locationModal {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0,0,0,0.5);
       display: none;
       align-items: center;
       justify-content: center;
@@ -465,7 +495,7 @@
     }
     
     #locationModal .modal-content {
-      background: var(--light);
+      background: white;
       padding: 1rem;
       border-radius: 8px;
       width: 90%;
@@ -481,23 +511,23 @@
       border: none;
       font-size: 1.2rem;
       cursor: pointer;
-      color: var(--text);
     }
     
-    /* انیمیشن اسکرول برای بخش‌های منو */
-    .menu-section {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.6s ease;
-    }
-    
+    /* رسپانسیو */
     @media (max-width: 768px) {
-      .menu-header h1 { font-size: 2.2rem; }
-      .items-grid { grid-template-columns: 1fr; }
+      .menu-title {
+        font-size: 2.2rem;
+      }
+      
+      .items-grid {
+        grid-template-columns: 1fr;
+      }
+      
       .cart-panel {
         width: 100%;
         right: -100%;
       }
+      
       .cart-panel.open {
         right: 0;
       }
@@ -507,429 +537,133 @@
 <body>
   <!-- هدر منو -->
   <header class="menu-header">
-    <h1>BurgerLand</h1>
-    <p>منوی دیجیتال فست فود</p>
+    <h1 class="menu-title">BurgerLand</h1>
+    <p class="menu-subtitle">منوی دیجیتال فست فود</p>
   </header>
   
-  <!-- دسته‌بندی‌های منو -->
+  <!-- دسته‌بندی‌ها -->
   <div class="menu-categories">
-    <button class="category-btn active" data-category="doner-kebab">DONER KEBAB<br/>(کباب دونر)</button>
-    <button class="category-btn" data-category="hot-dog">HOT DOG<br/>(هات داگ)</button>
-    <button class="category-btn" data-category="handmade-burger">HANDMADE BURGER<br/>(برگر دست‌ساز)</button>
-    <button class="category-btn" data-category="hot-sandwich">HOT SANDWICH<br/>(ساندویچ گرم)</button>
-    <button class="category-btn" data-category="toast">TOAST<br/>(توست)</button>
-    <button class="category-btn" data-category="muffin">MUFFIN<br/>(مافین)</button>
-    <button class="category-btn" data-category="cold-sandwich">COLD SANDWICH<br/>(ساندویچ سرد)</button>
-    <button class="category-btn" data-category="pasta">PASTA<br/>(پاستا)</button>
-    <button class="category-btn" data-category="fried-potatoes">FRIED POTATOES<br/>(سیب‌زمینی)</button>
+    <button class="category-btn active" data-category="all">همه</button>
+    <button class="category-btn" data-category="burgers">برگرها</button>
+    <button class="category-btn" data-category="sandwiches">ساندویچ‌ها</button>
+    <button class="category-btn" data-category="sides">پیش‌غذاها</button>
+    <button class="category-btn" data-category="drinks">نوشیدنی‌ها</button>
   </div>
   
   <!-- آیتم‌های منو -->
   <div class="menu-items">
-    <!-- DONER KEBAB -->
-    <div class="menu-section" id="doner-kebab" data-category="doner-kebab">
-      <h2 class="section-title">DONER KEBAB<br/>(کباب دونر)</h2>
-      <img src="images/doner-kebab.jpg" alt="DONER KEBAB" class="category-image">
+    <!-- بخش برگرها -->
+    <div class="menu-section" id="burgers" data-category="burgers">
+      <h2 class="section-title">برگرها</h2>
       <div class="items-grid">
-        <!-- CLASSIC DONER -->
-        <div class="menu-item">
-          <div class="item-image">🍢</div>
-          <div class="item-details">
-            <h3 class="item-name">CLASSIC DONER<br/>(دونر کلاسیک)</h3>
-            <p class="item-description">مرغ گرم، نان تورتیلا، خیارشور، سیب‌زمینی، سس سیر</p>
-            <span class="item-price">220 تومان</span>
-            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
-          </div>
-        </div>
-        <!-- HATAY DONER -->
-        <div class="menu-item">
-          <div class="item-image">🍢</div>
-          <div class="item-details">
-            <h3 class="item-name">HATAY DONER<br/>(دونر هاتای)</h3>
-            <p class="item-description">مرغ گرم، نان تورتیلا، کاهو، گوجه، خیارشور، سس سیر، سس هاتای</p>
-            <span class="item-price">210 تومان</span>
-            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- HOT DOG -->
-    <div class="menu-section" id="hot-dog" data-category="hot-dog">
-      <h2 class="section-title">HOT DOG<br/>(هات داگ)</h2>
-      <img src="images/hot-dog.jpg" alt="HOT DOG" class="category-image">
-      <div class="items-grid">
-        <!-- HOT DOG CLASSIC -->
-        <div class="menu-item">
-          <div class="item-image">🌭</div>
-          <div class="item-details">
-            <h3 class="item-name">HOT DOG CLASSIC<br/>(هات داگ کلاسیک)</h3>
-            <p class="item-description">کریسپی، پنیر چدار، خیارشور</p>
-            <span class="item-price">190 تومان</span>
-            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
-          </div>
-        </div>
-        <!-- HOT DOG BACON -->
-        <div class="menu-item">
-          <div class="item-image">🌭</div>
-          <div class="item-details">
-            <h3 class="item-name">HOT DOG BACON<br/>(هات داگ بیکن)</h3>
-            <p class="item-description">بیکن، گودا دیپ، پیاز کاراملیزه، کریسپی، هالوپینو</p>
-            <span class="item-price">220 تومان</span>
-            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
-          </div>
-        </div>
-        <!-- HOT DOG MUSHROOM -->
-        <div class="menu-item">
-          <div class="item-image">🌭</div>
-          <div class="item-details">
-            <h3 class="item-name">HOT DOG MUSHROOM<br/>(هات داگ ماشروم)</h3>
-            <p class="item-description">سس ماشروم، کریسپی، هالوپینو</p>
-            <span class="item-price">230 تومان</span>
-            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- HANDMADE BURGER -->
-    <div class="menu-section" id="handmade-burger" data-category="handmade-burger">
-      <h2 class="section-title">HANDMADE BURGER<br/>(برگر دست‌ساز)</h2>
-      <img src="images/handmade-burger.jpg" alt="HANDMADE BURGER" class="category-image">
-      <div class="items-grid">
-        <!-- BURGER CLASSIC -->
+        <!-- آیتم 1 -->
         <div class="menu-item">
           <div class="item-image">🍔</div>
           <div class="item-details">
-            <h3 class="item-name">BURGER CLASSIC<br/>(برگر کلاسیک)</h3>
-            <p class="item-description">گوشت گرم ۱۵۰ گرمی، پنیر امنتال، سس، ماشروم، کریسپی، لوپینو</p>
-            <span class="item-price">280 تومان</span>
+            <h3 class="item-name">برگر کلاسیک</h3>
+            <p class="item-description">نان برگر، پتی ۱۵۰ گرمی، پنیر چدار، کاهو، گوجه، پیاز، سس مخصوص</p>
+            <span class="item-price">۸۵,۰۰۰ تومان</span>
             <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
           </div>
         </div>
-        <!-- BACON BURGER -->
+        <!-- آیتم 2 -->
         <div class="menu-item">
           <div class="item-image">🍔</div>
           <div class="item-details">
-            <h3 class="item-name">BACON BURGER<br/>(برگر بیکن)</h3>
-            <p class="item-description">گوشت گرم ۱۵۰ گرمی، بیکن، پنیر چدار، پیاز کاراملیزه، گوجه، کاهو، خیارشور</p>
-            <span class="item-price">325 تومان</span>
+            <h3 class="item-name">برگر دبل چیز</h3>
+            <p class="item-description">دو پتی ۱۵۰ گرمی، دو لایه پنیر چدار، قارچ، پیاز کاراملی، سس باربیکیو</p>
+            <span class="item-price">۱۲۰,۰۰۰ تومان</span>
             <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
           </div>
         </div>
-        <!-- MUSHROOM BURGER -->
+        <!-- آیتم 3 -->
         <div class="menu-item">
           <div class="item-image">🍔</div>
           <div class="item-details">
-            <h3 class="item-name">MUSHROOM BURGER<br/>(برگر ماشروم)</h3>
-            <p class="item-description">گوشت گرم ۱۵۰ گرمی، بیکن، پیاز کاراملیزه، کریسپی، دیپ چدار، لوپینو</p>
-            <span class="item-price">315 تومان</span>
-            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
-          </div>
-        </div>
-        <!-- SPECIAL BURGER -->
-        <div class="menu-item">
-          <div class="item-image">🍔</div>
-          <div class="item-details">
-            <h3 class="item-name">SPECIAL BURGER<br/>(برگر اسپشیال)</h3>
-            <p class="item-description">گوشت گرم ۱۵۰ گرمی استیک، نان کره و سیر، پنیر چدار، دیپ چدار، کریسپی، لوپینو، کاهو، گوجه</p>
-            <span class="item-price">355 تومان</span>
+            <h3 class="item-name">برگر اسپایسی</h3>
+            <p class="item-description">پتی ۲۰۰ گرمی، پنیر پپر جک، فلفل تند، پیاز، سس تند مخصوص</p>
+            <span class="item-price">۹۵,۰۰۰ تومان</span>
             <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
           </div>
         </div>
       </div>
     </div>
     
-    <!-- HOT SANDWICH -->
-    <div class="menu-section" id="hot-sandwich" data-category="hot-sandwich">
-      <h2 class="section-title">HOT SANDWICH<br/>(ساندویچ گرم)</h2>
-      <img src="images/hot-sandwich.jpg" alt="HOT SANDWICH" class="category-image">
+    <!-- بخش ساندویچ‌ها -->
+    <div class="menu-section" id="sandwiches" data-category="sandwiches">
+      <h2 class="section-title">ساندویچ‌ها</h2>
       <div class="items-grid">
-        <!-- ROAST BEEF -->
+        <!-- آیتم 1 -->
         <div class="menu-item">
           <div class="item-image">🥪</div>
           <div class="item-details">
-            <h3 class="item-name">ROAST BEEF<br/>(رست بیف)</h3>
-            <p class="item-description">استیک گرم ۱۳۵ گرمی، سس رومسکو، پنیر گودا، کریسپی، لوپینو</p>
-            <span class="item-price">320 تومان</span>
+            <h3 class="item-name">ساندویچ مرغ</h3>
+            <p class="item-description">فیله مرغ سوخاری، کاهو، گوجه، مایونز، نان باگت</p>
+            <span class="item-price">۷۵,۰۰۰ تومان</span>
             <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
           </div>
         </div>
-        <!-- STEAK SANDWICH -->
+        <!-- آیتم 2 -->
         <div class="menu-item">
           <div class="item-image">🥪</div>
           <div class="item-details">
-            <h3 class="item-name">STEAK SANDWICH<br/>(ساندویچ استیک)</h3>
-            <p class="item-description">بیف رست ۱۳۵ گرمی، پنیر امنتال، سس ماشروم، سس مخصوص، کریسپی، لوپینو</p>
-            <span class="item-price">325 تومان</span>
-            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
-          </div>
-        </div>
-        <!-- BACON SANDWICH -->
-        <div class="menu-item">
-          <div class="item-image">🥪</div>
-          <div class="item-details">
-            <h3 class="item-name">BACON SANDWICH<br/>(ساندویچ بیکن)</h3>
-            <p class="item-description">بیکن %98، پنیر امنتال، خیارشور، کریسپی، لوپینو</p>
-            <span class="item-price">315 تومان</span>
+            <h3 class="item-name">ساندویچ چیکن چیز</h3>
+            <p class="item-description">فیله مرغ گریل شده، پنیر موزارلا، قارچ، سس مخصوص</p>
+            <span class="item-price">۸۵,۰۰۰ تومان</span>
             <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
           </div>
         </div>
       </div>
     </div>
     
-    <!-- TOAST -->
-    <div class="menu-section" id="toast" data-category="toast">
-      <h2 class="section-title">TOAST<br/>(توست)</h2>
-      <img src="images/toast.jpg" alt="TOAST" class="category-image">
+    <!-- بخش پیش‌غذاها -->
+    <div class="menu-section" id="sides" data-category="sides">
+      <h2 class="section-title">پیش‌غذاها</h2>
       <div class="items-grid">
-        <!-- TOAST SALAMI -->
+        <!-- آیتم 1 -->
         <div class="menu-item">
-          <div class="item-image">🍞</div>
+          <div class="item-image">🍟</div>
           <div class="item-details">
-            <h3 class="item-name">TOAST SALAMI<br/>(سالامی)</h3>
-            <p class="item-description">پنیر موزارلا، لوپینو، سالامی</p>
-            <span class="item-price">200 تومان</span>
+            <h3 class="item-name">سیب‌زمینی سرخ کرده</h3>
+            <p class="item-description">سیب‌زمینی خلالی با نمک و ادویه مخصوص، سس قرمز</p>
+            <span class="item-price">۴۵,۰۰۰ تومان</span>
             <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
           </div>
         </div>
-        <!-- TOAST KRAKOW -->
+        <!-- آیتم 2 -->
         <div class="menu-item">
-          <div class="item-image">🍞</div>
+          <div class="item-image">🧅</div>
           <div class="item-details">
-            <h3 class="item-name">TOAST KRAKOW<br/>(کراکوف)</h3>
-            <p class="item-description">پنیر پنیری، کراکوف، لوپینو</p>
-            <span class="item-price">210 تومان</span>
-            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
-          </div>
-        </div>
-        <!-- TOAST PEPPERONI -->
-        <div class="menu-item">
-          <div class="item-image">🍞</div>
-          <div class="item-details">
-            <h3 class="item-name">TOAST PEPPERONI<br/>(پپرونی)</h3>
-            <p class="item-description">پنیر موزارلا، پپرونی، لوپینو</p>
-            <span class="item-price">190 تومان</span>
+            <h3 class="item-name">پیاز سوخاری</h3>
+            <p class="item-description">پیاز خلالی سوخاری با آرد مخصوص، سس باربیکیو</p>
+            <span class="item-price">۵۵,۰۰۰ تومان</span>
             <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
           </div>
         </div>
       </div>
     </div>
     
-    <!-- MUFFIN -->
-    <div class="menu-section" id="muffin" data-category="muffin">
-      <h2 class="section-title">MUFFIN<br/>(مافین)</h2>
-      <img src="images/muffin.jpg" alt="MUFFIN" class="category-image">
+    <!-- بخش نوشیدنی‌ها -->
+    <div class="menu-section" id="drinks" data-category="drinks">
+      <h2 class="section-title">نوشیدنی‌ها</h2>
       <div class="items-grid">
-        <!-- MUFFIN WITH ROAST BEEF -->
+        <!-- آیتم 1 -->
         <div class="menu-item">
-          <div class="item-image">🧁</div>
+          <div class="item-image">🥤</div>
           <div class="item-details">
-            <h3 class="item-name">MUFFIN WITH ROAST BEEF<br/>(مافین بیف)</h3>
-            <p class="item-description">نان مافین انگلیسی، چدار، بیف روست، سس مخصوص</p>
-            <span class="item-price">190 تومان</span>
+            <h3 class="item-name">نوشابه گازدار</h3>
+            <p class="item-description">کوکاکولا، فانتا، اسپرایت، مائوتا (۳۳۰ میلی‌لیتر)</p>
+            <span class="item-price">۳۰,۰۰۰ تومان</span>
             <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
           </div>
         </div>
-        <!-- MUFFIN WITH BACON -->
+        <!-- آیتم 2 -->
         <div class="menu-item">
-          <div class="item-image">🧁</div>
+          <div class="item-image">🧃</div>
           <div class="item-details">
-            <h3 class="item-name">MUFFIN WITH BACON<br/>(مافین بیکن)</h3>
-            <p class="item-description">نان مافین انگلیسی، بیکن %98، پنیر گودا، سس مخصوص</p>
-            <span class="item-price">175 تومان</span>
-            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
-          </div>
-        </div>
-        <!-- MUFFIN WITH STEAK -->
-        <div class="menu-item">
-          <div class="item-image">🧁</div>
-          <div class="item-details">
-            <h3 class="item-name">MUFFIN WITH STEAK<br/>(مافین استیک)</h3>
-            <p class="item-description">نان مافین انگلیسی، چدار، استیک، سس مخصوص</p>
-            <span class="item-price">190 تومان</span>
-            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
-          </div>
-        </div>
-        <!-- MUFFIN BURGER -->
-        <div class="menu-item">
-          <div class="item-image">🧁</div>
-          <div class="item-details">
-            <h3 class="item-name">MUFFIN BURGER<br/>(مافین برگر)</h3>
-            <p class="item-description">نان مافین انگلیسی، برگر دست‌ساز، چدار، سس مخصوص</p>
-            <span class="item-price">200 تومان</span>
-            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- COLD SANDWICH -->
-    <div class="menu-section" id="cold-sandwich" data-category="cold-sandwich">
-      <h2 class="section-title">COLD SANDWICH<br/>(ساندویچ سرد)</h2>
-      <img src="images/cold-sandwich.jpg" alt="COLD SANDWICH" class="category-image">
-      <div class="items-grid">
-        <!-- MEXICAN CHICKEN -->
-        <div class="menu-item">
-          <div class="item-image">🥪</div>
-          <div class="item-details">
-            <h3 class="item-name">MEXICAN CHICKEN<br/>(مرغ مکزیکی)</h3>
-            <p class="item-description">نان فوکاچا، مرغ، کاهو، سس گوجه، پستو، گردو، زیتون، پارمسان، سس کریسپی</p>
-            <span class="item-price">255 تومان</span>
-            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
-          </div>
-        </div>
-        <!-- SMOKED TURKEY -->
-        <div class="menu-item">
-          <div class="item-image">🥪</div>
-          <div class="item-details">
-            <h3 class="item-name">SMOKED TURKEY<br/>(بوقلمون دودی)</h3>
-            <p class="item-description">نان فوکاچا، بوقلمون دودی، کاهو، سس گوجه، پستو، گردو، زیتون، پارمسان، سس کریسپی</p>
-            <span class="item-price">250 تومان</span>
-            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
-          </div>
-        </div>
-        <!-- BACON -->
-        <div class="menu-item">
-          <div class="item-image">🥪</div>
-          <div class="item-details">
-            <h3 class="item-name">BACON<br/>(بیکن %98)</h3>
-            <p class="item-description">نان فوکاچا، بیکن، کاهو، گوجه، زیتون، پستو، گردو، پارمسان، سس کریسپی</p>
-            <span class="item-price">310 تومان</span>
-            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
-          </div>
-        </div>
-        <!-- SIMIT -->
-        <div class="menu-item">
-          <div class="item-image">🥪</div>
-          <div class="item-details">
-            <h3 class="item-name">SIMIT<br/>(سیمیت)</h3>
-            <p class="item-description">نان سیمیت، ژامبون مرغ، پنیر خامه‌ای، گوجه، زیتون</p>
-            <span class="item-price">200 تومان</span>
-            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- PASTA -->
-    <div class="menu-section" id="pasta" data-category="pasta">
-      <h2 class="section-title">PASTA<br/>(پاستا)</h2>
-      <img src="images/pasta.jpg" alt="PASTA" class="category-image">
-      <div class="items-grid">
-        <!-- PESTO PASTA -->
-        <div class="menu-item">
-          <div class="item-image">🍝</div>
-          <div class="item-details">
-            <h3 class="item-name">PESTO PASTA<br/>(پاستا پستو)</h3>
-            <p class="item-description">پاستا با سس پستو، خامه، فیله مرغ، گوجه، پارمسان</p>
-            <span class="item-price">290 تومان</span>
-            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
-          </div>
-        </div>
-        <!-- STEAK ALFREDO PASTA -->
-        <div class="menu-item">
-          <div class="item-image">🍝</div>
-          <div class="item-details">
-            <h3 class="item-name">STEAK ALFREDO PASTA<br/>(پاستا آلفردو استیک)</h3>
-            <p class="item-description">استیک، سس آلفردو، گوجه چری، پارمسان</p>
-            <span class="item-price">315 تومان</span>
-            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
-          </div>
-        </div>
-        <!-- CHICKEN ALFREDO PASTA -->
-        <div class="menu-item">
-          <div class="item-image">🍝</div>
-          <div class="item-details">
-            <h3 class="item-name">CHICKEN ALFREDO PASTA<br/>(پاستا آلفردو مرغ)</h3>
-            <p class="item-description">فیله مرغ، سس آلفردو، گوجه چری، پارمسان</p>
-            <span class="item-price">290 تومان</span>
-            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
-          </div>
-        </div>
-        <!-- ARABIATTA PASTA -->
-        <div class="menu-item">
-          <div class="item-image">🍝</div>
-          <div class="item-details">
-            <h3 class="item-name">ARABIATTA PASTA<br/>(پاستا آربیاتا)</h3>
-            <p class="item-description">سس آربیاتا، استیک، پارمسان</p>
-            <span class="item-price">300 تومان</span>
-            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- FRIED POTATOES -->
-    <div class="menu-section" id="fried-potatoes" data-category="fried-potatoes">
-      <h2 class="section-title">FRIED POTATOES<br/>(سیب‌زمینی)</h2>
-      <img src="images/fried-potatoes.jpg" alt="FRIED POTATOES" class="category-image">
-      <div class="items-grid">
-        <!-- POTATOES WITH BACON -->
-        <div class="menu-item">
-          <div class="item-image">🍟</div>
-          <div class="item-details">
-            <h3 class="item-name">POTATOES WITH BACON<br/>(با بیکن)</h3>
-            <p class="item-description">سیب‌زمینی، بیکن، سس ماشروم</p>
-            <span class="item-price">225 تومان</span>
-            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
-          </div>
-        </div>
-        <!-- POTATOES WITH SALAMI -->
-        <div class="menu-item">
-          <div class="item-image">🍟</div>
-          <div class="item-details">
-            <h3 class="item-name">POTATOES WITH SALAMI<br/>(با سالامی)</h3>
-            <p class="item-description">سیب‌زمینی، سالامی تنوری، پنیر گودا</p>
-            <span class="item-price">200 تومان</span>
-            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
-          </div>
-        </div>
-        <!-- POTATOES WITH PEPPERONI -->
-        <div class="menu-item">
-          <div class="item-image">🍟</div>
-          <div class="item-details">
-            <h3 class="item-name">POTATOES WITH PEPPERONI<br/>(با پپرونی)</h3>
-            <p class="item-description">سیب‌زمینی، پپرونی</p>
-            <span class="item-price">190 تومان</span>
-            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
-          </div>
-        </div>
-        <!-- POTATOES WITH FILLED -->
-        <div class="menu-item">
-          <div class="item-image">🍟</div>
-          <div class="item-details">
-            <h3 class="item-name">POTATOES WITH FILLED<br/>(با فیله سوخاری)</h3>
-            <p class="item-description">سیب‌زمینی، فیله سوخاری</p>
-            <span class="item-price">190 تومان</span>
-            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
-          </div>
-        </div>
-        <!-- POTATOES WITH STEAK -->
-        <div class="menu-item">
-          <div class="item-image">🍟</div>
-          <div class="item-details">
-            <h3 class="item-name">POTATOES WITH STEAK<br/>(با استیک)</h3>
-            <p class="item-description">سیب‌زمینی، استیک</p>
-            <span class="item-price">240 تومان</span>
-            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
-          </div>
-        </div>
-        <!-- SMALL POTATOES -->
-        <div class="menu-item">
-          <div class="item-image">🍟</div>
-          <div class="item-details">
-            <h3 class="item-name">SMALL POTATOES<br/>(کوچک)</h3>
-            <span class="item-price">100 تومان</span>
-            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
-          </div>
-        </div>
-        <!-- BIG POTATOES -->
-        <div class="menu-item">
-          <div class="item-image">🍟</div>
-          <div class="item-details">
-            <h3 class="item-name">BIG POTATOES<br/>(بزرگ)</h3>
-            <span class="item-price">150 تومان</span>
+            <h3 class="item-name">آبمیوه طبیعی</h3>
+            <p class="item-description">پرتقال، انبه، هویج (۲۵۰ میلی‌لیتر)</p>
+            <span class="item-price">۴۰,۰۰۰ تومان</span>
             <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
           </div>
         </div>
@@ -937,29 +671,30 @@
     </div>
   </div>
   
-  <!-- سبد خرید (ساختار همانند نسخه‌های قبلی) -->
+  <!-- سبد خرید -->
   <div class="cart-icon" id="cartIcon">
     <i class="fas fa-shopping-cart"></i>
     <span class="cart-count">0</span>
   </div>
   
+  <!-- پنل سبد خرید -->
   <div class="cart-panel" id="cartPanel">
     <div class="cart-header">
       <h3 class="cart-title">سبد خرید شما</h3>
       <button class="close-cart" id="closeCart"><i class="fas fa-times"></i></button>
     </div>
     <div class="cart-items" id="cartItems">
-      <!-- آیتم‌های سبد خرید نمایش داده می‌شوند -->
+      <!-- آیتم‌های سبد خرید اینجا نمایش داده می‌شوند -->
     </div>
     <div class="cart-footer">
       <div class="cart-total">
         <span>جمع کل:</span>
-        <span id="cartTotal">0 تومان</span>
+        <span id="cartTotal">۰ تومان</span>
       </div>
       <button class="checkout-btn" id="checkoutBtn">تکمیل سفارش</button>
     </div>
     
-    <!-- فرم تکمیل سفارش -->
+    <!-- فرم تکمیل سفارش (به‌روزرسانی شده) -->
     <div class="checkout-form" id="checkoutForm">
       <div class="form-group">
         <label for="name">نام کامل</label>
@@ -984,9 +719,9 @@
       <button type="button" class="back-to-cart" id="backToCart">بازگشت به سبد خرید</button>
     </div>
     
-    <!-- پیام تایید سفارش -->
+    <!-- پیام تایید (پس از ثبت سفارش؛ همانند نسخه اصلی) -->
     <div class="verify-message" id="verifyMessage" style="display: none; text-align: center; padding: 2rem;">
-      <i class="fas fa-check-circle" style="font-size: 3rem; color: var(--accent); margin-bottom: 1rem;"></i>
+      <i class="fas fa-check-circle" style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;"></i>
       <p>سفارش شما با موفقیت ثبت شد!</p>
       <p>لطفاً کد 4 رقمی که براتون پیامک شد را ارسال کنید</p>
       <button type="button" class="back-to-cart" id="backToMenu">بازگشت به منو</button>
@@ -1029,7 +764,7 @@
       const closeLocationModal = document.getElementById('closeLocationModal');
       const confirmLocation = document.getElementById('confirmLocation');
       
-      // تبدیل ارقام فارسی به انگلیسی (در صورت نیاز)
+      // تابع کمکی: تبدیل ارقام فارسی به انگلیسی
       function persianToEnglish(str) {
         const persianDigits = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
         for (let i = 0; i < persianDigits.length; i++) {
@@ -1038,7 +773,7 @@
         return str;
       }
       
-      // باز/بسته کردن پنل سبد خرید
+      // باز و بسته کردن پنل سبد خرید
       cartIcon.addEventListener('click', function() {
         cartPanel.classList.add('open');
       });
@@ -1047,7 +782,7 @@
         cartPanel.classList.remove('open');
       });
       
-      // فیلتر کردن دسته‌بندی‌ها
+      // فیلتر کردن آیتم‌های منو
       const categoryButtons = document.querySelectorAll('.category-btn');
       const menuSections = document.querySelectorAll('.menu-section');
       
@@ -1062,7 +797,6 @@
             section.style.display = 'none';
           });
           
-          // نمایش همه اگر انتخاب "همه" باشد (اگر اضافه کنید)
           if (selectedCategory === 'all') {
             menuSections.forEach(section => {
               section.style.display = 'block';
@@ -1085,10 +819,13 @@
           const menuItem = this.closest('.menu-item');
           const itemName = menuItem.querySelector('.item-name').textContent;
           const rawPrice = menuItem.querySelector('.item-price').textContent;
+          // حذف کاراکترهای غیر عددی بعد از تبدیل
           const itemPrice = parseInt(persianToEnglish(rawPrice).replace(/[^0-9]/g, ''));
           const itemImage = menuItem.querySelector('.item-image').textContent;
           
+          // بررسی وجود آیتم در سبد خرید
           const existingItem = cart.find(item => item.name === itemName);
+          
           if (existingItem) {
             existingItem.quantity++;
           } else {
@@ -1099,11 +836,13 @@
               image: itemImage
             });
           }
+          
           updateCart();
           
-          // انیمیشن افزودن آیتم به سبد خرید
+          // انیمیشن افزودن به سبد
           const cartRect = cartIcon.getBoundingClientRect();
           const buttonRect = this.getBoundingClientRect();
+          
           const flyingItem = document.createElement('div');
           flyingItem.style.position = 'fixed';
           flyingItem.style.left = `${buttonRect.left}px`;
@@ -1113,12 +852,14 @@
           flyingItem.style.transition = 'all 0.5s ease';
           flyingItem.innerHTML = itemImage;
           document.body.appendChild(flyingItem);
+          
           setTimeout(() => {
             flyingItem.style.left = `${cartRect.left}px`;
             flyingItem.style.top = `${cartRect.top}px`;
             flyingItem.style.transform = 'scale(0.5)';
             flyingItem.style.opacity = '0.5';
           }, 10);
+          
           setTimeout(() => {
             document.body.removeChild(flyingItem);
           }, 500);
@@ -1134,10 +875,12 @@
         cartTotalElement.textContent = totalPrice.toLocaleString('fa-IR') + ' تومان';
         
         cartItemsContainer.innerHTML = '';
+        
         if (cart.length === 0) {
           cartItemsContainer.innerHTML = '<p style="text-align: center; padding: 2rem;">سبد خرید شما خالی است</p>';
           return;
         }
+        
         cart.forEach((item, index) => {
           const cartItemElement = document.createElement('div');
           cartItemElement.className = 'cart-item';
@@ -1159,4 +902,157 @@
         
         document.querySelectorAll('.remove-item').forEach(button => {
           button.addEventListener('click', function() {
-           
+            const index = parseInt(this.dataset.index);
+            cart.splice(index, 1);
+            updateCart();
+          });
+        });
+        
+        document.querySelectorAll('.quantity-btn.minus').forEach(button => {
+          button.addEventListener('click', function() {
+            const index = parseInt(this.dataset.index);
+            if (cart[index].quantity > 1) {
+              cart[index].quantity--;
+            } else {
+              cart.splice(index, 1);
+            }
+            updateCart();
+          });
+        });
+        
+        document.querySelectorAll('.quantity-btn.plus').forEach(button => {
+          button.addEventListener('click', function() {
+            const index = parseInt(this.dataset.index);
+            cart[index].quantity++;
+            updateCart();
+          });
+        });
+      }
+      
+      // دریافت موقعیت (لوکیشن) از پاپ‌آپ
+      getLocationBtn.addEventListener('click', function() {
+        locationModal.style.display = 'flex';
+        // اگر نقشه قبلاً ساخته نشده، آن را ایجاد می‌کنیم.
+        if (!modalMap) {
+          const defaultPosition = [35.6953385, 51.2542623];
+          modalMap = L.map('modalMap').setView(defaultPosition, 13);
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          }).addTo(modalMap);
+          modalMarker = L.marker(defaultPosition, {draggable: true}).addTo(modalMap);
+          
+          modalMarker.on('dragend', function() {
+            const pos = modalMarker.getLatLng();
+            selectedLocation = { lat: pos.lat, lng: pos.lng };
+          });
+          
+          modalMap.on('click', function(e) {
+            selectedLocation = { lat: e.latlng.lat, lng: e.latlng.lng };
+            modalMarker.setLatLng(e.latlng);
+          });
+          selectedLocation = { lat: defaultPosition[0], lng: defaultPosition[1] };
+        }
+      });
+      
+      closeLocationModal.addEventListener('click', function() {
+        locationModal.style.display = 'none';
+      });
+      
+      confirmLocation.addEventListener('click', function() {
+        locationModal.style.display = 'none';
+        if (selectedLocation) {
+          userLocation = selectedLocation;
+          locationCoordinatesSpan.textContent = `(${userLocation.lat.toFixed(6)}, ${userLocation.lng.toFixed(6)})`;
+        }
+      });
+      
+      // مدیریت فرآیند تسویه حساب
+      checkoutBtn.addEventListener('click', function() {
+        if (cart.length === 0) {
+          alert('سبد خرید شما خالی است!');
+          return;
+        }
+        cartItemsContainer.style.display = 'none';
+        document.querySelector('.cart-footer').style.display = 'none';
+        checkoutForm.style.display = 'block';
+      });
+      
+      backToCart.addEventListener('click', function() {
+        cartItemsContainer.style.display = 'block';
+        document.querySelector('.cart-footer').style.display = 'flex';
+        checkoutForm.style.display = 'none';
+      });
+      
+      // ارسال اطلاعات سفارش به واتساپ پس از زدن "تایید"
+      submitOrder.addEventListener('click', function() {
+        const name = document.getElementById('name').value;
+        const phone = document.getElementById('phone').value;
+        const address = document.getElementById('address').value;
+        
+        if (!name || !phone) {
+          alert('لطفاً نام و شماره تماس خود را وارد کنید');
+          return;
+        }
+        if (!userLocation) {
+          alert('لطفاً موقعیت مکانی را دریافت کنید');
+          return;
+        }
+        
+        // ساخت پیام سفارش
+        let message = "سفارش از BurgerLand:\n\n";
+        message += `نام: ${name}\n`;
+        message += `شماره تماس: ${phone}\n`;
+        message += `آدرس: ${address || '---'}\n`;
+        message += `موقعیت مکانی: (${userLocation.lat.toFixed(6)}, ${userLocation.lng.toFixed(6)})\n\n`;
+        message += "سفارش:\n";
+        cart.forEach(item => {
+          message += `${item.name} - تعداد: ${item.quantity} - قیمت واحد: ${item.price.toLocaleString('fa-IR')} تومان\n`;
+        });
+        const totalPrice = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+        message += `\nجمع کل: ${totalPrice.toLocaleString('fa-IR')} تومان`;
+        
+        // شماره واتساپ: حذف + برای فرم صحیح URL
+        const whatsappNumber = "989334479527";
+        const whatsappUrl = "https://api.whatsapp.com/send?phone=" + whatsappNumber + "&text=" + encodeURIComponent(message);
+        window.open(whatsappUrl, '_blank');
+      });
+      
+      backToMenu.addEventListener('click', function() {
+        cart = [];
+        updateCart();
+        verifyMessage.style.display = 'none';
+        cartItemsContainer.style.display = 'block';
+        document.querySelector('.cart-footer').style.display = 'flex';
+        cartPanel.classList.remove('open');
+        
+        document.getElementById('name').value = '';
+        document.getElementById('phone').value = '';
+        document.getElementById('address').value = '';
+        locationCoordinatesSpan.textContent = "هنوز انتخاب نشده";
+      });
+      
+      // انیمیشن اسکرول برای بخش‌های منو
+      function animateOnScroll() {
+        menuSections.forEach(section => {
+          const sectionPosition = section.getBoundingClientRect().top;
+          const screenPosition = window.innerHeight / 1.2;
+          
+          if (sectionPosition < screenPosition) {
+            section.style.opacity = '1';
+            section.style.transform = 'translateY(0)';
+          }
+        });
+      }
+      
+      menuSections.forEach(section => {
+        section.style.opacity = '0';
+        section.style.transform = 'translateY(20px)';
+        section.style.transition = 'all 0.6s ease';
+      });
+      
+      window.addEventListener('scroll', animateOnScroll);
+      animateOnScroll();
+    });
+  </script>
+</body>
+</html>
