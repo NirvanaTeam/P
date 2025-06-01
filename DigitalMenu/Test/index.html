@@ -1,386 +1,1162 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دونریتو | Donerito</title>
-    <style>
-        @font-face {
-            font-family: 'Yekan';
-            src: url('https://cdn.fontcdn.ir/Font/Persian/Yekan/Yekan.eot');
-            src: url('https://cdn.fontcdn.ir/Font/Persian/Yekan/Yekan.eot?#iefix') format('embedded-opentype'),
-                 url('https://cdn.fontcdn.ir/Font/Persian/Yekan/Yekan.woff') format('woff'),
-                 url('https://cdn.fontcdn.ir/Font/Persian/Yekan/Yekan.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Yekan', 'Vazir', 'Segoe UI', Tahoma, sans-serif;
-        }
-        
-        body {
-            background-color: #000;
-            color: #fff;
-            overflow: hidden;
-            height: 100vh;
-            width: 100vw;
-        }
-        
-        /* صفحه لودینگ */
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #000;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            transition: opacity 0.5s;
-        }
-        
-        .loading-logo {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-        
-        .loading-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            border-radius: 50%;
-        }
-        
-        .loading-bar-container {
-            width: 200px;
-            height: 4px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 2px;
-            overflow: hidden;
-            margin-top: 20px;
-        }
-        
-        .loading-bar {
-            height: 100%;
-            width: 0%;
-            background-color: #fff;
-            transition: width 0.3s;
-        }
-        
-        /* صفحه اصلی */
-        .video-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #000;
-        }
-        
-        .video-container video {
-            height: 100%;
-            width: auto;
-            max-width: none;
-        }
-        
-        .content {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            opacity: 0;
-            transition: opacity 0.5s;
-        }
-        
-        .content.show {
-            opacity: 1;
-        }
-        
-        .main-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            max-width: 500px;
-            margin-top: -50px;
-        }
-        
-        .logo-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-        
-        .logo-circle {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        
-        .logo-circle img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            border-radius: 50%;
-        }
-        
-        .persian-title {
-            font-size: 2.5rem;
-            font-weight: bold;
-            text-align: center;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
-            margin-bottom: 30px;
-        }
-        
-        .nav-container {
-            background-color: rgba(0, 0, 0, 0.85);
-            border-radius: 20px;
-            padding: 15px;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .nav-btn {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: white;
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            padding: 10px 15px;
-            border-radius: 15px;
-            flex: 1;
-            margin: 0 5px;
-            background-color: rgba(255, 255, 255, 0.08);
-        }
-        
-        .nav-btn:hover {
-            background-color: rgba(255, 255, 255, 0.15);
-            transform: translateY(-2px);
-        }
-        
-        .nav-btn i {
-            font-size: 1.6rem;
-            margin-bottom: 8px;
-        }
-        
-        /* کنترل صدا */
-        .volume-control {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            z-index: 10;
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: none;
-            color: white;
-            cursor: pointer;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            opacity: 0;
-            transition: opacity 0.5s;
-        }
-        
-        .volume-control.show {
-            opacity: 1;
-        }
-        
-        /* نسخه موبایل */
-        @media (max-width: 768px) {
-            .video-container video {
-                width: auto;
-                height: 100%;
-            }
-            
-            .logo-circle {
-                width: 100px;
-                height: 100px;
-            }
-            
-            .persian-title {
-                font-size: 2rem;
-            }
-            
-            .nav-container {
-                padding: 12px;
-            }
-            
-            .nav-btn {
-                font-size: 0.9rem;
-                padding: 8px 10px;
-            }
-            
-            .nav-btn i {
-                font-size: 1.4rem;
-            }
-        }
-    </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>منوی دیجیتال فست فود | BurgerLand</title>
+  <!-- استفاده از فونت و آیکون‌های فونت‌آوسام -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* تنظیم متغیرهای رنگ برای تم تیره و خاکستری */
+    :root {
+      --primary: #333333;       /* رنگ پایه تیره */
+      --secondary: #444444;     /* رنگ ثانویه */
+      --accent: #555555;        /* رنگ برجسته */
+      --dark: #111111;          /* رنگ بسیار تیره */
+      --light: #222222;         /* زمینه کلی تیره */
+      --text: #eeeeee;          /* متن روشن */
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: var(--light);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    
+    /* هدر منو */
+    .menu-header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: var(--text);
+      text-align: center;
+      padding: 2rem 1rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+    
+    .menu-header h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    }
+    
+    .menu-header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+    
+    /* دسته‌بندی‌های منو */
+    .menu-categories {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 1rem;
+      background-color: var(--secondary);
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+    
+    .category-btn {
+      background: none;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      margin: 0 0.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    
+    .category-btn::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 0;
+      height: 3px;
+      background-color: var(--accent);
+      transition: width 0.3s ease;
+    }
+    
+    .category-btn:hover, .category-btn.active {
+      color: var(--accent);
+    }
+    
+    .category-btn:hover::after, .category-btn.active::after {
+      width: 100%;
+    }
+    
+    /* بخش آیتم‌های منو */
+    .menu-items {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .menu-section {
+      margin-bottom: 3rem;
+      animation: fadeIn 0.5s ease-out;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .section-title {
+      font-size: 2rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+    
+    /* تصویر دسته بندی – قرار دهید تصاویر را در فولدر موردنظر (مثلاً images/) قرار دهید */
+    .category-image {
+      width: 100%;
+      max-height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    
+    .items-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .menu-item {
+      background-color: var(--secondary);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+      transition: all 0.3s ease;
+      position: relative;
+      cursor: pointer;
+    }
+    
+    .menu-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.7);
+    }
+    
+    .item-image {
+      height: 180px;
+      background-color: #555;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .item-details {
+      padding: 1.5rem;
+    }
+    
+    .item-name {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    
+    .item-description {
+      color: var(--text);
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    
+    .item-price {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: block;
+    }
+    
+    .add-to-cart {
+      background-color: var(--accent);
+      color: var(--dark);
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+    
+    .add-to-cart:hover {
+      background-color: #777777;
+      transform: translateY(-2px);
+    }
+    
+    .add-to-cart i {
+      margin-left: 0.5rem;
+      font-size: 1.2rem;
+    }
+    
+    /* سبد خرید (قسمت‌های ساب فریم مانند نسخه‌های قبلی) */
+    .cart-icon {
+      position: fixed;
+      bottom: 2rem;
+      left: 2rem;
+      background-color: var(--primary);
+      color: var(--text);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.7);
+      z-index: 100;
+      transition: all 0.3s ease;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(51,51,51,0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(51,51,51,0); }
+      100% { box-shadow: 0 0 0 0 rgba(51,51,51,0); }
+    }
+    
+    .cart-icon:hover {
+      transform: scale(1.1);
+    }
+    
+    .cart-count {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background-color: var(--accent);
+      color: var(--dark);
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    
+    /* پنل سبد خرید */
+    .cart-panel {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 400px;
+      height: 100vh;
+      background-color: var(--light);
+      box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+      z-index: 200;
+      transition: right 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .cart-panel.open {
+      right: 0;
+    }
+    
+    .cart-header {
+      padding: 1.5rem;
+      background-color: var(--primary);
+      color: var(--text);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .cart-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+    
+    .close-cart {
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.5rem;
+    }
+    
+    .cart-item {
+      display: flex;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--accent);
+      animation: slideIn 0.3s ease;
+    }
+    
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    
+    .cart-item-image {
+      width: 80px;
+      height: 80px;
+      background-color: #444;
+      border-radius: 8px;
+      margin-left: 1rem;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    
+    .cart-item-details {
+      flex: 1;
+    }
+    
+    .cart-item-name {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .cart-item-price {
+      color: var(--accent);
+      font-weight: 600;
+    }
+    
+    .cart-item-actions {
+      display: flex;
+      align-items: center;
+      margin-top: 0.5rem;
+    }
+    
+    .quantity-btn {
+      width: 25px;
+      height: 25px;
+      background-color: #777;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .quantity {
+      margin: 0 0.5rem;
+      min-width: 20px;
+      text-align: center;
+    }
+    
+    .remove-item {
+      margin-right: 1rem;
+      color: #e53935;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .cart-footer {
+      padding: 1.5rem;
+      background-color: #333;
+      border-top: 1px solid var(--accent);
+    }
+    
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+    
+    .checkout-btn {
+      background-color: var(--primary);
+      color: var(--text);
+      border: none;
+      padding: 1rem;
+      width: 100%;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .checkout-btn:hover {
+      background-color: #555;
+    }
+    
+    /* فرم تکمیل سفارش */
+    .checkout-form {
+      display: none;
+      padding: 1.5rem;
+      background-color: var(--secondary);
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    
+    .form-group input, 
+    .form-group textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid var(--accent);
+      border-radius: 4px;
+      font-size: 1rem;
+      background-color: var(--light);
+      color: var(--text);
+    }
+    
+    /* نمایش لوکیشن انتخاب‌شده */
+    #locationDisplay {
+      background: #444;
+      padding: 0.8rem;
+      border-radius: 4px;
+      font-size: 0.95rem;
+    }
+    
+    /* پاپ‌آپ دریافت لوکیشن */
+    #locationModal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 300;
+    }
+    
+    #locationModal .modal-content {
+      background: var(--light);
+      padding: 1rem;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 500px;
+      position: relative;
+    }
+    
+    #locationModal .modal-content button#closeLocationModal {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: var(--text);
+    }
+    
+    /* انیمیشن اسکرول برای بخش‌های منو */
+    .menu-section {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+    
+    @media (max-width: 768px) {
+      .menu-header h1 { font-size: 2.2rem; }
+      .items-grid { grid-template-columns: 1fr; }
+      .cart-panel {
+        width: 100%;
+        right: -100%;
+      }
+      .cart-panel.open {
+        right: 0;
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- صفحه لودینگ -->
-    <div class="loading-screen" id="loadingScreen">
-        <div class="loading-logo">
-            <img src="logo.png" alt="دونریتو">
+  <!-- هدر منو -->
+  <header class="menu-header">
+    <h1>BurgerLand</h1>
+    <p>منوی دیجیتال فست فود</p>
+  </header>
+  
+  <!-- دسته‌بندی‌های منو -->
+  <div class="menu-categories">
+    <button class="category-btn active" data-category="doner-kebab">DONER KEBAB<br/>(کباب دونر)</button>
+    <button class="category-btn" data-category="hot-dog">HOT DOG<br/>(هات داگ)</button>
+    <button class="category-btn" data-category="handmade-burger">HANDMADE BURGER<br/>(برگر دست‌ساز)</button>
+    <button class="category-btn" data-category="hot-sandwich">HOT SANDWICH<br/>(ساندویچ گرم)</button>
+    <button class="category-btn" data-category="toast">TOAST<br/>(توست)</button>
+    <button class="category-btn" data-category="muffin">MUFFIN<br/>(مافین)</button>
+    <button class="category-btn" data-category="cold-sandwich">COLD SANDWICH<br/>(ساندویچ سرد)</button>
+    <button class="category-btn" data-category="pasta">PASTA<br/>(پاستا)</button>
+    <button class="category-btn" data-category="fried-potatoes">FRIED POTATOES<br/>(سیب‌زمینی)</button>
+  </div>
+  
+  <!-- آیتم‌های منو -->
+  <div class="menu-items">
+    <!-- DONER KEBAB -->
+    <div class="menu-section" id="doner-kebab" data-category="doner-kebab">
+      <h2 class="section-title">DONER KEBAB<br/>(کباب دونر)</h2>
+      <img src="images/doner-kebab.jpg" alt="DONER KEBAB" class="category-image">
+      <div class="items-grid">
+        <!-- CLASSIC DONER -->
+        <div class="menu-item">
+          <div class="item-image">🍢</div>
+          <div class="item-details">
+            <h3 class="item-name">CLASSIC DONER<br/>(دونر کلاسیک)</h3>
+            <p class="item-description">مرغ گرم، نان تورتیلا، خیارشور، سیب‌زمینی، سس سیر</p>
+            <span class="item-price">220 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
         </div>
-        <div class="loading-bar-container">
-            <div class="loading-bar" id="loadingBar"></div>
+        <!-- HATAY DONER -->
+        <div class="menu-item">
+          <div class="item-image">🍢</div>
+          <div class="item-details">
+            <h3 class="item-name">HATAY DONER<br/>(دونر هاتای)</h3>
+            <p class="item-description">مرغ گرم، نان تورتیلا، کاهو، گوجه، خیارشور، سس سیر، سس هاتای</p>
+            <span class="item-price">210 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
         </div>
+      </div>
     </div>
     
-    <!-- صفحه اصلی -->
-    <div class="video-container">
-        <video id="mainVideo" autoplay loop playsinline muted>
-            <source src="cafe-bg.mp4" type="video/mp4">
-            <source src="donerito-bg.webm" type="video/webm">
-        </video>
-    </div>
-    
-    <button class="volume-control" id="volumeBtn">
-        <i class="fas fa-volume-up"></i>
-    </button>
-    
-    <div class="content" id="mainContent">
-        <div class="main-content">
-            <div class="logo-section">
-                <div class="logo-circle">
-                    <img src="logo.png" alt="دونریتو">
-                </div>
-                <h1 class="persian-title">دونریتو</h1>
-            </div>
-            
-            <div class="nav-container">
-                <a href="#" class="nav-btn">
-                    <i class="fas fa-info-circle"></i>
-                    <span>اطلاعات رستوران</span>
-                </a>
-                <a href="menu.html" class="nav-btn">
-                    <i class="fas fa-clipboard-list"></i>
-                    <span>مشاهده منو</span>
-                </a>
-            </div>
+    <!-- HOT DOG -->
+    <div class="menu-section" id="hot-dog" data-category="hot-dog">
+      <h2 class="section-title">HOT DOG<br/>(هات داگ)</h2>
+      <img src="images/hot-dog.jpg" alt="HOT DOG" class="category-image">
+      <div class="items-grid">
+        <!-- HOT DOG CLASSIC -->
+        <div class="menu-item">
+          <div class="item-image">🌭</div>
+          <div class="item-details">
+            <h3 class="item-name">HOT DOG CLASSIC<br/>(هات داگ کلاسیک)</h3>
+            <p class="item-description">کریسپی، پنیر چدار، خیارشور</p>
+            <span class="item-price">190 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
         </div>
+        <!-- HOT DOG BACON -->
+        <div class="menu-item">
+          <div class="item-image">🌭</div>
+          <div class="item-details">
+            <h3 class="item-name">HOT DOG BACON<br/>(هات داگ بیکن)</h3>
+            <p class="item-description">بیکن، گودا دیپ، پیاز کاراملیزه، کریسپی، هالوپینو</p>
+            <span class="item-price">220 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
+        </div>
+        <!-- HOT DOG MUSHROOM -->
+        <div class="menu-item">
+          <div class="item-image">🌭</div>
+          <div class="item-details">
+            <h3 class="item-name">HOT DOG MUSHROOM<br/>(هات داگ ماشروم)</h3>
+            <p class="item-description">سس ماشروم، کریسپی، هالوپینو</p>
+            <span class="item-price">230 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
+        </div>
+      </div>
     </div>
     
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const video = document.getElementById('mainVideo');
-            const loadingScreen = document.getElementById('loadingScreen');
-            const loadingBar = document.getElementById('loadingBar');
-            const volumeBtn = document.getElementById('volumeBtn');
-            const mainContent = document.getElementById('mainContent');
-            
-            // زمان شروع لودینگ
-            const startTime = Date.now();
-            
-            // پخش صدا به صورت پیشفرض (بعد از لودینگ)
-            video.muted = true;
-            
-            // شبیه‌سازی پیشرفت بارگذاری
-            let progress = 0;
-            const loadingInterval = setInterval(() => {
-                // محاسبه زمان سپری شده
-                const elapsed = Date.now() - startTime;
-                progress = Math.min(100, (elapsed / 3000) * 100); // 3 ثانیه = 3000 میلی‌ثانیه
-                
-                loadingBar.style.width = progress + '%';
-                
-                // بعد از 3 ثانیه صفحه لودینگ را مخفی می‌کنیم
-                if (elapsed >= 3000) {
-                    clearInterval(loadingInterval);
-                    hideLoadingScreen();
-                }
-            }, 30);
-            
-            // مخفی کردن صفحه لودینگ
-            function hideLoadingScreen() {
-                loadingScreen.style.opacity = '0';
-                
-                setTimeout(() => {
-                    loadingScreen.style.display = 'none';
-                    mainContent.classList.add('show');
-                    volumeBtn.classList.add('show');
-                    
-                    // فعال کردن صدا بعد از لودینگ
-                    video.muted = false;
-                    volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
-                    
-                    // تلاش برای پخش ویدیو
-                    video.play().catch(e => {
-                        console.log('خطای پخش:', e);
-                        // اگر خطا خورد، صدا را قطع می‌کنیم و دوباره تلاش می‌کنیم
-                        video.muted = true;
-                        video.play();
-                    });
-                }, 500);
-            }
-            
-            // کنترل صدا
-            volumeBtn.addEventListener('click', function() {
-                video.muted = !video.muted;
-                volumeBtn.innerHTML = video.muted ? 
-                    '<i class="fas fa-volume-mute"></i>' : 
-                    '<i class="fas fa-volume-up"></i>';
+    <!-- HANDMADE BURGER -->
+    <div class="menu-section" id="handmade-burger" data-category="handmade-burger">
+      <h2 class="section-title">HANDMADE BURGER<br/>(برگر دست‌ساز)</h2>
+      <img src="images/handmade-burger.jpg" alt="HANDMADE BURGER" class="category-image">
+      <div class="items-grid">
+        <!-- BURGER CLASSIC -->
+        <div class="menu-item">
+          <div class="item-image">🍔</div>
+          <div class="item-details">
+            <h3 class="item-name">BURGER CLASSIC<br/>(برگر کلاسیک)</h3>
+            <p class="item-description">گوشت گرم ۱۵۰ گرمی، پنیر امنتال، سس، ماشروم، کریسپی، لوپینو</p>
+            <span class="item-price">280 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
+        </div>
+        <!-- BACON BURGER -->
+        <div class="menu-item">
+          <div class="item-image">🍔</div>
+          <div class="item-details">
+            <h3 class="item-name">BACON BURGER<br/>(برگر بیکن)</h3>
+            <p class="item-description">گوشت گرم ۱۵۰ گرمی، بیکن، پنیر چدار، پیاز کاراملیزه، گوجه، کاهو، خیارشور</p>
+            <span class="item-price">325 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
+        </div>
+        <!-- MUSHROOM BURGER -->
+        <div class="menu-item">
+          <div class="item-image">🍔</div>
+          <div class="item-details">
+            <h3 class="item-name">MUSHROOM BURGER<br/>(برگر ماشروم)</h3>
+            <p class="item-description">گوشت گرم ۱۵۰ گرمی، بیکن، پیاز کاراملیزه، کریسپی، دیپ چدار، لوپینو</p>
+            <span class="item-price">315 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
+        </div>
+        <!-- SPECIAL BURGER -->
+        <div class="menu-item">
+          <div class="item-image">🍔</div>
+          <div class="item-details">
+            <h3 class="item-name">SPECIAL BURGER<br/>(برگر اسپشیال)</h3>
+            <p class="item-description">گوشت گرم ۱۵۰ گرمی استیک، نان کره و سیر، پنیر چدار، دیپ چدار، کریسپی، لوپینو، کاهو، گوجه</p>
+            <span class="item-price">355 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- HOT SANDWICH -->
+    <div class="menu-section" id="hot-sandwich" data-category="hot-sandwich">
+      <h2 class="section-title">HOT SANDWICH<br/>(ساندویچ گرم)</h2>
+      <img src="images/hot-sandwich.jpg" alt="HOT SANDWICH" class="category-image">
+      <div class="items-grid">
+        <!-- ROAST BEEF -->
+        <div class="menu-item">
+          <div class="item-image">🥪</div>
+          <div class="item-details">
+            <h3 class="item-name">ROAST BEEF<br/>(رست بیف)</h3>
+            <p class="item-description">استیک گرم ۱۳۵ گرمی، سس رومسکو، پنیر گودا، کریسپی، لوپینو</p>
+            <span class="item-price">320 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
+        </div>
+        <!-- STEAK SANDWICH -->
+        <div class="menu-item">
+          <div class="item-image">🥪</div>
+          <div class="item-details">
+            <h3 class="item-name">STEAK SANDWICH<br/>(ساندویچ استیک)</h3>
+            <p class="item-description">بیف رست ۱۳۵ گرمی، پنیر امنتال، سس ماشروم، سس مخصوص، کریسپی، لوپینو</p>
+            <span class="item-price">325 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
+        </div>
+        <!-- BACON SANDWICH -->
+        <div class="menu-item">
+          <div class="item-image">🥪</div>
+          <div class="item-details">
+            <h3 class="item-name">BACON SANDWICH<br/>(ساندویچ بیکن)</h3>
+            <p class="item-description">بیکن %98، پنیر امنتال، خیارشور، کریسپی، لوپینو</p>
+            <span class="item-price">315 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- TOAST -->
+    <div class="menu-section" id="toast" data-category="toast">
+      <h2 class="section-title">TOAST<br/>(توست)</h2>
+      <img src="images/toast.jpg" alt="TOAST" class="category-image">
+      <div class="items-grid">
+        <!-- TOAST SALAMI -->
+        <div class="menu-item">
+          <div class="item-image">🍞</div>
+          <div class="item-details">
+            <h3 class="item-name">TOAST SALAMI<br/>(سالامی)</h3>
+            <p class="item-description">پنیر موزارلا، لوپینو، سالامی</p>
+            <span class="item-price">200 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
+        </div>
+        <!-- TOAST KRAKOW -->
+        <div class="menu-item">
+          <div class="item-image">🍞</div>
+          <div class="item-details">
+            <h3 class="item-name">TOAST KRAKOW<br/>(کراکوف)</h3>
+            <p class="item-description">پنیر پنیری، کراکوف، لوپینو</p>
+            <span class="item-price">210 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
+        </div>
+        <!-- TOAST PEPPERONI -->
+        <div class="menu-item">
+          <div class="item-image">🍞</div>
+          <div class="item-details">
+            <h3 class="item-name">TOAST PEPPERONI<br/>(پپرونی)</h3>
+            <p class="item-description">پنیر موزارلا، پپرونی، لوپینو</p>
+            <span class="item-price">190 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- MUFFIN -->
+    <div class="menu-section" id="muffin" data-category="muffin">
+      <h2 class="section-title">MUFFIN<br/>(مافین)</h2>
+      <img src="images/muffin.jpg" alt="MUFFIN" class="category-image">
+      <div class="items-grid">
+        <!-- MUFFIN WITH ROAST BEEF -->
+        <div class="menu-item">
+          <div class="item-image">🧁</div>
+          <div class="item-details">
+            <h3 class="item-name">MUFFIN WITH ROAST BEEF<br/>(مافین بیف)</h3>
+            <p class="item-description">نان مافین انگلیسی، چدار، بیف روست، سس مخصوص</p>
+            <span class="item-price">190 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
+        </div>
+        <!-- MUFFIN WITH BACON -->
+        <div class="menu-item">
+          <div class="item-image">🧁</div>
+          <div class="item-details">
+            <h3 class="item-name">MUFFIN WITH BACON<br/>(مافین بیکن)</h3>
+            <p class="item-description">نان مافین انگلیسی، بیکن %98، پنیر گودا، سس مخصوص</p>
+            <span class="item-price">175 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
+        </div>
+        <!-- MUFFIN WITH STEAK -->
+        <div class="menu-item">
+          <div class="item-image">🧁</div>
+          <div class="item-details">
+            <h3 class="item-name">MUFFIN WITH STEAK<br/>(مافین استیک)</h3>
+            <p class="item-description">نان مافین انگلیسی، چدار، استیک، سس مخصوص</p>
+            <span class="item-price">190 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
+        </div>
+        <!-- MUFFIN BURGER -->
+        <div class="menu-item">
+          <div class="item-image">🧁</div>
+          <div class="item-details">
+            <h3 class="item-name">MUFFIN BURGER<br/>(مافین برگر)</h3>
+            <p class="item-description">نان مافین انگلیسی، برگر دست‌ساز، چدار، سس مخصوص</p>
+            <span class="item-price">200 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- COLD SANDWICH -->
+    <div class="menu-section" id="cold-sandwich" data-category="cold-sandwich">
+      <h2 class="section-title">COLD SANDWICH<br/>(ساندویچ سرد)</h2>
+      <img src="images/cold-sandwich.jpg" alt="COLD SANDWICH" class="category-image">
+      <div class="items-grid">
+        <!-- MEXICAN CHICKEN -->
+        <div class="menu-item">
+          <div class="item-image">🥪</div>
+          <div class="item-details">
+            <h3 class="item-name">MEXICAN CHICKEN<br/>(مرغ مکزیکی)</h3>
+            <p class="item-description">نان فوکاچا، مرغ، کاهو، سس گوجه، پستو، گردو، زیتون، پارمسان، سس کریسپی</p>
+            <span class="item-price">255 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
+        </div>
+        <!-- SMOKED TURKEY -->
+        <div class="menu-item">
+          <div class="item-image">🥪</div>
+          <div class="item-details">
+            <h3 class="item-name">SMOKED TURKEY<br/>(بوقلمون دودی)</h3>
+            <p class="item-description">نان فوکاچا، بوقلمون دودی، کاهو، سس گوجه، پستو، گردو، زیتون، پارمسان، سس کریسپی</p>
+            <span class="item-price">250 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
+        </div>
+        <!-- BACON -->
+        <div class="menu-item">
+          <div class="item-image">🥪</div>
+          <div class="item-details">
+            <h3 class="item-name">BACON<br/>(بیکن %98)</h3>
+            <p class="item-description">نان فوکاچا، بیکن، کاهو، گوجه، زیتون، پستو، گردو، پارمسان، سس کریسپی</p>
+            <span class="item-price">310 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
+        </div>
+        <!-- SIMIT -->
+        <div class="menu-item">
+          <div class="item-image">🥪</div>
+          <div class="item-details">
+            <h3 class="item-name">SIMIT<br/>(سیمیت)</h3>
+            <p class="item-description">نان سیمیت، ژامبون مرغ، پنیر خامه‌ای، گوجه، زیتون</p>
+            <span class="item-price">200 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- PASTA -->
+    <div class="menu-section" id="pasta" data-category="pasta">
+      <h2 class="section-title">PASTA<br/>(پاستا)</h2>
+      <img src="images/pasta.jpg" alt="PASTA" class="category-image">
+      <div class="items-grid">
+        <!-- PESTO PASTA -->
+        <div class="menu-item">
+          <div class="item-image">🍝</div>
+          <div class="item-details">
+            <h3 class="item-name">PESTO PASTA<br/>(پاستا پستو)</h3>
+            <p class="item-description">پاستا با سس پستو، خامه، فیله مرغ، گوجه، پارمسان</p>
+            <span class="item-price">290 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
+        </div>
+        <!-- STEAK ALFREDO PASTA -->
+        <div class="menu-item">
+          <div class="item-image">🍝</div>
+          <div class="item-details">
+            <h3 class="item-name">STEAK ALFREDO PASTA<br/>(پاستا آلفردو استیک)</h3>
+            <p class="item-description">استیک، سس آلفردو، گوجه چری، پارمسان</p>
+            <span class="item-price">315 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
+        </div>
+        <!-- CHICKEN ALFREDO PASTA -->
+        <div class="menu-item">
+          <div class="item-image">🍝</div>
+          <div class="item-details">
+            <h3 class="item-name">CHICKEN ALFREDO PASTA<br/>(پاستا آلفردو مرغ)</h3>
+            <p class="item-description">فیله مرغ، سس آلفردو، گوجه چری، پارمسان</p>
+            <span class="item-price">290 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
+        </div>
+        <!-- ARABIATTA PASTA -->
+        <div class="menu-item">
+          <div class="item-image">🍝</div>
+          <div class="item-details">
+            <h3 class="item-name">ARABIATTA PASTA<br/>(پاستا آربیاتا)</h3>
+            <p class="item-description">سس آربیاتا، استیک، پارمسان</p>
+            <span class="item-price">300 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- FRIED POTATOES -->
+    <div class="menu-section" id="fried-potatoes" data-category="fried-potatoes">
+      <h2 class="section-title">FRIED POTATOES<br/>(سیب‌زمینی)</h2>
+      <img src="images/fried-potatoes.jpg" alt="FRIED POTATOES" class="category-image">
+      <div class="items-grid">
+        <!-- POTATOES WITH BACON -->
+        <div class="menu-item">
+          <div class="item-image">🍟</div>
+          <div class="item-details">
+            <h3 class="item-name">POTATOES WITH BACON<br/>(با بیکن)</h3>
+            <p class="item-description">سیب‌زمینی، بیکن، سس ماشروم</p>
+            <span class="item-price">225 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
+        </div>
+        <!-- POTATOES WITH SALAMI -->
+        <div class="menu-item">
+          <div class="item-image">🍟</div>
+          <div class="item-details">
+            <h3 class="item-name">POTATOES WITH SALAMI<br/>(با سالامی)</h3>
+            <p class="item-description">سیب‌زمینی، سالامی تنوری، پنیر گودا</p>
+            <span class="item-price">200 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
+        </div>
+        <!-- POTATOES WITH PEPPERONI -->
+        <div class="menu-item">
+          <div class="item-image">🍟</div>
+          <div class="item-details">
+            <h3 class="item-name">POTATOES WITH PEPPERONI<br/>(با پپرونی)</h3>
+            <p class="item-description">سیب‌زمینی، پپرونی</p>
+            <span class="item-price">190 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
+        </div>
+        <!-- POTATOES WITH FILLED -->
+        <div class="menu-item">
+          <div class="item-image">🍟</div>
+          <div class="item-details">
+            <h3 class="item-name">POTATOES WITH FILLED<br/>(با فیله سوخاری)</h3>
+            <p class="item-description">سیب‌زمینی، فیله سوخاری</p>
+            <span class="item-price">190 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
+        </div>
+        <!-- POTATOES WITH STEAK -->
+        <div class="menu-item">
+          <div class="item-image">🍟</div>
+          <div class="item-details">
+            <h3 class="item-name">POTATOES WITH STEAK<br/>(با استیک)</h3>
+            <p class="item-description">سیب‌زمینی، استیک</p>
+            <span class="item-price">240 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
+        </div>
+        <!-- SMALL POTATOES -->
+        <div class="menu-item">
+          <div class="item-image">🍟</div>
+          <div class="item-details">
+            <h3 class="item-name">SMALL POTATOES<br/>(کوچک)</h3>
+            <span class="item-price">100 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
+        </div>
+        <!-- BIG POTATOES -->
+        <div class="menu-item">
+          <div class="item-image">🍟</div>
+          <div class="item-details">
+            <h3 class="item-name">BIG POTATOES<br/>(بزرگ)</h3>
+            <span class="item-price">150 تومان</span>
+            <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- سبد خرید (ساختار همانند نسخه‌های قبلی) -->
+  <div class="cart-icon" id="cartIcon">
+    <i class="fas fa-shopping-cart"></i>
+    <span class="cart-count">0</span>
+  </div>
+  
+  <div class="cart-panel" id="cartPanel">
+    <div class="cart-header">
+      <h3 class="cart-title">سبد خرید شما</h3>
+      <button class="close-cart" id="closeCart"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <!-- آیتم‌های سبد خرید نمایش داده می‌شوند -->
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>جمع کل:</span>
+        <span id="cartTotal">0 تومان</span>
+      </div>
+      <button class="checkout-btn" id="checkoutBtn">تکمیل سفارش</button>
+    </div>
+    
+    <!-- فرم تکمیل سفارش -->
+    <div class="checkout-form" id="checkoutForm">
+      <div class="form-group">
+        <label for="name">نام کامل</label>
+        <input type="text" id="name" required>
+      </div>
+      <div class="form-group">
+        <label for="phone">شماره تماس</label>
+        <input type="tel" id="phone" required>
+      </div>
+      <div class="form-group">
+        <label for="address">آدرس (اختیاری)</label>
+        <textarea id="address"></textarea>
+      </div>
+      <!-- دریافت لوکیشن از طریق دکمه -->
+      <div class="form-group">
+        <button type="button" id="getLocationBtn" class="checkout-btn">دریافت لوکیشن</button>
+        <div id="locationDisplay" style="margin-top: 1rem;">
+          موقعیت انتخاب شده: <span id="locationCoordinates">هنوز انتخاب نشده</span>
+        </div>
+      </div>
+      <button type="button" class="checkout-btn" id="submitOrder">تایید</button>
+      <button type="button" class="back-to-cart" id="backToCart">بازگشت به سبد خرید</button>
+    </div>
+    
+    <!-- پیام تایید سفارش -->
+    <div class="verify-message" id="verifyMessage" style="display: none; text-align: center; padding: 2rem;">
+      <i class="fas fa-check-circle" style="font-size: 3rem; color: var(--accent); margin-bottom: 1rem;"></i>
+      <p>سفارش شما با موفقیت ثبت شد!</p>
+      <p>لطفاً کد 4 رقمی که براتون پیامک شد را ارسال کنید</p>
+      <button type="button" class="back-to-cart" id="backToMenu">بازگشت به منو</button>
+    </div>
+  </div>
+  
+  <!-- پاپ‌آپ دریافت لوکیشن -->
+  <div id="locationModal">
+    <div class="modal-content">
+      <button id="closeLocationModal">&times;</button>
+      <div id="modalMap" style="width: 100%; height: 300px; margin-bottom: 1rem;"></div>
+      <button type="button" id="confirmLocation" class="checkout-btn">تایید موقعیت</button>
+    </div>
+  </div>
+  
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // متغیرهای سبد خرید و لوکیشن
+      let cart = [];
+      let userLocation = null;
+      let modalMap = null, modalMarker = null, selectedLocation = null;
+      
+      const cartIcon = document.getElementById('cartIcon');
+      const cartPanel = document.getElementById('cartPanel');
+      const closeCart = document.getElementById('closeCart');
+      const cartItemsContainer = document.getElementById('cartItems');
+      const cartTotalElement = document.getElementById('cartTotal');
+      const cartCount = document.querySelector('.cart-count');
+      const checkoutBtn = document.getElementById('checkoutBtn');
+      const checkoutForm = document.getElementById('checkoutForm');
+      const submitOrder = document.getElementById('submitOrder');
+      const backToCart = document.getElementById('backToCart');
+      const verifyMessage = document.getElementById('verifyMessage');
+      const backToMenu = document.getElementById('backToMenu');
+      
+      const getLocationBtn = document.getElementById('getLocationBtn');
+      const locationCoordinatesSpan = document.getElementById('locationCoordinates');
+      const locationModal = document.getElementById('locationModal');
+      const closeLocationModal = document.getElementById('closeLocationModal');
+      const confirmLocation = document.getElementById('confirmLocation');
+      
+      // تبدیل ارقام فارسی به انگلیسی (در صورت نیاز)
+      function persianToEnglish(str) {
+        const persianDigits = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+        for (let i = 0; i < persianDigits.length; i++) {
+          str = str.replace(new RegExp(persianDigits[i], "g"), i);
+        }
+        return str;
+      }
+      
+      // باز/بسته کردن پنل سبد خرید
+      cartIcon.addEventListener('click', function() {
+        cartPanel.classList.add('open');
+      });
+      
+      closeCart.addEventListener('click', function() {
+        cartPanel.classList.remove('open');
+      });
+      
+      // فیلتر کردن دسته‌بندی‌ها
+      const categoryButtons = document.querySelectorAll('.category-btn');
+      const menuSections = document.querySelectorAll('.menu-section');
+      
+      categoryButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          categoryButtons.forEach(btn => btn.classList.remove('active'));
+          this.classList.add('active');
+          
+          const selectedCategory = this.dataset.category;
+          
+          menuSections.forEach(section => {
+            section.style.display = 'none';
+          });
+          
+          // نمایش همه اگر انتخاب "همه" باشد (اگر اضافه کنید)
+          if (selectedCategory === 'all') {
+            menuSections.forEach(section => {
+              section.style.display = 'block';
+              section.style.animation = 'fadeIn 0.5s ease';
             });
-            
-            // تنظیم نسبت تصویر ویدیو بدون برش
-            function adjustVideoSize() {
-                if (!video.videoWidth) return;
-                
-                const videoRatio = video.videoWidth / video.videoHeight;
-                const screenRatio = window.innerWidth / window.innerHeight;
-                
-                if (screenRatio > videoRatio) {
-                    // صفحه عریض‌تر از ویدیو
-                    video.style.width = 'auto';
-                    video.style.height = '100%';
-                } else {
-                    // صفحه باریک‌تر از ویدیو
-                    video.style.width = '100%';
-                    video.style.height = 'auto';
-                }
+          } else {
+            const targetSection = document.querySelector(`.menu-section[data-category="${selectedCategory}"]`);
+            if (targetSection) {
+              targetSection.style.display = 'block';
+              targetSection.style.animation = 'fadeIn 0.5s ease';
             }
-            
-            // رویدادهای ویدیو
-            video.addEventListener('loadedmetadata', adjustVideoSize);
-            window.addEventListener('resize', adjustVideoSize);
-            video.addEventListener('error', function() {
-                console.error('خطای ویدیو:', video.error);
-            });
+          }
         });
-    </script>
-</body>
-</html>
+      });
+      
+      // افزودن آیتم به سبد خرید
+      const addToCartButtons = document.querySelectorAll('.add-to-cart');
+      addToCartButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const menuItem = this.closest('.menu-item');
+          const itemName = menuItem.querySelector('.item-name').textContent;
+          const rawPrice = menuItem.querySelector('.item-price').textContent;
+          const itemPrice = parseInt(persianToEnglish(rawPrice).replace(/[^0-9]/g, ''));
+          const itemImage = menuItem.querySelector('.item-image').textContent;
+          
+          const existingItem = cart.find(item => item.name === itemName);
+          if (existingItem) {
+            existingItem.quantity++;
+          } else {
+            cart.push({
+              name: itemName,
+              price: itemPrice,
+              quantity: 1,
+              image: itemImage
+            });
+          }
+          updateCart();
+          
+          // انیمیشن افزودن آیتم به سبد خرید
+          const cartRect = cartIcon.getBoundingClientRect();
+          const buttonRect = this.getBoundingClientRect();
+          const flyingItem = document.createElement('div');
+          flyingItem.style.position = 'fixed';
+          flyingItem.style.left = `${buttonRect.left}px`;
+          flyingItem.style.top = `${buttonRect.top}px`;
+          flyingItem.style.fontSize = '1.5rem';
+          flyingItem.style.zIndex = '1000';
+          flyingItem.style.transition = 'all 0.5s ease';
+          flyingItem.innerHTML = itemImage;
+          document.body.appendChild(flyingItem);
+          setTimeout(() => {
+            flyingItem.style.left = `${cartRect.left}px`;
+            flyingItem.style.top = `${cartRect.top}px`;
+            flyingItem.style.transform = 'scale(0.5)';
+            flyingItem.style.opacity = '0.5';
+          }, 10);
+          setTimeout(() => {
+            document.body.removeChild(flyingItem);
+          }, 500);
+        });
+      });
+      
+      // به‌روزرسانی سبد خرید
+      function updateCart() {
+        const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+        cartCount.textContent = totalItems;
+        
+        const totalPrice = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+        cartTotalElement.textContent = totalPrice.toLocaleString('fa-IR') + ' تومان';
+        
+        cartItemsContainer.innerHTML = '';
+        if (cart.length === 0) {
+          cartItemsContainer.innerHTML = '<p style="text-align: center; padding: 2rem;">سبد خرید شما خالی است</p>';
+          return;
+        }
+        cart.forEach((item, index) => {
+          const cartItemElement = document.createElement('div');
+          cartItemElement.className = 'cart-item';
+          cartItemElement.innerHTML = `
+            <div class="cart-item-image">${item.image}</div>
+            <div class="cart-item-details">
+              <div class="cart-item-name">${item.name}</div>
+              <div class="cart-item-price">${item.price.toLocaleString('fa-IR')} تومان</div>
+              <div class="cart-item-actions">
+                <button class="remove-item" data-index="${index}"><i class="fas fa-trash"></i></button>
+                <button class="quantity-btn minus" data-index="${index}">-</button>
+                <span class="quantity">${item.quantity}</span>
+                <button class="quantity-btn plus" data-index="${index}">+</button>
+              </div>
+            </div>
+          `;
+          cartItemsContainer.appendChild(cartItemElement);
+        });
+        
+        document.querySelectorAll('.remove-item').forEach(button => {
+          button.addEventListener('click', function() {
+           
