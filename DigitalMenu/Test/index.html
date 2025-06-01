@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منوی دیجیتال فست فود | BurgerLand</title>
+    <title>دونریتو</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <style>
         /* Reset و متغیرهای رنگ */
         :root {
-            --primary: #E53935; /* قرمز - انرژی و اشتها */
-            --secondary: #FFA000; /* نارنجی - گرمی و اشتها */
+            --primary: #333333; /* مشکی تیره */
+            --secondary: #555555; /* خاکستری تیره */
             --accent: #FFD600; /* زرد - شادی */
-            --dark: #212121; /* مشکی - لوکس */
-            --light: #F5F5F5; /* سفید */
-            --text: #424242; /* متن خاکستری */
+            --dark: #222222; /* مشکی */
+            --light: #f5f5f5; /* سفید */
+            --text: #eeeeee; /* متن روشن */
+            --card-bg: #444444; /* پس زمینه کارت */
         }
         
         * {
@@ -24,7 +25,7 @@
         }
         
         body {
-            background-color: var(--light);
+            background-color: var(--dark);
             color: var(--text);
             overflow-x: hidden;
         }
@@ -34,49 +35,15 @@
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             text-align: center;
-            padding: 2rem 1rem;
+            padding: 1.5rem 1rem;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-        
-        .menu-header::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 1px, transparent 1px),
-                radial-gradient(circle at 80% 70%, rgba(255,255,255,0.1) 1px, transparent 1px);
-            background-size: 30px 30px;
-            animation: float 15s linear infinite;
-        }
-        
-        @keyframes float {
-            0% { background-position: 0 0, 0 0; }
-            100% { background-position: 30px 30px, 30px 30px; }
         }
         
         .menu-title {
-            font-size: 3rem;
+            font-size: 2.5rem;
             margin-bottom: 0.5rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            position: relative;
-            animation: bounce 1s ease;
-        }
-        
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-20px); }
-            60% { transform: translateY(-10px); }
-        }
-        
-        .menu-subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            position: relative;
+            font-weight: bold;
         }
         
         /* دسته‌بندی‌های منو */
@@ -84,55 +51,48 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            padding: 1rem;
-            background-color: white;
+            padding: 0.5rem;
+            background-color: var(--primary);
             position: sticky;
             top: 0;
             z-index: 90;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
         
         .category-btn {
             background: none;
             border: none;
-            padding: 0.8rem 1.5rem;
-            margin: 0 0.5rem;
-            font-size: 1rem;
+            padding: 0.8rem 1rem;
+            margin: 0.3rem;
+            font-size: 0.9rem;
             font-weight: 600;
             color: var(--text);
             cursor: pointer;
             position: relative;
             transition: all 0.3s ease;
+            border-radius: 20px;
+            background-color: var(--secondary);
         }
         
-        .category-btn::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 0;
-            height: 3px;
-            background-color: var(--primary);
-            transition: width 0.3s ease;
-        }
-        
-        .category-btn:hover, .category-btn.active {
-            color: var(--primary);
-        }
-        
-        .category-btn:hover::after, .category-btn.active::after {
-            width: 100%;
+        .category-btn.active {
+            background-color: var(--accent);
+            color: var(--dark);
         }
         
         /* آیتم‌های منو */
         .menu-items {
-            padding: 2rem;
-            max-width: 1200px;
+            padding: 1rem;
+            max-width: 100%;
             margin: 0 auto;
         }
         
         .menu-section {
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
+            display: none;
+        }
+        
+        .menu-section.active {
+            display: block;
             animation: fadeIn 0.5s ease-out;
         }
         
@@ -142,94 +102,74 @@
         }
         
         .section-title {
-            font-size: 2rem;
-            color: var(--primary);
+            text-align: center;
             margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 3px solid var(--accent);
-            display: inline-block;
+            padding: 0.5rem;
+            background-color: var(--primary);
+            border-radius: 8px;
+        }
+        
+        .section-title h2 {
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+        
+        .section-title p {
+            font-size: 0.9rem;
+            opacity: 0.8;
         }
         
         .items-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: 1fr;
+            gap: 1rem;
         }
         
         .menu-item {
-            background-color: white;
+            background-color: var(--card-bg);
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
             transition: all 0.3s ease;
-            position: relative;
-            cursor: pointer;
-        }
-        
-        .menu-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
         
         .item-image {
-            height: 180px;
-            background-color: #e0e0e0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
+            height: 150px;
+            background-size: cover;
+            background-position: center;
             position: relative;
-            overflow: hidden;
-        }
-        
-        .item-image::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(229,57,53,0.3), rgba(255,160,0,0.3));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .menu-item:hover .item-image::before {
-            opacity: 1;
         }
         
         .item-details {
-            padding: 1.5rem;
+            padding: 1rem;
         }
         
         .item-name {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
-            color: var(--dark);
+            color: var(--text);
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .item-name span {
+            color: var(--accent);
         }
         
         .item-description {
-            color: var(--text);
+            color: #cccccc;
             margin-bottom: 1rem;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             line-height: 1.6;
         }
         
-        .item-price {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            display: block;
-        }
-        
         .add-to-cart {
-            background-color: var(--primary);
-            color: white;
+            background-color: var(--accent);
+            color: var(--dark);
             border: none;
-            padding: 0.7rem 1.5rem;
-            border-radius: 50px;
+            padding: 0.6rem 1rem;
+            border-radius: 20px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -237,62 +177,46 @@
             align-items: center;
             justify-content: center;
             width: 100%;
+            font-size: 0.9rem;
         }
         
         .add-to-cart:hover {
-            background-color: #C62828;
-            transform: translateY(-2px);
-        }
-        
-        .add-to-cart i {
-            margin-left: 0.5rem;
-            font-size: 1.2rem;
+            background-color: #ffc400;
         }
         
         /* سبد خرید */
         .cart-icon {
             position: fixed;
-            bottom: 2rem;
-            left: 2rem;
-            background-color: var(--primary);
-            color: white;
-            width: 60px;
-            height: 60px;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            background-color: var(--accent);
+            color: var(--dark);
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
             z-index: 100;
             transition: all 0.3s ease;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(229,57,53,0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(229,57,53,0); }
-            100% { box-shadow: 0 0 0 0 rgba(229,57,53,0); }
-        }
-        
-        .cart-icon:hover {
-            transform: scale(1.1);
         }
         
         .cart-count {
             position: absolute;
             top: -5px;
             right: -5px;
-            background-color: var(--accent);
-            color: var(--dark);
-            width: 25px;
-            height: 25px;
+            background-color: var(--primary);
+            color: var(--text);
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             font-weight: 700;
         }
         
@@ -300,11 +224,10 @@
         .cart-panel {
             position: fixed;
             top: 0;
-            right: -400px;
-            width: 400px;
+            right: -100%;
+            width: 100%;
             height: 100vh;
-            background-color: white;
-            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            background-color: var(--dark);
             z-index: 200;
             transition: right 0.3s ease;
             display: flex;
@@ -316,7 +239,7 @@
         }
         
         .cart-header {
-            padding: 1.5rem;
+            padding: 1rem;
             background-color: var(--primary);
             color: white;
             display: flex;
@@ -325,7 +248,7 @@
         }
         
         .cart-title {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 600;
         }
         
@@ -340,14 +263,14 @@
         .cart-items {
             flex: 1;
             overflow-y: auto;
-            padding: 1.5rem;
+            padding: 1rem;
         }
         
         .cart-item {
             display: flex;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid #eee;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #555;
             animation: slideIn 0.3s ease;
         }
         
@@ -357,16 +280,18 @@
         }
         
         .cart-item-image {
-            width: 80px;
-            height: 80px;
-            background-color: #f5f5f5;
+            width: 60px;
+            height: 60px;
+            background-color: #555;
             border-radius: 8px;
-            margin-left: 1rem;
+            margin-left: 0.8rem;
             flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
+            background-size: cover;
+            background-position: center;
         }
         
         .cart-item-details {
@@ -375,12 +300,14 @@
         
         .cart-item-name {
             font-weight: 600;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
         }
         
         .cart-item-price {
-            color: var(--primary);
+            color: var(--accent);
             font-weight: 600;
+            font-size: 0.9rem;
         }
         
         .cart-item-actions {
@@ -390,103 +317,149 @@
         }
         
         .quantity-btn {
-            width: 25px;
-            height: 25px;
-            background-color: #f0f0f0;
+            width: 20px;
+            height: 20px;
+            background-color: #666;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
+            color: white;
+            font-size: 0.7rem;
         }
         
         .quantity {
             margin: 0 0.5rem;
-            min-width: 20px;
+            min-width: 15px;
             text-align: center;
+            font-size: 0.8rem;
         }
         
         .remove-item {
-            margin-right: 1rem;
-            color: #e53935;
+            margin-right: 0.8rem;
+            color: #ff5252;
             background: none;
             border: none;
             cursor: pointer;
+            font-size: 0.9rem;
         }
         
         .cart-footer {
-            padding: 1.5rem;
-            background-color: #f9f9f9;
-            border-top: 1px solid #eee;
+            padding: 1rem;
+            background-color: var(--primary);
+            border-top: 1px solid #555;
         }
         
         .cart-total {
             display: flex;
             justify-content: space-between;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 600;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
         
         .checkout-btn {
-            background-color: var(--primary);
-            color: white;
+            background-color: var(--accent);
+            color: var(--dark);
             border: none;
-            padding: 1rem;
+            padding: 0.8rem;
             width: 100%;
-            border-radius: 8px;
-            font-size: 1.1rem;
+            border-radius: 20px;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
         }
         
         .checkout-btn:hover {
-            background-color: #C62828;
+            background-color: #ffc400;
         }
         
         /* فرم تکمیل سفارش */
         .checkout-form {
             display: none;
-            padding: 1.5rem;
+            padding: 1rem;
         }
         
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
         
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 500;
+            font-size: 0.9rem;
         }
         
         .form-group input, 
         .form-group textarea {
             width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 1rem;
+            padding: 0.7rem;
+            border: 1px solid #555;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            background-color: #444;
+            color: white;
         }
         
         .location-btn {
-            background-color: #2196F3;
+            background-color: #4CAF50;
             color: white;
             border: none;
-            padding: 0.8rem;
-            border-radius: 4px;
+            padding: 0.7rem;
+            border-radius: 20px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 1rem;
             width: 100%;
+            font-size: 0.9rem;
         }
         
         .location-btn i {
             margin-left: 0.5rem;
+        }
+        
+        .location-status {
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            color: #aaa;
+        }
+        
+        .confirm-order {
+            background-color: var(--accent);
+            color: var(--dark);
+            border: none;
+            padding: 0.8rem;
+            width: 100%;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 0.5rem;
+        }
+        
+        .confirm-order:hover {
+            background-color: #ffc400;
+        }
+        
+        .back-to-cart {
+            background-color: #666;
+            color: white;
+            border: none;
+            padding: 0.7rem;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 0.8rem;
+            display: block;
+            width: 100%;
+            font-size: 0.9rem;
         }
         
         /* مودال موقعیت مکانی */
@@ -497,21 +470,21 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0,0,0,0.8);
             z-index: 300;
             justify-content: center;
             align-items: center;
         }
         
         .location-modal-content {
-            background-color: white;
-            border-radius: 8px;
+            background-color: var(--dark);
+            border-radius: 10px;
             width: 90%;
-            max-width: 500px;
-            max-height: 90vh;
+            max-height: 80vh;
             overflow: auto;
             padding: 1.5rem;
             position: relative;
+            border: 1px solid #555;
         }
         
         .close-modal {
@@ -522,80 +495,57 @@
             border: none;
             font-size: 1.5rem;
             cursor: pointer;
+            color: white;
         }
         
         #map {
-            height: 300px;
+            height: 250px;
             width: 100%;
             margin: 1rem 0;
             border-radius: 8px;
-            border: 1px solid #ddd;
+            border: 1px solid #555;
         }
         
         .confirm-location {
-            background-color: #4CAF50;
-            color: white;
+            background-color: var(--accent);
+            color: var(--dark);
             border: none;
-            padding: 0.8rem;
-            border-radius: 4px;
+            padding: 0.7rem;
+            border-radius: 20px;
             cursor: pointer;
             width: 100%;
-        }
-        
-        .confirm-order {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 1rem;
-            width: 100%;
-            border-radius: 8px;
-            font-size: 1.1rem;
             font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 1rem;
         }
         
-        .confirm-order:hover {
-            background-color: #388E3C;
-        }
-        
-        .verify-message {
-            display: none;
-            text-align: center;
-            padding: 2rem;
-            font-size: 1.2rem;
-        }
-        
-        .back-to-cart {
-            background-color: #f0f0f0;
-            color: var(--text);
-            border: none;
-            padding: 0.8rem;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 1rem;
-            display: block;
-            width: 100%;
+        /* انیمیشن ها */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
         }
         
         /* رسپانسیو */
-        @media (max-width: 768px) {
+        @media (max-width: 480px) {
             .menu-title {
-                font-size: 2.2rem;
+                font-size: 2rem;
             }
             
-            .items-grid {
-                grid-template-columns: 1fr;
+            .category-btn {
+                padding: 0.6rem 0.8rem;
+                font-size: 0.8rem;
+                margin: 0.2rem;
             }
             
-            .cart-panel {
-                width: 100%;
-                right: -100%;
+            .item-image {
+                height: 120px;
             }
             
-            .cart-panel.open {
-                right: 0;
+            .cart-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
+                bottom: 1rem;
+                left: 1rem;
             }
         }
     </style>
@@ -604,138 +554,405 @@
 <body>
     <!-- هدر منو -->
     <header class="menu-header">
-        <h1 class="menu-title">BurgerLand</h1>
-        <p class="menu-subtitle">منوی دیجیتال فست فود</p>
+        <h1 class="menu-title">دونریتو</h1>
     </header>
     
     <!-- دسته‌بندی‌ها -->
     <div class="menu-categories">
-        <button class="category-btn active" data-category="all">همه</button>
-        <button class="category-btn" data-category="burgers">برگرها</button>
-        <button class="category-btn" data-category="sandwiches">ساندویچ‌ها</button>
-        <button class="category-btn" data-category="sides">پیش‌غذاها</button>
-        <button class="category-btn" data-category="drinks">نوشیدنی‌ها</button>
+        <button class="category-btn active" data-category="doner">کباب دونر</button>
+        <button class="category-btn" data-category="hotdog">هات داگ</button>
+        <button class="category-btn" data-category="burger">برگر دست‌ساز</button>
+        <button class="category-btn" data-category="hot-sandwich">ساندویچ گرم</button>
+        <button class="category-btn" data-category="toast">توست</button>
+        <button class="category-btn" data-category="muffin">مافین</button>
+        <button class="category-btn" data-category="cold-sandwich">ساندویچ سرد</button>
+        <button class="category-btn" data-category="pasta">پاستا</button>
+        <button class="category-btn" data-category="potatoes">سیب‌زمینی</button>
     </div>
     
     <!-- آیتم‌های منو -->
     <div class="menu-items">
-        <!-- بخش برگرها -->
-        <div class="menu-section" id="burgers" data-category="burgers">
-            <h2 class="section-title">برگرها</h2>
+        <!-- بخش کباب دونر -->
+        <div class="menu-section" id="doner" data-category="doner">
+            <div class="section-title">
+                <h2>کباب دونر</h2>
+                <p>DONER KEBAB</p>
+            </div>
             <div class="items-grid">
-                <!-- آیتم 1 -->
                 <div class="menu-item">
-                    <div class="item-image">🍔</div>
+                    <div class="item-image" style="background-image: url('images/doner-classic.jpg');"></div>
                     <div class="item-details">
-                        <h3 class="item-name">برگر کلاسیک</h3>
-                        <p class="item-description">نان برگر، پتی ۱۵۰ گرمی، پنیر چدار، کاهو، گوجه، پیاز، سس مخصوص</p>
-                        <span class="item-price">85000</span>
+                        <h3 class="item-name">دونر کلاسیک<span>۲۲۰</span></h3>
+                        <p class="item-description">مرغ گرم، نان تورتیلا، خیارشور، سیب زمینی، سس سیر</p>
                         <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
                     </div>
                 </div>
                 
-                <!-- آیتم 2 -->
                 <div class="menu-item">
-                    <div class="item-image">🍔</div>
+                    <div class="item-image" style="background-image: url('images/doner-hatay.jpg');"></div>
                     <div class="item-details">
-                        <h3 class="item-name">برگر دبل چیز</h3>
-                        <p class="item-description">دو پتی ۱۵۰ گرمی، دو لایه پنیر چدار، قارچ، پیاز کاراملی، سس باربیکیو</p>
-                        <span class="item-price">120000</span>
-                        <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
-                    </div>
-                </div>
-                
-                <!-- آیتم 3 -->
-                <div class="menu-item">
-                    <div class="item-image">🍔</div>
-                    <div class="item-details">
-                        <h3 class="item-name">برگر اسپایسی</h3>
-                        <p class="item-description">پتی ۲۰۰ گرمی، پنیر پپر جک، فلفل تند، پیاز، سس تند مخصوص</p>
-                        <span class="item-price">95000</span>
+                        <h3 class="item-name">دونر هاتای<span>۲۱۰</span></h3>
+                        <p class="item-description">مرغ گرم، نان تورتیلا، کاهو، گوجه، خیارشور، سس سیر، سس هاتای</p>
                         <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
                     </div>
                 </div>
             </div>
         </div>
         
-        <!-- بخش ساندویچ‌ها -->
-        <div class="menu-section" id="sandwiches" data-category="sandwiches">
-            <h2 class="section-title">ساندویچ‌ها</h2>
+        <!-- بخش هات داگ -->
+        <div class="menu-section" id="hotdog" data-category="hotdog">
+            <div class="section-title">
+                <h2>هات داگ</h2>
+                <p>HOT DOG</p>
+            </div>
             <div class="items-grid">
-                <!-- آیتم 1 -->
                 <div class="menu-item">
-                    <div class="item-image">🥪</div>
+                    <div class="item-image" style="background-image: url('images/hotdog-classic.jpg');"></div>
                     <div class="item-details">
-                        <h3 class="item-name">ساندویچ مرغ</h3>
-                        <p class="item-description">فیله مرغ سوخاری، کاهو، گوجه، مایونز، نان باگت</p>
-                        <span class="item-price">75000</span>
+                        <h3 class="item-name">هات داگ کلاسیک<span>۱۹۰</span></h3>
+                        <p class="item-description">کریسپی، پنیر چدار، خیارشور</p>
                         <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
                     </div>
                 </div>
                 
-                <!-- آیتم 2 -->
                 <div class="menu-item">
-                    <div class="item-image">🥪</div>
+                    <div class="item-image" style="background-image: url('images/hotdog-bacon.jpg');"></div>
                     <div class="item-details">
-                        <h3 class="item-name">ساندویچ چیکن چیز</h3>
-                        <p class="item-description">فیله مرغ گریل شده، پنیر موزارلا، قارچ، سس مخصوص</p>
-                        <span class="item-price">85000</span>
+                        <h3 class="item-name">هات داگ بیکن<span>۲۲۰</span></h3>
+                        <p class="item-description">بیکن، گودا دیپ، پیاز کاراملیزه، کریسپی، هالوپینو</p>
+                        <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('images/hotdog-mushroom.jpg');"></div>
+                    <div class="item-details">
+                        <h3 class="item-name">هات داگ ماشروم<span>۲۳۰</span></h3>
+                        <p class="item-description">سس ماشروم، کریسپی، هالوپینو</p>
                         <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
                     </div>
                 </div>
             </div>
         </div>
         
-        <!-- بخش پیش‌غذاها -->
-        <div class="menu-section" id="sides" data-category="sides">
-            <h2 class="section-title">پیش‌غذاها</h2>
+        <!-- بخش برگر دست‌ساز -->
+        <div class="menu-section" id="burger" data-category="burger">
+            <div class="section-title">
+                <h2>برگر دست‌ساز</h2>
+                <p>HANDMADE BURGER</p>
+            </div>
             <div class="items-grid">
-                <!-- آیتم 1 -->
                 <div class="menu-item">
-                    <div class="item-image">🍟</div>
+                    <div class="item-image" style="background-image: url('images/burger-classic.jpg');"></div>
                     <div class="item-details">
-                        <h3 class="item-name">سیب‌زمینی سرخ کرده</h3>
-                        <p class="item-description">سیب‌زمینی خلالی با نمک و ادویه مخصوص، سس قرمز</p>
-                        <span class="item-price">45000</span>
+                        <h3 class="item-name">برگر کلاسیک<span>۲۸۰</span></h3>
+                        <p class="item-description">گوشت گرم ۱۵۰ گرمی، پنیر امنتال، سس، ماشروم، کریسپی، لوپینو</p>
                         <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
                     </div>
                 </div>
                 
-                <!-- آیتم 2 -->
                 <div class="menu-item">
-                    <div class="item-image">🧅</div>
+                    <div class="item-image" style="background-image: url('images/burger-bacon.jpg');"></div>
                     <div class="item-details">
-                        <h3 class="item-name">پیاز سوخاری</h3>
-                        <p class="item-description">پیاز خلالی سوخاری با آرد مخصوص، سس باربیکیو</p>
-                        <span class="item-price">55000</span>
+                        <h3 class="item-name">برگر بیکن<span>۳۲۵</span></h3>
+                        <p class="item-description">گوشت گرم ۱۵۰ گرمی، بیکن، پنیر چدار، پیاز کاراملیزه، گوجه، کاهو، خیارشور</p>
+                        <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('images/burger-mushroom.jpg');"></div>
+                    <div class="item-details">
+                        <h3 class="item-name">برگر ماشروم<span>۳۱۵</span></h3>
+                        <p class="item-description">گوشت گرم ۱۵۰ گرمی، بیکن، پیاز کاراملیزه، کریسپی، دیپ چدار، لوپینو</p>
+                        <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('images/burger-special.jpg');"></div>
+                    <div class="item-details">
+                        <h3 class="item-name">برگر اسپشیال<span>۳۵۵</span></h3>
+                        <p class="item-description">گوشت گرم ۱۵۰ گرمی استیک، نان کره و سیر، پنیر چدار، دیپ چدار، کریسپی، لوپینو، کاهو، گوجه</p>
                         <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
                     </div>
                 </div>
             </div>
         </div>
         
-        <!-- بخش نوشیدنی‌ها -->
-        <div class="menu-section" id="drinks" data-category="drinks">
-            <h2 class="section-title">نوشیدنی‌ها</h2>
+        <!-- بخش ساندویچ گرم -->
+        <div class="menu-section" id="hot-sandwich" data-category="hot-sandwich">
+            <div class="section-title">
+                <h2>ساندویچ گرم</h2>
+                <p>HOT SANDWICH</p>
+            </div>
             <div class="items-grid">
-                <!-- آیتم 1 -->
                 <div class="menu-item">
-                    <div class="item-image">🥤</div>
+                    <div class="item-image" style="background-image: url('images/sandwich-roast.jpg');"></div>
                     <div class="item-details">
-                        <h3 class="item-name">نوشابه گازدار</h3>
-                        <p class="item-description">کوکاکولا، فانتا، اسپرایت، مائوتا (۳۳۰ میلی‌لیتر)</p>
-                        <span class="item-price">30000</span>
+                        <h3 class="item-name">رست بیف<span>۳۲۰</span></h3>
+                        <p class="item-description">استیک گرم ۱۳۵ گرمی، سس رومسکو، پنیر گودا، کریسپی، لوپینو</p>
                         <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
                     </div>
                 </div>
                 
-                <!-- آیتم 2 -->
                 <div class="menu-item">
-                    <div class="item-image">🧃</div>
+                    <div class="item-image" style="background-image: url('images/sandwich-steak.jpg');"></div>
                     <div class="item-details">
-                        <h3 class="item-name">آبمیوه طبیعی</h3>
-                        <p class="item-description">پرتقال، انبه، هویج (۲۵۰ میلی‌لیتر)</p>
-                        <span class="item-price">40000</span>
+                        <h3 class="item-name">ساندویچ استیک<span>۳۲۵</span></h3>
+                        <p class="item-description">بیف رست ۱۳۵ گرمی، پنیر امنتال، سس ماشروم، سس مخصوص، کریسپی، لوپینو</p>
+                        <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('images/sandwich-bacon.jpg');"></div>
+                    <div class="item-details">
+                        <h3 class="item-name">ساندویچ بیکن<span>۳۱۵</span></h3>
+                        <p class="item-description">بیکن %98، پنیر امنتال، خیارشور، کریسپی، لوپینو</p>
+                        <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- بخش توست -->
+        <div class="menu-section" id="toast" data-category="toast">
+            <div class="section-title">
+                <h2>توست</h2>
+                <p>TOAST</p>
+            </div>
+            <div class="items-grid">
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('images/toast-salami.jpg');"></div>
+                    <div class="item-details">
+                        <h3 class="item-name">سالامی<span>۲۰۰</span></h3>
+                        <p class="item-description">پنیر موزارلا، لوپینو، سالامی</p>
+                        <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('images/toast-krakow.jpg');"></div>
+                    <div class="item-details">
+                        <h3 class="item-name">کراکوف<span>۲۱۰</span></h3>
+                        <p class="item-description">پنیر پنیری، کراکوف، لوپینو</p>
+                        <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('images/toast-pepperoni.jpg');"></div>
+                    <div class="item-details">
+                        <h3 class="item-name">پپرونی<span>۱۹۰</span></h3>
+                        <p class="item-description">پنیر موزارلا، پپرونی، لوپینو</p>
+                        <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- بخش مافین -->
+        <div class="menu-section" id="muffin" data-category="muffin">
+            <div class="section-title">
+                <h2>مافین</h2>
+                <p>MUFFIN</p>
+            </div>
+            <div class="items-grid">
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('images/muffin-beef.jpg');"></div>
+                    <div class="item-details">
+                        <h3 class="item-name">مافین بیف<span>۱۹۰</span></h3>
+                        <p class="item-description">نان مافین انگلیسی، چدار، بیف روست، سس مخصوص</p>
+                        <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('images/muffin-bacon.jpg');"></div>
+                    <div class="item-details">
+                        <h3 class="item-name">مافین بیکن<span>۱۷۵</span></h3>
+                        <p class="item-description">نان مافین انگلیسی، بیکن %98، پنیر گودا، سس مخصوص</p>
+                        <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('images/muffin-steak.jpg');"></div>
+                    <div class="item-details">
+                        <h3 class="item-name">مافین استیک<span>۱۹۰</span></h3>
+                        <p class="item-description">نان مافین انگلیسی، چدار، استیک، سس مخصوص</p>
+                        <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('images/muffin-burger.jpg');"></div>
+                    <div class="item-details">
+                        <h3 class="item-name">مافین برگر<span>۲۰۰</span></h3>
+                        <p class="item-description">نان مافین انگلیسی، برگر دست‌ساز، چدار، سس مخصوص</p>
+                        <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- بخش ساندویچ سرد -->
+        <div class="menu-section" id="cold-sandwich" data-category="cold-sandwich">
+            <div class="section-title">
+                <h2>ساندویچ سرد</h2>
+                <p>COLD SANDWICH</p>
+            </div>
+            <div class="items-grid">
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('images/sandwich-mexican.jpg');"></div>
+                    <div class="item-details">
+                        <h3 class="item-name">مرغ مکزیکی<span>۲۵۵</span></h3>
+                        <p class="item-description">نان فوکاچا، مرغ، کاهو، سس گوجه، پستو، گردو، زیتون، پارمسان، سس کریسپی</p>
+                        <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('images/sandwich-turkey.jpg');"></div>
+                    <div class="item-details">
+                        <h3 class="item-name">بوقلمون دودی<span>۲۵۰</span></h3>
+                        <p class="item-description">نان فوکاچا، بوقلمون دودی، کاهو، سس گوجه، پستو، گردو، زیتون، پارمسان، سس کریسپی</p>
+                        <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('images/sandwich-bacon.jpg');"></div>
+                    <div class="item-details">
+                        <h3 class="item-name">بیکن %98<span>۳۱۰</span></h3>
+                        <p class="item-description">نان فوکاچا، بیکن، کاهو، گوجه، زیتون، پستو، گردو، پارمسان، سس کریسپی</p>
+                        <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('images/sandwich-simit.jpg');"></div>
+                    <div class="item-details">
+                        <h3 class="item-name">سیمیت<span>۲۰۰</span></h3>
+                        <p class="item-description">نان سیمیت، ژامبون مرغ، پنیر خامه‌ای، گوجه، زیتون</p>
+                        <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- بخش پاستا -->
+        <div class="menu-section" id="pasta" data-category="pasta">
+            <div class="section-title">
+                <h2>پاستا</h2>
+                <p>PASTA</p>
+            </div>
+            <div class="items-grid">
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('images/pasta-pesto.jpg');"></div>
+                    <div class="item-details">
+                        <h3 class="item-name">پاستا پستو<span>۲۹۰</span></h3>
+                        <p class="item-description">پاستا با سس پستو، خامه، فیله مرغ، گوجه، پارمسان</p>
+                        <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('images/pasta-alfredo-steak.jpg');"></div>
+                    <div class="item-details">
+                        <h3 class="item-name">پاستا آلفردو استیک<span>۳۱۵</span></h3>
+                        <p class="item-description">استیک، سس آلفردو، گوجه چری، پارمسان</p>
+                        <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('images/pasta-alfredo-chicken.jpg');"></div>
+                    <div class="item-details">
+                        <h3 class="item-name">پاستا آلفردو مرغ<span>۲۹۰</span></h3>
+                        <p class="item-description">فیله مرغ، سس آلفردو، گوجه چری، پارمسان</p>
+                        <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('images/pasta-arabiata.jpg');"></div>
+                    <div class="item-details">
+                        <h3 class="item-name">پاستا آربیاتا<span>۳۰۰</span></h3>
+                        <p class="item-description">سس آربیاتا، استیک، پارمسان</p>
+                        <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- بخش سیب‌زمینی -->
+        <div class="menu-section" id="potatoes" data-category="potatoes">
+            <div class="section-title">
+                <h2>سیب‌زمینی</h2>
+                <p>FRIED POTATOES</p>
+            </div>
+            <div class="items-grid">
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('images/potatoes-bacon.jpg');"></div>
+                    <div class="item-details">
+                        <h3 class="item-name">با بیکن<span>۲۲۵</span></h3>
+                        <p class="item-description">سیب‌زمینی، بیکن، سس ماشروم</p>
+                        <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('images/potatoes-salami.jpg');"></div>
+                    <div class="item-details">
+                        <h3 class="item-name">با سالامی<span>۲۰۰</span></h3>
+                        <p class="item-description">سیب‌زمینی، سالامی تنوری، پنیر گودا</p>
+                        <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('images/potatoes-pepperoni.jpg');"></div>
+                    <div class="item-details">
+                        <h3 class="item-name">با پپرونی<span>۱۹۰</span></h3>
+                        <p class="item-description">سیب‌زمینی، پپرونی</p>
+                        <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('images/potatoes-filled.jpg');"></div>
+                    <div class="item-details">
+                        <h3 class="item-name">با فیله سوخاری<span>۱۹۰</span></h3>
+                        <p class="item-description">سیب‌زمینی، فیله سوخاری</p>
+                        <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('images/potatoes-steak.jpg');"></div>
+                    <div class="item-details">
+                        <h3 class="item-name">با استیک<span>۲۴۰</span></h3>
+                        <p class="item-description">سیب‌زمینی، استیک</p>
+                        <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('images/potatoes-small.jpg');"></div>
+                    <div class="item-details">
+                        <h3 class="item-name">کوچک<span>۱۰۰</span></h3>
+                        <p class="item-description">سیب‌زمینی سرخ کرده</p>
+                        <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="item-image" style="background-image: url('images/potatoes-big.jpg');"></div>
+                    <div class="item-details">
+                        <h3 class="item-name">بزرگ<span>۱۵۰</span></h3>
+                        <p class="item-description">سیب‌زمینی سرخ کرده</p>
                         <button class="add-to-cart">افزودن به سبد <i class="fas fa-cart-plus"></i></button>
                     </div>
                 </div>
@@ -783,17 +1000,9 @@
             <button type="button" class="location-btn" id="locationBtn">
                 <i class="fas fa-map-marker-alt"></i> انتخاب موقعیت مکانی
             </button>
-            <span id="locationStatus">موقعیت انتخاب نشده</span>
+            <div class="location-status" id="locationStatus">موقعیت انتخاب نشده</div>
             <button type="button" class="confirm-order" id="confirmOrder">تایید و ارسال به واتساپ</button>
             <button type="button" class="back-to-cart" id="backToCart">بازگشت به سبد خرید</button>
-        </div>
-        
-        <!-- پیام تایید -->
-        <div class="verify-message" id="verifyMessage">
-            <i class="fas fa-check-circle" style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;"></i>
-            <p>سفارش شما با موفقیت ثبت شد!</p>
-            <p>لطفا کد 4 رقمی که براتون پیامک شد را ارسال کنید</p>
-            <button type="button" class="back-to-cart" id="backToMenu">بازگشت به منو</button>
         </div>
     </div>
     
@@ -827,8 +1036,6 @@
             const checkoutForm = document.getElementById('checkoutForm');
             const confirmOrder = document.getElementById('confirmOrder');
             const backToCart = document.getElementById('backToCart');
-            const verifyMessage = document.getElementById('verifyMessage');
-            const backToMenu = document.getElementById('backToMenu');
             const locationBtn = document.getElementById('locationBtn');
             const locationModal = document.getElementById('locationModal');
             const closeModal = document.getElementById('closeModal');
@@ -906,7 +1113,7 @@
                 cartPanel.classList.remove('open');
             });
             
-            // فیلتر کردن آیتم‌های منو (نسخه بهبود یافته)
+            // فیلتر کردن آیتم‌های منو
             const categoryButtons = document.querySelectorAll('.category-btn');
             const menuSections = document.querySelectorAll('.menu-section');
             
@@ -921,33 +1128,28 @@
                     
                     // مخفی کردن تمام بخش‌ها
                     menuSections.forEach(section => {
-                        section.style.display = 'none';
+                        section.classList.remove('active');
                     });
                     
-                    // نمایش بخش‌های مربوطه
-                    if (selectedCategory === 'all') {
-                        menuSections.forEach(section => {
-                            section.style.display = 'block';
-                            section.style.animation = 'fadeIn 0.5s ease';
-                        });
-                    } else {
-                        const targetSection = document.querySelector(`.menu-section[data-category="${selectedCategory}"]`);
-                        if (targetSection) {
-                            targetSection.style.display = 'block';
-                            targetSection.style.animation = 'fadeIn 0.5s ease';
-                        }
+                    // نمایش بخش مربوطه
+                    const targetSection = document.querySelector(`.menu-section[data-category="${selectedCategory}"]`);
+                    if (targetSection) {
+                        targetSection.classList.add('active');
                     }
                 });
             });
+            
+            // فعال کردن دسته‌بندی اول به صورت پیش‌فرض
+            document.querySelector('.category-btn').click();
             
             // افزودن آیتم به سبد خرید
             const addToCartButtons = document.querySelectorAll('.add-to-cart');
             addToCartButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     const menuItem = this.closest('.menu-item');
-                    const itemName = menuItem.querySelector('.item-name').textContent;
-                    const itemPrice = parseInt(menuItem.querySelector('.item-price').textContent);
-                    const itemImage = menuItem.querySelector('.item-image').textContent;
+                    const itemName = menuItem.querySelector('.item-name').textContent.split(' ')[0];
+                    const itemPrice = parseInt(menuItem.querySelector('.item-name span').textContent);
+                    const itemImage = menuItem.querySelector('.item-image').style.backgroundImage;
                     
                     // بررسی وجود آیتم در سبد خرید
                     const existingItem = cart.find(item => item.name === itemName);
@@ -973,16 +1175,20 @@
                     flyingItem.style.position = 'fixed';
                     flyingItem.style.left = `${buttonRect.left}px`;
                     flyingItem.style.top = `${buttonRect.top}px`;
-                    flyingItem.style.fontSize = '1.5rem';
+                    flyingItem.style.width = '30px';
+                    flyingItem.style.height = '30px';
+                    flyingItem.style.backgroundImage = itemImage;
+                    flyingItem.style.backgroundSize = 'cover';
+                    flyingItem.style.backgroundPosition = 'center';
+                    flyingItem.style.borderRadius = '50%';
                     flyingItem.style.zIndex = '1000';
                     flyingItem.style.transition = 'all 0.5s ease';
-                    flyingItem.innerHTML = itemImage;
                     document.body.appendChild(flyingItem);
                     
                     setTimeout(() => {
                         flyingItem.style.left = `${cartRect.left}px`;
                         flyingItem.style.top = `${cartRect.top}px`;
-                        flyingItem.style.transform = 'scale(0.5)';
+                        flyingItem.style.transform = 'scale(0.2)';
                         flyingItem.style.opacity = '0.5';
                     }, 10);
                     
@@ -998,7 +1204,7 @@
                 const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
                 cartCount.textContent = totalItems;
                 
-                // محاسبه جمع کل (رفع مشکل محاسبه)
+                // محاسبه جمع کل
                 const totalPrice = cart.reduce((total, item) => {
                     return total + (item.price * item.quantity);
                 }, 0);
@@ -1018,7 +1224,7 @@
                     const cartItemElement = document.createElement('div');
                     cartItemElement.className = 'cart-item';
                     cartItemElement.innerHTML = `
-                        <div class="cart-item-image">${item.image}</div>
+                        <div class="cart-item-image" style="${item.image}"></div>
                         <div class="cart-item-details">
                             <div class="cart-item-name">${item.name}</div>
                             <div class="cart-item-price">${(item.price * item.quantity).toLocaleString('fa-IR')} تومان</div>
@@ -1101,7 +1307,7 @@
                 }, 0);
                 
                 // ساخت پیام سفارش
-                let orderMessage = `سفارش جدید از BurgerLand\n\n`;
+                let orderMessage = `سفارش جدید از دونریتو\n\n`;
                 orderMessage += `مشتری: ${name}\n`;
                 orderMessage += `شماره تماس: ${phone}\n`;
                 orderMessage += `آدرس: ${address || 'ثبت نشده'}\n`;
@@ -1121,53 +1327,20 @@
                 const whatsappUrl = `https://wa.me/989334479527?text=${encodedMessage}`;
                 window.open(whatsappUrl, '_blank');
                 
-                // نمایش پیام تایید
-                checkoutForm.style.display = 'none';
-                verifyMessage.style.display = 'block';
-            });
-            
-            backToMenu.addEventListener('click', function() {
-                // بازگشت به منو و ریست کردن سبد خرید
+                // ریست کردن سبد خرید
                 cart = [];
                 updateCart();
-                verifyMessage.style.display = 'none';
-                cartItemsContainer.style.display = 'block';
-                document.querySelector('.cart-footer').style.display = 'block';
-                cartPanel.classList.remove('open');
-                
-                // ریست کردن فرم
                 document.getElementById('name').value = '';
                 document.getElementById('phone').value = '';
                 document.getElementById('address').value = '';
                 locationStatus.textContent = 'موقعیت انتخاب نشده';
-                userLocation = {
-                    lat: 35.6953385,
-                    lng: 51.2542623
-                };
+                
+                // بازگشت به سبد خرید
+                cartItemsContainer.style.display = 'block';
+                document.querySelector('.cart-footer').style.display = 'block';
+                checkoutForm.style.display = 'none';
+                cartPanel.classList.remove('open');
             });
-            
-            // انیمیشن اسکرول برای بخش‌های منو
-            function animateOnScroll() {
-                menuSections.forEach(section => {
-                    const sectionPosition = section.getBoundingClientRect().top;
-                    const screenPosition = window.innerHeight / 1.2;
-                    
-                    if (sectionPosition < screenPosition) {
-                        section.style.opacity = '1';
-                        section.style.transform = 'translateY(0)';
-                    }
-                });
-            }
-            
-            // تنظیم حالت اولیه برای انیمیشن
-            menuSections.forEach(section => {
-                section.style.opacity = '0';
-                section.style.transform = 'translateY(20px)';
-                section.style.transition = 'all 0.6s ease';
-            });
-            
-            window.addEventListener('scroll', animateOnScroll);
-            animateOnScroll(); // اجرای اولیه برای بخش‌های در دید
         });
     </script>
 </body>
