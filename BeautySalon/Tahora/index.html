@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>سالن زیبایی طهورا - کاتالوگ خدمات</title>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
             font-family: Vazir, sans-serif;
@@ -63,6 +64,9 @@
             margin-top: 0;
             border-bottom: 1px solid #eee;
             padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
         .service-item {
@@ -207,6 +211,147 @@
             text-decoration: none;
         }
         
+        /* استایل‌های جدید برای دکمه‌های تماس */
+        .contact-link {
+            display: inline-block;
+            padding: 8px 15px;
+            margin: 5px;
+            background-color: #f0e4f4;
+            color: #8E44AD;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid #DDB7E4;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .contact-link:hover {
+            background-color: #8E44AD;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .contact-link i {
+            margin-left: 5px;
+        }
+        
+        /* استایل‌های گالری */
+        .gallery-btn {
+            background-color: #FF69B4;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            padding: 5px 10px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-right: 10px;
+        }
+        
+        .gallery-btn:hover {
+            background-color: #E75480;
+        }
+        
+        .category-icon {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+        
+        /* پاپ آپ گالری */
+        .gallery-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .gallery-container {
+            background-color: white;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 800px;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .main-image {
+            width: 100%;
+            height: 400px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            border-radius: 10px;
+        }
+        
+        .thumbnail-container {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 10px 0;
+        }
+        
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .thumbnail:hover, .thumbnail.active {
+            border-color: #8E44AD;
+        }
+        
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(142, 68, 173, 0.7);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .nav-btn:hover {
+            background-color: rgba(142, 68, 173, 1);
+        }
+        
+        .prev-btn {
+            left: 10px;
+        }
+        
+        .next-btn {
+            right: 10px;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: transparent;
+            border: none;
+            color: #888;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
         @media (max-width: 768px) {
             .packages {
                 flex-direction: column;
@@ -227,6 +372,15 @@
                 margin-top: 5px;
                 margin-right: 0;
             }
+            
+            .main-image {
+                height: 300px;
+            }
+            
+            .thumbnail {
+                width: 60px;
+                height: 60px;
+            }
         }
     </style>
 </head>
@@ -242,7 +396,11 @@
         
         <!-- خدمات صورت -->
         <div class="card">
-            <h2>💄 خدمات صورت</h2>
+            <h2>
+                <img src="face-icon.png" alt="خدمات صورت" class="category-icon">
+                خدمات صورت
+                <button class="gallery-btn" onclick="openGallery('face')">نمایش گالری</button>
+            </h2>
             <div class="service-item">
                 <span class="service-name">میکاپ پایه</span>
                 <span class="service-price">از ۱ میلیون تومان</span>
@@ -271,7 +429,11 @@
         
         <!-- خدمات مو -->
         <div class="card">
-            <h2>💇‍♀️ خدمات مو</h2>
+            <h2>
+                <img src="hair-icon.png" alt="خدمات مو" class="category-icon">
+                خدمات مو
+                <button class="gallery-btn" onclick="openGallery('hair')">نمایش گالری</button>
+            </h2>
             <div class="service-item">
                 <span class="service-name">شینیون پایه</span>
                 <span class="service-price">از ۷۰۰ هزار تومان</span>
@@ -308,7 +470,11 @@
         
         <!-- خدمات مژه و ابرو -->
         <div class="card">
-            <h2>👁‍🗨 خدمات مژه و ابرو</h2>
+            <h2>
+                <img src="eyebrow-icon.png" alt="خدمات مژه و ابرو" class="category-icon">
+                خدمات مژه و ابرو
+                <button class="gallery-btn" onclick="openGallery('eyebrow')">نمایش گالری</button>
+            </h2>
             <div class="service-item">
                 <span class="service-name">اصلاح ابرو</span>
                 <span class="service-price">از ۱۰۰ هزار تومان</span>
@@ -333,7 +499,11 @@
         
         <!-- خدمات ناخن -->
         <div class="card">
-            <h2>💅 خدمات ناخن</h2>
+            <h2>
+                <img src="nail-icon.png" alt="خدمات ناخن" class="category-icon">
+                خدمات ناخن
+                <button class="gallery-btn" onclick="openGallery('nail')">نمایش گالری</button>
+            </h2>
             <div class="service-item">
                 <span class="service-name">کاشت ژورنالی و گریم</span>
                 <span class="service-price">۱.۵ میلیون تومان</span>
@@ -358,7 +528,11 @@
         
         <!-- خدمات پا -->
         <div class="card">
-            <h2>👣 خدمات پا</h2>
+            <h2>
+                <img src="foot-icon.png" alt="خدمات پا" class="category-icon">
+                خدمات پا
+                <button class="gallery-btn" onclick="openGallery('foot')">نمایش گالری</button>
+            </h2>
             <div class="service-item">
                 <span class="service-name">ژلیش پا</span>
                 <span class="service-price">۳۰۰ هزار تومان</span>
@@ -383,7 +557,11 @@
         
         <!-- خدمات آرایش دائم -->
         <div class="card">
-            <h2>✍️ خدمات آرایش دائم</h2>
+            <h2>
+                <img src="permanent-icon.png" alt="خدمات آرایش دائم" class="category-icon">
+                خدمات آرایش دائم
+                <button class="gallery-btn" onclick="openGallery('permanent')">نمایش گالری</button>
+            </h2>
             <div class="service-item">
                 <span class="service-name">فیبروز ابرو</span>
                 <span class="service-price">۲.۵ میلیون تومان</span>
@@ -412,7 +590,11 @@
         
         <!-- خدمات ماساژ و درمانی -->
         <div class="card">
-            <h2>💆‍♀️ خدمات ماساژ و درمانی</h2>
+            <h2>
+                <img src="massage-icon.png" alt="خدمات ماساژ و درمانی" class="category-icon">
+                خدمات ماساژ و درمانی
+                <button class="gallery-btn" onclick="openGallery('massage')">نمایش گالری</button>
+            </h2>
             <div class="service-item">
                 <span class="service-name">ماساژ ریلکسی</span>
                 <span class="service-price">۸۰۰ هزار تومان</span>
@@ -448,19 +630,39 @@
         <div class="card contact-info">
             <h2>📍 اطلاعات تماس</h2>
             <div class="contact-row">
-                <div class="contact-text">موبایل: ۰۹۱۲۴۶۶۱۱۷۵ <button class="contact-btn" onclick="window.open('tel:09124661175')">تماس بگیرید</button></div>
+                <div class="contact-text">
+                    <a href="tel:09124661175" class="contact-link">
+                        <i class="fas fa-phone"></i> ۰۹۱۲۴۶۶۱۱۷۵
+                    </a>
+                </div>
             </div>
             <div class="contact-row">
-                <div class="contact-text">تلفن ثابت: ۶۶۲۶۷۷۶۵-۰۲۱ <button class="contact-btn" onclick="window.open('tel:02166267765')">تماس بگیرید</button></div>
+                <div class="contact-text">
+                    <a href="tel:02166267765" class="contact-link">
+                        <i class="fas fa-phone-alt"></i> ۶۶۲۶۷۷۶۵-۰۲۱
+                    </a>
+                </div>
             </div>
             <div class="contact-row">
-                <div class="contact-text">آدرس: تهران، خیابان خلیج فارس، نبش کوچه طالقانی، پلاک ۳۵۹، ساختمان اهورا، طبقه اول، واحد ۲ <button class="contact-btn" onclick="openLocation()">نمایش لوکیشن</button></div>
+                <div class="contact-text">
+                    <a href="#" onclick="openLocation(); return false;" class="contact-link">
+                        <i class="fas fa-map-marker-alt"></i> تهران، خیابان خلیج فارس، نبش کوچه طالقانی، پلاک ۳۵۹، ساختمان اهورا، طبقه اول، واحد ۲
+                    </a>
+                </div>
             </div>
             <div class="contact-row">
-                <div class="contact-text">ساعات کاری: از ۱۰ صبح تا ۸ شب</div>
+                <div class="contact-text">
+                    <span class="contact-link" style="cursor: default; background-color: #f9f2f4;">
+                        <i class="far fa-clock"></i> ساعات کاری: از ۱۰ صبح تا ۸ شب
+                    </span>
+                </div>
             </div>
             <div class="contact-row">
-                <div class="contact-text">اینستاگرام: Tahora_vip <button class="contact-btn" onclick="window.open('https://instagram.com/Tahora_vip')">فالو کنید</button></div>
+                <div class="contact-text">
+                    <a href="https://instagram.com/Tahora_vip" target="_blank" class="contact-link">
+                        <i class="fab fa-instagram"></i> Tahora_vip
+                    </a>
+                </div>
             </div>
         </div>
         
@@ -485,6 +687,17 @@
                 09334479527 بهرامی
             </div>
         </footer>
+    </div>
+
+    <!-- پاپ آپ گالری -->
+    <div class="gallery-popup" id="galleryPopup">
+        <div class="gallery-container">
+            <button class="close-btn" onclick="closeGallery()">&times;</button>
+            <img id="mainImage" class="main-image" src="" alt="تصویر گالری">
+            <button class="nav-btn prev-btn" onclick="prevImage()"><i class="fas fa-chevron-right"></i></button>
+            <button class="nav-btn next-btn" onclick="nextImage()"><i class="fas fa-chevron-left"></i></button>
+            <div class="thumbnail-container" id="thumbnailContainer"></div>
+        </div>
     </div>
 
     <script>
@@ -536,6 +749,111 @@
             const longitude = 51.2660469;
             window.open(`geo:${latitude},${longitude}?q=${latitude},${longitude}(سالن زیبایی طهورا)`);
         }
+        
+        // مدیریت گالری تصاویر
+        const galleries = {
+            face: [
+                'face1.jpg',
+                'face2.jpg',
+                'face3.jpg'
+            ],
+            hair: [
+                'hair1.jpg',
+                'hair2.jpg',
+                'hair3.jpg'
+            ],
+            eyebrow: [
+                'eyebrow1.jpg',
+                'eyebrow2.jpg',
+                'eyebrow3.jpg'
+            ],
+            nail: [
+                'nail1.jpg',
+                'nail2.jpg',
+                'nail3.jpg'
+            ],
+            foot: [
+                'foot1.jpg',
+                'foot2.jpg',
+                'foot3.jpg'
+            ],
+            permanent: [
+                'permanent1.jpg',
+                'permanent2.jpg',
+                'permanent3.jpg'
+            ],
+            massage: [
+                'massage1.jpg',
+                'massage2.jpg',
+                'massage3.jpg'
+            ]
+        };
+        
+        let currentGallery = [];
+        let currentIndex = 0;
+        
+        function openGallery(galleryType) {
+            currentGallery = galleries[galleryType];
+            currentIndex = 0;
+            
+            const popup = document.getElementById('galleryPopup');
+            const mainImage = document.getElementById('mainImage');
+            const thumbnailContainer = document.getElementById('thumbnailContainer');
+            
+            // نمایش اولین تصویر
+            mainImage.src = currentGallery[0];
+            
+            // ایجاد تصاویر کوچک
+            thumbnailContainer.innerHTML = '';
+            currentGallery.forEach((img, index) => {
+                const thumbnail = document.createElement('img');
+                thumbnail.src = img;
+                thumbnail.className = 'thumbnail' + (index === 0 ? ' active' : '');
+                thumbnail.onclick = () => {
+                    currentIndex = index;
+                    updateGallery();
+                };
+                thumbnailContainer.appendChild(thumbnail);
+            });
+            
+            popup.style.display = 'flex';
+        }
+        
+        function closeGallery() {
+            document.getElementById('galleryPopup').style.display = 'none';
+        }
+        
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
+            updateGallery();
+        }
+        
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % currentGallery.length;
+            updateGallery();
+        }
+        
+        function updateGallery() {
+            const mainImage = document.getElementById('mainImage');
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            
+            mainImage.src = currentGallery[currentIndex];
+            
+            thumbnails.forEach((thumb, index) => {
+                if (index === currentIndex) {
+                    thumb.classList.add('active');
+                } else {
+                    thumb.classList.remove('active');
+                }
+            });
+        }
+        
+        // بستن گالری با کلیک خارج از آن
+        document.getElementById('galleryPopup').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeGallery();
+            }
+        });
         
         // به روزرسانی وضعیت در هنگام لود و هر دقیقه
         updateBusinessStatus();
