@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دونریتو | تجربه غذاهای استانبول/nدر تهران</title>
+    <title>دونریتو | تجربه غذاهای استانبول در تهران</title>
     <style>
         * {
             margin: 0;
@@ -45,7 +45,7 @@
         }
         
         /* صفحه اصلی */
-        .video-ground {
+        .video-background {
             position: fixed;
             top: 0;
             left: 0;
@@ -55,7 +55,7 @@
             overflow: hidden;
         }
         
-        .video-ground video {
+        .video-background video {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -107,50 +107,32 @@
             text-align: center;
             text-decoration: none;
             backdrop-filter: blur(5px);
-            background-color: rgba(156, 135, 88, 0.7);
+            background-color: rgba(0, 0, 0, 0.5);
             color: white;
             border: 1px solid #9C8758;
         }
         
         .btn:hover {
-            background-color: rgba(156, 135, 88, 0.9);
+            background-color: rgba(0, 0, 0, 0.9);
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
         
         .btn-instagram {
-            background-color: rgba(0, 0, 0, 0.7);
             border: 1px solid #E1306C;
-            background-color: rgba(0, 0, 0, 0.5); /* شفافیت 40% */
-            backdrop-filter: blur(2px); /* افکت محو بسیار ملایم */
-        }
-        
-        .btn-instagram:hover {
-            background-color: rgba(0, 0, 0, 0.9);
         }
         
         .btn-call {
-            background-color: rgba(0, 0, 0, 0.7);
             border: 1px solid #333;
-            background-color: rgba(0, 0, 0, 0.5); /* شفافیت 40% */
-            backdrop-filter: blur(2px); /* افکت محو بسیار ملایم */
-        }
-        
-        .btn-call:hover {
-            background-color: rgba(0, 0, 0, 0.9);
         }
         
         .btn-menu {
             margin-top: 20px;
             background-color: rgba(156, 135, 88, 0.8);
-            background-color: rgba(0, 0, 0, 0.5); /* شفافیت 40% */
-            backdrop-filter: blur(2px); /* افکت محو بسیار ملایم */
         }
-        .loc {
-            background-color: rgba(0, 0, 0, 0.7);
-            border: 1px solid #333;
-            background-color: rgba(0, 0, 0, 0.5); /* شفافیت 40% */
-            backdrop-filter: blur(2px); /* افکت محو بسیار ملایم */
+        
+        .btn-location {
+            border: 1px solid #007AFF;
         }
     </style>
 </head>
@@ -181,7 +163,7 @@
                 09928889663
             </a>
 
-            <a href="geo:35.7840018,51.3697864" class="btn loc">
+            <a href="geo:35.7840018,51.3697864" class="btn btn-location">
                 لوکیشن
             </a>
             
