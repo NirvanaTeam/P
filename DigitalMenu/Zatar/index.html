@@ -260,6 +260,57 @@
             transform: scale(1.05);
         }
         
+        /* Image styles */
+        .item-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .item-image:hover {
+            transform: scale(1.03);
+        }
+        
+        /* Image modal styles */
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .modal-image {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 8px;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
         @media (max-width: 768px) {
             .menu-container {
                 flex-direction: row;
@@ -317,6 +368,10 @@
             .welcome-message {
                 font-size: 16px;
             }
+            
+            .item-image {
+                height: 120px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -333,6 +388,10 @@
             .menu-items {
                 grid-template-columns: 1fr;
             }
+            
+            .item-image {
+                height: 100px;
+            }
         }
     </style>
 </head>
@@ -343,6 +402,14 @@
             <h2 class="welcome-title">اهلا وسهلا بکم</h2>
             <p class="welcome-message">برای شروع دکمه زیر را بزنید</p>
             <button class="start-button" id="startButton">مشاهده منو</button>
+        </div>
+    </div>
+
+    <!-- Image Modal -->
+    <div class="image-modal" id="imageModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <img class="modal-image" id="modalImage">
         </div>
     </div>
 
@@ -385,57 +452,57 @@
             });
         }
 
-        // Menu data with Persian numbers
+        // Menu data with Persian numbers and image numbers
         const menuData = {
             "شاورما": [
-                {name: "شاورما دجاج (ساندویچ)", description: "ساندویچ شاورما مرغ با نان مخصوص", price: "185"},
-                {name: "شاورما دجاج عربی", description: "ساندویچ لقمه شده همراه سیب زمینی + سالاد + سس", price: "255"},
-                {name: "مینی شاورما", description: "نصف ساندویچ شاورما با نان مخصوص", price: "100"},
-                {name: "پرس شاورما", description: "۲۵۰ گرم شاورما + سالاد + نان", price: "400"}
+                {name: "شاورما دجاج (ساندویچ)", description: "ساندویچ شاورما مرغ با نان مخصوص", price: "185", image: "1.jpg"},
+                {name: "شاورما دجاج عربی", description: "ساندویچ لقمه شده همراه سیب زمینی + سالاد + سس", price: "255", image: "2.jpg"},
+                {name: "مینی شاورما", description: "نصف ساندویچ شاورما با نان مخصوص", price: "100", image: "3.jpg"},
+                {name: "پرس شاورما", description: "۲۵۰ گرم شاورما + سالاد + نان", price: "400", image: "4.jpg"}
             ],
             "فلافل": [
-                {name: "ساندویچ فلافل", description: "ساندویچ فلافل 5 عددی با نان مخصوص و سبزیجات تازه", price: "100"},
-                {name: "ساندویچ فلافل مُشَکَل", description: "ساندویچ فلافل همراه سیب زمینی + بادمجان", price: "120"},
-                {name: "ساندویچ فلافل عربی", description: "نان صاج همراه فلافل + حمص", price: "110"},
-                {name: "ساندویچ هات داگ", description: "هات داگ با نان مخصوص و سس های ویژه", price: "120"}
+                {name: "ساندویچ فلافل", description: "ساندویچ فلافل 5 عددی با نان مخصوص و سبزیجات تازه", price: "100", image: "5.jpg"},
+                {name: "ساندویچ فلافل مُشَکَل", description: "ساندویچ فلافل همراه سیب زمینی + بادمجان", price: "120", image: "6.jpg"},
+                {name: "ساندویچ فلافل عربی", description: "نان صاج همراه فلافل + حمص", price: "110", image: "7.jpg"},
+                {name: "ساندویچ هات داگ", description: "هات داگ با نان مخصوص و سس های ویژه", price: "120", image: "8.jpg"}
             ],
             "معجنات": [
-                {name: "مینی صفیحه", description: "گوشت، گوجه، پیاز چرخ کرده، ادویه مخصوص", price: "88"},
-                {name: "مینی دجاج بالعجین", description: "مرغ شاورما، پنیر، قارچ، ذرت، زیتون", price: "88"},
-                {name: "مینی پیتزا دجاج", description: "مرغ شاورما، پنیر، قارچ، ذرت، زیتون", price: "98"},
-                {name: "مینی زعتر", description: "آویشن لبنانی، روغن زیتون، کنجد", price: "88"},
-                {name: "مینی زعتر قشقوان", description: "آویشن لبنانی، روغن زیتون، پنیر پیتزا", price: "88"},
-                {name: "مینی محمره قشقوان", description: "سس مخصوص تند، پنیر، کنجد، سیاه دانه", price: "88"},
-                {name: "مینی کبابه", description: "گوشت کبابی، ادویه مخصوص زعتر", price: "88"},
-                {name: "مینی جنبه زیتون", description: "پنیر، زیتون، ادویه مخصوص زعتر", price: "88"},
-                {name: "مینی جبن بالعجین", description: "پنیر پیتزا، ادویه مخصوص زعتر", price: "88"},
-                {name: "مینی پپرونی", description: "پپرونی با پنیر و سس مخصوص", price: "98"}
+                {name: "مینی صفیحه", description: "گوشت، گوجه، پیاز چرخ کرده، ادویه مخصوص", price: "88", image: "9.jpg"},
+                {name: "مینی دجاج بالعجین", description: "مرغ شاورما، پنیر، قارچ، ذرت، زیتون", price: "88", image: "10.jpg"},
+                {name: "مینی پیتزا دجاج", description: "مرغ شاورما، پنیر، قارچ، ذرت، زیتون", price: "98", image: "11.jpg"},
+                {name: "مینی زعتر", description: "آویشن لبنانی، روغن زیتون، کنجد", price: "88", image: "12.jpg"},
+                {name: "مینی زعتر قشقوان", description: "آویشن لبنانی، روغن زیتون، پنیر پیتزا", price: "88", image: "13.jpg"},
+                {name: "مینی محمره قشقوان", description: "سس مخصوص تند، پنیر، کنجد، سیاه دانه", price: "88", image: "14.jpg"},
+                {name: "مینی کبابه", description: "گوشت کبابی، ادویه مخصوص زعتر", price: "88", image: "15.jpg"},
+                {name: "مینی جنبه زیتون", description: "پنیر، زیتون، ادویه مخصوص زعتر", price: "88", image: "16.jpg"},
+                {name: "مینی جبن بالعجین", description: "پنیر پیتزا، ادویه مخصوص زعتر", price: "88", image: "17.jpg"},
+                {name: "مینی پپرونی", description: "پپرونی با پنیر و سس مخصوص", price: "98", image: "18.jpg"}
             ],
             "صحون\n(بشقاب ها)": [
-                {name: "کبه برنج", description: "کبۀ مخصوص با برنج عربی و ادویه‌های ویژه", price: "88"},
-                {name: "سیب زمینی", description: "سیب زمینی سرخ شده با ادویه مخصوص", price: "120"},
-                {name: "سیب زمینی مخصوص زعتر", description: "سیب زمینی با آویشن لبنانی و روغن زیتون", price: "220"},
-                {name: "سمبوسه پیتزایی", description: "سمبوسه با پنیر پیتزا و سس مخصوص", price: "78"},
-                {name: "سمبوسه ساده", description: "سمبوسه با گوشت و سبزیجات", price: "68"}
+                {name: "کبه برنج", description: "کبۀ مخصوص با برنج عربی و ادویه‌های ویژه", price: "88", image: "19.jpg"},
+                {name: "سیب زمینی", description: "سیب زمینی سرخ شده با ادویه مخصوص", price: "120", image: "20.jpg"},
+                {name: "سیب زمینی مخصوص زعتر", description: "سیب زمینی با آویشن لبنانی و روغن زیتون", price: "220", image: "21.jpg"},
+                {name: "سمبوسه پیتزایی", description: "سمبوسه با پنیر پیتزا و سس مخصوص", price: "78", image: "22.jpg"},
+                {name: "سمبوسه ساده", description: "سمبوسه با گوشت و سبزیجات", price: "68", image: "23.jpg"}
             ],
             "پیتزا لبنانی": [
-                {name: "پیتزا بعلبکی", description: "پیتزا مخصوص سرآشپز - مرغ شاورما، مواد پیتزا، خمیر مخصوص دو طرفه", priceSingle: "248", priceDouble: "448"},
-                {name: "پیتزا دجاج", description: "مرغ شاورما با پنیر و سس مخصوص", priceSingle: "228", priceDouble: "428"},
-                {name: "پیتزا پپرونی", description: "پپرونی با پنیر و سس مخصوص", priceSingle: "198", priceDouble: "298"}
+                {name: "پیتزا بعلبکی", description: "پیتزا مخصوص سرآشپز - مرغ شاورما، مواد پیتزا، خمیر مخصوص دو طرفه", priceSingle: "248", priceDouble: "448", image: "24.jpg"},
+                {name: "پیتزا دجاج", description: "مرغ شاورما با پنیر و سس مخصوص", priceSingle: "228", priceDouble: "428", image: "25.jpg"},
+                {name: "پیتزا پپرونی", description: "پپرونی با پنیر و سس مخصوص", priceSingle: "198", priceDouble: "298", image: "26.jpg"}
             ],
             "مقبلات (سالاد)": [
-                {name: "تبوله", description: "جعفری، گوجه بلغور گندم، سس مخصوص زعتر", price: "100"},
-                {name: "حمص بطحینه", description: "ارده، نخود، روغن زیتون", price: "100"},
-                {name: "متبل", description: "ماست، ارده، بادمجان ذغالی", price: "100"},
-                {name: "بذنجانیه", description: "بادمجان سرخ شده، خیار، گوجه، فلفل دلمه، پیاز، سس مخصوص", price: "100"},
-                {name: "فته بذنجان", description: "بادمجان سرخ شده، ماست، ارده", price: "100"},
-                {name: "صحن مقبلات مُشکل", description: "۴نوع سینی مزه به دلخواه", price: "400"}
+                {name: "تبوله", description: "جعفری، گوجه بلغور گندم، سس مخصوص زعتر", price: "100", image: "27.jpg"},
+                {name: "حمص بطحینه", description: "ارده، نخود، روغن زیتون", price: "100", image: "28.jpg"},
+                {name: "متبل", description: "ماست، ارده، بادمجان ذغالی", price: "100", image: "29.jpg"},
+                {name: "بذنجانیه", description: "بادمجان سرخ شده، خیار، گوجه، فلفل دلمه، پیاز، سس مخصوص", price: "100", image: "30.jpg"},
+                {name: "فته بذنجان", description: "بادمجان سرخ شده، ماست، ارده", price: "100", image: "31.jpg"},
+                {name: "صحن مقبلات مُشکل", description: "۴نوع سینی مزه به دلخواه", price: "400", image: "32.jpg"}
             ],
             "باکس ها": [
-                {name: "باکس ۲ نفره", description: "۲ عدد شاورما عربی + ۲ مدل سالاد + سس + نوشابه", price: "620"},
-                {name: "باکس ۲ نفره مُشکل", description: "۱ عدد شاورما عربی + ۱ عدد ساندویچ فلافل + ۲ مدل سالاد + سس + نوشابه", price: "520"},
-                {name: "باکس خانواده", description: "۵ عدد شاورما عربی + ۴ مدل سالاد + سس + نوشابه", price: "1,510"},
-                {name: "باکس معجنات", description: "۴ مدل مینی معجنات از هر مدل ۵ عدد به دلخواه", price: "792"}
+                {name: "باکس ۲ نفره", description: "۲ عدد شاورما عربی + ۲ مدل سالاد + سس + نوشابه", price: "620", image: "33.jpg"},
+                {name: "باکس ۲ نفره مُشکل", description: "۱ عدد شاورما عربی + ۱ عدد ساندویچ فلافل + ۲ مدل سالاد + سس + نوشابه", price: "520", image: "34.jpg"},
+                {name: "باکس خانواده", description: "۵ عدد شاورما عربی + ۴ مدل سالاد + سس + نوشابه", price: "1,510", image: "35.jpg"},
+                {name: "باکس معجنات", description: "۴ مدل مینی معجنات از هر مدل ۵ عدد به دلخواه", price: "792", image: "36.jpg"}
             ]
         };
 
@@ -446,6 +513,9 @@
         const welcomePopup = document.getElementById('welcomePopup');
         const startButton = document.getElementById('startButton');
         const backgroundMusic = document.getElementById('backgroundMusic');
+        const imageModal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const closeModal = document.getElementById('closeModal');
 
         // Create category buttons without icons
         Object.keys(menuData).forEach(category => {
@@ -513,6 +583,7 @@
                     }
                     
                     itemElement.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}" class="item-image" data-image="${item.image}">
                         <div class="item-name">${item.name}</div>
                         ${item.description ? `<div class="item-description">${item.description}</div>` : ''}
                         ${priceContent}
@@ -520,7 +591,28 @@
                     menuItems.appendChild(itemElement);
                 }, 50);
             });
+            
+            // Add click event to all images
+            document.querySelectorAll('.item-image').forEach(img => {
+                img.addEventListener('click', function() {
+                    modalImage.src = this.src;
+                    modalImage.alt = this.alt;
+                    imageModal.style.display = 'flex';
+                });
+            });
         }
+
+        // Close modal when clicking the close button
+        closeModal.addEventListener('click', function() {
+            imageModal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside the image
+        imageModal.addEventListener('click', function(e) {
+            if (e.target === imageModal) {
+                imageModal.style.display = 'none';
+            }
+        });
 
         // Start button functionality
         startButton.addEventListener('click', () => {
