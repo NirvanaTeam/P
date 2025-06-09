@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منوی فست فود</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #BD1616; /* پس‌زمینه قرمز اصلی */
+            padding: 10px;
+            overflow-x: hidden;
+            color: #FFE6E6;
+            background-image: linear-gradient(135deg, #BD1616 0%, #FF2626 100%);
+        }
+        
+        .menu-container {
+            display: flex;
+            height: 100vh;
+            gap: 10px;
+            position: relative;
+        }
+        
+        .categories-sidebar {
+            width: 120px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 20px 0 0 20px;
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.4);
+            z-index: 2;
+            overflow-y: auto;
+            border: 1px solid #FF2626;
+            backdrop-filter: blur(5px);
+        }
+        
+        .category-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 10px 5px;
+            cursor: pointer;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            color: #FFE6E6;
+            text-align: center;
+            border: 1px solid transparent;
+        }
+        
+        .category-item:hover {
+            background-color: rgba(255, 38, 38, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .category-item.active {
+            background-color: #FF2626;
+            color: #FFE6E6;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            border: 1px solid #FFE6E6;
+        }
+        
+        .category-icon {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 8px;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #FF2626;
+            border-radius: 50%;
+            padding: 5px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .category-name {
+            font-size: 14px;
+            font-weight: 600;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        
+        .items-container {
+            flex: 1;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 0 20px 20px 0;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+            overflow-y: auto;
+            position: relative;
+            border: 1px solid #FF2626;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(5px);
+        }
+        
+        .items-content {
+            flex: 1;
+        }
+        
+        .items-title {
+            font-size: 28px;
+            margin-bottom: 25px;
+            color: #FFE6E6;
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #FF2626;
+            position: relative;
+            z-index: 1;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+            letter-spacing: 1px;
+        }
+        
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .menu-item {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 18px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(15px);
+            animation: fadeIn 0.8s forwards;
+            border: 2px solid #FF2626;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 38, 38, 0.1) 0%, rgba(189, 22, 22, 0.2) 100%);
+            z-index: -1;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            border-color: #FFE6E6;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .item-name {
+            font-weight: 600;
+            font-size: 18px;
+            color: #FFE6E6;
+            margin-bottom: 12px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .item-name::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #FF2626;
+        }
+        
+        .item-price {
+            color: #FFE6E6;
+            font-weight: 700;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        
+        .price-options {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            font-size: 15px;
+            gap: 12px;
+        }
+        
+        .price-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            min-width: 0;
+            background-color: rgba(189, 22, 22, 0.5);
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid #FF2626;
+        }
+        
+        .price-label {
+            color: #FFE6E6;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            font-weight: 500;
+        }
+        
+        .price-value {
+            color: #FFE6E6;
+            white-space: nowrap;
+            font-weight: 600;
+        }
+        
+        .item-description {
+            color: #FFE6E6;
+            font-size: 14px;
+            margin-bottom: 12px;
+            line-height: 1.5;
+            opacity: 0.9;
+        }
+        
+        .cafe-logo {
+            text-align: center;
+            margin: 25px 0;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 12px;
+            border: 2px solid #FF2626;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+        
+        .cafe-logo img {
+            max-width: 180px;
+            max-height: 100px;
+            filter: drop-shadow(0 2px 4px rgba(255, 38, 38, 0.7));
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 18px;
+            margin-top: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 12px;
+            border-top: 2px solid #FF2626;
+            font-size: 15px;
+            color: #FFE6E6;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .footer a {
+            color: #FF2626;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 600;
+        }
+        
+        .footer a:hover {
+            color: #FFE6E6;
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .menu-container {
+                flex-direction: row;
+                height: 100vh;
+            }
+            
+            .categories-sidebar {
+                width: 100px;
+                padding: 15px 8px;
+                gap: 20px;
+            }
+            
+            .category-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 20px;
+            }
+            
+            .category-name {
+                font-size: 12px;
+            }
+            
+            .items-container {
+                padding: 15px;
+            }
+            
+            .items-title {
+                font-size: 24px;
+            }
+            
+            .menu-items {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+                gap: 12px;
+            }
+            
+            .menu-item {
+                padding: 15px;
+            }
+            
+            .price-options {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .price-option {
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 6px 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .categories-sidebar {
+                width: 80px;
+                padding: 12px 5px;
+                gap: 15px;
+            }
+            
+            .category-icon {
+                width: 28px;
+                height: 28px;
+                font-size: 18px;
+            }
+            
+            .category-name {
+                font-size: 11px;
+            }
+            
+            .menu-items {
+                grid-template-columns: 1fr;
+            }
+            
+            .items-title {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-container">
+        <div class="categories-sidebar" id="categoriesSidebar">
+            <!-- Categories will be added by JavaScript -->
+        </div>
+        <div class="items-container" id="itemsContainer">
+            <div class="items-content">
+                <h2 class="items-title">🍔 منوی فست فود 🍟</h2>
+                <div class="menu-items" id="menuItems">
+                    <!-- Items will be added by JavaScript -->
+                </div>
+                
+                <div class="cafe-logo">
+                    <img src="./img/Untitled-2.png" alt="لوگوی فست فود">
+                </div>
+            </div>
+            
+            <div class="footer">
+                طراحی شده توسط تیم <a href="https://nirvanadev.ir" target="_blank">نیروانا</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const menuData = {
+            "کیلویی": [
+                {name: "فیله استریپس", prices: ["165", "275", "550"], sizes: ["300g", "500g", "1kg"]},
+                {name: "پاچینی", prices: ["110", "170", "340"], sizes: ["300g", "500g", "1kg"]},
+                {name: "جوجه چینی", prices: ["145", "245", "490"], sizes: ["300g", "500g", "1kg"]},
+                {name: "ران سوخاری", prices: ["125", "210", "420"], sizes: ["300g", "500g", "1kg"]},
+                {name: "پیاز سوخاری", prices: ["88", "148", "295"], sizes: ["300g", "500g", "1kg"]},
+                {name: "قارچ سوخاری", prices: ["80", "132", "265"], sizes: ["300g", "500g", "1kg"]},
+                {name: "کوکتل پنیری", prices: ["116", "194", "388"], sizes: ["300g", "500g", "1kg"]},
+                {name: "کراکت مرغ", prices: ["180", "275", "550"], sizes: ["300g", "500g", "1kg"]},
+                {name: "توپک پنیری", prices: ["184", "220", "580"], sizes: ["300g", "500g", "1kg"]},
+                {name: "کوردن بلو", prices: ["150", "225", "450"], sizes: ["300g", "500g", "1kg"]},
+                {name: "سیب‌زمینی سوخاری", prices: ["78", "130", "260"], sizes: ["300g", "500g", "1kg"]},
+                {name: "سس مخصوص", price: "7"},
+                {name: "سس پنیر", price: "20"}
+            ],
+            "پرس": [
+                {name: "فیله استریپس", description: "سه تکه فیله + قارچ + سیب‌زمینی + سس مخصوص", price: "250"},
+                {name: "میکس سوخاری", description: "دو فیلمه + ۲ جوجه + ۱ تکه پاچینی + قارچ + سیب‌زمینی + سس مخصوص", price: "250"},
+                {name: "پاچینی", description: "سه تکه پاچینی + قارچ + سیب‌زمینی + سس مخصوص", price: "220"},
+                {name: "جوجه چینی", description: "چهارتکه پاچینی + قارچ + سیب‌زمینی + سس مخصوص", price: "240"},
+                {name: "ران سوخاری", description: "دوتکه ساق ران + قارچ + سیب‌زمینی + سس مخصوص", price: "220"}
+            ],
+            "پیتزا": [
+                {name: "مخصوص می شو", prices: ["200", "350"], sizes: ["کوچیک", "بزرگ"]},
+                {name: "استیک", prices: ["210", "360"], sizes: ["کوچیک", "بزرگ"]},
+                {name: "سوخاری", prices: ["205", "355"], sizes: ["کوچیک", "بزرگ"]},
+                {name: "پپرونی", prices: ["200", "350"], sizes: ["کوچیک", "بزرگ"]}
+            ]
+        };
+
+        const categoryIcons = {
+            "کیلویی": "🍗",
+            "پرس": "🍱",
+            "پیتزا": "🍕"
+        };
+
+        const categoriesSidebar = document.getElementById('categoriesSidebar');
+        const menuItems = document.getElementById('menuItems');
+        const itemsTitle = document.querySelector('.items-title');
+
+        Object.keys(menuData).forEach(category => {
+            const categoryItem = document.createElement('div');
+            categoryItem.className = 'category-item';
+            categoryItem.innerHTML = `
+                <div class="category-icon">${categoryIcons[category] || '🍽️'}</div>
+                <div class="category-name">${category}</div>
+            `;
+            
+            categoryItem.addEventListener('click', () => {
+                document.querySelectorAll('.category-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                categoryItem.classList.add('active');
+                updateItems(category);
+            });
+            
+            categoriesSidebar.appendChild(categoryItem);
+        });
+
+        document.querySelector('.category-item').classList.add('active');
+        updateItems(Object.keys(menuData)[0]);
+
+        function updateItems(category) {
+            menuItems.innerHTML = '';
+            itemsTitle.textContent = `🍔 ${category} 🍟`;
+            
+            menuData[category].forEach((item, index) => {
+                setTimeout(() => {
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'menu-item';
+                    itemElement.style.animationDelay = `${index * 0.1}s`;
+                    
+                    if (item.prices) {
+                        let priceOptionsHTML = '<div class="price-options">';
+                        for (let i = 0; i < item.prices.length; i++) {
+                            priceOptionsHTML += `
+                                <div class="price-option">
+                                    <div class="price-label">${item.sizes[i]}</div>
+                                    <div class="price-value">${item.prices[i]} تومان</div>
+                                </div>
+                            `;
+                        }
+                        priceOptionsHTML += '</div>';
+                        
+                        itemElement.innerHTML = `
+                            <div class="item-name">${item.name}</div>
+                            ${priceOptionsHTML}
+                        `;
+                    } else {
+                        itemElement.innerHTML = `
+                            <div class="item-name">${item.name}</div>
+                            ${item.description ? `<div class="item-description">${item.description}</div>` : ''}
+                            <div class="item-price">${item.price} تومان</div>
+                        `;
+                    }
+                    
+                    menuItems.appendChild(itemElement);
+                }, 50);
+            });
+        }
+    </script>
+</body>
+</html>
