@@ -460,8 +460,11 @@
 
         // Persi switch event listener
         persiSwitch.addEventListener('change', function() {
-            const activeCategory = document.querySelector('.category-item.active').textContent.trim();
-            updateItems(activeCategory);
+            const activeCategory = document.querySelector('.category-item.active');
+            if (activeCategory) {
+                const categoryName = activeCategory.querySelector('.category-name').textContent.trim();
+                updateItems(categoryName);
+            }
         });
 
         // Function to update items based on selected category
@@ -479,37 +482,42 @@
                     itemElement.className = 'menu-item';
                     itemElement.style.animationDelay = `${index * 0.1}s`;
                     
-                    let price = item.price;
+                    let displayPrice = item.price;
+                    let itemName = item.name;
                     let isPersi = false;
                     
                     // Double price for sandwich items when persi mode is on
                     if (category === "ساندویچ ها" && persiSwitch.checked) {
-                        if (item.price.includes("-")) {
-                            const [min, max] = item.price.split("-");
-                            price = `${min * 2}-${max * 2}`;
-                        } else {
-                            price = item.price * 2;
-                        }
                         isPersi = true;
+                        itemName = item.name + " (پرسی)";
+                        
+                        if (item.price.includes("-")) {
+                            // Handle price ranges like "260-290"
+                            const [minPrice, maxPrice] = item.price.split("-");
+                            const doubledMin = parseInt(minPrice) * 2;
+                            const doubledMax = parseInt(maxPrice) * 2;
+                            displayPrice = `${doubledMin}-${doubledMax}`;
+                        } else {
+                            // Handle single prices
+                            const originalPrice = parseInt(item.price);
+                            displayPrice = (originalPrice * 2).toString();
+                        }
                     }
                     
-                    if (price.includes("-")) {
-                        const [minPrice, maxPrice] = price.split("-");
+                    // Create the item HTML
+                    if (displayPrice.includes("-")) {
+                        const [minPrice, maxPrice] = displayPrice.split("-");
                         itemElement.innerHTML = `
-                            <div class="item-name">${item.name} ${isPersi ? '(پرسی)' : ''}</div>
+                            <div class="item-name">${itemName}</div>
                             <div class="price-range">
                                 <span class="item-price">${minPrice} تومان</span>
                                 <span class="item-price">${maxPrice} تومان</span>
                             </div>
                         `;
-                    } else if (price) {
-                        itemElement.innerHTML = `
-                            <div class="item-name">${item.name} ${isPersi ? '(پرسی)' : ''}</div>
-                            <div class="item-price">${price} تومان</div>
-                        `;
                     } else {
                         itemElement.innerHTML = `
-                            <div class="item-name">${item.name}</div>
+                            <div class="item-name">${itemName}</div>
+                            <div class="item-price">${displayPrice} تومان</div>
                         `;
                     }
                     
