@@ -4,56 +4,181 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منوی فست فود امیرخان</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #DA291C;
+            --secondary-color: #FFC72C;
+            --accent-color: #27251F;
+            --background-color: #f8fafc;
+            --card-background: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+        }
+
+        [data-theme="dark"] {
+            --background-color: #000000;
+            --card-background: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --border-color: #334155;
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            background-color: #f3f3f3;
+            font-family: 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--background-color) 0%, #e2e8f0 100%);
             padding: 10px;
             overflow-x: hidden;
-            color: #333;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            min-height: 100vh;
         }
         
         .header {
-            background-color: #DA291C;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #b91c1c 100%);
             color: white;
-            padding: 15px;
+            padding: 20px;
             text-align: center;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 16px;
+            margin-bottom: 15px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            pointer-events: none;
         }
         
         .header h1 {
-            font-size: 24px;
-            font-weight: bold;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .controls-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .search-container {
+            position: relative;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 45px 12px 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 14px;
+            background: var(--card-background);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(218, 41, 28, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        .theme-toggle, .cart-toggle {
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            background: var(--card-background);
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+            border: 2px solid var(--border-color);
+        }
+
+        .theme-toggle:hover, .cart-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
         }
         
         .menu-container {
             display: flex;
-            height: calc(100vh - 80px);
-            gap: 10px;
+            height: calc(100vh - 160px);
+            gap: 15px;
             position: relative;
         }
         
         .categories-sidebar {
-            width: 120px;
-            background-color: #FFC72C;
-            border-radius: 10px 0 0 10px;
-            padding: 15px 10px;
+            width: 140px;
+            background: var(--card-background);
+            border-radius: 16px;
+            padding: 20px 15px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            gap: 15px;
+            box-shadow: var(--shadow-lg);
             z-index: 2;
             overflow-y: auto;
-            border: 1px solid #e0a800;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
         }
         
         .category-item {
@@ -62,42 +187,72 @@
             align-items: center;
             justify-content: center;
             width: 100%;
-            padding: 10px 5px;
+            padding: 15px 8px;
             cursor: pointer;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            color: #27251F;
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: var(--text-primary);
             text-align: center;
-            background-color: rgba(255,255,255,0.7);
+            background: var(--background-color);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .category-item:hover::before {
+            left: 100%;
         }
         
         .category-item:hover {
-            background-color: #FFC72C;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: var(--shadow-md);
+            border-color: var(--secondary-color);
         }
         
         .category-item.active {
-            background-color: #DA291C;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #b91c1c 100%);
             color: white;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            font-weight: bold;
+            box-shadow: var(--shadow-lg);
+            font-weight: 600;
+            transform: translateY(-2px);
+        }
+
+        .category-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .category-item:hover .category-icon {
+            transform: scale(1.1);
         }
         
         .category-name {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 500;
+            line-height: 1.3;
         }
         
         .items-container {
             flex: 1;
-            background-color: white;
-            border-radius: 0 10px 10px 0;
-            padding: 15px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            background: var(--card-background);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--shadow-lg);
             overflow-y: auto;
             position: relative;
-            border: 1px solid #ddd;
+            border: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
         }
@@ -107,126 +262,175 @@
         }
         
         .items-title {
-            font-size: 20px;
-            margin-bottom: 15px;
-            color: #DA291C;
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
             text-align: center;
-            padding-bottom: 8px;
-            border-bottom: 2px solid #FFC72C;
+            padding-bottom: 12px;
+            border-bottom: 3px solid var(--secondary-color);
             position: relative;
             z-index: 1;
-            font-weight: bold;
+            font-weight: 700;
         }
         
         .menu-items {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 10px;
-            margin-bottom: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
         }
         
         .menu-item {
-            background-color: #f8f9fa;
-            padding: 12px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
+            background: var(--card-background);
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             opacity: 0;
-            transform: translateY(10px);
-            animation: fadeIn 0.6s forwards;
-            border-right: 3px solid #FFC72C;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s forwards;
+            border: 2px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item:hover::before {
+            transform: scaleX(1);
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--secondary-color);
+        }
+
+        .menu-item.favorited {
+            border-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--card-background) 0%, rgba(218, 41, 28, 0.05) 100%);
         }
         
-        @keyframes fadeIn {
+        @keyframes fadeInUp {
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
         
         .item-name {
-            font-weight: 500;
-            font-size: 14px;
-            color: #27251F;
-            margin-bottom: 5px;
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--text-primary);
+            line-height: 1.4;
+            flex: 1;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 8px;
+            margin-left: 10px;
+        }
+
+        .favorite-btn, .add-to-cart-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            color: var(--text-secondary);
+        }
+
+        .favorite-btn:hover {
+            background: rgba(218, 41, 28, 0.1);
+            color: var(--primary-color);
+        }
+
+        .favorite-btn.active {
+            color: var(--primary-color);
+        }
+
+        .add-to-cart-btn {
+            background: var(--primary-color);
+            color: white;
+            font-size: 12px;
+        }
+
+        .add-to-cart-btn:hover {
+            background: #b91c1c;
+            transform: scale(1.05);
         }
         
         .item-price {
-            color: #DA291C;
-            font-weight: bold;
-            font-size: 15px;
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 18px;
+            margin-top: 8px;
         }
         
         .price-range {
             display: flex;
             justify-content: space-between;
+            align-items: center;
         }
-        
-        .cafe-logo {
-            text-align: center;
-            margin: 15px 0;
-            padding: 12px;
-            background-color: #FFC72C;
-            border-radius: 8px;
-            border: 1px solid #e0a800;
-        }
-        
-        .cafe-logo img {
-            max-width: 120px;
-            max-height: 60px;
-        }
-        
-        .footer {
-            text-align: center;
-            padding: 12px;
-            margin-top: auto;
-            background-color: #27251F;
-            border-radius: 8px;
-            border-top: 1px solid #444;
-            font-size: 13px;
+
+        .price-badge {
+            background: linear-gradient(135deg, var(--primary-color), #b91c1c);
             color: white;
-        }
-        
-        .footer a {
-            color: #FFC72C;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        
-        .footer a:hover {
-            color: white;
-            text-decoration: underline;
-        }
-        
-        .phone-number {
-            font-weight: bold;
-            margin-top: 5px;
-            font-size: 14px;
-            color: #FFC72C;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
         }
         
         .persi-toggle {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 15px;
-            background-color: #f8f9fa;
-            padding: 8px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            background: var(--card-background);
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            border: 2px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .persi-toggle:hover {
+            box-shadow: var(--shadow-md);
         }
         
         .toggle-label {
-            margin-left: 8px;
-            font-weight: 500;
-            color: #27251F;
+            margin-left: 12px;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 16px;
         }
         
         .switch {
             position: relative;
             display: inline-block;
-            width: 50px;
-            height: 24px;
+            width: 60px;
+            height: 30px;
         }
         
         .switch input {
@@ -242,84 +446,469 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
-            border-radius: 24px;
+            background: var(--border-color);
+            transition: .4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 30px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
         }
         
         .slider:before {
             position: absolute;
             content: "";
-            height: 16px;
-            width: 16px;
+            height: 22px;
+            width: 22px;
             left: 4px;
             bottom: 4px;
-            background-color: white;
-            transition: .4s;
+            background: white;
+            transition: .4s cubic-bezier(0.4, 0, 0.2, 1);
             border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
         
         input:checked + .slider {
-            background-color: #DA291C;
+            background: linear-gradient(135deg, var(--primary-color), #b91c1c);
         }
         
         input:checked + .slider:before {
-            transform: translateX(26px);
+            transform: translateX(30px);
+        }
+
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            left: -400px;
+            width: 400px;
+            height: 100vh;
+            background: var(--card-background);
+            box-shadow: var(--shadow-xl);
+            transition: left 0.3s ease;
+            z-index: 1000;
+            padding: 20px;
+            overflow-y: auto;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .cart-sidebar.open {
+            left: 0;
+        }
+
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .cart-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .cart-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .cart-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            padding: 5px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .cart-close:hover {
+            background: var(--background-color);
+            color: var(--text-primary);
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity-btn {
+            background: var(--background-color);
+            border: 1px solid var(--border-color);
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .cart-total {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid var(--border-color);
+            text-align: center;
+        }
+
+        .total-amount {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary-color), #b91c1c);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-secondary);
+        }
+
+        .empty-cart i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+            background: linear-gradient(135deg, var(--accent-color) 0%, #1e293b 100%);
+            border-radius: 12px;
+            border-top: 1px solid var(--border-color);
+            font-size: 14px;
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .footer a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .footer a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        .phone-number {
+            font-weight: 700;
+            margin-top: 8px;
+            font-size: 16px;
+            color: var(--secondary-color);
+        }
+
+        .loading-spinner {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border-color);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+        }
+
+        .no-results i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        .floating-action {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), #b91c1c);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: var(--shadow-xl);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .floating-action:hover {
+            transform: scale(1.1);
+            box-shadow: 0 20px 40px rgba(218, 41, 28, 0.3);
         }
         
         @media (max-width: 768px) {
             .menu-container {
+                flex-direction: column;
+                height: auto;
+            }
+            
+            .categories-sidebar {
+                width: 100%;
                 flex-direction: row;
-                height: calc(100vh - 80px);
+                padding: 15px;
+                gap: 10px;
+                overflow-x: auto;
+                overflow-y: hidden;
             }
-            
-            .categories-sidebar {
-                width: 100px;
-                padding: 12px 8px;
-                gap: 15px;
-            }
-            
+
             .category-item {
-                padding: 8px 4px;
+                min-width: 80px;
+                padding: 12px 8px;
             }
-            
-            .category-name {
-                font-size: 12px;
-            }
-            
-            .items-container {
-                padding: 12px;
-            }
-            
-            .menu-items {
-                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            }
-            
-            .items-title {
-                font-size: 18px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .categories-sidebar {
-                width: 85px;
-                padding: 10px 5px;
-                gap: 12px;
+
+            .category-icon {
+                font-size: 20px;
+                margin-bottom: 5px;
             }
             
             .category-name {
                 font-size: 11px;
             }
             
+            .items-container {
+                padding: 15px;
+            }
+            
             .menu-items {
                 grid-template-columns: 1fr;
+            }
+            
+            .items-title {
+                font-size: 20px;
+            }
+
+            .controls-bar {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .search-container {
+                min-width: 100%;
+            }
+
+            .cart-sidebar {
+                width: 100vw;
+                left: -100vw;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .categories-sidebar {
+                padding: 12px;
+                gap: 8px;
+            }
+            
+            .category-item {
+                min-width: 70px;
+                padding: 10px 6px;
+            }
+
+            .category-name {
+                font-size: 10px;
+            }
+
+            .menu-item {
+                padding: 15px;
+            }
+
+            .floating-action {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+                bottom: 15px;
+                right: 15px;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-secondary);
+        }
+
+        /* Accessibility improvements */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Focus styles for keyboard navigation */
+        .category-item:focus,
+        .menu-item:focus,
+        .search-input:focus,
+        .theme-toggle:focus,
+        .cart-toggle:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .header-subtitle {
+                font-size: 12px;
+            }
+            
+            .menu-item {
+                padding: 12px;
+            }
+            
+            .item-name {
+                font-size: 14px;
+            }
+            
+            .item-price {
+                font-size: 16px;
+            }
+            
+            .category-item {
+                min-width: 65px;
+                padding: 8px 5px;
+            }
+            
+            .category-icon {
+                font-size: 18px;
+            }
+            
+            .category-name {
+                font-size: 9px;
+            }
+            
+            .footer {
+                font-size: 12px;
+                padding: 15px;
+            }
+            
+            .phone-number {
+                font-size: 14px;
             }
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>فست فود امیرخان</h1>
+        <h1>🍔 فست فود امیرخان</h1>
+        <div class="header-subtitle">بهترین طعم، بهترین کیفیت</div>
+    </div>
+    
+    <div class="controls-bar">
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="جستجو در منو..." id="searchInput">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+        <button class="theme-toggle" id="themeToggle" title="تغییر تم">
+            <i class="fas fa-moon"></i>
+        </button>
+        <button class="cart-toggle" id="cartToggle" title="سبد خرید" style="position: relative;">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-badge" id="cartBadge" style="display: none;">0</span>
+        </button>
     </div>
     
     <div class="menu-container">
@@ -334,91 +923,182 @@
                         <input type="checkbox" id="persiSwitch">
                         <span class="slider"></span>
                     </label>
-                    <span class="toggle-label">پرسی</span>
+                    <span class="toggle-label">🌶️ پرسی (دو برابر قیمت)</span>
+                </div>
+                <div class="loading-spinner" id="loadingSpinner">
+                    <div class="spinner"></div>
                 </div>
                 <div class="menu-items" id="menuItems">
                     <!-- Items will be added by JavaScript -->
                 </div>
-                
-                <!-- Logo Section -->
-                <div class="cafe-logo">
-                    <img src="./img/logo.png" alt="لوگوی فست فود امیرخان">
+                <div class="no-results" id="noResults" style="display: none;">
+                    <i class="fas fa-search"></i>
+                    <h3>نتیجه‌ای یافت نشد</h3>
+                    <p>لطفاً کلمه کلیدی دیگری امتحان کنید</p>
                 </div>
             </div>
             
             <!-- Footer -->
             <div class="footer">
-                طراحی شده توسط تیم <a href="https://nirvanadev.ir" target="_blank">نیروانا</a>
-                <div class="phone-number">تلفن: 44500223</div>
+                <div>طراحی شده توسط تیم <a href="https://nirvanadev.ir" target="_blank">نیروانا</a></div>
+                <div class="phone-number">📞 تلفن: 44500223</div>
+                <div style="margin-top: 10px; font-size: 12px; opacity: 0.8;">
+                    🕐 ساعات کاری: ۱۰:۰۰ تا ۲۳:۰۰
+                </div>
             </div>
         </div>
     </div>
 
+    <!-- Cart Sidebar -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3 class="cart-title">🛒 سبد خرید</h3>
+            <button class="cart-close" id="cartClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div id="cartItems">
+            <div class="empty-cart">
+                <i class="fas fa-shopping-cart"></i>
+                <h4>سبد خرید خالی است</h4>
+                <p>محصولی به سبد خرید اضافه نکرده‌اید</p>
+            </div>
+        </div>
+        <div class="cart-total" id="cartTotal" style="display: none;">
+            <div class="total-amount" id="totalAmount">۰ تومان</div>
+            <button class="checkout-btn" id="checkoutBtn">
+                <i class="fas fa-credit-card"></i> تسویه حساب
+            </button>
+        </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <button class="floating-action" id="scrollToTop" title="بازگشت به بالا">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <script>
-        // Menu data
+        // Menu data with icons
         const menuData = {
-            "ساندویچ ها": [
-                {name: "ساندویچ مخصوص امیرخان", price: "165"},
-                {name: "بندری", price: "98"},
-                {name: "فلافل", price: "75"},
-                {name: "جگر", price: "98"},
-                {name: "فیله مرغ", price: "95"},
-                {name: "ناگت مرغ", price: "95"},
-                {name: "کباب لقمه", price: "105"},
-                {name: "سوسیس آلمانی", price: "85"},
-                {name: "هات داگ", price: "100"},
-                {name: "هات داگ پنیری", price: "100"},
-                {name: "هات رویال", price: "130"},
-                {name: "ژامبون گوشت تنوری", price: "115"},
-                {name: "ژامبون مرغ تنوری", price: "105"},
-                {name: "مغز", price: "195"},
-                {name: "زبان", price: "195"},
-                {name: "پپرونی", price: "105"},
-                {name: "کراکف", price: "105"},
-                {name: "کوکتل", price: "100"},
-                {name: "کوکتل پنیری", price: "105"},
-                {name: "بوقلمون", price: "110"},
-                {name: "همبرگر", price: "105"},
-                {name: "دوبل برگر", price: "155"},
-                {name: "رویال برگر", price: "145"},
-                {name: "هات رویال برگر", price: "170"}
-            ],
-            "ترکیبی": [
-                {name: "مغز و زبان", price: "195"},
-                {name: "فیله و لقمه", price: "135"},
-                {name: "جگر بندری", price: "98"},
-                {name: "مغز و پپرونی", price: "98"},
-                {name: "لقمه و بوقلمون", price: "145"},
-                {name: "پپرونی و بوقلمون", price: "115"},
-                {name: "بندری و پپرونی", price: "105"},
-                {name: "سوسیس سیب زمینی", price: "98"},
-                {name: "مرغ و جگر", price: "110"},
-                {name: "مرغ و پپرونی", price: "115"},
-                {name: "مرغ و بندری", price: "95"},
-                {name: "ناگت و پپرونی", price: "100"},
-                {name: "لقمه و پپرونی", price: "145"},
-                {name: "مغز و مرغ", price: "180"},
-                {name: "مغز و جگر", price: "165"}
-            ],
-            "ساندویچ سرد": [
-                {name: "ژامبون گوشت", price: "95"},
-                {name: "ژامبون مرغ", price: "90"},
-                {name: "کالباس خشک", price: "85"}
-            ],
-            "پیتزا": [
-                {name: "مخصوص امیرخان", price: "260-290"},
-                {name: "قارچ و گوشت", price: "250-280"},
-                {name: "قارچ و مرغ", price: "260-290"},
-                {name: "پپرونی", price: "250-280"},
-                {name: "مخلوط", price: "230-260"},
-                {name: "سبزیجات", price: "220-250"}
-            ],
-            "سیب زمینی": [
-                {name: "ساده", price: "115"},
-                {name: "ویژه", price: "145"},
-                {name: "قارچ و پنیر اضافه", price: "40"}
-            ]
-        };
+    "ساندویچ ها": {
+        icon: "fas fa-hamburger",
+        items: [
+            {name: "ساندویچ مخصوص امیرخان", price: "165"},
+            {name: "بندری", price: "98"},
+            {name: "فلافل", price: "75"},
+            {name: "جگر", price: "98"},
+            {name: "فیله مرغ", price: "95"},
+            {name: "ناگت مرغ", price: "95"},
+            {name: "کباب لقمه", price: "105"},
+            {name: "سوسیس آلمانی", price: "85"},
+            {name: "هات داگ", price: "100"},
+            {name: "هات داگ پنیری", price: "100"},
+            {name: "هات رویال", price: "130"},
+            {name: "ژامبون گوشت تنوری", price: "115"},
+            {name: "ژامبون مرغ تنوری", price: "105"},
+            {name: "مغز", price: "195"},
+            {name: "زبان", price: "195"},
+            {name: "پپرونی", price: "105"},
+            {name: "کراکف", price: "105"},
+            {name: "کوکتل", price: "100"},
+            {name: "کوکتل پنیری", price: "105"},
+            {name: "بوقلمون", price: "110"},
+            {name: "همبرگر", price: "105"},
+            {name: "دوبل برگر", price: "155"},
+            {name: "رویال برگر", price: "145"},
+            {name: "هات رویال برگر", price: "170"}
+        ]
+    },
+    "پرسی": {
+        icon: "fas fa-utensils",
+        items: [
+            {name: "ژامبون", price: "170"},
+            {name: "مغز و زبان", price: "375"},
+            {name: "املت", price: "100"},
+            {name: "فیله لقمه", price: "275"},
+            {name: "بوقلمون", price: "245"},
+            {name: "مرغ و پپرونی", price: "215"},
+            {name: "گوجه و خیارشور", price: "50"},
+            {name: "کوکتل", price: "205"},
+            {name: "فلافل", price: "155"},
+            {name: "هات داگ", price: "205"},
+            {name: "بندری", price: "200"},
+            {name: "جیگر بندری", price: "200"},
+            {name: "جگر پرسی", price: "200"},
+            {name: "ناگت", price: "195"},
+            {name: "مرغ و جیگر", price: "225"},
+            {name: "پپرونی", price: "215"},
+            {name: "سوسیس سیب زمینی", price: "200"},
+            {name: "مغز و مرغ", price: "345"},
+            {name: "مغز", price: "325"},
+            {name: "همبرگر", price: "215"},
+            {name: "کباب لقمه", price: "235"},
+            {name: "مرغ", price: "215"}
+        ]
+    },
+    "سوخاری": {
+        icon: "fas fa-drumstick-bite",
+        items: [
+            {name: "قارچ سوخاری", price: "120"},
+            {name: "فیله سوخاری 3 تکه", price: "170"},
+            {name: "فیله سوخاری 5 تکه", price: "370"}
+        ]
+    },
+    "ترکیبی": {
+        icon: "fas fa-utensils",
+        items: [
+            {name: "مغز و زبان", price: "195"},
+            {name: "فیله و لقمه", price: "135"},
+            {name: "جگر بندری", price: "98"},
+            {name: "مغز و پپرونی", price: "98"},
+            {name: "لقمه و بوقلمون", price: "145"},
+            {name: "پپرونی و بوقلمون", price: "115"},
+            {name: "بندری و پپرونی", price: "105"},
+            {name: "سوسیس سیب زمینی", price: "98"},
+            {name: "مرغ و جگر", price: "110"},
+            {name: "مرغ و پپرونی", price: "115"},
+            {name: "مرغ و بندری", price: "95"},
+            {name: "ناگت و پپرونی", price: "100"},
+            {name: "لقمه و پپرونی", price: "145"},
+            {name: "مغز و مرغ", price: "180"},
+            {name: "مغز و جگر", price: "165"}
+        ]
+    },
+    "ساندویچ سرد": {
+        icon: "fas fa-bread-slice",
+        items: [
+            {name: "ژامبون گوشت", price: "95"},
+            {name: "ژامبون مرغ", price: "90"},
+            {name: "کالباس خشک", price: "85"}
+        ]
+    },
+    "پیتزا": {
+        icon: "fas fa-pizza-slice",
+        items: [
+            {name: "مخصوص امیرخان", price: "260-290"},
+            {name: "قارچ و گوشت", price: "250-280"},
+            {name: "قارچ و مرغ", price: "260-290"},
+            {name: "پپرونی", price: "250-280"},
+            {name: "مخلوط", price: "230-260"},
+            {name: "سبزیجات", price: "220-250"}
+        ]
+    },
+    "سیب زمینی": {
+        icon: "fas fa-seedling",
+        items: [
+            {name: "ساده", price: "115"},
+            {name: "ویژه", price: "145"},
+            {name: "قارچ و پنیر اضافه", price: "40"}
+        ]
+    }
+};
+
+        // Global variables
+        let currentCategory = '';
+        let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+        let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        let isDarkMode = localStorage.getItem('darkMode') === 'true';
 
         // DOM elements
         const categoriesSidebar = document.getElementById('categoriesSidebar');
@@ -426,113 +1106,518 @@
         const itemsTitle = document.getElementById('sectionTitle');
         const sandwichToggle = document.getElementById('sandwichToggle');
         const persiSwitch = document.getElementById('persiSwitch');
+        const searchInput = document.getElementById('searchInput');
+        const themeToggle = document.getElementById('themeToggle');
+        const cartToggle = document.getElementById('cartToggle');
+        const cartSidebar = document.getElementById('cartSidebar');
+        const cartOverlay = document.getElementById('cartOverlay');
+        const cartClose = document.getElementById('cartClose');
+        const cartBadge = document.getElementById('cartBadge');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const noResults = document.getElementById('noResults');
+        const scrollToTop = document.getElementById('scrollToTop');
+
+        // Initialize app
+        function init() {
+            createCategoryButtons();
+            setupEventListeners();
+            applyTheme();
+            updateCartBadge();
+            
+            // Set first category as active
+            const firstCategory = Object.keys(menuData)[0];
+            document.querySelector('.category-item').classList.add('active');
+            currentCategory = firstCategory;
+            if (firstCategory === "ساندویچ ها") {
+                sandwichToggle.style.display = 'flex';
+            }
+            updateItems(firstCategory);
+        }
 
         // Create category buttons
-        Object.keys(menuData).forEach(category => {
-            const categoryItem = document.createElement('div');
-            categoryItem.className = 'category-item';
-            categoryItem.innerHTML = `
-                <div class="category-name">${category}</div>
-            `;
-            
-            categoryItem.addEventListener('click', () => {
-                // Remove active class from all categories
-                document.querySelectorAll('.category-item').forEach(item => {
-                    item.classList.remove('active');
+        function createCategoryButtons() {
+            Object.keys(menuData).forEach(category => {
+                const categoryItem = document.createElement('div');
+                categoryItem.className = 'category-item';
+                categoryItem.setAttribute('tabindex', '0');
+                categoryItem.innerHTML = `
+                    <div class="category-icon">
+                        <i class="${menuData[category].icon}"></i>
+                    </div>
+                    <div class="category-name">${category}</div>
+                `;
+                
+                categoryItem.addEventListener('click', () => selectCategory(category, categoryItem));
+                categoryItem.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        selectCategory(category, categoryItem);
+                    }
                 });
                 
-                // Add active class to clicked category
-                categoryItem.classList.add('active');
-                
-                // Show/hide persi toggle based on category
-                if (category === "ساندویچ ها") {
-                    sandwichToggle.style.display = 'flex';
+                categoriesSidebar.appendChild(categoryItem);
+            });
+        }
+
+        // Select category
+        function selectCategory(category, categoryElement) {
+            // Remove active class from all categories
+            document.querySelectorAll('.category-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Add active class to clicked category
+            categoryElement.classList.add('active');
+            currentCategory = category;
+            
+            // Show/hide persi toggle
+            if (category === "ساندویچ ها") {
+                sandwichToggle.style.display = 'flex';
+            } else {
+                sandwichToggle.style.display = 'none';
+            }
+            
+            // Update items
+            updateItems(category);
+            
+            // Play sound effect
+            playClickSound();
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Persi switch
+            persiSwitch.addEventListener('change', function() {
+                updateItems(currentCategory);
+                playClickSound();
+            });
+
+            // Search input
+            searchInput.addEventListener('input', debounce(handleSearch, 300));
+
+            // Theme toggle
+            themeToggle.addEventListener('click', toggleTheme);
+
+            // Cart toggle
+            cartToggle.addEventListener('click', toggleCart);
+            cartClose.addEventListener('click', toggleCart);
+            cartOverlay.addEventListener('click', toggleCart);
+
+            // Scroll to top
+            scrollToTop.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Show/hide scroll to top button
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    scrollToTop.style.display = 'flex';
                 } else {
-                    sandwichToggle.style.display = 'none';
+                    scrollToTop.style.display = 'none';
+                }
+            });
+
+            // Checkout button
+            document.getElementById('checkoutBtn').addEventListener('click', handleCheckout);
+        }
+
+        // Update items based on selected category
+        function updateItems(category, searchTerm = '') {
+            showLoading();
+            
+            setTimeout(() => {
+                // Clear previous items
+                menuItems.innerHTML = '';
+                
+                // Update title
+                itemsTitle.textContent = category;
+                
+                let items = menuData[category].items;
+                
+                // Filter items based on search term
+                if (searchTerm) {
+                    items = items.filter(item => 
+                        item.name.toLowerCase().includes(searchTerm.toLowerCase())
+                    );
+                }
+
+                if (items.length === 0) {
+                    showNoResults();
+                    return;
+                }
+
+                hideNoResults();
+                
+                // Add items with animation delay
+                items.forEach((item, index) => {
+                    setTimeout(() => {
+                        const itemElement = createMenuItem(item, category, index);
+                        menuItems.appendChild(itemElement);
+                    }, index * 50);
+                });
+                
+                hideLoading();
+            }, 200);
+        }
+
+        // Create menu item element
+        function createMenuItem(item, category, index) {
+            const itemElement = document.createElement('div');
+            itemElement.className = 'menu-item';
+            itemElement.style.animationDelay = `${index * 0.1}s`;
+            itemElement.setAttribute('tabindex', '0');
+            
+            let displayPrice = item.price;
+            let itemName = item.name;
+            let isPersi = false;
+            
+            // Double price for sandwich items when persi mode is on
+            if (category === "ساندویچ ها" && persiSwitch.checked) {
+                isPersi = true;
+                itemName = item.name + " 🌶️";
+                
+                if (item.price.includes("-")) {
+                    const [minPrice, maxPrice] = item.price.split("-");
+                    const doubledMin = parseInt(minPrice) * 2;
+                    const doubledMax = parseInt(maxPrice) * 2;
+                    displayPrice = `${doubledMin}-${doubledMax}`;
+                } else {
+                    const originalPrice = parseInt(item.price);
+                    displayPrice = (originalPrice * 2).toString();
+                }
+            }
+
+            const isFavorited = favorites.includes(item.name);
+            
+            // Create the item HTML
+            if (displayPrice.includes("-")) {
+                const [minPrice, maxPrice] = displayPrice.split("-");
+                itemElement.innerHTML = `
+                    <div class="item-header">
+                        <div class="item-name">${itemName}</div>
+                        <div class="item-actions">
+                            <button class="favorite-btn ${isFavorited ? 'active' : ''}" onclick="toggleFavorite('${item.name}', this)">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="add-to-cart-btn" onclick="addToCart('${item.name}', '${displayPrice}', ${isPersi})">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="price-range">
+                        <span class="price-badge">${minPrice} تومان</span>
+                        <span class="price-badge">${maxPrice} تومان</span>
+                    </div>
+                `;
+            } else {
+                itemElement.innerHTML = `
+                    <div class="item-header">
+                        <div class="item-name">${itemName}</div>
+                        <div class="item-actions">
+                            <button class="favorite-btn ${isFavorited ? 'active' : ''}" onclick="toggleFavorite('${item.name}', this)">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="add-to-cart-btn" onclick="addToCart('${item.name}', '${displayPrice}', ${isPersi})">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="item-price">${displayPrice} تومان</div>
+                `;
+            }
+
+            if (isFavorited) {
+                itemElement.classList.add('favorited');
+            }
+            
+            return itemElement;
+        }
+
+        // Toggle favorite
+        function toggleFavorite(itemName, button) {
+            const index = favorites.indexOf(itemName);
+            if (index > -1) {
+                favorites.splice(index, 1);
+                button.classList.remove('active');
+                button.closest('.menu-item').classList.remove('favorited');
+            } else {
+                favorites.push(itemName);
+                button.classList.add('active');
+                button.closest('.menu-item').classList.add('favorited');
+            }
+            
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            playClickSound();
+        }
+
+        // Add to cart
+        function addToCart(itemName, price, isPersi) {
+            const existingItem = cart.find(item => item.name === itemName && item.isPersi === isPersi);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    name: itemName,
+                    price: price,
+                    quantity: 1,
+                    isPersi: isPersi
+                });
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartBadge();
+            updateCartDisplay();
+            playClickSound();
+            
+            // Show success animation
+            showAddToCartAnimation();
+        }
+
+        // Update cart badge
+        function updateCartBadge() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            if (totalItems > 0) {
+                cartBadge.textContent = totalItems;
+                cartBadge.style.display = 'flex';
+            } else {
+                cartBadge.style.display = 'none';
+            }
+        }
+
+        // Toggle cart sidebar
+        function toggleCart() {
+            cartSidebar.classList.toggle('open');
+            cartOverlay.classList.toggle('open');
+            updateCartDisplay();
+        }
+
+        // Update cart display
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            const totalAmount = document.getElementById('totalAmount');
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="empty-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <h4>سبد خرید خالی است</h4>
+                        <p>محصولی به سبد خرید اضافه نکرده‌اید</p>
+                    </div>
+                `;
+                cartTotal.style.display = 'none';
+                return;
+            }
+            
+            let total = 0;
+            cartItems.innerHTML = '';
+            
+            cart.forEach((item, index) => {
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                
+                let itemPrice = 0;
+                if (item.price.includes('-')) {
+                    const [min, max] = item.price.split('-');
+                    itemPrice = parseInt(max); // Use max price for calculation
+                } else {
+                    itemPrice = parseInt(item.price);
                 }
                 
-                // Update items
-                updateItems(category);
+                const itemTotal = itemPrice * item.quantity;
+                total += itemTotal;
+                
+                cartItem.innerHTML = `
+                    <div class="cart-item-info">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">${itemPrice} تومان</div>
+                    </div>
+                    <div class="cart-item-controls">
+                        <button class="quantity-btn" onclick="changeQuantity(${index}, -1)">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <span>${item.quantity}</span>
+                        <button class="quantity-btn" onclick="changeQuantity(${index}, 1)">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                `;
+                
+                cartItems.appendChild(cartItem);
             });
             
-            categoriesSidebar.appendChild(categoryItem);
-        });
+            totalAmount.textContent = `${total.toLocaleString()} تومان`;
+            cartTotal.style.display = 'block';
+        }
 
-        // Persi switch event listener
-        persiSwitch.addEventListener('change', function() {
-            const activeCategory = document.querySelector('.category-item.active');
-            if (activeCategory) {
-                const categoryName = activeCategory.querySelector('.category-name').textContent.trim();
-                updateItems(categoryName);
+        // Change quantity
+        function changeQuantity(index, change) {
+            cart[index].quantity += change;
+            
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
             }
-        });
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartBadge();
+            updateCartDisplay();
+            playClickSound();
+        }
 
-        // Function to update items based on selected category
-        function updateItems(category) {
-            // Clear previous items
-            menuItems.innerHTML = '';
+        // Handle checkout
+        function handleCheckout() {
+            if (cart.length === 0) return;
             
-            // Update title
-            itemsTitle.textContent = category;
+            alert('🎉 سفارش شما با موفقیت ثبت شد!\nزمان تحویل: ۲۰-۳۰ دقیقه');
+            cart = [];
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartBadge();
+            updateCartDisplay();
+            toggleCart();
+        }
+
+        // Handle search
+        function handleSearch() {
+            const searchTerm = searchInput.value.trim();
             
-            // Add items with animation delay
-            menuData[category].forEach((item, index) => {
-                setTimeout(() => {
-                    const itemElement = document.createElement('div');
-                    itemElement.className = 'menu-item';
-                    itemElement.style.animationDelay = `${index * 0.1}s`;
-                    
-                    let displayPrice = item.price;
-                    let itemName = item.name;
-                    let isPersi = false;
-                    
-                    // Double price for sandwich items when persi mode is on
-                    if (category === "ساندویچ ها" && persiSwitch.checked) {
-                        isPersi = true;
-                        itemName = item.name + " (پرسی)";
-                        
-                        if (item.price.includes("-")) {
-                            // Handle price ranges like "260-290"
-                            const [minPrice, maxPrice] = item.price.split("-");
-                            const doubledMin = parseInt(minPrice) * 2;
-                            const doubledMax = parseInt(maxPrice) * 2;
-                            displayPrice = `${doubledMin}-${doubledMax}`;
-                        } else {
-                            // Handle single prices
-                            const originalPrice = parseInt(item.price);
-                            displayPrice = (originalPrice * 2).toString();
-                        }
-                    }
-                    
-                    // Create the item HTML
-                    if (displayPrice.includes("-")) {
-                        const [minPrice, maxPrice] = displayPrice.split("-");
-                        itemElement.innerHTML = `
-                            <div class="item-name">${itemName}</div>
-                            <div class="price-range">
-                                <span class="item-price">${minPrice} تومان</span>
-                                <span class="item-price">${maxPrice} تومان</span>
-                            </div>
-                        `;
-                    } else {
-                        itemElement.innerHTML = `
-                            <div class="item-name">${itemName}</div>
-                            <div class="item-price">${displayPrice} تومان</div>
-                        `;
-                    }
-                    
-                    menuItems.appendChild(itemElement);
-                }, 50);
+            if (searchTerm === '') {
+                updateItems(currentCategory);
+                return;
+            }
+            
+            // Search in all categories
+            let allResults = [];
+            Object.keys(menuData).forEach(category => {
+                const categoryResults = menuData[category].items.filter(item =>
+                    item.name.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+                allResults = allResults.concat(categoryResults.map(item => ({...item, category})));
+            });
+            
+            showSearchResults(allResults, searchTerm);
+        }
+
+        // Show search results
+        function showSearchResults(results, searchTerm) {
+            showLoading();
+            
+            setTimeout(() => {
+                menuItems.innerHTML = '';
+                itemsTitle.textContent = `نتایج جستجو برای: "${searchTerm}"`;
+                sandwichToggle.style.display = 'none';
+                
+                if (results.length === 0) {
+                    showNoResults();
+                    return;
+                }
+                
+                hideNoResults();
+                
+                results.forEach((item, index) => {
+                    setTimeout(() => {
+                        const itemElement = createMenuItem(item, item.category, index);
+                        menuItems.appendChild(itemElement);
+                    }, index * 50);
+                });
+                
+                hideLoading();
+            }, 200);
+        }
+
+        // Toggle theme
+        function toggleTheme() {
+            isDarkMode = !isDarkMode;
+            localStorage.setItem('darkMode', isDarkMode);
+            applyTheme();
+            playClickSound();
+        }
+
+        // Apply theme
+        function applyTheme() {
+            if (isDarkMode) {
+                document.body.setAttribute('data-theme', 'dark');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                document.body.removeAttribute('data-theme');
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        }
+
+        // Utility functions
+        function showLoading() {
+            loadingSpinner.style.display = 'flex';
+            menuItems.style.display = 'none';
+        }
+
+        function hideLoading() {
+            loadingSpinner.style.display = 'none';
+            menuItems.style.display = 'grid';
+        }
+
+        function showNoResults() {
+            noResults.style.display = 'block';
+            menuItems.style.display = 'none';
+        }
+
+        function hideNoResults() {
+            noResults.style.display = 'none';
+            menuItems.style.display = 'grid';
+        }
+
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        function playClickSound() {
+            // Create a simple click sound using Web Audio API
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.value = 800;
+            oscillator.type = 'sine';
+            
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.1);
+        }
+
+        function showAddToCartAnimation() {
+            // Simple success animation
+            const button = event.target.closest('.add-to-cart-btn');
+            button.style.transform = 'scale(1.2)';
+            button.style.background = '#10b981';
+            setTimeout(() => {
+                button.style.transform = 'scale(1)';
+                button.style.background = '';
+            }, 200);
+        }
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+
+        // Service Worker registration for PWA features
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => console.log('SW registered'))
+                    .catch(registrationError => console.log('SW registration failed'));
             });
         }
-
-        // Set first category as active by default and show persi toggle if needed
-        const firstCategory = Object.keys(menuData)[0];
-        document.querySelector('.category-item').classList.add('active');
-        if (firstCategory === "ساندویچ ها") {
-            sandwichToggle.style.display = 'flex';
-        }
-        updateItems(firstCategory);
     </script>
 </body>
 </html>
