@@ -329,14 +329,12 @@
         <div class="items-container" id="itemsContainer">
             <div class="items-content">
                 <h2 class="items-title" id="sectionTitle">منوی فست فود امیرخان</h2>
-                <div id="sandwichToggle" style="display: none;">
-                    <div class="persi-toggle">
-                        <label class="switch">
-                            <input type="checkbox" id="persiSwitch">
-                            <span class="slider"></span>
-                        </label>
-                        <span class="toggle-label">پرسی (قیمت دو برابر)</span>
-                    </div>
+                <div id="sandwichToggle" class="persi-toggle" style="display: none;">
+                    <label class="switch">
+                        <input type="checkbox" id="persiSwitch">
+                        <span class="slider"></span>
+                    </label>
+                    <span class="toggle-label">پرسی</span>
                 </div>
                 <div class="menu-items" id="menuItems">
                     <!-- Items will be added by JavaScript -->
@@ -448,7 +446,7 @@
                 
                 // Show/hide persi toggle based on category
                 if (category === "ساندویچ ها") {
-                    sandwichToggle.style.display = 'block';
+                    sandwichToggle.style.display = 'flex';
                 } else {
                     sandwichToggle.style.display = 'none';
                 }
@@ -462,14 +460,9 @@
 
         // Persi switch event listener
         persiSwitch.addEventListener('change', function() {
-            if (document.querySelector('.category-item.active').textContent.includes("ساندویچ ها")) {
-                updateItems("ساندویچ ها");
-            }
+            const activeCategory = document.querySelector('.category-item.active').textContent.trim();
+            updateItems(activeCategory);
         });
-
-        // Set first category as active by default
-        document.querySelector('.category-item').classList.add('active');
-        updateItems(Object.keys(menuData)[0]);
 
         // Function to update items based on selected category
         function updateItems(category) {
@@ -487,6 +480,7 @@
                     itemElement.style.animationDelay = `${index * 0.1}s`;
                     
                     let price = item.price;
+                    let isPersi = false;
                     
                     // Double price for sandwich items when persi mode is on
                     if (category === "ساندویچ ها" && persiSwitch.checked) {
@@ -496,12 +490,13 @@
                         } else {
                             price = item.price * 2;
                         }
+                        isPersi = true;
                     }
                     
                     if (price.includes("-")) {
                         const [minPrice, maxPrice] = price.split("-");
                         itemElement.innerHTML = `
-                            <div class="item-name">${item.name}</div>
+                            <div class="item-name">${item.name} ${isPersi ? '(پرسی)' : ''}</div>
                             <div class="price-range">
                                 <span class="item-price">${minPrice} تومان</span>
                                 <span class="item-price">${maxPrice} تومان</span>
@@ -509,7 +504,7 @@
                         `;
                     } else if (price) {
                         itemElement.innerHTML = `
-                            <div class="item-name">${item.name}</div>
+                            <div class="item-name">${item.name} ${isPersi ? '(پرسی)' : ''}</div>
                             <div class="item-price">${price} تومان</div>
                         `;
                     } else {
@@ -522,6 +517,14 @@
                 }, 50);
             });
         }
+
+        // Set first category as active by default and show persi toggle if needed
+        const firstCategory = Object.keys(menuData)[0];
+        document.querySelector('.category-item').classList.add('active');
+        if (firstCategory === "ساندویچ ها") {
+            sandwichToggle.style.display = 'flex';
+        }
+        updateItems(firstCategory);
     </script>
 </body>
 </html>
