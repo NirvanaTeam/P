@@ -133,10 +133,17 @@
         }
         
         .item-name {
-            font-weight: 500;
+            font-weight: 700;
             font-size: 15px;
             color: #F7EEDD;
             margin-bottom: 5px;
+        }
+        
+        .item-description {
+            font-size: 13px;
+            color: #B8B0A5;
+            margin-bottom: 8px;
+            line-height: 1.4;
         }
         
         .item-price {
@@ -281,54 +288,54 @@
         // Menu data
         const menuData = {
             "اسموتی‌ها": [
-                {name: "توت فرنگی (آناناس، توت‌فرنگی، کلبیس)", price: "97-109"},
-                {name: "دراگون فروت (آناناس، دراگون فروت، کلبیس)", price: "97-109"},
-                {name: "آلبالو (آلبالو، آناناس، سیب، پرتقال)", price: "93-105"},
-                {name: "هندوانه (هندوانه، لیمو، نعنای تازه)", price: "93-105"},
-                {name: "پرتقال (پرتقال، لیمو، زنجبیل، آناناس)", price: "93-105"},
-                {name: "موز توت‌فرنگی (موز، توت‌فرنگی، نارگیل)", price: "93-105"},
-                {name: "آب طالبی", price: "67-77"}
+                {name: "توت فرنگی", description: "آناناس، توت‌فرنگی، کلبیس", price: "97-109"},
+                {name: "دراگون فروت", description: "آناناس، دراگون فروت، کلبیس", price: "97-109"},
+                {name: "آلبالو", description: "آلبالو، آناناس، سیب، پرتقال", price: "93-105"},
+                {name: "هندوانه", description: "هندوانه، لیمو، نعنای تازه", price: "93-105"},
+                {name: "پرتقال", description: "پرتقال، لیمو، زنجبیل، آناناس", price: "93-105"},
+                {name: "موز توت‌فرنگی", description: "موز، توت‌فرنگی، نارگیل", price: "93-105"},
+                {name: "آب طالبی", description: "", price: "67-77"}
             ],
             "موهیتو": [
-                {name: "کلاسیک (لیمو، نعناع، آب گازدار)", price: "93-103"},
-                {name: "توت‌فرنگی (لیمو، نعناع، توت‌فرنگی، آب گازدار)", price: "93-103"},
-                {name: "دراگون فروت (لیمو، نعناع، دراگون فروت، آب گازدار)", price: "93-103"},
-                {name: "هندوانه (لیمو، نعناع، آب گازدار، هندوانه)", price: "95-105"}
+                {name: "کلاسیک", description: "لیمو، نعناع، آب گازدار", price: "93-103"},
+                {name: "توت‌فرنگی", description: "لیمو، نعناع، توت‌فرنگی، آب گازدار", price: "93-103"},
+                {name: "دراگون فروت", description: "لیمو، نعناع، دراگون فروت، آب گازدار", price: "93-103"},
+                {name: "هندوانه", description: "لیمو، نعناع، آب گازدار، هندوانه", price: "95-105"}
             ],
             "اسپرسو بار گرم": [
-                {name: "اسپرسو", price: "45-55"},
-                {name: "لته", price: "95"},
-                {name: "هات چاکلت", price: "113"},
-                {name: "موکا", price: "113"},
-                {name: "آمریکانو", price: "67"}
+                {name: "اسپرسو", description: "", price: "45-55"},
+                {name: "لته", description: "", price: "95"},
+                {name: "هات چاکلت", description: "", price: "113"},
+                {name: "موکا", description: "", price: "113"},
+                {name: "آمریکانو", description: "", price: "67"}
             ],
             "اسپرسو بار سرد": [
-                {name: "آیس لته", price: "105"},
-                {name: "آیس کارامل ماکیاتو", price: "125"},
-                {name: "دارکولا میلک", price: "110"}
+                {name: "آیس لته", description: "", price: "105"},
+                {name: "آیس کارامل ماکیاتو", description: "", price: "125"},
+                {name: "دارکولا میلک", description: "", price: "110"}
             ],
             "ویژه لوچه": [
-                {name: "توت فرنگی نوتلا (توت‌فرنگی، شکلات، موز، کراستد)", price: "94"},
-                {name: "لیمون سیکسونیدا (لیمو، سیروپ)", price: "79-89"},
-                {name: "آب‌دوغ خیار لوچه", price: "196"},
-                {name: "سبین مزه ایرانی (خیار، نعناع، لیمو، آلبالو، بیدمشک، کلبیس، دراگون فروت، نوتلا)", price: "210"},
-                {name: "آلبالو فرنچ", price: "76"},
-                {name: "چای زعفرانی نعناع", price: "قیمت درج نشده"}
+                {name: "توت فرنگی نوتلا", description: "توت‌فرنگی، شکلات، موز، کراستد", price: "94"},
+                {name: "لیمون سیکسونیدا", description: "لیمو، سیروپ", price: "79-89"},
+                {name: "آب‌دوغ خیار لوچه", description: "", price: "196"},
+                {name: "سبین مزه ایرانی", description: "خیار، نعناع، لیمو، آلبالو، بیدمشک، کلبیس، دراگون فروت، نوتلا", price: "210"},
+                {name: "آلبالو فرنچ", description: "", price: "76"},
+                {name: "چای زعفرانی نعناع", description: "", price: "قیمت درج نشده"}
             ],
             "صبحانه لوچه": [
-                {name: "پینک شکلات میوه", price: "143"},
-                {name: "مورد دوم", price: "67-87"}
+                {name: "پینک شکلات میوه", description: "", price: "143"},
+                {name: "مورد دوم", description: "", price: "67-87"}
             ],
             "میلک شیک فروتی": [
-                {name: "شیر موز", price: "97-113"},
-                {name: "شیر توت‌فرنگی", price: "97-113"},
-                {name: "شیر آلبالو", price: "97-113"}
+                {name: "شیر موز", description: "", price: "97-113"},
+                {name: "شیر توت‌فرنگی", description: "", price: "97-113"},
+                {name: "شیر آلبالو", description: "", price: "97-113"}
             ],
             "کروسان و وافل": [
-                {name: "وافل", price: "127"},
-                {name: "کروسان بستنی", price: "107"},
-                {name: "کروسان توت‌فرنگی، شکلات", price: "139"},
-                {name: "وافل بستنی", price: "97"}
+                {name: "وافل", description: "", price: "127"},
+                {name: "کروسان بستنی", description: "", price: "107"},
+                {name: "کروسان توت‌فرنگی، شکلات", description: "", price: "139"},
+                {name: "وافل بستنی", description: "", price: "97"}
             ]
         };
 
@@ -392,8 +399,13 @@
                     const itemElement = document.createElement('div');
                     itemElement.className = 'menu-item';
                     itemElement.style.animationDelay = `${index * 0.1}s`;
+                    
+                    const descriptionHTML = item.description ? 
+                        `<div class="item-description">${item.description}</div>` : '';
+                    
                     itemElement.innerHTML = `
                         <div class="item-name">${item.name}</div>
+                        ${descriptionHTML}
                         <div class="item-price">${item.price} تومان</div>
                     `;
                     menuItems.appendChild(itemElement);
