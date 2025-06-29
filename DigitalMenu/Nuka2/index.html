@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>کافه نوکا - منوی دیجیتال</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts.css" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #F5F5DC;
+            --dark-cream: #E8E5D7;
+            --black: #1A1A1A;
+            --gold: #D4AF37;
+        }
+        
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background-color: var(--cream);
+            color: var(--black);
+        }
+        
+        .menu-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .menu-header {
+            background-color: var(--black);
+            color: var(--cream);
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .menu-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0;
+            letter-spacing: 2px;
+        }
+        
+        .menu-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+        
+        .category-header {
+            background-color: var(--dark-cream);
+            color: var(--black);
+            padding: 10px 20px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            border-bottom: 2px solid var(--black);
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .menu-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .menu-item:hover {
+            background-color: var(--dark-cream);
+        }
+        
+        .item-content {
+            flex: 1;
+        }
+        
+        .item-name {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .item-desc {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .coffee-types {
+            font-size: 0.9rem;
+            color: #555;
+            margin-top: 5px;
+        }
+        
+        .note {
+            font-size: 0.8rem;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .nav-tabs {
+            border-bottom: 2px solid var(--black);
+            justify-content: center;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        
+        .nav-link {
+            color: var(--black);
+            font-weight: 500;
+            border: none;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .nav-link.active {
+            background-color: var(--black);
+            color: var(--cream);
+            border: none;
+        }
+        
+        .nav-link:hover {
+            color: var(--black);
+            background-color: var(--dark-cream);
+        }
+        
+        .tab-content {
+            padding: 20px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 15px;
+            background-color: var(--black);
+            color: var(--cream);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .menu-title {
+                font-size: 2rem;
+            }
+            
+            .category-header {
+                font-size: 1.1rem;
+            }
+            
+            .nav-link {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-container">
+        <div class="menu-header">
+            <h1 class="menu-title">کافه نوکا</h1>
+            <p class="menu-subtitle">منوی دیجیتال</p>
+        </div>
+        
+        <ul class="nav nav-tabs" id="menuTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="hot-drinks-tab" data-bs-toggle="tab" data-bs-target="#hot-drinks" type="button" role="tab">☕ نوشیدنی گرم</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tea-tab" data-bs-toggle="tab" data-bs-target="#tea" type="button" role="tab">🍵 چای و دمنوش</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="cold-drinks-tab" data-bs-toggle="tab" data-bs-target="#cold-drinks" type="button" role="tab">🧊 نوشیدنی سرد</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="juice-tab" data-bs-toggle="tab" data-bs-target="#juice" type="button" role="tab">🍹 آب میوه</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="milkshake-tab" data-bs-toggle="tab" data-bs-target="#milkshake" type="button" role="tab">🥤 شیک</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="smoothie-tab" data-bs-toggle="tab" data-bs-target="#smoothie" type="button" role="tab">🍓 اسموتی</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="mocktail-tab" data-bs-toggle="tab" data-bs-target="#mocktail" type="button" role="tab">🍸 ماکتیل</button>
+            </li>
+        </ul>
+        
+        <div class="tab-content" id="menuContent">
+            <!-- نوشیدنی گرم -->
+            <div class="tab-pane fade show active" id="hot-drinks" role="tabpanel">
+                <div class="category-header">☕ نوشیدنی گرم</div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">اسپرسو</div>
+                        <div class="item-desc">ریسرتو + لونگور</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">آمریکانو</div>
+                        <div class="item-desc">اسپرسو + آب جوش</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">کاپوچینو</div>
+                        <div class="item-desc">اسپرسو + شیر</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">ماکیاتو</div>
+                        <div class="item-desc">اسپرسو + فوم شیر</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">لاته</div>
+                        <div class="item-desc">اسپرسو + شیر</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">کارامل ماکیاتو</div>
+                        <div class="item-desc">اسپرسو + کارامل + شیر</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">موکا</div>
+                        <div class="item-desc">اسپرسو + سس شکلات + شیر</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">کورتادو</div>
+                        <div class="item-desc">اسپرسو + شیر</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">آفوگاتو</div>
+                        <div class="item-desc">اسپرسو + بستنی</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">هات چاکلت</div>
+                        <div class="item-desc">پودر هات چاکلت + شیر</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">وایت چاکلت</div>
+                        <div class="item-desc">پودر وایت چاکلت + شیر</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">پینک چاکلت</div>
+                        <div class="item-desc">پودر پینک چاکلت + شیر</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">بلوچاکلت</div>
+                        <div class="item-desc">پودر بلوچاکلت + شیر</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">ماچا لته</div>
+                        <div class="item-desc">پودر ماچا + شیر</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">قهوه فرانسه</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">قهوه ترک</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- چای و دمنوش -->
+            <div class="tab-pane fade" id="tea" role="tabpanel">
+                <div class="category-header">🍵 چای و دمنوش</div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">چای باقلوا</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">چای هل و دارچین</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">چای زعفران</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">چای ماسالا</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">چای کرک</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">چای ماچا</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">چای ترش</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">چای لته</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">دمنوش به لیمو</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">دمنوش بهارنارنج</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">دمنوش گل گاوزبان</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">دمنوش حس زندگی</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">دمنوش آرامش</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">دمنوش مراکشی</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- نوشیدنی سرد -->
+            <div class="tab-pane fade" id="cold-drinks" role="tabpanel">
+                <div class="category-header">🧊 نوشیدنی سرد</div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">آیس لته</div>
+                        <div class="item-desc">اسپرسو + شیر + یخ</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">آیس موکا</div>
+                        <div class="item-desc">اسپرسو + سس شکلات + شیر + یخ</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">آیس کارامل ماکیاتو</div>
+                        <div class="item-desc">اسپرسو + سس کارامل + شیر + یخ</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">آیس آمریکانو</div>
+                        <div class="item-desc">اسپرسو + آب + یخ</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">او جی اس</div>
+                        <div class="item-desc">اسپرسو + پرتقال/آناناس + یخ</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">آیس اسرابری ماچا</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">فراپاچینو</div>
+                        <div class="item-desc">اسپرسو + سس شکلات سفید + بستنی شکلات + خامه + یخ</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">فراپه موکا</div>
+                        <div class="item-desc">اسپرسو + سس شکلات تلخ + بستنی وانیل + خامه + یخ</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">فراپه بری</div>
+                        <div class="item-desc">اسپرسو + شیر + توت فرنگی + خامه + یخ</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">آیس تی آدامس</div>
+                        <div class="item-desc">چای + سیروپ آدامس + یخ</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">پرشین آیس</div>
+                        <div class="item-desc">خاک شیر + کاسنی + گلاب + تخم شربتی</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">اسپانیش لته</div>
+                        <div class="item-desc">اسپرسو + عسل + شیر + یخ</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">زر نوش</div>
+                        <div class="item-desc">تخم شربتی و ...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- آب میوه -->
+            <div class="tab-pane fade" id="juice" role="tabpanel">
+                <div class="category-header">🍹 آب میوه</div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">طالبی</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">هندوانه</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">هویج</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">انبه</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">توت فرنگی</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">کرفس</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">سیب</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">آناناس</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">شاتوت</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">شیرموز</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">میکس تو</div>
+                        <div class="item-desc">هر ترکیبی که شما می‌سازید</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">(همراه با بستنی)</div>
+                        <div class="item-desc">تمامی آیتم‌ها قابلیت سرو با بستنی را دارند</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- شیک -->
+            <div class="tab-pane fade" id="milkshake" role="tabpanel">
+                <div class="category-header">🥤 شیک</div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">یونی کرن</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">نوتلا</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">بیسکوییت</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">قهوه</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">بادوم زمینی</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">لوتوس</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">شیک شکلات</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">شیک زغال اخته</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">شیک شاه توت</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- اسموتی -->
+            <div class="tab-pane fade" id="smoothie" role="tabpanel">
+                <div class="category-header">🍓 اسموتی</div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">فرش پیچ</div>
+                        <div class="item-desc">هلو + توت فرنگی + انبه</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">گرین اپل</div>
+                        <div class="item-desc">سیب زرد + لیمو + نعناع + سیب</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">هندونه شاه توت</div>
+                        <div class="item-desc">هندوانه + شاه توت</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">اسموتی پروتئین</div>
+                        <div class="item-desc">اسپرسو + موز + کره بادام زمینی + پودر پروتئین وی</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">استوایی</div>
+                        <div class="item-desc">انبه + آناناس + آلوئه ورا</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">اسموتی تارت</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">جنگلی</div>
+                        <div class="item-desc">شاه توت + توت فرنگی + آب زغال اخته + آلبالو</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">اسموتی انرژی رژیمی</div>
+                        <div class="item-desc">آووکادو + گردو</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">اسموتی گام</div>
+                        <div class="item-desc">توت فرنگی + آلوئه ورا + پرتقال تو سرخ + سیروپ گام + پاستیل</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">اسموتی منگوترپ</div>
+                        <div class="item-desc">شاه توت + انبه + گریپ فروت + کرن بری + رزماری</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">اسموتی استوایی</div>
+                        <div class="item-desc">انبه + اناناس + پرتقال</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">اسموتی بلو گام</div>
+                        <div class="item-desc">انبه + بلوکاروسائو + فیسالیس + یخ</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ماکتیل -->
+            <div class="tab-pane fade" id="mocktail" role="tabpanel">
+                <div class="category-header">🍸 ماکتیل</div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">پاین پیچ</div>
+                        <div class="item-desc">اناناس + هلو + موز + توت فرنگی</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">کیوونا</div>
+                        <div class="item-desc">سیب + کیوی + سیروپ سیب سبز + سودا</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">جینجرلایم</div>
+                        <div class="item-desc">زنجبیل + سودا + لیمو + سیمل سیروپ</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">کاکی</div>
+                        <div class="item-desc">سیروپ پشن فروت + آلوئه ورا + اناناس + آب لیمو + انار + سیروپ کاکتوس + پوست پرتقال + گل خوراکی + یخ</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">مارتینا</div>
+                        <div class="item-desc">سیروپ ایریش + سیروپ رام + قهوه + الوئه ورا + آبلیمو + سودا + یخ</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-content">
+                        <div class="item-name">انرژی درینک</div>
+                        <div class="item-desc">سیروپ آدامس + هلو + پرتقال توسرخ + آبلیمو + سیروپ نارگیل + انرژی درینک + پوست پرتقال</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            کافه نوکا - تمامی حقوق محفوظ است © ۱۴۰۲
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // برای اضافه کردن انیمیشن به آیتم‌های منو
+        document.querySelectorAll('.menu-item').forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0)';
+            }, 100 + (index * 50));
+        });
+        
+        // برای تغییر تب‌ها
+        const tabLinks = document.querySelectorAll('.nav-link');
+        tabLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                tabLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                
+                // انیمیشن برای محتوای جدید
+                const target = document.querySelector(this.getAttribute('data-bs-target'));
+                target.style.opacity = '0';
+                setTimeout(() => {
+                    target.style.transition = 'opacity 0.3s ease';
+                    target.style.opacity = '1';
+                }, 300);
+            });
+        });
+    </script>
+</body>
+</html>
