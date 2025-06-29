@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منوی کافه نوکا</title>
+    <link rel="stylesheet" href="https://cdn.fontcdn.ir/Font/Persian/Vazir/Vazir.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Vazir, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #1B1B1C;
+            padding: 10px;
+            overflow-x: hidden;
+            color: #F6F9F9;
+        }
+        
+        .menu-container {
+            display: flex;
+            height: 100vh;
+            gap: 10px;
+            position: relative;
+        }
+        
+        .categories-sidebar {
+            width: 120px;
+            background-color: #272824;
+            border-radius: 20px 0 0 20px;
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3);
+            z-index: 2;
+            overflow-y: auto;
+            border: 1px solid #2E3338;
+        }
+        
+        .category-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 10px 5px;
+            cursor: pointer;
+            border-radius: 15px;
+            transition: all 0.4s ease;
+            color: #D9D1C7;
+            text-align: center;
+        }
+        
+        .category-item:hover {
+            background-color: #2E3338;
+            transform: translateY(-2px);
+        }
+        
+        .category-item.active {
+            background-color: #544E2E;
+            color: #F6F9F9;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            border: 1px solid #7A744E;
+        }
+        
+        .category-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        
+        .category-name {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .items-container {
+            flex: 1;
+            background-color: #272824;
+            border-radius: 0 20px 20px 0;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            overflow-y: auto;
+            position: relative;
+            border: 1px solid #2E3338;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .items-content {
+            flex: 1;
+        }
+        
+        .items-title {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: #F6F9F9;
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed #544E2E;
+            position: relative;
+            z-index: 1;
+            font-weight: 500;
+        }
+        
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .menu-item {
+            background-color: #2E3338;
+            padding: 14px;
+            border-radius: 10px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(15px);
+            animation: fadeIn 0.8s forwards;
+            border-right: 3px solid #544E2E;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .item-name {
+            font-weight: 700;
+            font-size: 15px;
+            color: #F6F9F9;
+            margin-bottom: 5px;
+        }
+        
+        .item-description {
+            font-size: 13px;
+            color: #B8B0A5;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        
+        .cafe-logo {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #2E3338;
+            border-radius: 10px;
+            border: 1px solid #544E2E;
+        }
+        
+        .cafe-logo img {
+            max-width: 150px;
+            max-height: 80px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 15px;
+            margin-top: auto;
+            background-color: #2E3338;
+            border-radius: 10px;
+            border-top: 1px solid #544E2E;
+            font-size: 14px;
+            color: #B8B0A5;
+        }
+        
+        .footer a {
+            color: #D9D1C7;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer a:hover {
+            color: #F6F9F9;
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .menu-container {
+                flex-direction: row;
+                height: 100vh;
+            }
+            
+            .categories-sidebar {
+                width: 100px;
+                flex-direction: column;
+                flex-wrap: nowrap;
+                border-radius: 20px 0 0 20px;
+                padding: 15px 8px;
+                gap: 15px;
+                justify-content: flex-start;
+                overflow-y: auto;
+            }
+            
+            .category-item {
+                width: 100%;
+                padding: 10px 5px;
+                min-height: auto;
+            }
+            
+            .category-icon {
+                font-size: 22px;
+            }
+            
+            .category-name {
+                font-size: 12px;
+                line-height: 1.4;
+            }
+            
+            .items-container {
+                border-radius: 0 20px 20px 0;
+                padding: 15px;
+            }
+            
+            .cafe-logo img {
+                max-width: 120px;
+            }
+            
+            .menu-items {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .items-title {
+                font-size: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .categories-sidebar {
+                width: 85px;
+                padding: 12px 5px;
+                gap: 12px;
+            }
+            
+            .category-icon {
+                font-size: 18px;
+            }
+            
+            .category-name {
+                font-size: 11px;
+            }
+            
+            .menu-items {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-container">
+        <div class="categories-sidebar" id="categoriesSidebar">
+            <!-- Categories will be added by JavaScript -->
+        </div>
+        <div class="items-container" id="itemsContainer">
+            <div class="items-content">
+                <h2 class="items-title">منوی کافه نوکا</h2>
+                <div class="menu-items" id="menuItems">
+                    <!-- Items will be added by JavaScript -->
+                </div>
+                
+                <!-- Cafe Logo Section -->
+                <div class="cafe-logo">
+                    <img src="logo.png" alt="لوگوی کافه نوکا">
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="footer">
+                طراحی شده توسط تیم <a href="https://nirvanadev.ir" target="_blank">نیروانا</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Menu data
+        const menuData = {
+            "نوشیدنی گرم": [
+                {name: "اسپرسو", description: "ریسرتو + لونگور"},
+                {name: "آمریکانو", description: "اسپرسو + آب جوش"},
+                {name: "کاپوچینو", description: "اسپرسو + شیر"},
+                {name: "ماکیاتو", description: "اسپرسو + فوم شیر"},
+                {name: "لاته", description: "اسپرسو + شیر"},
+                {name: "کارامل ماکیاتو", description: "اسپرسو + کارامل + شیر"},
+                {name: "موکا", description: "اسپرسو + سس شکلات + شیر"},
+                {name: "کورتادو", description: "اسپرسو + شیر"},
+                {name: "آفوگاتو", description: "اسپرسو + بستنی"},
+                {name: "هات چاکلت", description: "پودر هات چاکلت + شیر"},
+                {name: "وایت چاکلت", description: "پودر وایت چاکلت + شیر"},
+                {name: "پینک چاکلت", description: "پودر پینک چاکلت + شیر"},
+                {name: "بلوچاکلت", description: "پودر بلوچاکلت + شیر"},
+                {name: "ماچا لته", description: "پودر ماچا + شیر"},
+                {name: "قهوه فرانسه", description: ""},
+                {name: "قهوه ترک", description: ""}
+            ],
+            "چای و دمنوش": [
+                {name: "چای باقلوا", description: ""},
+                {name: "چای هل و دارچین", description: ""},
+                {name: "چای زعفران", description: ""},
+                {name: "چای ماسالا", description: ""},
+                {name: "چای کرک", description: ""},
+                {name: "چای ماچا", description: ""},
+                {name: "چای ترش", description: ""},
+                {name: "چای لته", description: ""},
+                {name: "دمنوش به لیمو", description: ""},
+                {name: "دمنوش بهارنارنج", description: ""},
+                {name: "دمنوش گل گاوزبان", description: ""},
+                {name: "دمنوش حس زندگی", description: ""},
+                {name: "دمنوش آرامش", description: ""},
+                {name: "دمنوش مراکشی", description: ""}
+            ],
+            "نوشیدنی سرد": [
+                {name: "آیس لته", description: "اسپرسو + شیر + یخ"},
+                {name: "آیس موکا", description: "اسپرسو + سس شکلات + شیر + یخ"},
+                {name: "آیس کارامل ماکیاتو", description: "اسپرسو + سس کارامل + شیر + یخ"},
+                {name: "آیس آمریکانو", description: "اسپرسو + آب + یخ"},
+                {name: "او جی اس", description: "اسپرسو + پرتقال/آناناس + یخ"},
+                {name: "آیس اسرابری ماچا", description: ""},
+                {name: "فراپاچینو", description: "اسپرسو + سس شکلات سفید + بستنی شکلات + خامه + یخ"},
+                {name: "فراپه موکا", description: "اسپرسو + سس شکلات تلخ + بستنی وانیل + خامه + یخ"},
+                {name: "فراپه بری", description: "اسپرسو + شیر + توت فرنگی + خامه + یخ"},
+                {name: "آیس تی آدامس", description: "چای + سیروپ آدامس + یخ"},
+                {name: "پرشین آیس", description: "خاک شیر + کاسنی + گلاب + تخم شربتی"},
+                {name: "اسپانیش لته", description: "اسپرسو + عسل + شیر + یخ"},
+                {name: "زر نوش", description: "تخم شربتی و ..."}
+            ],
+            "آب میوه": [
+                {name: "طالبی", description: ""},
+                {name: "هندوانه", description: ""},
+                {name: "هویج", description: ""},
+                {name: "انبه", description: ""},
+                {name: "توت فرنگی", description: ""},
+                {name: "کرفس", description: ""},
+                {name: "سیب", description: ""},
+                {name: "آناناس", description: ""},
+                {name: "شاتوت", description: ""},
+                {name: "شیرموز", description: ""},
+                {name: "میکس تو", description: "هر ترکیبی که شما می‌سازید"},
+                {name: "(همراه با بستنی)", description: "تمامی آیتم‌ها قابلیت سرو با بستنی را دارند"}
+            ],
+            "شیک": [
+                {name: "یونی کرن", description: ""},
+                {name: "نوتلا", description: ""},
+                {name: "بیسکوییت", description: ""},
+                {name: "قهوه", description: ""},
+                {name: "بادوم زمینی", description: ""},
+                {name: "لوتوس", description: ""},
+                {name: "شیک شکلات", description: ""},
+                {name: "شیک زغال اخته", description: ""},
+                {name: "شیک شاه توت", description: ""}
+            ],
+            "اسموتی": [
+                {name: "فرش پیچ", description: "هلو + توت فرنگی + انبه"},
+                {name: "گرین اپل", description: "سیب زرد + لیمو + نعناع + سیب"},
+                {name: "هندونه شاه توت", description: "هندوانه + شاه توت"},
+                {name: "اسموتی پروتئین", description: "اسپرسو + موز + کره بادوم زمینی + پودر پروتئین وی"},
+                {name: "استوایی", description: "انبه + آناناس + آلوئه ورا"},
+                {name: "اسموتی تارت", description: ""},
+                {name: "جنگلی", description: "شاه توت + توت فرنگی + آب زغال اخته + آلبالو"},
+                {name: "اسموتی انرژی رژیمی", description: "آووکادو + گردو"},
+                {name: "اسموتی گام", description: "توت فرنگی + آلوئه ورا + پرتقال تو سرخ + سیروپ گام + پاستیل"},
+                {name: "اسموتی منگوترپ", description: "شاه توت + انبه + گریپ فروت + کرن بری + رزماری"},
+                {name: "اسموتی استوایی", description: "انبه + اناناس + پرتقال"},
+                {name: "اسموتی بلو گام", description: "انبه + بلوکاروسائو + فیسالیس + یخ"}
+            ],
+            "ماکتیل": [
+                {name: "پاین پیچ", description: "اناناس + هلو + موز + توت فرنگی"},
+                {name: "کیوونا", description: "سیب + کیوی + سیروپ سیب سبز + سودا"},
+                {name: "جینجرلایم", description: "زنجبیل + سودا + لیمو + سیمل سیروپ"},
+                {name: "کاکی", description: "سیروپ پشن فروت + آلوئه ورا + اناناس + آب لیمو + انار + سیروپ کاکتوس + پوست پرتقال + گل خوراکی + یخ"},
+                {name: "مارتینا", description: "سیروپ ایریش + سیروپ رام + قهوه + الوئه ورا + آبلیمو + سودا + یخ"},
+                {name: "انرژی درینک", description: "سیروپ آدامس + هلو + پرتقال توسرخ + آبلیمو + سیروپ نارگیل + انرژی درینک + پوست پرتقال"}
+            ]
+        };
+
+        // Category emojis
+        const categoryIcons = {
+            "نوشیدنی گرم": "☕",
+            "چای و دمنوش": "🍵",
+            "نوشیدنی سرد": "🧊",
+            "آب میوه": "🍹",
+            "شیک": "🥤",
+            "اسموتی": "🍓",
+            "ماکتیل": "🍸"
+        };
+
+        // DOM elements
+        const categoriesSidebar = document.getElementById('categoriesSidebar');
+        const menuItems = document.getElementById('menuItems');
+        const itemsTitle = document.querySelector('.items-title');
+
+        // Create category buttons
+        Object.keys(menuData).forEach(category => {
+            const categoryItem = document.createElement('div');
+            categoryItem.className = 'category-item';
+            categoryItem.innerHTML = `
+                <div class="category-icon">${categoryIcons[category] || '🍽️'}</div>
+                <div class="category-name">${category}</div>
+            `;
+            
+            categoryItem.addEventListener('click', () => {
+                // Remove active class from all categories
+                document.querySelectorAll('.category-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Add active class to clicked category
+                categoryItem.classList.add('active');
+                
+                // Update items
+                updateItems(category);
+            });
+            
+            categoriesSidebar.appendChild(categoryItem);
+        });
+
+        // Set first category as active by default
+        document.querySelector('.category-item').classList.add('active');
+        updateItems(Object.keys(menuData)[0]);
+
+        // Function to update items based on selected category
+        function updateItems(category) {
+            // Clear previous items
+            menuItems.innerHTML = '';
+            
+            // Update title
+            itemsTitle.textContent = category;
+            
+            // Add items with animation delay
+            menuData[category].forEach((item, index) => {
+                setTimeout(() => {
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'menu-item';
+                    itemElement.style.animationDelay = `${index * 0.1}s`;
+                    
+                    const descriptionHTML = item.description ? 
+                        `<div class="item-description">${item.description}</div>` : '';
+                    
+                    itemElement.innerHTML = `
+                        <div class="item-name">${item.name}</div>
+                        ${descriptionHTML}
+                    `;
+                    menuItems.appendChild(itemElement);
+                }, 50);
+            });
+        }
+    </script>
+</body>
+</html>
