@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>فرم طراحی منوی دیجیتال / سایت</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      direction: rtl;
+      background: #fefefe;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      background: #ffffff;
+    }
+    h2 {
+      color: #2e2e2e;
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-top: 12px;
+    }
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 6px;
+      margin-top: 4px;
+      border: 1px solid #aaa;
+      border-radius: 6px;
+    }
+    .checkbox-group {
+      margin-top: 10px;
+    }
+    .checkbox-group label {
+      display: block;
+      margin-left: 10px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      border: none;
+      background: #007BFF;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button.reset {
+      background: #e53935;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>فرم طراحی منوی دیجیتال / سایت</h2>
+
+  <label>نام و نام خانوادگی:</label>
+  <input type="text" placeholder="مثلاً: ندا محمدی">
+
+  <label>شماره تماس:</label>
+  <input type="text" placeholder="مثلاً: 0935xxxxxxx">
+
+  <label>نام رستوران / کافه:</label>
+  <input type="text">
+
+  <label>لینک اینستاگرام یا وب‌سایت:</label>
+  <input type="text">
+
+  <label>نوع خدمات مورد نیاز:</label>
+  <div class="checkbox-group">
+    <label><input type="checkbox"> طراحی منوی دیجیتال (QR Code)</label>
+    <label><input type="checkbox"> طراحی منو برای نمایشگر / مانیتور</label>
+    <label><input type="checkbox"> طراحی سایت کامل</label>
+    <label><input type="checkbox"> طراحی صفحه منو برای سایت</label>
+    <label><input type="checkbox"> طراحی QR Code اختصاصی</label>
+  </div>
+
+  <label>زبان منو:</label>
+  <div class="checkbox-group">
+    <label><input type="checkbox"> فارسی</label>
+    <label><input type="checkbox"> انگلیسی</label>
+    <label><input type="checkbox"> دوزبانه</label>
+  </div>
+
+  <label>تعداد حدودی آیتم‌ها (غذا، نوشیدنی، دسر):</label>
+  <input type="text" placeholder="مثلاً: 25 غذا، 10 نوشیدنی، 5 دسر">
+
+  <label>آیا قیمت‌ها در منو نمایش داده شوند؟</label>
+  <div class="checkbox-group">
+    <label><input type="checkbox"> بله</label>
+    <label><input type="checkbox"> خیر</label>
+  </div>
+
+  <label>رنگ‌ها و سبک طراحی دلخواه:</label>
+  <input type="text" placeholder="مثلاً مشکی طلایی – مدرن – مینیمال">
+
+  <label>نمونه کار یا استایل مورد علاقه:</label>
+  <input type="text" placeholder="لینک یا اسم پیج مشابه">
+
+  <label>آیا عکس غذاها را دارید؟</label>
+  <div class="checkbox-group">
+    <label><input type="checkbox"> بله، ارسال می‌کنم</label>
+    <label><input type="checkbox"> نه، نیاز به عکاسی هست</label>
+    <label><input type="checkbox"> فقط برای برخی آیتم‌ها</label>
+  </div>
+
+  <label>توضیحات تکمیلی:</label>
+  <textarea rows="4" placeholder="نکات ویژه، تم رستوران، سلیقه یا هر مورد دیگر..."></textarea>
+
+  <button onclick="window.print()">📸 گرفتن اسکرین‌شات / چاپ PDF</button>
+  <button class="reset" onclick="window.location.reload()">🔁 شروع از اول</button>
+
+</body>
+</html>
