@@ -3,454 +3,1207 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منوی کافه نوکا</title>
-    <link rel="stylesheet" href="https://cdn.fontcdn.ir/Font/Persian/Vazir/Vazir.css">
+    <title>کافه نوکا</title>
+    <link rel="stylesheet" href="">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
-        * {
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #FFFFFF;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: Vazir, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: #1B1B1C;
-            padding: 10px;
             overflow-x: hidden;
-            color: #F6F9F9;
         }
         
-        .menu-container {
-            display: flex;
+        .welcome-container {
             height: 100vh;
-            gap: 10px;
-            position: relative;
-        }
-        
-        .categories-sidebar {
-            width: 120px;
-            background-color: #272824;
-            border-radius: 20px 0 0 20px;
-            padding: 20px 10px;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 30px;
-            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3);
-            z-index: 2;
-            overflow-y: auto;
-            border: 1px solid #2E3338;
-        }
-        
-        .category-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            padding: 10px 5px;
-            cursor: pointer;
-            border-radius: 15px;
-            transition: all 0.4s ease;
-            color: #D9D1C7;
-            text-align: center;
-        }
-        
-        .category-item:hover {
-            background-color: #2E3338;
-            transform: translateY(-2px);
-        }
-        
-        .category-item.active {
-            background-color: #544E2E;
-            color: #F6F9F9;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-            border: 1px solid #7A744E;
-        }
-        
-        .category-icon {
-            font-size: 28px;
-            margin-bottom: 8px;
-        }
-        
-        .category-name {
-            font-size: 14px;
-            font-weight: 500;
-        }
-        
-        .items-container {
-            flex: 1;
-            background-color: #272824;
-            border-radius: 0 20px 20px 0;
+            justify-content: space-between;
             padding: 20px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-            overflow-y: auto;
-            position: relative;
-            border: 1px solid #2E3338;
+        }
+        
+        .logo-container {
+            height: 30vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .logo {
+            max-width: 200px;
+            max-height: 200px;
+        }
+        
+        .slogan-container {
+            height: 30vh;
             display: flex;
             flex-direction: column;
-        }
-        
-        .items-content {
-            flex: 1;
-        }
-        
-        .items-title {
-            font-size: 22px;
-            margin-bottom: 20px;
-            color: #F6F9F9;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            padding-bottom: 10px;
-            border-bottom: 2px dashed #544E2E;
-            position: relative;
-            z-index: 1;
-            font-weight: 500;
+        }
+        
+        .slogan {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #014550;
+            margin-bottom: 20px;
+        }
+        
+        .offer {
+            font-size: 1rem;
+            color: #888888;
+            margin-bottom: 10px;
+        }
+        
+        .buttons-container {
+            height: 30vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .button-row {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        
+        .menu-btn {
+            background-color: #F0F0F0;
+            border: 1px solid #888888;
+            border-radius: 10px;
+            padding: 15px 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #014550;
+            transition: all 0.3s ease;
+            width: 45%;
+            text-align: center;
+        }
+        
+        .menu-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Menu Pages */
+        .menu-page {
+            display: none;
+            padding: 20px;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        
+        .menu-header {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #014550;
+        }
+        
+        .category-tabs {
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            background-color: #014550;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .category-tab {
+            padding: 10px 15px;
+            margin: 0 5px;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .category-tab.active {
+            background-color: rgba(255, 255, 255, 0.2);
         }
         
         .menu-items {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 12px;
-            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .menu-items.active {
+            display: block;
+            animation: fadeIn 0.5s;
         }
         
         .menu-item {
-            background-color: #2E3338;
-            padding: 14px;
+            background-color: #F0F0F0;
             border-radius: 10px;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-            transition: all 0.4s ease;
-            opacity: 0;
-            transform: translateY(15px);
-            animation: fadeIn 0.8s forwards;
-            border-right: 3px solid #544E2E;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
         
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .menu-item:hover {
+            transform: translateX(5px);
         }
         
         .item-name {
-            font-weight: 700;
-            font-size: 15px;
-            color: #F6F9F9;
-            margin-bottom: 5px;
+            font-weight: bold;
+            color: #014550;
         }
         
-        .item-description {
-            font-size: 13px;
-            color: #B8B0A5;
-            margin-bottom: 8px;
-            line-height: 1.4;
+        .item-price {
+            color: #888888;
         }
         
-        .cafe-logo {
+        /* Popup */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .popup-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            background-image: url('logo-bg.png');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-blend-mode: overlay;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .close-popup {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #014550;
+        }
+        
+        /* Location Page */
+        .location-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+        
+        .location-header {
             text-align: center;
-            margin: 20px 0;
-            padding: 15px;
-            background-color: #2E3338;
+            margin-bottom: 20px;
+            color: #014550;
+        }
+        
+        .map-container {
+            flex-grow: 1;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .back-btn {
+            background-color: #014550;
+            color: white;
+            border: none;
             border-radius: 10px;
-            border: 1px solid #544E2E;
-        }
-        
-        .cafe-logo img {
-            max-width: 150px;
-            max-height: 80px;
-        }
-        
-        .footer {
+            padding: 15px;
+            font-size: 1rem;
+            font-weight: bold;
             text-align: center;
-            padding: 15px;
-            margin-top: auto;
-            background-color: #2E3338;
-            border-radius: 10px;
-            border-top: 1px solid #544E2E;
-            font-size: 14px;
-            color: #B8B0A5;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
         
-        .footer a {
-            color: #D9D1C7;
-            text-decoration: none;
-            transition: color 0.3s;
+        .back-btn:hover {
+            background-color: #013440;
         }
         
-        .footer a:hover {
-            color: #F6F9F9;
-            text-decoration: underline;
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         
-        @media (max-width: 768px) {
-            .menu-container {
-                flex-direction: row;
-                height: 100vh;
-            }
-            
-            .categories-sidebar {
-                width: 100px;
-                flex-direction: column;
-                flex-wrap: nowrap;
-                border-radius: 20px 0 0 20px;
-                padding: 15px 8px;
-                gap: 15px;
-                justify-content: flex-start;
-                overflow-y: auto;
-            }
-            
-            .category-item {
-                width: 100%;
-                padding: 10px 5px;
-                min-height: auto;
-            }
-            
-            .category-icon {
-                font-size: 22px;
-            }
-            
-            .category-name {
-                font-size: 12px;
-                line-height: 1.4;
-            }
-            
-            .items-container {
-                border-radius: 0 20px 20px 0;
-                padding: 15px;
-            }
-            
-            .cafe-logo img {
-                max-width: 120px;
-            }
-            
-            .menu-items {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            }
-            
-            .items-title {
-                font-size: 20px;
-            }
+        /* RTL Fixes */
+        .category-tabs {
+            direction: ltr;
         }
         
-        @media (max-width: 480px) {
-            .categories-sidebar {
-                width: 85px;
-                padding: 12px 5px;
-                gap: 12px;
+        /* Responsive Adjustments */
+        @media (max-width: 576px) {
+            .slogan {
+                font-size: 1.2rem;
             }
             
-            .category-icon {
-                font-size: 18px;
+            .menu-btn {
+                padding: 12px 15px;
+                font-size: 0.9rem;
             }
             
-            .category-name {
-                font-size: 11px;
-            }
-            
-            .menu-items {
-                grid-template-columns: 1fr;
+            .category-tab {
+                padding: 8px 12px;
+                font-size: 0.9rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="menu-container">
-        <div class="categories-sidebar" id="categoriesSidebar">
-            <!-- Categories will be added by JavaScript -->
+    <!-- Welcome Page -->
+    <div id="welcome-page" class="welcome-container">
+        <div class="logo-container">
+            <img src="./logo.png" alt="کافه نوکا" class="logo">
         </div>
-        <div class="items-container" id="itemsContainer">
-            <div class="items-content">
-                <h2 class="items-title">منوی کافه نوکا</h2>
-                <div class="menu-items" id="menuItems">
-                    <!-- Items will be added by JavaScript -->
-                </div>
-                
-                <!-- Cafe Logo Section -->
-                <div class="cafe-logo">
-                    <img src="logo.png" alt="لوگوی کافه نوکا">
-                </div>
+        
+        <div class="slogan-container">
+            <div class="slogan">لحظه ای نو برای لمس آرامش<br>نوکا</div>
+            <div class="offer">پیشنهاد ویژه امروز: لاته ماچا با 20% تخفیف</div>
+            <div class="offer">قهوه‌های ویژه با طعم‌های منحصر به فرد</div>
+        </div>
+        
+        <div class="buttons-container">
+            <div class="button-row">
+                <button id="english-menu-btn" class="menu-btn animate__animated animate__fadeInLeft">Menu</button>
+                <button id="persian-menu-btn" class="menu-btn animate__animated animate__fadeInRight">منو</button>
             </div>
-            
-            <!-- Footer -->
-            <div class="footer">
-                طراحی شده توسط تیم <a href="https://nirvanadev.ir" target="_blank">نیروانا</a>
+            <div class="button-row">
+                <button id="info-btn" class="menu-btn animate__animated animate__fadeInLeft">اطلاعات</button>
+                <button id="location-btn" class="menu-btn animate__animated animate__fadeInRight">لوکیشن</button>
             </div>
         </div>
     </div>
-
+    
+    <!-- English Menu Page -->
+    <div id="english-menu-page" class="menu-page">
+        <h2 class="menu-header">Nuka Cafe Menu</h2>
+        
+        <div class="category-tabs">
+            <div class="category-tab active" data-category="hot-drinks">Hot Drinks</div>
+            <div class="category-tab" data-category="tea">Tea & Herbal</div>
+            <div class="category-tab" data-category="cold-drinks">Cold Drinks</div>
+            <div class="category-tab" data-category="juices">Juices</div>
+            <div class="category-tab" data-category="shakes">Shakes</div>
+            <div class="category-tab" data-category="smoothies">Smoothies</div>
+            <div class="category-tab" data-category="mocktails">Mocktails</div>
+        </div>
+        
+        <!-- Hot Drinks -->
+        <div id="hot-drinks" class="menu-items active">
+            <div class="menu-item" data-description="Espresso (Ristretto + Lungo)">
+                <span class="item-name">Espresso</span>
+                <span class="item-price">120,000</span>
+            </div>
+            <div class="menu-item" data-description="Espresso + Hot Water">
+                <span class="item-name">Americano</span>
+                <span class="item-price">130,000</span>
+            </div>
+            <div class="menu-item" data-description="Espresso + Milk">
+                <span class="item-name">Cappuccino</span>
+                <span class="item-price">150,000</span>
+            </div>
+            <div class="menu-item" data-description="Espresso + Milk Foam">
+                <span class="item-name">Macchiato</span>
+                <span class="item-price">140,000</span>
+            </div>
+            <div class="menu-item" data-description="Espresso + Milk">
+                <span class="item-name">Latte</span>
+                <span class="item-price">150,000</span>
+            </div>
+            <div class="menu-item" data-description="Espresso + Caramel + Milk">
+                <span class="item-name">Caramel Macchiato</span>
+                <span class="item-price">170,000</span>
+            </div>
+            <div class="menu-item" data-description="Espresso + Chocolate Sauce + Milk">
+                <span class="item-name">Mocha</span>
+                <span class="item-price">170,000</span>
+            </div>
+            <div class="menu-item" data-description="Espresso + Milk">
+                <span class="item-name">Cortado</span>
+                <span class="item-price">140,000</span>
+            </div>
+            <div class="menu-item" data-description="Espresso + Ice Cream">
+                <span class="item-name">Affogato</span>
+                <span class="item-price">180,000</span>
+            </div>
+            <div class="menu-item" data-description="Hot Chocolate Powder + Milk">
+                <span class="item-name">Hot Chocolate</span>
+                <span class="item-price">140,000</span>
+            </div>
+            <div class="menu-item" data-description="White Chocolate Powder + Milk">
+                <span class="item-name">White Chocolate</span>
+                <span class="item-price">150,000</span>
+            </div>
+            <div class="menu-item" data-description="Pink Chocolate Powder + Milk">
+                <span class="item-name">Pink Chocolate</span>
+                <span class="item-price">150,000</span>
+            </div>
+            <div class="menu-item" data-description="Blue Chocolate Powder + Milk">
+                <span class="item-name">Blue Chocolate</span>
+                <span class="item-price">150,000</span>
+            </div>
+            <div class="menu-item" data-description="Matcha Powder + Milk">
+                <span class="item-name">Matcha Latte</span>
+                <span class="item-price">170,000</span>
+            </div>
+            <div class="menu-item" data-description="French Press Coffee">
+                <span class="item-name">French Press</span>
+                <span class="item-price">120,000</span>
+            </div>
+            <div class="menu-item" data-description="Turkish Coffee">
+                <span class="item-name">Turkish Coffee</span>
+                <span class="item-price">110,000</span>
+            </div>
+        </div>
+        
+        <!-- Tea & Herbal -->
+        <div id="tea" class="menu-items">
+            <div class="menu-item" data-description="Baklava Tea">
+                <span class="item-name">Baklava Tea</span>
+                <span class="item-price">100,000</span>
+            </div>
+            <div class="menu-item" data-description="Cinnamon & Cardamom Tea">
+                <span class="item-name">Cinnamon Cardamom Tea</span>
+                <span class="item-price">100,000</span>
+            </div>
+            <div class="menu-item" data-description="Saffron Tea">
+                <span class="item-name">Saffron Tea</span>
+                <span class="item-price">120,000</span>
+            </div>
+            <div class="menu-item" data-description="Masala Tea">
+                <span class="item-name">Masala Tea</span>
+                <span class="item-price">100,000</span>
+            </div>
+            <div class="menu-item" data-description="Kurk Tea">
+                <span class="item-name">Kurk Tea</span>
+                <span class="item-price">90,000</span>
+            </div>
+            <div class="menu-item" data-description="Matcha Tea">
+                <span class="item-name">Matcha Tea</span>
+                <span class="item-price">120,000</span>
+            </div>
+            <div class="menu-item" data-description="Sour Tea">
+                <span class="item-name">Sour Tea</span>
+                <span class="item-price">90,000</span>
+            </div>
+            <div class="menu-item" data-description="Tea Latte">
+                <span class="item-name">Tea Latte</span>
+                <span class="item-price">110,000</span>
+            </div>
+            <div class="menu-item" data-description="Lemon Verbena Herbal Tea">
+                <span class="item-name">Lemon Verbena</span>
+                <span class="item-price">90,000</span>
+            </div>
+            <div class="menu-item" data-description="Orange Blossom Herbal Tea">
+                <span class="item-name">Orange Blossom</span>
+                <span class="item-price">90,000</span>
+            </div>
+            <div class="menu-item" data-description="Borage Herbal Tea">
+                <span class="item-name">Borage Tea</span>
+                <span class="item-price">90,000</span>
+            </div>
+            <div class="menu-item" data-description="Life Feeling Herbal Tea">
+                <span class="item-name">Life Feeling</span>
+                <span class="item-price">90,000</span>
+            </div>
+            <div class="menu-item" data-description="Relaxation Herbal Tea">
+                <span class="item-name">Relaxation Tea</span>
+                <span class="item-price">90,000</span>
+            </div>
+            <div class="menu-item" data-description="Moroccan Herbal Tea">
+                <span class="item-name">Moroccan Tea</span>
+                <span class="item-price">100,000</span>
+            </div>
+        </div>
+        
+        <!-- Cold Drinks -->
+        <div id="cold-drinks" class="menu-items">
+            <div class="menu-item" data-description="Espresso + Milk + Ice">
+                <span class="item-name">Iced Latte</span>
+                <span class="item-price">160,000</span>
+            </div>
+            <div class="menu-item" data-description="Espresso + Chocolate Sauce + Milk + Ice">
+                <span class="item-name">Iced Mocha</span>
+                <span class="item-price">180,000</span>
+            </div>
+            <div class="menu-item" data-description="Espresso + Caramel Sauce + Milk + Ice">
+                <span class="item-name">Iced Caramel Macchiato</span>
+                <span class="item-price">180,000</span>
+            </div>
+            <div class="menu-item" data-description="Espresso + Water + Ice">
+                <span class="item-name">Iced Americano</span>
+                <span class="item-price">140,000</span>
+            </div>
+            <div class="menu-item" data-description="Espresso + Orange/Pineapple + Ice">
+                <span class="item-name">OJS</span>
+                <span class="item-price">170,000</span>
+            </div>
+            <div class="menu-item" data-description="Iced Strawberry Matcha">
+                <span class="item-name">Iced Strawberry Matcha</span>
+                <span class="item-price">180,000</span>
+            </div>
+            <div class="menu-item" data-description="Espresso + White Chocolate Sauce + Chocolate Ice Cream + Cream + Ice">
+                <span class="item-name">Frappuccino</span>
+                <span class="item-price">190,000</span>
+            </div>
+            <div class="menu-item" data-description="Espresso + Dark Chocolate Sauce + Vanilla Ice Cream + Cream + Ice">
+                <span class="item-name">Mocha Frappe</span>
+                <span class="item-price">190,000</span>
+            </div>
+            <div class="menu-item" data-description="Espresso + Milk + Strawberry + Cream + Ice">
+                <span class="item-name">Berry Frappe</span>
+                <span class="item-price">190,000</span>
+            </div>
+            <div class="menu-item" data-description="Tea + Bubblegum Syrup + Ice">
+                <span class="item-name">Iced Bubblegum Tea</span>
+                <span class="item-price">150,000</span>
+            </div>
+            <div class="menu-item" data-description="Basil Seeds + Chicory + Rose Water + Basil Seeds">
+                <span class="item-name">Persian Iced Drink</span>
+                <span class="item-price">140,000</span>
+            </div>
+            <div class="menu-item" data-description="Espresso + Honey + Milk + Ice">
+                <span class="item-name">Spanish Latte</span>
+                <span class="item-price">170,000</span>
+            </div>
+            <div class="menu-item" data-description="Basil Seeds + ...">
+                <span class="item-name">Zarnosh</span>
+                <span class="item-price">140,000</span>
+            </div>
+        </div>
+        
+        <!-- Juices -->
+        <div id="juices" class="menu-items">
+            <div class="menu-item" data-description="Melon Juice (Can be served with ice cream)">
+                <span class="item-name">Melon Juice</span>
+                <span class="item-price">120,000</span>
+            </div>
+            <div class="menu-item" data-description="Watermelon Juice (Can be served with ice cream)">
+                <span class="item-name">Watermelon Juice</span>
+                <span class="item-price">120,000</span>
+            </div>
+            <div class="menu-item" data-description="Carrot Juice (Can be served with ice cream)">
+                <span class="item-name">Carrot Juice</span>
+                <span class="item-price">120,000</span>
+            </div>
+            <div class="menu-item" data-description="Mango Juice (Can be served with ice cream)">
+                <span class="item-name">Mango Juice</span>
+                <span class="item-price">140,000</span>
+            </div>
+            <div class="menu-item" data-description="Strawberry Juice (Can be served with ice cream)">
+                <span class="item-name">Strawberry Juice</span>
+                <span class="item-price">130,000</span>
+            </div>
+            <div class="menu-item" data-description="Celery Juice (Can be served with ice cream)">
+                <span class="item-name">Celery Juice</span>
+                <span class="item-price">120,000</span>
+            </div>
+            <div class="menu-item" data-description="Apple Juice (Can be served with ice cream)">
+                <span class="item-name">Apple Juice</span>
+                <span class="item-price">120,000</span>
+            </div>
+            <div class="menu-item" data-description="Pineapple Juice (Can be served with ice cream)">
+                <span class="item-name">Pineapple Juice</span>
+                <span class="item-price">130,000</span>
+            </div>
+            <div class="menu-item" data-description="Blackberry Juice (Can be served with ice cream)">
+                <span class="item-name">Blackberry Juice</span>
+                <span class="item-price">130,000</span>
+            </div>
+            <div class="menu-item" data-description="Banana Milk (Can be served with ice cream)">
+                <span class="item-name">Banana Milk</span>
+                <span class="item-price">130,000</span>
+            </div>
+            <div class="menu-item" data-description="Any combination you choose (Can be served with ice cream)">
+                <span class="item-name">Mix Two</span>
+                <span class="item-price">150,000</span>
+            </div>
+        </div>
+        
+        <!-- Shakes -->
+        <div id="shakes" class="menu-items">
+            <div class="menu-item" data-description="Unicorn Shake">
+                <span class="item-name">Unicorn Shake</span>
+                <span class="item-price">180,000</span>
+            </div>
+            <div class="menu-item" data-description="Nutella Shake">
+                <span class="item-name">Nutella Shake</span>
+                <span class="item-price">180,000</span>
+            </div>
+            <div class="menu-item" data-description="Biscuit Shake">
+                <span class="item-name">Biscuit Shake</span>
+                <span class="item-price">170,000</span>
+            </div>
+            <div class="menu-item" data-description="Coffee Shake">
+                <span class="item-name">Coffee Shake</span>
+                <span class="item-price">170,000</span>
+            </div>
+            <div class="menu-item" data-description="Peanut Butter Shake">
+                <span class="item-name">Peanut Butter Shake</span>
+                <span class="item-price">170,000</span>
+            </div>
+            <div class="menu-item" data-description="Lotus Shake">
+                <span class="item-name">Lotus Shake</span>
+                <span class="item-price">180,000</span>
+            </div>
+            <div class="menu-item" data-description="Chocolate Shake">
+                <span class="item-name">Chocolate Shake</span>
+                <span class="item-price">170,000</span>
+            </div>
+            <div class="menu-item" data-description="Blueberry Shake">
+                <span class="item-name">Blueberry Shake</span>
+                <span class="item-price">180,000</span>
+            </div>
+            <div class="menu-item" data-description="Raspberry Shake">
+                <span class="item-name">Raspberry Shake</span>
+                <span class="item-price">180,000</span>
+            </div>
+        </div>
+        
+        <!-- Smoothies -->
+        <div id="smoothies" class="menu-items">
+            <div class="menu-item" data-description="Peach + Strawberry + Mango">
+                <span class="item-name">Fresh Peach</span>
+                <span class="item-price">190,000</span>
+            </div>
+            <div class="menu-item" data-description="Yellow Apple + Lemon + Mint + Apple">
+                <span class="item-name">Green Apple</span>
+                <span class="item-price">180,000</span>
+            </div>
+            <div class="menu-item" data-description="Watermelon + Raspberry">
+                <span class="item-name">Watermelon Raspberry</span>
+                <span class="item-price">180,000</span>
+            </div>
+            <div class="menu-item" data-description="Espresso + Banana + Peanut Butter + Whey Protein">
+                <span class="item-name">Protein Smoothie</span>
+                <span class="item-price">200,000</span>
+            </div>
+            <div class="menu-item" data-description="Mango + Pineapple + Aloe Vera">
+                <span class="item-name">Tropical</span>
+                <span class="item-price">190,000</span>
+            </div>
+            <div class="menu-item" data-description="Tart Smoothie">
+                <span class="item-name">Tart Smoothie</span>
+                <span class="item-price">180,000</span>
+            </div>
+            <div class="menu-item" data-description="Raspberry + Strawberry + Blueberry + Cherry">
+                <span class="item-name">Forest Smoothie</span>
+                <span class="item-price">190,000</span>
+            </div>
+            <div class="menu-item" data-description="Avocado + Walnut (Diet)">
+                <span class="item-name">Energy Diet Smoothie</span>
+                <span class="item-price">190,000</span>
+            </div>
+            <div class="menu-item" data-description="Strawberry + Aloe Vera + Blood Orange + Gum Syrup + Gummy">
+                <span class="item-name">Gum Smoothie</span>
+                <span class="item-price">190,000</span>
+            </div>
+            <div class="menu-item" data-description="Raspberry + Mango + Grapefruit + Cranberry + Rosemary">
+                <span class="item-name">MangoTrop</span>
+                <span class="item-price">200,000</span>
+            </div>
+            <div class="menu-item" data-description="Mango + Pineapple + Orange">
+                <span class="item-name">Tropical Smoothie</span>
+                <span class="item-price">190,000</span>
+            </div>
+            <div class="menu-item" data-description="Mango + Blue Curacao + Physalis + Ice">
+                <span class="item-name">Blue Gum</span>
+                <span class="item-price">200,000</span>
+            </div>
+        </div>
+        
+        <!-- Mocktails -->
+        <div id="mocktails" class="menu-items">
+            <div class="menu-item" data-description="Pineapple + Peach + Banana + Strawberry">
+                <span class="item-name">Pine Peach</span>
+                <span class="item-price">200,000</span>
+            </div>
+            <div class="menu-item" data-description="Apple + Kiwi + Green Apple Syrup + Soda">
+                <span class="item-name">Kiwana</span>
+                <span class="item-price">190,000</span>
+            </div>
+            <div class="menu-item" data-description="Ginger + Soda + Lemon + Simple Syrup">
+                <span class="item-name">Ginger Lime</span>
+                <span class="item-price">180,000</span>
+            </div>
+            <div class="menu-item" data-description="Passion Fruit Syrup + Aloe Vera + Pineapple + Lemon + Pomegranate + Cactus Syrup + Orange Peel + Edible Flower + Ice">
+                <span class="item-name">Caki</span>
+                <span class="item-price">210,000</span>
+            </div>
+            <div class="menu-item" data-description="Irish Syrup + Rum Syrup + Coffee + Aloe Vera + Lemon + Soda + Ice">
+                <span class="item-name">Martina</span>
+                <span class="item-price">200,000</span>
+            </div>
+            <div class="menu-item" data-description="Bubblegum Syrup + Peach + Blood Orange + Lemon + Coconut Syrup + Energy Drink + Orange Peel">
+                <span class="item-name">Energy Drink</span>
+                <span class="item-price">210,000</span>
+            </div>
+        </div>
+        
+        <button id="back-btn-english" class="back-btn">بازگشت</button>
+    </div>
+    
+    <!-- Persian Menu Page -->
+    <div id="persian-menu-page" class="menu-page">
+        <h2 class="menu-header">منوی کافه نوکا</h2>
+        
+        <div class="category-tabs">
+            <div class="category-tab active" data-category="hot-drinks-fa">نوشیدنی گرم</div>
+            <div class="category-tab" data-category="tea-fa">چای و دمنوش</div>
+            <div class="category-tab" data-category="cold-drinks-fa">نوشیدنی سرد</div>
+            <div class="category-tab" data-category="juices-fa">آب میوه</div>
+            <div class="category-tab" data-category="shakes-fa">شیک</div>
+            <div class="category-tab" data-category="smoothies-fa">اسموتی</div>
+            <div class="category-tab" data-category="mocktails-fa">ماکتیل</div>
+        </div>
+        
+        <!-- نوشیدنی گرم -->
+        <div id="hot-drinks-fa" class="menu-items active">
+            <div class="menu-item" data-description="اسپرسو (ریسرتو + لونگو)">
+                <span class="item-name">اسپرسو</span>
+                <span class="item-price">120,000</span>
+            </div>
+            <div class="menu-item" data-description="اسپرسو + آب جوش">
+                <span class="item-name">آمریکانو</span>
+                <span class="item-price">130,000</span>
+            </div>
+            <div class="menu-item" data-description="اسپرسو + شیر">
+                <span class="item-name">کاپوچینو</span>
+                <span class="item-price">150,000</span>
+            </div>
+            <div class="menu-item" data-description="اسپرسو + فوم شیر">
+                <span class="item-name">ماکیاتو</span>
+                <span class="item-price">140,000</span>
+            </div>
+            <div class="menu-item" data-description="اسپرسو + شیر">
+                <span class="item-name">لاته</span>
+                <span class="item-price">150,000</span>
+            </div>
+            <div class="menu-item" data-description="اسپرسو + کارامل + شیر">
+                <span class="item-name">کارامل ماکیاتو</span>
+                <span class="item-price">170,000</span>
+            </div>
+            <div class="menu-item" data-description="اسپرسو + سس شکلات + شیر">
+                <span class="item-name">موکا</span>
+                <span class="item-price">170,000</span>
+            </div>
+            <div class="menu-item" data-description="اسپرسو + شیر">
+                <span class="item-name">کورتادو</span>
+                <span class="item-price">140,000</span>
+            </div>
+            <div class="menu-item" data-description="اسپرسو + بستنی">
+                <span class="item-name">آفوگاتو</span>
+                <span class="item-price">180,000</span>
+            </div>
+            <div class="menu-item" data-description="پودر هات چاکلت + شیر">
+                <span class="item-name">هات چاکلت</span>
+                <span class="item-price">140,000</span>
+            </div>
+            <div class="menu-item" data-description="پودر وایت چاکلت + شیر">
+                <span class="item-name">وایت چاکلت</span>
+                <span class="item-price">150,000</span>
+            </div>
+            <div class="menu-item" data-description="پودر پینک چاکلت + شیر">
+                <span class="item-name">پینک چاکلت</span>
+                <span class="item-price">150,000</span>
+            </div>
+            <div class="menu-item" data-description="پودر بلو چاکلت + شیر">
+                <span class="item-name">بلو چاکلت</span>
+                <span class="item-price">150,000</span>
+            </div>
+            <div class="menu-item" data-description="پودر ماچا + شیر">
+                <span class="item-name">ماچا لته</span>
+                <span class="item-price">170,000</span>
+            </div>
+            <div class="menu-item" data-description="قهوه فرانسه">
+                <span class="item-name">قهوه فرانسه</span>
+                <span class="item-price">120,000</span>
+            </div>
+            <div class="menu-item" data-description="قهوه ترک">
+                <span class="item-name">قهوه ترک</span>
+                <span class="item-price">110,000</span>
+            </div>
+        </div>
+        
+        <!-- چای و دمنوش -->
+        <div id="tea-fa" class="menu-items">
+            <div class="menu-item" data-description="چای باقلوا">
+                <span class="item-name">چای باقلوا</span>
+                <span class="item-price">100,000</span>
+            </div>
+            <div class="menu-item" data-description="چای هل و دارچین">
+                <span class="item-name">چای هل و دارچین</span>
+                <span class="item-price">100,000</span>
+            </div>
+            <div class="menu-item" data-description="چای زعفران">
+                <span class="item-name">چای زعفران</span>
+                <span class="item-price">120,000</span>
+            </div>
+            <div class="menu-item" data-description="چای ماسالا">
+                <span class="item-name">چای ماسالا</span>
+                <span class="item-price">100,000</span>
+            </div>
+            <div class="menu-item" data-description="چای کرک">
+                <span class="item-name">چای کرک</span>
+                <span class="item-price">90,000</span>
+            </div>
+            <div class="menu-item" data-description="چای ماچا">
+                <span class="item-name">چای ماچا</span>
+                <span class="item-price">120,000</span>
+            </div>
+            <div class="menu-item" data-description="چای ترش">
+                <span class="item-name">چای ترش</span>
+                <span class="item-price">90,000</span>
+            </div>
+            <div class="menu-item" data-description="چای لته">
+                <span class="item-name">چای لته</span>
+                <span class="item-price">110,000</span>
+            </div>
+            <div class="menu-item" data-description="دمنوش به لیمو">
+                <span class="item-name">دمنوش به لیمو</span>
+                <span class="item-price">90,000</span>
+            </div>
+            <div class="menu-item" data-description="دمنوش بهارنارنج">
+                <span class="item-name">دمنوش بهارنارنج</span>
+                <span class="item-price">90,000</span>
+            </div>
+            <div class="menu-item" data-description="دمنوش گل گاوزبان">
+                <span class="item-name">دمنوش گل گاوزبان</span>
+                <span class="item-price">90,000</span>
+            </div>
+            <div class="menu-item" data-description="دمنوش حس زندگی">
+                <span class="item-name">دمنوش حس زندگی</span>
+                <span class="item-price">90,000</span>
+            </div>
+            <div class="menu-item" data-description="دمنوش آرامش">
+                <span class="item-name">دمنوش آرامش</span>
+                <span class="item-price">90,000</span>
+            </div>
+            <div class="menu-item" data-description="دمنوش مراکشی">
+                <span class="item-name">دمنوش مراکشی</span>
+                <span class="item-price">100,000</span>
+            </div>
+        </div>
+        
+        <!-- نوشیدنی سرد -->
+        <div id="cold-drinks-fa" class="menu-items">
+            <div class="menu-item" data-description="اسپرسو + شیر + یخ">
+                <span class="item-name">آیس لاته</span>
+                <span class="item-price">160,000</span>
+            </div>
+            <div class="menu-item" data-description="اسپرسو + سس شکلات + شیر + یخ">
+                <span class="item-name">آیس موکا</span>
+                <span class="item-price">180,000</span>
+            </div>
+            <div class="menu-item" data-description="اسپرسو + سس کارامل + شیر + یخ">
+                <span class="item-name">آیس کارامل ماکیاتو</span>
+                <span class="item-price">180,000</span>
+            </div>
+            <div class="menu-item" data-description="اسپرسو + آب + یخ">
+                <span class="item-name">آیس آمریکانو</span>
+                <span class="item-price">140,000</span>
+            </div>
+            <div class="menu-item" data-description="اسپرسو + پرتقال/آناناس/... + یخ">
+                <span class="item-name">او جی اس</span>
+                <span class="item-price">170,000</span>
+            </div>
+            <div class="menu-item" data-description="آیس اسرابری ماچا">
+                <span class="item-name">آیس اسرابری ماچا</span>
+                <span class="item-price">180,000</span>
+            </div>
+            <div class="menu-item" data-description="اسپرسو + سس شکلات سفید + بستنی شکلات + خامه + یخ">
+                <span class="item-name">فراپاچینو</span>
+                <span class="item-price">190,000</span>
+            </div>
+            <div class="menu-item" data-description="اسپرسو + سس شکلات تلخ + بستنی وانیل + خامه + یخ">
+                <span class="item-name">فراپه موکا</span>
+                <span class="item-price">190,000</span>
+            </div>
+            <div class="menu-item" data-description="اسپرسو + شیر + توت فرنگی + خامه + یخ">
+                <span class="item-name">فراپه بری</span>
+                <span class="item-price">190,000</span>
+            </div>
+            <div class="menu-item" data-description="چای + سیروپ آدامس + یخ">
+                <span class="item-name">آیس تی آدامس</span>
+                <span class="item-price">150,000</span>
+            </div>
+            <div class="menu-item" data-description="خاک شیر + کاسنی + گلاب + تخم شربتی">
+                <span class="item-name">پرشین آیس</span>
+                <span class="item-price">140,000</span>
+            </div>
+            <div class="menu-item" data-description="اسپرسو + عسل + شیر + یخ">
+                <span class="item-name">اسپانیش لته</span>
+                <span class="item-price">170,000</span>
+            </div>
+            <div class="menu-item" data-description="تخم شربتی + ...">
+                <span class="item-name">زر نوش</span>
+                <span class="item-price">140,000</span>
+            </div>
+        </div>
+        
+        <!-- آب میوه ها -->
+        <div id="juices-fa" class="menu-items">
+            <div class="menu-item" data-description="آب میوه طالبی (قابلیت سرو با بستنی دارد)">
+                <span class="item-name">طالبی</span>
+                <span class="item-price">120,000</span>
+            </div>
+            <div class="menu-item" data-description="آب میوه هندوانه (قابلیت سرو با بستنی دارد)">
+                <span class="item-name">هندوانه</span>
+                <span class="item-price">120,000</span>
+            </div>
+            <div class="menu-item" data-description="آب میوه هویج (قابلیت سرو با بستنی دارد)">
+                <span class="item-name">هویج</span>
+                <span class="item-price">120,000</span>
+            </div>
+            <div class="menu-item" data-description="آب میوه انبه (قابلیت سرو با بستنی دارد)">
+                <span class="item-name">انبه</span>
+                <span class="item-price">140,000</span>
+            </div>
+            <div class="menu-item" data-description="آب میوه توت فرنگی (قابلیت سرو با بستنی دارد)">
+                <span class="item-name">توت فرنگی</span>
+                <span class="item-price">130,000</span>
+            </div>
+            <div class="menu-item" data-description="آب میوه کرفس (قابلیت سرو با بستنی دارد)">
+                <span class="item-name">کرفس</span>
+                <span class="item-price">120,000</span>
+            </div>
+            <div class="menu-item" data-description="آب میوه سیب (قابلیت سرو با بستنی دارد)">
+                <span class="item-name">سیب</span>
+                <span class="item-price">120,000</span>
+            </div>
+            <div class="menu-item" data-description="آب میوه آناناس (قابلیت سرو با بستنی دارد)">
+                <span class="item-name">آناناس</span>
+                <span class="item-price">130,000</span>
+            </div>
+            <div class="menu-item" data-description="آب میوه شاتوت (قابلیت سرو با بستنی دارد)">
+                <span class="item-name">شاتوت</span>
+                <span class="item-price">130,000</span>
+            </div>
+            <div class="menu-item" data-description="شیرموز (قابلیت سرو با بستنی دارد)">
+                <span class="item-name">شیرموز</span>
+                <span class="item-price">130,000</span>
+            </div>
+            <div class="menu-item" data-description="هر ترکیبی که شما انتخاب می‌کنید (قابلیت سرو با بستنی دارد)">
+                <span class="item-name">میکس تو</span>
+                <span class="item-price">150,000</span>
+            </div>
+        </div>
+        
+        <!-- شیک -->
+        <div id="shakes-fa" class="menu-items">
+            <div class="menu-item" data-description="شیک یونی کرن">
+                <span class="item-name">یونی کرن</span>
+                <span class="item-price">180,000</span>
+            </div>
+            <div class="menu-item" data-description="شیک نوتلا">
+                <span class="item-name">نوتلا</span>
+                <span class="item-price">180,000</span>
+            </div>
+            <div class="menu-item" data-description="شیک بیسکوییت">
+                <span class="item-name">بیسکوییت</span>
+                <span class="item-price">170,000</span>
+            </div>
+            <div class="menu-item" data-description="شیک قهوه">
+                <span class="item-name">قهوه</span>
+                <span class="item-price">170,000</span>
+            </div>
+            <div class="menu-item" data-description="شیک بادوم زمینی">
+                <span class="item-name">بادوم زمینی</span>
+                <span class="item-price">170,000</span>
+            </div>
+            <div class="menu-item" data-description="شیک لوتوس">
+                <span class="item-name">لوتوس</span>
+                <span class="item-price">180,000</span>
+            </div>
+            <div class="menu-item" data-description="شیک شکلات">
+                <span class="item-name">شیک شکلات</span>
+                <span class="item-price">170,000</span>
+            </div>
+            <div class="menu-item" data-description="شیک زغال اخته">
+                <span class="item-name">زغال اخته</span>
+                <span class="item-price">180,000</span>
+            </div>
+            <div class="menu-item" data-description="شیک شاه توت">
+                <span class="item-name">شاه توت</span>
+                <span class="item-price">180,000</span>
+            </div>
+        </div>
+        
+        <!-- اسموتی ها -->
+        <div id="smoothies-fa" class="menu-items">
+            <div class="menu-item" data-description="هلو + توت فرنگی + انبه">
+                <span class="item-name">فرش پیچ</span>
+                <span class="item-price">190,000</span>
+            </div>
+            <div class="menu-item" data-description="سیب زرد + لیمو + نعناع + سیب">
+                <span class="item-name">گرین اپل</span>
+                <span class="item-price">180,000</span>
+            </div>
+            <div class="menu-item" data-description="هندوانه + شاه توت">
+                <span class="item-name">هندونه شاه توت</span>
+                <span class="item-price">180,000</span>
+            </div>
+            <div class="menu-item" data-description="اسپرسو + موز + کره بادوم زمینی + پودر پروتئین وی">
+                <span class="item-name">اسموتی پروتئین</span>
+                <span class="item-price">200,000</span>
+            </div>
+            <div class="menu-item" data-description="انبه + آناناس + آلوئه ورا">
+                <span class="item-name">استوایی</span>
+                <span class="item-price">190,000</span>
+            </div>
+            <div class="menu-item" data-description="اسموتی تارت">
+                <span class="item-name">اسموتی تارت</span>
+                <span class="item-price">180,000</span>
+            </div>
+            <div class="menu-item" data-description="شاه توت + توت فرنگی + آب زغال اخته + توت فرنگی + آلبالو">
+                <span class="item-name">جنگلی</span>
+                <span class="item-price">190,000</span>
+            </div>
+            <div class="menu-item" data-description="آووکادو + گردو (رژیمی)">
+                <span class="item-name">اسموتی انرژی رژیمی</span>
+                <span class="item-price">190,000</span>
+            </div>
+            <div class="menu-item" data-description="توت فرنگی + آلوئه ورا + پرتقال تو سرخ + سیروپ گام + پاستیل">
+                <span class="item-name">اسموتی گام</span>
+                <span class="item-price">190,000</span>
+            </div>
+            <div class="menu-item" data-description="شاه توت + انبه + گریپ فروت + کرن بری + رزماری">
+                <span class="item-name">اسموتی منگوترپ</span>
+                <span class="item-price">200,000</span>
+            </div>
+            <div class="menu-item" data-description="انبه + اناناس + پرتقال">
+                <span class="item-name">اسموتی استوایی</span>
+                <span class="item-price">190,000</span>
+            </div>
+            <div class="menu-item" data-description="انبه + بلوکاروسائو + فیسالیس + یخ">
+                <span class="item-name">اسموتی بلو گام</span>
+                <span class="item-price">200,000</span>
+            </div>
+        </div>
+        
+        <!-- ماکتیل -->
+        <div id="mocktails-fa" class="menu-items">
+            <div class="menu-item" data-description="اناناس + هلو + موز + توت فرنگی">
+                <span class="item-name">پاین پیچ</span>
+                <span class="item-price">200,000</span>
+            </div>
+            <div class="menu-item" data-description="سیب + کیوی + سیروپ سیب سبز + سودا">
+                <span class="item-name">کیوونا</span>
+                <span class="item-price">190,000</span>
+            </div>
+            <div class="menu-item" data-description="زنجبیل + سودا + لیمو + سیمل سیروپ">
+                <span class="item-name">جینجرلایم</span>
+                <span class="item-price">180,000</span>
+            </div>
+            <div class="menu-item" data-description="سیروپ پشن فروت + آلوئه ورا + اناناس + آب لیمو + انار + سیروپ کاکتوس + پوست پرتقال + گل خوراکی + یخ">
+                <span class="item-name">کاکی</span>
+                <span class="item-price">210,000</span>
+            </div>
+            <div class="menu-item" data-description="سیروپ ایریش + سیروپ رام + قهوه + الوئه ورا + آبلیمو + سودا + یخ">
+                <span class="item-name">مارتینا</span>
+                <span class="item-price">200,000</span>
+            </div>
+            <div class="menu-item" data-description="سیروپ آدامس + هلو + پرتقال توسرخ + آبلیمو + سیروپ نارگیل + انرژی درینک + پوست پرتقال">
+                <span class="item-name">انرژی درینک</span>
+                <span class="item-price">210,000</span>
+            </div>
+        </div>
+        
+        <button id="back-btn-persian" class="back-btn">بازگشت</button>
+    </div>
+    
+    <!-- Location Page -->
+    <div id="location-page" class="location-container">
+        <h2 class="location-header">موقعیت کافه نوکا</h2>
+        
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3239.676075052224!2d51.38821531526947!3d35.72952298018748!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDQzJzQ2LjMiTiA1McKwMjMnMjMuNiJF!5e0!3m2!1sen!2sus!4v1620000000000!5m2!1sen!2sus" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        
+        <button id="back-btn-location" class="back-btn">بازگشت</button>
+    </div>
+    
+    <!-- Info Popup -->
+    <div id="info-popup" class="popup-overlay">
+        <div class="popup-content">
+            <div class="close-popup">&times;</div>
+            <h3>اطلاعات کافه نوکا</h3>
+            <p><strong>ساعت کاری:</strong> هر روز از 8 صبح تا 12 شب</p>
+            <p><strong>شماره تماس:</strong> 09102201940</p>
+            <p><strong>آیدی اینستاگرام:</strong> @nuka_cafe</p>
+        </div>
+    </div>
+    
+    <!-- Item Description Popup -->
+    <div id="item-popup" class="popup-overlay">
+        <div class="popup-content">
+            <div class="close-popup">&times;</div>
+            <h3 id="popup-item-name"></h3>
+            <p id="popup-item-description"></p>
+            <p id="popup-item-price" class="text-muted"></p>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Menu data
-        const menuData = {
-            "نوشیدنی گرم": [
-                {name: "اسپرسو", description: "ریسرتو + لونگور"},
-                {name: "آمریکانو", description: "اسپرسو + آب جوش"},
-                {name: "کاپوچینو", description: "اسپرسو + شیر"},
-                {name: "ماکیاتو", description: "اسپرسو + فوم شیر"},
-                {name: "لاته", description: "اسپرسو + شیر"},
-                {name: "کارامل ماکیاتو", description: "اسپرسو + کارامل + شیر"},
-                {name: "موکا", description: "اسپرسو + سس شکلات + شیر"},
-                {name: "کورتادو", description: "اسپرسو + شیر"},
-                {name: "آفوگاتو", description: "اسپرسو + بستنی"},
-                {name: "هات چاکلت", description: "پودر هات چاکلت + شیر"},
-                {name: "وایت چاکلت", description: "پودر وایت چاکلت + شیر"},
-                {name: "پینک چاکلت", description: "پودر پینک چاکلت + شیر"},
-                {name: "بلوچاکلت", description: "پودر بلوچاکلت + شیر"},
-                {name: "ماچا لته", description: "پودر ماچا + شیر"},
-                {name: "قهوه فرانسه", description: ""},
-                {name: "قهوه ترک", description: ""}
-            ],
-            "چای و دمنوش": [
-                {name: "چای باقلوا", description: ""},
-                {name: "چای هل و دارچین", description: ""},
-                {name: "چای زعفران", description: ""},
-                {name: "چای ماسالا", description: ""},
-                {name: "چای کرک", description: ""},
-                {name: "چای ماچا", description: ""},
-                {name: "چای ترش", description: ""},
-                {name: "چای لته", description: ""},
-                {name: "دمنوش به لیمو", description: ""},
-                {name: "دمنوش بهارنارنج", description: ""},
-                {name: "دمنوش گل گاوزبان", description: ""},
-                {name: "دمنوش حس زندگی", description: ""},
-                {name: "دمنوش آرامش", description: ""},
-                {name: "دمنوش مراکشی", description: ""}
-            ],
-            "نوشیدنی سرد": [
-                {name: "آیس لته", description: "اسپرسو + شیر + یخ"},
-                {name: "آیس موکا", description: "اسپرسو + سس شکلات + شیر + یخ"},
-                {name: "آیس کارامل ماکیاتو", description: "اسپرسو + سس کارامل + شیر + یخ"},
-                {name: "آیس آمریکانو", description: "اسپرسو + آب + یخ"},
-                {name: "او جی اس", description: "اسپرسو + پرتقال/آناناس + یخ"},
-                {name: "آیس اسرابری ماچا", description: ""},
-                {name: "فراپاچینو", description: "اسپرسو + سس شکلات سفید + بستنی شکلات + خامه + یخ"},
-                {name: "فراپه موکا", description: "اسپرسو + سس شکلات تلخ + بستنی وانیل + خامه + یخ"},
-                {name: "فراپه بری", description: "اسپرسو + شیر + توت فرنگی + خامه + یخ"},
-                {name: "آیس تی آدامس", description: "چای + سیروپ آدامس + یخ"},
-                {name: "پرشین آیس", description: "خاک شیر + کاسنی + گلاب + تخم شربتی"},
-                {name: "اسپانیش لته", description: "اسپرسو + عسل + شیر + یخ"},
-                {name: "زر نوش", description: "تخم شربتی و ..."}
-            ],
-            "آب میوه": [
-                {name: "طالبی", description: ""},
-                {name: "هندوانه", description: ""},
-                {name: "هویج", description: ""},
-                {name: "انبه", description: ""},
-                {name: "توت فرنگی", description: ""},
-                {name: "کرفس", description: ""},
-                {name: "سیب", description: ""},
-                {name: "آناناس", description: ""},
-                {name: "شاتوت", description: ""},
-                {name: "شیرموز", description: ""},
-                {name: "میکس تو", description: "هر ترکیبی که شما می‌سازید"},
-                {name: "(همراه با بستنی)", description: "تمامی آیتم‌ها قابلیت سرو با بستنی را دارند"}
-            ],
-            "شیک": [
-                {name: "یونی کرن", description: ""},
-                {name: "نوتلا", description: ""},
-                {name: "بیسکوییت", description: ""},
-                {name: "قهوه", description: ""},
-                {name: "بادوم زمینی", description: ""},
-                {name: "لوتوس", description: ""},
-                {name: "شیک شکلات", description: ""},
-                {name: "شیک زغال اخته", description: ""},
-                {name: "شیک شاه توت", description: ""}
-            ],
-            "اسموتی": [
-                {name: "فرش پیچ", description: "هلو + توت فرنگی + انبه"},
-                {name: "گرین اپل", description: "سیب زرد + لیمو + نعناع + سیب"},
-                {name: "هندونه شاه توت", description: "هندوانه + شاه توت"},
-                {name: "اسموتی پروتئین", description: "اسپرسو + موز + کره بادوم زمینی + پودر پروتئین وی"},
-                {name: "استوایی", description: "انبه + آناناس + آلوئه ورا"},
-                {name: "اسموتی تارت", description: ""},
-                {name: "جنگلی", description: "شاه توت + توت فرنگی + آب زغال اخته + آلبالو"},
-                {name: "اسموتی انرژی رژیمی", description: "آووکادو + گردو"},
-                {name: "اسموتی گام", description: "توت فرنگی + آلوئه ورا + پرتقال تو سرخ + سیروپ گام + پاستیل"},
-                {name: "اسموتی منگوترپ", description: "شاه توت + انبه + گریپ فروت + کرن بری + رزماری"},
-                {name: "اسموتی استوایی", description: "انبه + اناناس + پرتقال"},
-                {name: "اسموتی بلو گام", description: "انبه + بلوکاروسائو + فیسالیس + یخ"}
-            ],
-            "ماکتیل": [
-                {name: "پاین پیچ", description: "اناناس + هلو + موز + توت فرنگی"},
-                {name: "کیوونا", description: "سیب + کیوی + سیروپ سیب سبز + سودا"},
-                {name: "جینجرلایم", description: "زنجبیل + سودا + لیمو + سیمل سیروپ"},
-                {name: "کاکی", description: "سیروپ پشن فروت + آلوئه ورا + اناناس + آب لیمو + انار + سیروپ کاکتوس + پوست پرتقال + گل خوراکی + یخ"},
-                {name: "مارتینا", description: "سیروپ ایریش + سیروپ رام + قهوه + الوئه ورا + آبلیمو + سودا + یخ"},
-                {name: "انرژی درینک", description: "سیروپ آدامس + هلو + پرتقال توسرخ + آبلیمو + سیروپ نارگیل + انرژی درینک + پوست پرتقال"}
-            ]
-        };
-
-        // Category emojis
-        const categoryIcons = {
-            "نوشیدنی گرم": "☕",
-            "چای و دمنوش": "🍵",
-            "نوشیدنی سرد": "🧊",
-            "آب میوه": "🍹",
-            "شیک": "🥤",
-            "اسموتی": "🍓",
-            "ماکتیل": "🍸"
-        };
-
-        // DOM elements
-        const categoriesSidebar = document.getElementById('categoriesSidebar');
-        const menuItems = document.getElementById('menuItems');
-        const itemsTitle = document.querySelector('.items-title');
-
-        // Create category buttons
-        Object.keys(menuData).forEach(category => {
-            const categoryItem = document.createElement('div');
-            categoryItem.className = 'category-item';
-            categoryItem.innerHTML = `
-                <div class="category-icon">${categoryIcons[category] || '🍽️'}</div>
-                <div class="category-name">${category}</div>
-            `;
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation
+            const welcomePage = document.getElementById('welcome-page');
+            const englishMenuPage = document.getElementById('english-menu-page');
+            const persianMenuPage = document.getElementById('persian-menu-page');
+            const locationPage = document.getElementById('location-page');
             
-            categoryItem.addEventListener('click', () => {
-                // Remove active class from all categories
-                document.querySelectorAll('.category-item').forEach(item => {
-                    item.classList.remove('active');
+            const englishMenuBtn = document.getElementById('english-menu-btn');
+            const persianMenuBtn = document.getElementById('persian-menu-btn');
+            const infoBtn = document.getElementById('info-btn');
+            const locationBtn = document.getElementById('location-btn');
+            
+            const backBtnEnglish = document.getElementById('back-btn-english');
+            const backBtnPersian = document.getElementById('back-btn-persian');
+            const backBtnLocation = document.getElementById('back-btn-location');
+            
+            // Popups
+            const infoPopup = document.getElementById('info-popup');
+            const itemPopup = document.getElementById('item-popup');
+            const closePopups = document.querySelectorAll('.close-popup');
+            
+            // Show English Menu
+            englishMenuBtn.addEventListener('click', function() {
+                welcomePage.style.display = 'none';
+                englishMenuPage.style.display = 'block';
+                persianMenuPage.style.display = 'none';
+                locationPage.style.display = 'none';
+            });
+            
+            // Show Persian Menu
+            persianMenuBtn.addEventListener('click', function() {
+                welcomePage.style.display = 'none';
+                englishMenuPage.style.display = 'none';
+                persianMenuPage.style.display = 'block';
+                locationPage.style.display = 'none';
+            });
+            
+            // Show Info Popup
+            infoBtn.addEventListener('click', function() {
+                infoPopup.classList.add('active');
+            });
+            
+            // Show Location
+            locationBtn.addEventListener('click', function() {
+                welcomePage.style.display = 'none';
+                englishMenuPage.style.display = 'none';
+                persianMenuPage.style.display = 'none';
+                locationPage.style.display = 'block';
+            });
+            
+            // Back to Welcome Page
+            backBtnEnglish.addEventListener('click', function() {
+                welcomePage.style.display = 'flex';
+                englishMenuPage.style.display = 'none';
+            });
+            
+            backBtnPersian.addEventListener('click', function() {
+                welcomePage.style.display = 'flex';
+                persianMenuPage.style.display = 'none';
+            });
+            
+            backBtnLocation.addEventListener('click', function() {
+                welcomePage.style.display = 'flex';
+                locationPage.style.display = 'none';
+            });
+            
+            // Close Popups
+            closePopups.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    infoPopup.classList.remove('active');
+                    itemPopup.classList.remove('active');
                 });
-                
-                // Add active class to clicked category
-                categoryItem.classList.add('active');
-                
-                // Update items
-                updateItems(category);
             });
             
-            categoriesSidebar.appendChild(categoryItem);
+            // Category Tabs
+            const categoryTabs = document.querySelectorAll('.category-tab');
+            
+            categoryTabs.forEach(function(tab) {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs
+                    categoryTabs.forEach(function(t) {
+                        t.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    // Hide all menu items
+                    const allMenuItems = document.querySelectorAll('.menu-items');
+                    allMenuItems.forEach(function(menu) {
+                        menu.classList.remove('active');
+                    });
+                    
+                    // Show selected menu items
+                    const category = this.getAttribute('data-category');
+                    const selectedMenu = document.getElementById(category);
+                    selectedMenu.classList.add('active');
+                });
+            });
+            
+            // Item Description Popup
+            const menuItems = document.querySelectorAll('.menu-item');
+            
+            menuItems.forEach(function(item) {
+                item.addEventListener('click', function() {
+                    const itemName = this.querySelector('.item-name').textContent;
+                    const itemDescription = this.getAttribute('data-description');
+                    const itemPrice = this.querySelector('.item-price').textContent;
+                    
+                    document.getElementById('popup-item-name').textContent = itemName;
+                    document.getElementById('popup-item-description').textContent = itemDescription;
+                    document.getElementById('popup-item-price').textContent = itemPrice + ' تومان';
+                    
+                    itemPopup.classList.add('active');
+                });
+            });
+            
+            // Close popup when clicking outside
+            window.addEventListener('click', function(event) {
+                if (event.target === infoPopup) {
+                    infoPopup.classList.remove('active');
+                }
+                if (event.target === itemPopup) {
+                    itemPopup.classList.remove('active');
+                }
+            });
         });
-
-        // Set first category as active by default
-        document.querySelector('.category-item').classList.add('active');
-        updateItems(Object.keys(menuData)[0]);
-
-        // Function to update items based on selected category
-        function updateItems(category) {
-            // Clear previous items
-            menuItems.innerHTML = '';
-            
-            // Update title
-            itemsTitle.textContent = category;
-            
-            // Add items with animation delay
-            menuData[category].forEach((item, index) => {
-                setTimeout(() => {
-                    const itemElement = document.createElement('div');
-                    itemElement.className = 'menu-item';
-                    itemElement.style.animationDelay = `${index * 0.1}s`;
-                    
-                    const descriptionHTML = item.description ? 
-                        `<div class="item-description">${item.description}</div>` : '';
-                    
-                    itemElement.innerHTML = `
-                        <div class="item-name">${item.name}</div>
-                        ${descriptionHTML}
-                    `;
-                    menuItems.appendChild(itemElement);
-                }, 50);
-            });
-        }
     </script>
 </body>
 </html>
