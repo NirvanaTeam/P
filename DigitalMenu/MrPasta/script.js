@@ -1,11 +1,11 @@
 // Menu Items Data
+// Menu Items Data با قیمت‌های به‌روزرسانی شده
 const menuItems = [
   {
     id: 1,
     name: "لازانیا رویال",
     description: "گوشت چرخ کرده (مخلوط گوسفندی و گوساله)، قارچ، سس خامه، سس مخصوص، پنیر پیتزا",
-    singlePrice: 358,
-    halfPrice: 0,
+    halfPrice: 358,
     emoji: "🍝",
   },
   {
@@ -26,16 +26,16 @@ const menuItems = [
   },
   {
     id: 4,
-    name: "پستو",
-    description: "سینه مرغ فیله شده ۱۲۰ گرم، قارچ، زیتون سبز، سس گرم پستو، پنیر پارمسان",
-    singlePrice: 318,
+    name: "کرمستو",
+    description: "سینه مرغ مرینت شده ۱۲۰ گرم، قارچ،سیر تازه، زیتون سبز، سس کرم پستو، پنیر پارمسان",
+    singlePrice:318 ,
     halfPrice: 158,
     emoji: "🍝",
   },
   {
     id: 5,
-    name: "بولونی",
-    description: "میکس بال ۱۲۰ گرم، قارچ، فلفل دلمه، گوجه گیلاسی، زیتون سبز، پومودورو، پنیر پارمسان",
+    name: "بولتی",
+    description: "میت بال ۱۲۰ گرم، قارچ،سیرتازه، گوجه گیلاسی، زیتون سبز، سس پومودورو، پنیر پارمسان",
     singlePrice: 328,
     halfPrice: 162,
     emoji: "🍝",
@@ -43,15 +43,15 @@ const menuItems = [
   {
     id: 6,
     name: "کروبارا",
-    description: "سینه مرغ فیله شده ۱۲۰ گرم، قارچ، زیتون سبز، تخم‌مرغ، سس خامه، پنیر پارمسان",
+    description: " بیکن90% 100گرم، قارچ، سیرتازه، تخم‌مرغ، سس خامه، پنیر پارمسان",
     singlePrice: 320,
     halfPrice: 159,
     emoji: "🍝",
   },
   {
     id: 7,
-    name: "ربیتو",
-    description: "سوسیس فرانکفورتر، قارچ، فلفل دلمه، زیتون سبز، سس خامه، پنیر پیتزا",
+    name: "رینیو",
+    description: "گوشت ریش شده 100 گرم، قارچ،سیر تازه،خلال سیب زمینی، زیتون سبز، سس خامه، پنیر پیتزا",
     singlePrice: 336,
     halfPrice: 163,
     emoji: "🍝",
@@ -59,21 +59,22 @@ const menuItems = [
   {
     id: 8,
     name: "آلفو",
-    description: "سینه مرغ فیله شده ۱۰۰ گرم، قارچ، زیتون سبز، سس آلفردو، پنیر پارمسان",
+    description: "سینه مرغ مرینت شده 120 گرم، قارچ،سیر تازه، زیتون سبز، سس آلفردو، پنیر پارمسان",
     singlePrice: 306,
     halfPrice: 152,
     emoji: "🍝",
   },
   {
     id: 9,
-    name: "ماریتو",
-    description: "ژامبون مرغ دودی ۱۰۰ گرم، قارچ، زیتون سبز، سس آلفردو، پنیر پارمسان",
+    name: "ماریگو",
+    description: "میگو مرینت شده ۱۰۰ گرم، قارچ،سیر تازه، زیتون سبز، سس آلفردو، پنیر پارمسان",
     singlePrice: 342,
     halfPrice: 170,
     emoji: "🍝",
   },
 ]
 
+// بقیه کدهای script.js بدون تغییر باقی می‌ماند...
 // DOM Elements
 const loadingScreen = document.getElementById("loadingScreen")
 const mainMenu = document.getElementById("mainMenu")
