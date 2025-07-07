@@ -300,15 +300,13 @@
             </div>
             <div class="button-row">
                 <button id="info-btn" class="menu-btn animate__animated animate__fadeInLeft">اطلاعات</button>
-                <button id="location-btn" class="menu-btn animate__animated animate__fadeInRight">لوکیشن</button>
+                <button id="location-btn" class="menu-btn animate__animated animate__fadeInRight" onclick="window.open('geo:35.729523,51.390404?q=35.729523,51.390404(Nuka+Cafe)', '_blank')">لوکیشن</button>
             </div>
         </div>
     </div>
     
     <!-- English Menu Page -->
     <div id="english-menu-page" class="menu-page">
-        <h2 class="menu-header">Nuka Cafe Menu</h2>
-        
         <div class="category-tabs">
             <div class="category-tab active" data-category="hot-drinks">Hot Drinks</div>
             <div class="category-tab" data-category="tea">Tea & Herbal</div>
@@ -675,9 +673,7 @@
     </div>
     
     <!-- Persian Menu Page -->
-    <div id="persian-menu-page" class="menu-page">
-        <h2 class="menu-header">منوی کافه نوکا</h2>
-        
+    <div id="persian-menu-page" class="menu-page">        
         <div class="category-tabs">
             <div class="category-tab active" data-category="hot-drinks-fa">نوشیدنی گرم</div>
             <div class="category-tab" data-category="tea-fa">چای و دمنوش</div>
@@ -1120,12 +1116,12 @@
             });
             
             // Show Location
-            locationBtn.addEventListener('click', function() {
-                welcomePage.style.display = 'none';
-                englishMenuPage.style.display = 'none';
-                persianMenuPage.style.display = 'none';
-                locationPage.style.display = 'block';
-            });
+            //locationBtn.addEventListener('click', function() {
+               // welcomePage.style.display = 'none';
+               // englishMenuPage.style.display = 'none';
+                //persianMenuPage.style.display = 'none';
+                //locationPage.style.display = 'block';
+            
             
             // Back to Welcome Page
             backBtnEnglish.addEventListener('click', function() {
