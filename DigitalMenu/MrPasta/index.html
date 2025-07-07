@@ -4,7 +4,681 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>آقای پاستا - منوی دیجیتال</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
+        body {
+          font-family: "Vazirmatn", "Tahoma", sans-serif;
+          direction: rtl;
+          text-align: right;
+          overflow-x: hidden;
+        }
+
+        .container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 1rem;
+        }
+
+        .hidden {
+          display: none !important;
+        }
+
+        /* Color Variables */
+        :root {
+          --olive-green: #a2b383;
+          --dark-green: #4a5f4d;
+          --cream-white: #f9f9f4;
+          --light-jade: #c3d5b3;
+          --dark-gray: #2e2e2e;
+          --soft-pink: #d37088;
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100vh;
+          background: linear-gradient(135deg, var(--cream-white) 0%, var(--light-jade) 50%, var(--olive-green) 100%);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 1000;
+          overflow: hidden;
+          transition: all 0.8s ease;
+        }
+
+        .bg-animation {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0.2;
+        }
+
+        .floating-circle {
+          position: absolute;
+          border-radius: 50%;
+          animation: float 6s ease-in-out infinite;
+        }
+
+        .circle-1 {
+          top: 10%;
+          left: 10%;
+          width: 80px;
+          height: 80px;
+          background: var(--dark-green);
+          animation-delay: 0s;
+        }
+
+        .circle-2 {
+          top: 20%;
+          right: 15%;
+          width: 60px;
+          height: 60px;
+          background: var(--soft-pink);
+          animation-delay: 1s;
+        }
+
+        .circle-3 {
+          bottom: 20%;
+          left: 20%;
+          width: 50px;
+          height: 50px;
+          background: var(--olive-green);
+          animation-delay: 2s;
+        }
+
+        .circle-4 {
+          bottom: 30%;
+          right: 25%;
+          width: 90px;
+          height: 90px;
+          background: var(--light-jade);
+          animation-delay: 3s;
+        }
+
+        /* Loading Content */
+        .loading-content {
+          text-align: center;
+          z-index: 10;
+          animation: fadeInUp 1s ease-out;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+        }
+
+        .main-title {
+          font-size: clamp(2.5rem, 8vw, 4rem);
+          font-weight: 800;
+          color: var(--dark-green);
+          margin-bottom: 1rem;
+          animation: titleGlow 2s ease-in-out infinite alternate;
+        }
+
+        .subtitle {
+          font-size: clamp(1.2rem, 4vw, 1.8rem);
+          color: var(--dark-gray);
+          margin-bottom: 3rem;
+        }
+
+        .love-text {
+          color: var(--soft-pink);
+          font-weight: 600;
+        }
+
+        /* Pasta Animation */
+        .pasta-container {
+          position: relative;
+          margin: 3rem 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .pasta-animation {
+          position: relative;
+          width: clamp(120px, 25vw, 200px);
+          height: clamp(120px, 25vw, 200px);
+          animation: rotate 8s linear infinite;
+        }
+
+        .pasta-ring {
+          position: absolute;
+          border-radius: 50%;
+          border: 3px solid;
+          animation: pulse 2s ease-in-out infinite;
+        }
+
+        .ring-1 {
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          border-color: var(--olive-green);
+          opacity: 0.3;
+        }
+
+        .ring-2 {
+          top: 15%;
+          left: 15%;
+          right: 15%;
+          bottom: 15%;
+          border-color: var(--light-jade);
+          opacity: 0.5;
+          animation-delay: 0.5s;
+        }
+
+        .ring-3 {
+          top: 30%;
+          left: 30%;
+          right: 30%;
+          bottom: 30%;
+          border-color: var(--dark-green);
+          opacity: 0.7;
+          animation-delay: 1s;
+        }
+
+        .pasta-emoji {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-size: clamp(3rem, 8vw, 4rem);
+          animation: bounce 2s ease-in-out infinite;
+        }
+
+        .pasta-glow {
+          position: absolute;
+          top: -20px;
+          left: -20px;
+          right: -20px;
+          bottom: -20px;
+          background: radial-gradient(circle, var(--olive-green) 0%, transparent 70%);
+          border-radius: 50%;
+          opacity: 0.3;
+          animation: glow 3s ease-in-out infinite;
+        }
+
+        /* Menu Button */
+        .menu-button {
+          background: linear-gradient(45deg, var(--dark-green), var(--dark-gray));
+          color: white;
+          border: none;
+          padding: 1rem 2rem;
+          font-size: 1.2rem;
+          font-weight: 600;
+          border-radius: 50px;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          box-shadow: 0 8px 25px rgba(74, 95, 77, 0.3);
+          transition: all 0.3s ease;
+          animation: buttonPulse 2s ease-in-out infinite;
+          font-family: "Vazirmatn", sans-serif;
+          margin: 0 auto;
+        }
+
+        .menu-button:hover {
+          transform: translateY(-3px) scale(1.05);
+          box-shadow: 0 12px 35px rgba(74, 95, 77, 0.4);
+        }
+
+        .menu-button i {
+          transition: transform 0.3s ease;
+        }
+
+        .menu-button:hover i {
+          transform: translateX(-5px);
+        }
+
+        /* Main Menu */
+        .main-menu {
+          min-height: 100vh;
+          background: var(--cream-white);
+          animation: slideIn 0.8s ease-out;
+        }
+
+        /* Header */
+        .header {
+          background: linear-gradient(135deg, var(--dark-green) 0%, var(--olive-green) 100%);
+          color: white;
+          padding: 2rem 0;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-title {
+          font-size: clamp(2rem, 6vw, 3rem);
+          font-weight: 800;
+          text-align: center;
+          margin-bottom: 0.5rem;
+          animation: fadeIn 1s ease-out;
+        }
+
+        .header-subtitle {
+          text-align: center;
+          font-size: clamp(1rem, 3vw, 1.2rem);
+          color: var(--cream-white);
+        }
+
+        /* Menu Content */
+        .menu-content {
+          padding: 3rem 0;
+        }
+
+        .menu-grid {
+          display: grid;
+          gap: 2rem;
+        }
+
+        .menu-item {
+          background: white;
+          border-radius: 15px;
+          padding: 2rem;
+          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+          border-right: 5px solid var(--olive-green);
+          transition: all 0.3s ease;
+          opacity: 0;
+          transform: translateY(30px);
+          animation: slideInItem 0.6s ease-out forwards;
+        }
+
+        .menu-item:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .menu-item-content {
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
+        }
+
+        .menu-item-header {
+          display: flex;
+          align-items: center;
+          gap: 0.8rem;
+        }
+
+        .menu-item-emoji {
+          font-size: 2rem;
+        }
+
+        .menu-item-title {
+          font-size: 1.8rem;
+          font-weight: 700;
+          color: var(--dark-gray);
+        }
+
+        .menu-item-description {
+          color: var(--dark-green);
+          line-height: 1.6;
+          font-size: 0.95rem;
+        }
+
+        .menu-item-prices {
+          display: flex;
+          gap: 1rem;
+          flex-wrap: wrap;
+        }
+
+        .price-option {
+          flex: 1;
+          min-width: 150px;
+          padding: 1.2rem;
+          border-radius: 12px;
+          text-align: center;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+          transition: all 0.3s ease;
+        }
+
+        .price-option:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .single-portion {
+          background: linear-gradient(135deg, var(--light-jade) 0%, var(--olive-green) 100%);
+        }
+
+        .half-portion {
+          background: linear-gradient(135deg, var(--olive-green) 0%, var(--light-jade) 100%);
+        }
+
+        .price-badge {
+          display: inline-block;
+          padding: 0.3rem 0.8rem;
+          border-radius: 20px;
+          font-size: 0.8rem;
+          font-weight: 600;
+          margin-bottom: 0.5rem;
+          color: white;
+        }
+
+        .single-portion .price-badge {
+          background: var(--dark-green);
+        }
+
+        .half-portion .price-badge {
+          background: var(--soft-pink);
+        }
+
+        .price-value {
+          font-size: 1.5rem;
+          font-weight: 800;
+          color: var(--dark-gray);
+        }
+
+        /* Footer */
+        .footer {
+          background: linear-gradient(135deg, var(--dark-green) 0%, var(--dark-gray) 100%);
+          color: white;
+          padding: 3rem 0 1rem;
+          margin-top: 3rem;
+        }
+
+        .footer-title {
+          font-size: 1.8rem;
+          font-weight: 700;
+          text-align: center;
+          margin-bottom: 2rem;
+          color: var(--light-jade);
+        }
+
+        .contact-info {
+          display: grid;
+          gap: 1.5rem;
+          margin-bottom: 2rem;
+        }
+
+        .contact-item {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 1rem;
+          animation: fadeIn 1s ease-out;
+        }
+
+        .contact-item i {
+          color: var(--olive-green);
+          font-size: 1.2rem;
+          width: 20px;
+          text-align: center;
+        }
+
+        .contact-item:nth-child(3) i {
+          color: var(--soft-pink);
+        }
+
+        .contact-item:nth-child(4) i {
+          color: var(--light-jade);
+        }
+
+        .phone-number {
+          font-size: 1.2rem;
+          font-weight: 700;
+        }
+
+        .footer-bottom {
+          text-align: center;
+          padding-top: 2rem;
+          border-top: 1px solid var(--olive-green);
+          color: var(--light-jade);
+        }
+
+        /* Animations */
+        @keyframes float {
+          0%,
+          100% {
+            transform: translateY(0px) rotate(0deg);
+          }
+          50% {
+            transform: translateY(-20px) rotate(180deg);
+          }
+        }
+
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes titleGlow {
+          from {
+            text-shadow: 0 0 10px rgba(74, 95, 77, 0.3);
+          }
+          to {
+            text-shadow: 0 0 20px rgba(74, 95, 77, 0.6);
+          }
+        }
+
+        @keyframes rotate {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
+        @keyframes pulse {
+          0%,
+          100% {
+            transform: scale(1);
+            opacity: 0.7;
+          }
+          50% {
+            transform: scale(1.1);
+            opacity: 1;
+          }
+        }
+
+        @keyframes bounce {
+          0%,
+          100% {
+            transform: translate(-50%, -50%) scale(1);
+          }
+          50% {
+            transform: translate(-50%, -50%) scale(1.1);
+          }
+        }
+
+        @keyframes glow {
+          0%,
+          100% {
+            opacity: 0.3;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 0.6;
+            transform: scale(1.1);
+          }
+        }
+
+        @keyframes buttonPulse {
+          0%,
+          100% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(1.05);
+          }
+        }
+
+        @keyframes slideIn {
+          from {
+            opacity: 0;
+            transform: translateX(100%);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes slideInItem {
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+
+        /* Responsive Design */
+        @media (min-width: 768px) {
+          .menu-item-content {
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+          }
+
+          .menu-item-info {
+            flex: 1;
+          }
+
+          .menu-item-prices {
+            flex-direction: row;
+            min-width: 320px;
+          }
+
+          .contact-item {
+            justify-content: flex-start;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .container {
+            padding: 0 1rem;
+          }
+
+          .menu-item {
+            padding: 1.5rem;
+          }
+
+          .menu-item-title {
+            font-size: 1.5rem;
+          }
+
+          .price-option {
+            min-width: 120px;
+            padding: 1rem;
+          }
+
+          .price-value {
+            font-size: 1.2rem;
+          }
+        }
+
+        @media (max-width: 414px) {
+          .main-title {
+            font-size: 2rem;
+          }
+
+          .subtitle {
+            font-size: 1rem;
+          }
+
+          .pasta-animation {
+            width: 100px;
+            height: 100px;
+          }
+
+          .pasta-emoji {
+            font-size: 2.5rem;
+          }
+
+          .menu-button {
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+          }
+        }
+
+        @media (max-width: 375px) {
+          .header-title {
+            font-size: 1.8rem;
+          }
+
+          .menu-item-title {
+            font-size: 1.3rem;
+          }
+
+          .menu-item-description {
+            font-size: 0.85rem;
+          }
+
+          .price-option {
+            padding: 0.8rem;
+          }
+        }
+
+        /* Animation Delays for Menu Items */
+        .menu-item:nth-child(1) {
+          animation-delay: 0.1s;
+        }
+        .menu-item:nth-child(2) {
+          animation-delay: 0.2s;
+        }
+        .menu-item:nth-child(3) {
+          animation-delay: 0.3s;
+        }
+        .menu-item:nth-child(4) {
+          animation-delay: 0.4s;
+        }
+        .menu-item:nth-child(5) {
+          animation-delay: 0.5s;
+        }
+        .menu-item:nth-child(6) {
+          animation-delay: 0.6s;
+        }
+        .menu-item:nth-child(7) {
+          animation-delay: 0.7s;
+        }
+        .menu-item:nth-child(8) {
+          animation-delay: 0.8s;
+        }
+        .menu-item:nth-child(9) {
+          animation-delay: 0.9s;
+        }
+
+        /* Contact Item Animation Delays */
+        .contact-item:nth-child(1) {
+          animation-delay: 0.1s;
+        }
+        .contact-item:nth-child(2) {
+          animation-delay: 0.2s;
+        }
+        .contact-item:nth-child(3) {
+          animation-delay: 0.3s;
+        }
+        .contact-item:nth-child(4) {
+          animation-delay: 0.4s;
+        }
+    </style>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -98,6 +772,190 @@
         </footer>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // Menu Items Data
+        const menuItems = [
+           {
+    id: 1,
+    name: "لازانیا رویال",
+    description: "گوشت چرخ کرده (مخلوط گوسفندی و گوساله)، قارچ، سس خامه، سس مخصوص، پنیر پیتزا",
+    halfPrice: 358,
+    emoji: "🍝",
+  },
+  {
+    id: 2,
+    name: "پاربینارا",
+    description: "مغز ران گوساله ۱۵۰ گرم، قارچ، جعفری، زیتون سبز، سس پاربینارا، پنیر پارمسان",
+    singlePrice: 327,
+    halfPrice: 163,
+    emoji: "🍝",
+  },
+  {
+    id: 3,
+    name: "کارتیزه",
+    description: "مغز ران گوساله ۱۵۰ گرم، قارچ، گوجه گیلاسی، زیتون سبز، پومودورو، پنیر پارمسان",
+    singlePrice: 322,
+    halfPrice: 160,
+    emoji: "🍝",
+  },
+  {
+    id: 4,
+    name: "کرمستو",
+    description: "سینه مرغ مرینت شده ۱۲۰ گرم، قارچ،سیر تازه، زیتون سبز، سس کرم پستو، پنیر پارمسان",
+    singlePrice:318 ,
+    halfPrice: 158,
+    emoji: "🍝",
+  },
+  {
+    id: 5,
+    name: "بولتی",
+    description: "میت بال ۱۲۰ گرم، قارچ،سیرتازه، گوجه گیلاسی، زیتون سبز، سس پومودورو، پنیر پارمسان",
+    singlePrice: 328,
+    halfPrice: 162,
+    emoji: "🍝",
+  },
+  {
+    id: 6,
+    name: "کروبارا",
+    description: " بیکن90% 100گرم، قارچ، سیرتازه، تخم‌مرغ، سس خامه، پنیر پارمسان",
+    singlePrice: 320,
+    halfPrice: 159,
+    emoji: "🍝",
+  },
+  {
+    id: 7,
+    name: "رینیو",
+    description: "گوشت ریش شده 100 گرم، قارچ،سیر تازه،خلال سیب زمینی، زیتون سبز، سس خامه، پنیر پیتزا",
+    singlePrice: 336,
+    halfPrice: 163,
+    emoji: "🍝",
+  },
+  {
+    id: 8,
+    name: "آلفو",
+    description: "سینه مرغ مرینت شده 120 گرم، قارچ،سیر تازه، زیتون سبز، سس آلفردو، پنیر پارمسان",
+    singlePrice: 306,
+    halfPrice: 152,
+    emoji: "🍝",
+  },
+  {
+    id: 9,
+    name: "ماریگو",
+    description: "میگو مرینت شده ۱۰۰ گرم، قارچ،سیر تازه، زیتون سبز، سس آلفردو، پنیر پارمسان",
+    singlePrice: 342,
+    halfPrice: 170,
+    emoji: "🍝",
+  },
+        ]
+
+        // DOM Elements
+        const loadingScreen = document.getElementById("loadingScreen")
+        const mainMenu = document.getElementById("mainMenu")
+        const menuBtn = document.getElementById("menuBtn")
+        const menuGrid = document.getElementById("menuGrid")
+
+        // Format price function
+        function formatPrice(price) {
+          if (price === 0) {
+            return "قیمت تماس بگیرید"
+          }
+          return price.toLocaleString("fa-IR") + " تومان"
+        }
+
+        // Create menu item HTML
+        function createMenuItem(item) {
+          return `
+                <div class="menu-item">
+                    <div class="menu-item-content">
+                        <div class="menu-item-info">
+                            <div class="menu-item-header">
+                                <span class="menu-item-emoji">${item.emoji}</span>
+                                <h3 class="menu-item-title">${item.name}</h3>
+                            </div>
+                            <p class="menu-item-description">${item.description}</p>
+                        </div>
+                        
+                        <div class="menu-item-prices">
+                            <div class="price-option single-portion">
+                                <div class="price-badge">تک پرسی</div>
+                                <div class="price-value">${formatPrice(item.singlePrice)}</div>
+                            </div>
+                            
+                            <div class="price-option half-portion">
+                                <div class="price-badge">نیم پرسی</div>
+                                <div class="price-value">${formatPrice(item.halfPrice)}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `
+        }
+
+        // Render menu items
+        function renderMenuItems() {
+          menuGrid.innerHTML = menuItems.map((item) => createMenuItem(item)).join("")
+        }
+
+        // Show menu function
+        function showMenu() {
+          loadingScreen.style.opacity = "0"
+          loadingScreen.style.pointerEvents = "none"
+
+          setTimeout(() => {
+            loadingScreen.classList.add("hidden")
+            mainMenu.classList.remove("hidden")
+            document.body.style.overflow = "auto"
+
+            // Trigger menu items animation
+            const menuItemElements = document.querySelectorAll(".menu-item")
+            menuItemElements.forEach((item, index) => {
+              setTimeout(() => {
+                item.style.animationPlayState = "running"
+              }, index * 100)
+            })
+          }, 800)
+        }
+
+        // Initialize the application
+        function init() {
+          // Render menu items
+          renderMenuItems()
+
+          // Add event listeners
+          menuBtn.addEventListener("click", showMenu)
+
+          // Auto-show menu after 5 seconds if user doesn't click
+          setTimeout(() => {
+            if (!mainMenu.classList.contains("hidden")) return
+
+            const autoShowBtn = document.createElement("div")
+            autoShowBtn.style.cssText = `
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    background: rgba(74, 95, 77, 0.9);
+                    color: white;
+                    padding: 10px 15px;
+                    border-radius: 25px;
+                    font-size: 0.9rem;
+                    cursor: pointer;
+                    z-index: 1001;
+                    animation: fadeIn 0.5s ease-out;
+                `
+            autoShowBtn.textContent = "کلیک کنید تا وارد منو شوید"
+            autoShowBtn.addEventListener("click", showMenu)
+            document.body.appendChild(autoShowBtn)
+
+            setTimeout(() => {
+              if (autoShowBtn.parentNode) {
+                autoShowBtn.remove()
+              }
+            }, 3000)
+          }, 5000)
+        }
+
+        // Start the application when DOM is loaded
+        document.addEventListener("DOMContentLoaded", init)
+    </script>
 </body>
 </html>
