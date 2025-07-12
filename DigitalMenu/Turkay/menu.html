@@ -139,6 +139,7 @@
             border-right: 3px solid #000;
             border: 1px solid #e0c9a6;
             text-align: center;
+            cursor: pointer;
         }
         
         @keyframes fadeIn {
@@ -154,6 +155,11 @@
             object-fit: cover;
             border-radius: 8px;
             margin-bottom: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .item-image:hover {
+            transform: scale(1.03);
         }
         
         .item-name {
@@ -167,6 +173,29 @@
             color: #666;
             font-size: 14px;
             margin-top: 5px;
+        }
+        
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .image-modal.active {
+            display: flex;
+        }
+        
+        .modal-image {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
         }
         
         .cafe-logo {
@@ -263,6 +292,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+    <!-- مودال برای نمایش تصویر بزرگ -->
+    <div class="image-modal" id="imageModal">
+        <img class="modal-image" id="modalImage" src="" alt="تصویر بزرگ">
+    </div>
+
     <div class="menu-container">
         <div class="categories-sidebar" id="categoriesSidebar">
             <!-- دسته‌بندی‌ها توسط جاوااسکریپت اضافه می‌شوند -->
@@ -360,6 +394,8 @@
         const menuItems = document.getElementById('menuItems');
         const itemsTitle = document.getElementById('itemsTitle');
         const itemsEnglishTitle = document.getElementById('itemsEnglishTitle');
+        const imageModal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
 
         // آیکون‌های دسته‌بندی‌ها (از Font Awesome)
         const categoryIcons = {
@@ -370,6 +406,35 @@
             "نوشیدنی‌های سرد": "fa-wine-glass-alt",
             "آبمیوه‌های طبیعی": "fa-apple-alt"
         };
+
+        // تصاویر رندوم از Unsplash (مربوط به نوشیدنی‌ها)
+        const randomImages = [
+            "https://source.unsplash.com/random/300x300/?coffee",
+            "https://source.unsplash.com/random/300x300/?espresso",
+            "https://source.unsplash.com/random/300x300/?latte",
+            "https://source.unsplash.com/random/300x300/?cappuccino",
+            "https://source.unsplash.com/random/300x300/?americano",
+            "https://source.unsplash.com/random/300x300/?mocha",
+            "https://source.unsplash.com/random/300x300/?hot-chocolate",
+            "https://source.unsplash.com/random/300x300/?white-chocolate",
+            "https://source.unsplash.com/random/300x300/?milkshake",
+            "https://source.unsplash.com/random/300x300/?strawberry",
+            "https://source.unsplash.com/random/300x300/?chocolate",
+            "https://source.unsplash.com/random/300x300/?nutella",
+            "https://source.unsplash.com/random/300x300/?iced-coffee",
+            "https://source.unsplash.com/random/300x300/?caramel",
+            "https://source.unsplash.com/random/300x300/?vanilla",
+            "https://source.unsplash.com/random/300x300/?affogato",
+            "https://source.unsplash.com/random/300x300/?soda",
+            "https://source.unsplash.com/random/300x300/?blue-drink",
+            "https://source.unsplash.com/random/300x300/?volcano",
+            "https://source.unsplash.com/random/300x300/?fruit-drink",
+            "https://source.unsplash.com/random/300x300/?mojito",
+            "https://source.unsplash.com/random/300x300/?lemonade",
+            "https://source.unsplash.com/random/300x300/?pineapple",
+            "https://source.unsplash.com/random/300x300/?watermelon",
+            "https://source.unsplash.com/random/300x300/?melon"
+        ];
 
         // ایجاد دکمه‌های دسته‌بندی
         Object.keys(menuData).forEach(category => {
@@ -407,15 +472,32 @@
                 itemElement.className = 'menu-item';
                 itemElement.style.animationDelay = `${index * 0.1}s`;
                 
+                // انتخاب تصویر رندوم از لیست
+                const randomImageIndex = index % randomImages.length;
+                const imageUrl = randomImages[randomImageIndex];
+                
                 itemElement.innerHTML = `
-                    <img class="item-image" src="${index + 1}.png" alt="${item.name}">
+                    <img class="item-image" src="${imageUrl}" alt="${item.name}" data-src="${imageUrl}">
                     <div class="item-name">${item.name}</div>
                     <div class="item-price">${item.price} تومان</div>
                 `;
                 
+                // اضافه کردن رویداد کلیک برای تصویر
+                const imgElement = itemElement.querySelector('.item-image');
+                imgElement.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    modalImage.src = this.getAttribute('data-src');
+                    imageModal.classList.add('active');
+                });
+                
                 menuItems.appendChild(itemElement);
             });
         }
+
+        // بستن مودال با کلیک روی آن
+        imageModal.addEventListener('click', () => {
+            imageModal.classList.remove('active');
+        });
     </script>
 </body>
 </html>
