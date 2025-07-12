@@ -322,70 +322,81 @@
 
     <script>
         // داده‌های منو با قیمت‌ها و نام عکس‌ها
-        const menuData = {
-            "اسپرسو بار": {
-                english: "ESPRESSO BAR",
-                items: [
-                    {name: "اسپرسو", price: "25,000 تومان", image: "1.png"},
-                    {name: "لاته", price: "30,000 تومان", image: "2.png"},
-                    {name: "کاپوچینو", price: "32,000 تومان", image: "3.png"},
-                    {name: "آمریکانو", price: "28,000 تومان", image: "4.png"},
-                    {name: "موکا", price: "35,000 تومان", image: "5.png"}
-                ]
-            },
-            "نوشیدنی‌های گرم": {
-                english: "HOT DRINKS",
-                items: [
-                    {name: "هات چاکلت", price: "28,000 تومان", image: "6.png"},
-                    {name: "وایت چاکلت", price: "30,000 تومان", image: "7.png"},
-                    {name: "هات بیسکویت", price: "32,000 تومان", image: "8.png"},
-                    {name: "چای توت فرنگی", price: "25,000 تومان", image: "9.png"},
-                    {name: "دمنوش راز شب", price: "27,000 تومان", image: "10.png"},
-                    {name: "دمنوش اکسیر", price: "27,000 تومان", image: "11.png"}
-                ]
-            },
-            "شیک‌ها": {
-                english: "SHAKES",
-                items: [
-                    {name: "توت فرنگی", price: "35,000 تومان", image: "12.png"},
-                    {name: "موزشکلات", price: "35,000 تومان", image: "13.png"},
-                    {name: "نوتلا", price: "38,000 تومان", image: "14.png"},
-                    {name: "اسپرسو", price: "40,000 تومان", image: "15.png"},
-                    {name: "لوتوس", price: "42,000 تومان", image: "16.png"},
-                    {name: "کره بادام زمینی", price: "40,000 تومان", image: "17.png"}
-                ]
-            },
-            "آیس‌ها": {
-                english: "ICED COFFEES",
-                items: [
-                    {name: "آیس لته", price: "32,000 تومان", image: "18.png"},
-                    {name: "آیس موکا", price: "35,000 تومان", image: "19.png"},
-                    {name: "آیس کارامل", price: "35,000 تومان", image: "20.png"},
-                    {name: "آیس وانیل", price: "35,000 تومان", image: "21.png"},
-                    {name: "افوگاتو", price: "38,000 تومان", image: "22.png"}
-                ]
-            },
-            "نوشیدنی‌های سرد": {
-                english: "COLD DRINKS",
-                items: [
-                    {name: "سودا بری", price: "30,000 تومان", image: "23.png"},
-                    {name: "لونا بلو", price: "32,000 تومان", image: "24.png"},
-                    {name: "ولکانو", price: "35,000 تومان", image: "25.png"},
-                    {name: "فروتی روسی", price: "35,000 تومان", image: "26.png"},
-                    {name: "موهیتو", price: "30,000 تومان", image: "27.png"},
-                    {name: "لیموناد", price: "25,000 تومان", image: "28.png"}
-                ]
-            },
-            "آبمیوه‌های طبیعی": {
-                english: "FRESH JUICES",
-                items: [
-                    {name: "آناناس توت فرنگی", price: "35,000 تومان", image: "29.png"},
-                    {name: "هندوانه یخی", price: "30,000 تومان", image: "30.png"},
-                    {name: "هندوانه توت فرنگی", price: "35,000 تومان", image: "31.png"},
-                    {name: "طالبی یخی", price: "30,000 تومان", image: "32.png"}
-                ]
-            }
-        };
+const menuData = {
+    "نوشیدنی‌های گرم": {
+        english: "HOT DRINKS",
+        items: [
+            {name: "اسپرسو", price: "70 تومان", image: "1.png"},
+            {name: "لاته", price: "99 تومان", image: "2.png"},
+            {name: "کاپوچینو", price: "85 تومان", image: "3.png"},
+            {name: "آمریکانو", price: "84 تومان", image: "4.png"},
+            {name: "هات بیسکویت", price: "120 تومان", image: "5.png"},
+            {name: "موکا", price: "115 تومان", image: "6.png"},
+            {name: "هات چاکلت", price: "115 تومان", image: "7.png"},
+            {name: "وایت چاکلت", price: "98 تومان", image: "8.png"}
+        ]
+    },
+    "چای و دمنوش‌ها": {
+        english: "TEA AND HERBAL TEAS",
+        items: [
+            {name: "چای سیاه توت فرنگی", price: "70 تومان", image: "9.png"},
+            {name: "چای پینکی", price: "75 تومان", image: "10.png"},
+            {name: "هات بیسکویت", price: "32,000 تومان", image: "11.png"},
+            {name: "دمنوش راز شب", price: "95 تومان", image: "12.png"},
+            {name: "دمنوش اکسیر", price: "95 تومان", image: "13.png"}
+        ]
+    },
+    "شیک‌ها": {
+        english: "SHAKES",
+        items: [
+            {name: "توت فرنگی", price: "128 تومان", image: "14.png"},
+            {name: "موزشکلات", price: "135 تومان", image: "15.png"},
+            {name: "نوتلا", price: "145 تومان", image: "16.png"},
+            {name: "اسپرسو", price: "138 تومان", image: "17.png"},
+            {name: "لوتوس", price: "146 تومان", image: "18.png"},
+            {name: "کره بادام زمینی", price: "145 تومان", image: "19.png"}
+        ]
+    },
+    "آیس‌ها": {
+        english: "ICED COFFEES",
+        items: [
+            {name: "آیس لته", price: "99 تومان", image: "20.png"},
+            {name: "آیس آمریکانو", price: "82 تومان", image: "21.png"},
+            {name: "آیس موکا", price: "115 تومان", image: "22.png"},
+            {name: "آیس کارامل ماکیاتو", price: "115 تومان", image: "23.png"},
+            {name: "آیس وانیل", price: "110 تومان", image: "24.png"},
+            {name: "افوگاتو", price: "127 تومان", image: "25.png"}
+        ]
+    },
+    "ماکتل‌ها": {
+        english: "MOCKTAILS",
+        items: [
+            {name: "سودا بری", price: "105 تومان", image: "26.png"},
+            {name: "لونا بلو", price: "125 تومان", image: "27.png"},
+            {name: "ولکانو", price: "127 تومان", image: "28.png"},
+            {name: "فروتی روسی", price: "110 تومان", image: "29.png"},
+            {name: "موهیتو", price: "110 تومان", image: "30.png"},
+            {name: "لیموناد", price: "102 تومان", image: "31.png"}
+        ]
+    },
+    "آبمیوه‌های طبیعی": {
+        english: "FRESH JUICES",
+        items: [
+            {name: "آناناس توت فرنگی", price: "105 تومان", image: "32.png"},
+            {name: "هندوانه یخی", price: "85 تومان", image: "33.png"},
+            {name: "هندوانه توت فرنگی", price: "90 تومان", image: "34.png"},
+            {name: "طالبی یخی", price: "85 تومان", image: "35.png"}
+        ]
+    },
+    "قلیون VIP": {
+        english: "VIP HOOKAH",
+        items: [
+            {name: "انگلیش لورد", price: "198 تومان", image: "36.png"},
+            {name: "آبنبات", price: "198 تومان", image: "37.png"},
+            {name: "گادفادر", price: "198 تومان", image: "38.png"}
+        ]
+    }
+};
 
         // متغیرهای DOM
         const categoriesSidebar = document.getElementById('categoriesSidebar');
