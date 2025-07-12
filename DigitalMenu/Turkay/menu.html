@@ -14,10 +14,7 @@
         }
         
         body {
-            background-image: url('bg.png');
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center;
+            background-color: #ffffff;
             padding: 10px;
             overflow-x: hidden;
             color: #333;
@@ -141,6 +138,7 @@
             animation: fadeIn 0.8s forwards;
             border-right: 3px solid #000;
             border: 1px solid #e0c9a6;
+            text-align: center;
         }
         
         @keyframes fadeIn {
@@ -150,12 +148,25 @@
             }
         }
         
+        .item-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        
         .item-name {
             font-weight: 500;
             font-size: 15px;
             color: #000;
             margin-bottom: 5px;
-            text-align: center;
+        }
+        
+        .item-price {
+            color: #666;
+            font-size: 14px;
+            margin-top: 5px;
         }
         
         .cafe-logo {
@@ -283,63 +294,63 @@
             "اسپرسو بار": {
                 english: "ESPRESSO BAR",
                 items: [
-                    {name: "اسپرسو"},
-                    {name: "لاته"},
-                    {name: "کاپوچینو"},
-                    {name: "آمریکانو"},
-                    {name: "موکا"}
+                    {name: "اسپرسو", price: "x"},
+                    {name: "لاته", price: "x"},
+                    {name: "کاپوچینو", price: "x"},
+                    {name: "آمریکانو", price: "x"},
+                    {name: "موکا", price: "x"}
                 ]
             },
             "نوشیدنی‌های گرم": {
                 english: "HOT DRINKS",
                 items: [
-                    {name: "هات چاکلت"},
-                    {name: "وایت چاکلت"},
-                    {name: "هات بیسکویت"},
-                    {name: "چای توت فرنگی"},
-                    {name: "دمنوش راز شب"},
-                    {name: "دمنوش اکسیر"}
+                    {name: "هات چاکلت", price: "x"},
+                    {name: "وایت چاکلت", price: "x"},
+                    {name: "هات بیسکویت", price: "x"},
+                    {name: "چای توت فرنگی", price: "x"},
+                    {name: "دمنوش راز شب", price: "x"},
+                    {name: "دمنوش اکسیر", price: "x"}
                 ]
             },
             "شیک‌ها": {
                 english: "SHAKES",
                 items: [
-                    {name: "توت فرنگی"},
-                    {name: "موزشکلات"},
-                    {name: "نوتلا"},
-                    {name: "اسپرسو"},
-                    {name: "لوتوس"},
-                    {name: "کره بادام زمینی"}
+                    {name: "توت فرنگی", price: "x"},
+                    {name: "موزشکلات", price: "x"},
+                    {name: "نوتلا", price: "x"},
+                    {name: "اسپرسو", price: "x"},
+                    {name: "لوتوس", price: "x"},
+                    {name: "کره بادام زمینی", price: "x"}
                 ]
             },
             "آیس‌ها": {
                 english: "ICED COFFEES",
                 items: [
-                    {name: "آیس لته"},
-                    {name: "آیس موکا"},
-                    {name: "آیس کارامل"},
-                    {name: "آیس وانیل"},
-                    {name: "افوگاتو"}
+                    {name: "آیس لته", price: "x"},
+                    {name: "آیس موکا", price: "x"},
+                    {name: "آیس کارامل", price: "x"},
+                    {name: "آیس وانیل", price: "x"},
+                    {name: "افوگاتو", price: "x"}
                 ]
             },
             "نوشیدنی‌های سرد": {
                 english: "COLD DRINKS",
                 items: [
-                    {name: "سودا بری"},
-                    {name: "لونا بلو"},
-                    {name: "ولکانو"},
-                    {name: "فروتی روسی"},
-                    {name: "موهیتو"},
-                    {name: "لیموناد"}
+                    {name: "سودا بری", price: "x"},
+                    {name: "لونا بلو", price: "x"},
+                    {name: "ولکانو", price: "x"},
+                    {name: "فروتی روسی", price: "x"},
+                    {name: "موهیتو", price: "x"},
+                    {name: "لیموناد", price: "x"}
                 ]
             },
             "آبمیوه‌های طبیعی": {
                 english: "FRESH JUICES",
                 items: [
-                    {name: "آناناس توت فرنگی"},
-                    {name: "هندوانه یخی"},
-                    {name: "هندوانه توت فرنگی"},
-                    {name: "طالبی یخی"}
+                    {name: "آناناس توت فرنگی", price: "x"},
+                    {name: "هندوانه یخی", price: "x"},
+                    {name: "هندوانه توت فرنگی", price: "x"},
+                    {name: "طالبی یخی", price: "x"}
                 ]
             }
         };
@@ -397,7 +408,9 @@
                 itemElement.style.animationDelay = `${index * 0.1}s`;
                 
                 itemElement.innerHTML = `
+                    <img class="item-image" src="${index + 1}.png" alt="${item.name}">
                     <div class="item-name">${item.name}</div>
+                    <div class="item-price">${item.price} تومان</div>
                 `;
                 
                 menuItems.appendChild(itemElement);
