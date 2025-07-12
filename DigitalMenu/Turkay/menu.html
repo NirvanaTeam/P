@@ -14,7 +14,7 @@
         }
         
         body {
-            background-color: #ffffff;
+            background-color: #fff;
             padding: 10px;
             overflow-x: hidden;
             color: #333;
@@ -138,7 +138,6 @@
             animation: fadeIn 0.8s forwards;
             border-right: 3px solid #000;
             border: 1px solid #e0c9a6;
-            text-align: center;
         }
         
         @keyframes fadeIn {
@@ -148,25 +147,33 @@
             }
         }
         
-        .item-image {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
-        
         .item-name {
             font-weight: 500;
             font-size: 15px;
             color: #000;
             margin-bottom: 5px;
+            text-align: center;
         }
         
         .item-price {
-            color: #666;
             font-size: 14px;
+            color: #666;
+            text-align: center;
             margin-top: 5px;
+        }
+        
+        .item-image {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .item-image:hover {
+            transform: scale(1.03);
         }
         
         .cafe-logo {
@@ -192,6 +199,26 @@
             border-top: 1px solid #e0c9a6;
             font-size: 14px;
             color: #666;
+        }
+        
+        /* مدال بزرگنمایی عکس */
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .image-modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
         }
         
         @media (max-width: 768px) {
@@ -288,69 +315,74 @@
         </div>
     </div>
 
+    <!-- مدال بزرگنمایی عکس -->
+    <div class="image-modal" id="imageModal">
+        <img id="modalImage" src="" alt="تصویر بزرگ شده">
+    </div>
+
     <script>
         // داده‌های منو
         const menuData = {
             "اسپرسو بار": {
                 english: "ESPRESSO BAR",
                 items: [
-                    {name: "اسپرسو", price: "x"},
-                    {name: "لاته", price: "x"},
-                    {name: "کاپوچینو", price: "x"},
-                    {name: "آمریکانو", price: "x"},
-                    {name: "موکا", price: "x"}
+                    {name: "اسپرسو"},
+                    {name: "لاته"},
+                    {name: "کاپوچینو"},
+                    {name: "آمریکانو"},
+                    {name: "موکا"}
                 ]
             },
             "نوشیدنی‌های گرم": {
                 english: "HOT DRINKS",
                 items: [
-                    {name: "هات چاکلت", price: "x"},
-                    {name: "وایت چاکلت", price: "x"},
-                    {name: "هات بیسکویت", price: "x"},
-                    {name: "چای توت فرنگی", price: "x"},
-                    {name: "دمنوش راز شب", price: "x"},
-                    {name: "دمنوش اکسیر", price: "x"}
+                    {name: "هات چاکلت"},
+                    {name: "وایت چاکلت"},
+                    {name: "هات بیسکویت"},
+                    {name: "چای توت فرنگی"},
+                    {name: "دمنوش راز شب"},
+                    {name: "دمنوش اکسیر"}
                 ]
             },
             "شیک‌ها": {
                 english: "SHAKES",
                 items: [
-                    {name: "توت فرنگی", price: "x"},
-                    {name: "موزشکلات", price: "x"},
-                    {name: "نوتلا", price: "x"},
-                    {name: "اسپرسو", price: "x"},
-                    {name: "لوتوس", price: "x"},
-                    {name: "کره بادام زمینی", price: "x"}
+                    {name: "توت فرنگی"},
+                    {name: "موزشکلات"},
+                    {name: "نوتلا"},
+                    {name: "اسپرسو"},
+                    {name: "لوتوس"},
+                    {name: "کره بادام زمینی"}
                 ]
             },
             "آیس‌ها": {
                 english: "ICED COFFEES",
                 items: [
-                    {name: "آیس لته", price: "x"},
-                    {name: "آیس موکا", price: "x"},
-                    {name: "آیس کارامل", price: "x"},
-                    {name: "آیس وانیل", price: "x"},
-                    {name: "افوگاتو", price: "x"}
+                    {name: "آیس لته"},
+                    {name: "آیس موکا"},
+                    {name: "آیس کارامل"},
+                    {name: "آیس وانیل"},
+                    {name: "افوگاتو"}
                 ]
             },
             "نوشیدنی‌های سرد": {
                 english: "COLD DRINKS",
                 items: [
-                    {name: "سودا بری", price: "x"},
-                    {name: "لونا بلو", price: "x"},
-                    {name: "ولکانو", price: "x"},
-                    {name: "فروتی روسی", price: "x"},
-                    {name: "موهیتو", price: "x"},
-                    {name: "لیموناد", price: "x"}
+                    {name: "سودا بری"},
+                    {name: "لونا بلو"},
+                    {name: "ولکانو"},
+                    {name: "فروتی روسی"},
+                    {name: "موهیتو"},
+                    {name: "لیموناد"}
                 ]
             },
             "آبمیوه‌های طبیعی": {
                 english: "FRESH JUICES",
                 items: [
-                    {name: "آناناس توت فرنگی", price: "x"},
-                    {name: "هندوانه یخی", price: "x"},
-                    {name: "هندوانه توت فرنگی", price: "x"},
-                    {name: "طالبی یخی", price: "x"}
+                    {name: "آناناس توت فرنگی"},
+                    {name: "هندوانه یخی"},
+                    {name: "هندوانه توت فرنگی"},
+                    {name: "طالبی یخی"}
                 ]
             }
         };
@@ -360,6 +392,8 @@
         const menuItems = document.getElementById('menuItems');
         const itemsTitle = document.getElementById('itemsTitle');
         const itemsEnglishTitle = document.getElementById('itemsEnglishTitle');
+        const imageModal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
 
         // آیکون‌های دسته‌بندی‌ها (از Font Awesome)
         const categoryIcons = {
@@ -370,6 +404,9 @@
             "نوشیدنی‌های سرد": "fa-wine-glass-alt",
             "آبمیوه‌های طبیعی": "fa-apple-alt"
         };
+
+        // شمارنده برای نام فایل عکس‌ها
+        let imageCounter = 1;
 
         // ایجاد دکمه‌های دسته‌بندی
         Object.keys(menuData).forEach(category => {
@@ -407,26 +444,33 @@
                 itemElement.className = 'menu-item';
                 itemElement.style.animationDelay = `${index * 0.1}s`;
                 
+                const imageNumber = imageCounter++;
                 itemElement.innerHTML = `
-                    <img class="item-image" src="${index + 1}.png" alt="${item.name}">
+                    <img src="${imageNumber}.png" alt="${item.name}" class="item-image" onclick="openImageModal('${imageNumber}.png')">
                     <div class="item-name">${item.name}</div>
-                    <div class="item-price">${item.price} تومان</div>
+                    <div class="item-price">x تومان</div>
                 `;
-                const imgElement = itemElement.querySelector('.item-image');
-                imgElement.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    modalImage.src = this.getAttribute('data-src');
-                    imageModal.classList.add('active');
-                });
                 
                 menuItems.appendChild(itemElement);
-
-
             });
+            
+            // بعد از نمایش هر دسته، شمارنده را ریست نکنید تا شماره‌ها ادامه دار باشند
         }
-                // بستن مودال با کلیک روی آن
+
+        // تابع برای باز کردن مدال بزرگنمایی عکس
+        window.openImageModal = function(imageSrc) {
+            modalImage.src = imageSrc;
+            imageModal.style.display = 'flex';
+        };
+
+        // بستن مدال با کلیک روی آن
         imageModal.addEventListener('click', () => {
-            imageModal.classList.remove('active');
+            imageModal.style.display = 'none';
+        });
+
+        // ریست شمارنده عکس‌ها هنگام بارگذاری صفحه
+        window.addEventListener('load', () => {
+            imageCounter = 1;
         });
     </script>
 </body>
