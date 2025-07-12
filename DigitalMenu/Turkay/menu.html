@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منوی کافه TURKAY</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Vazir, Tahoma, sans-serif;
+        }
+        
+        body {
+            background-image: url('bg.png');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            padding: 10px;
+            overflow-x: hidden;
+            color: #333;
+        }
+        
+        .menu-container {
+            display: flex;
+            height: 100vh;
+            gap: 10px;
+            position: relative;
+        }
+        
+        .categories-sidebar {
+            width: 120px;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(2px);
+            border-radius: 20px 0 0 20px;
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+            overflow-y: auto;
+            border: 1px solid #e0c9a6;
+        }
+        
+        .category-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 10px 5px;
+            cursor: pointer;
+            border-radius: 15px;
+            transition: all 0.4s ease;
+            color: #e0c9a6;
+            text-align: center;
+        }
+        
+        .category-item:hover {
+            background-color: #333;
+            transform: translateY(-2px);
+        }
+        
+        .category-item.active {
+            background-color: #e0c9a6;
+            color: #000;
+            box-shadow: 0 5px 15px rgba(224, 201, 166, 0.3);
+            border: 1px solid #e0c9a6;
+        }
+        
+        .category-icon {
+            width: 30px;
+            height: 30px;
+            margin-bottom: 5px;
+            object-fit: contain;
+        }
+        
+        .category-name {
+            font-size: 14px;
+            font-weight: 500;
+            white-space: pre-line;
+        }
+        
+        .items-container {
+            flex: 1;
+            background-color: rgba(227, 199, 134, 0.5);
+            backdrop-filter: blur(2px);
+            border-radius: 0 20px 20px 0;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            position: relative;
+            border: 1px solid #e0c9a6;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .items-content {
+            flex: 1;
+        }
+        
+        .items-title {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: #000;
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed #e0c9a6;
+            position: relative;
+            z-index: 1;
+            font-weight: 500;
+        }
+        
+        .items-english-title {
+            font-size: 16px;
+            color: #666;
+            text-align: center;
+            margin-top: -15px;
+            margin-bottom: 15px;
+        }
+        
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .menu-item {
+            background-color: #fff;
+            padding: 14px;
+            border-radius: 10px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(15px);
+            animation: fadeIn 0.8s forwards;
+            border-right: 3px solid #000;
+            border: 1px solid #e0c9a6;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .item-name {
+            font-weight: 500;
+            font-size: 15px;
+            color: #000;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+        
+        .cafe-logo {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 10px;
+            border: 1px solid #e0c9a6;
+        }
+        
+        .cafe-logo img {
+            max-width: 150px;
+            max-height: 80px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 15px;
+            margin-top: auto;
+            background-color: #fff;
+            border-radius: 10px;
+            border-top: 1px solid #e0c9a6;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        @media (max-width: 768px) {
+            .menu-container {
+                flex-direction: row;
+                height: 100vh;
+            }
+            
+            .categories-sidebar {
+                width: 100px;
+                flex-direction: column;
+                flex-wrap: nowrap;
+                border-radius: 20px 0 0 20px;
+                padding: 15px 8px;
+                gap: 15px;
+                justify-content: flex-start;
+                overflow-y: auto;
+            }
+            
+            .category-item {
+                width: 100%;
+                padding: 10px 5px;
+                min-height: auto;
+            }
+            
+            .category-name {
+                font-size: 12px;
+                line-height: 1.4;
+            }
+            
+            .items-container {
+                border-radius: 0 20px 20px 0;
+                padding: 15px;
+            }
+            
+            .cafe-logo img {
+                max-width: 120px;
+            }
+            
+            .menu-items {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .items-title {
+                font-size: 20px;
+            }
+            
+            .items-english-title {
+                font-size: 14px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .categories-sidebar {
+                width: 85px;
+                padding: 12px 5px;
+                gap: 12px;
+            }
+            
+            .category-name {
+                font-size: 11px;
+            }
+            
+            .menu-items {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="menu-container">
+        <div class="categories-sidebar" id="categoriesSidebar">
+            <!-- دسته‌بندی‌ها توسط جاوااسکریپت اضافه می‌شوند -->
+        </div>
+        <div class="items-container" id="itemsContainer">
+            <div class="items-content">
+                <h2 class="items-title" id="itemsTitle">منوی کافه</h2>
+                <div class="items-english-title" id="itemsEnglishTitle"></div>
+                <div class="menu-items" id="menuItems">
+                    <!-- آیتم‌ها توسط جاوااسکریپت اضافه می‌شوند -->
+                </div>
+                
+                <!-- لوگوی کافه -->
+                <div class="cafe-logo">
+                    <img src="logo.png" alt="لوگوی کافه TURKAY">
+                </div>
+            </div>
+            
+            <!-- فوتر -->
+            <div class="footer">
+                تمامی حقوق محفوظ است | کافه TURKAY 2025 ©
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // داده‌های منو
+        const menuData = {
+            "اسپرسو بار": {
+                english: "ESPRESSO BAR",
+                items: [
+                    {name: "اسپرسو"},
+                    {name: "لاته"},
+                    {name: "کاپوچینو"},
+                    {name: "آمریکانو"},
+                    {name: "موکا"}
+                ]
+            },
+            "نوشیدنی‌های گرم": {
+                english: "HOT DRINKS",
+                items: [
+                    {name: "هات چاکلت"},
+                    {name: "وایت چاکلت"},
+                    {name: "هات بیسکویت"},
+                    {name: "چای توت فرنگی"},
+                    {name: "دمنوش راز شب"},
+                    {name: "دمنوش اکسیر"}
+                ]
+            },
+            "شیک‌ها": {
+                english: "SHAKES",
+                items: [
+                    {name: "توت فرنگی"},
+                    {name: "موزشکلات"},
+                    {name: "نوتلا"},
+                    {name: "اسپرسو"},
+                    {name: "لوتوس"},
+                    {name: "کره بادام زمینی"}
+                ]
+            },
+            "آیس‌ها": {
+                english: "ICED COFFEES",
+                items: [
+                    {name: "آیس لته"},
+                    {name: "آیس موکا"},
+                    {name: "آیس کارامل"},
+                    {name: "آیس وانیل"},
+                    {name: "افوگاتو"}
+                ]
+            },
+            "نوشیدنی‌های سرد": {
+                english: "COLD DRINKS",
+                items: [
+                    {name: "سودا بری"},
+                    {name: "لونا بلو"},
+                    {name: "ولکانو"},
+                    {name: "فروتی روسی"},
+                    {name: "موهیتو"},
+                    {name: "لیموناد"}
+                ]
+            },
+            "آبمیوه‌های طبیعی": {
+                english: "FRESH JUICES",
+                items: [
+                    {name: "آناناس توت فرنگی"},
+                    {name: "هندوانه یخی"},
+                    {name: "هندوانه توت فرنگی"},
+                    {name: "طالبی یخی"}
+                ]
+            }
+        };
+
+        // متغیرهای DOM
+        const categoriesSidebar = document.getElementById('categoriesSidebar');
+        const menuItems = document.getElementById('menuItems');
+        const itemsTitle = document.getElementById('itemsTitle');
+        const itemsEnglishTitle = document.getElementById('itemsEnglishTitle');
+
+        // آیکون‌های دسته‌بندی‌ها (از Font Awesome)
+        const categoryIcons = {
+            "اسپرسو بار": "fa-mug-hot",
+            "نوشیدنی‌های گرم": "fa-coffee",
+            "شیک‌ها": "fa-glass-whiskey",
+            "آیس‌ها": "fa-snowflake",
+            "نوشیدنی‌های سرد": "fa-wine-glass-alt",
+            "آبمیوه‌های طبیعی": "fa-apple-alt"
+        };
+
+        // ایجاد دکمه‌های دسته‌بندی
+        Object.keys(menuData).forEach(category => {
+            const categoryItem = document.createElement('div');
+            categoryItem.className = 'category-item';
+            categoryItem.innerHTML = `
+                <i class="fas ${categoryIcons[category]} category-icon"></i>
+                <div class="category-name">${category}</div>
+            `;
+            
+            categoryItem.addEventListener('click', () => {
+                document.querySelectorAll('.category-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                categoryItem.classList.add('active');
+                updateItems(category);
+            });
+            
+            categoriesSidebar.appendChild(categoryItem);
+        });
+
+        // تنظیم اولین دسته‌بندی به عنوان فعال پیش‌فرض
+        document.querySelector('.category-item').classList.add('active');
+        updateItems(Object.keys(menuData)[0]);
+
+        // تابع برای به‌روزرسانی آیتم‌ها بر اساس دسته‌بندی انتخاب شده
+        function updateItems(category) {
+            menuItems.innerHTML = '';
+            itemsTitle.textContent = category;
+            itemsEnglishTitle.textContent = menuData[category].english;
+            
+            menuData[category].items.forEach((item, index) => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'menu-item';
+                itemElement.style.animationDelay = `${index * 0.1}s`;
+                
+                itemElement.innerHTML = `
+                    <div class="item-name">${item.name}</div>
+                `;
+                
+                menuItems.appendChild(itemElement);
+            });
+        }
+    </script>
+</body>
+</html>
