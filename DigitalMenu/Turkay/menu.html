@@ -321,68 +321,68 @@
     </div>
 
     <script>
-        // داده‌های منو
+        // داده‌های منو با قیمت‌ها و نام عکس‌ها
         const menuData = {
             "اسپرسو بار": {
                 english: "ESPRESSO BAR",
                 items: [
-                    {name: "اسپرسو"},
-                    {name: "لاته"},
-                    {name: "کاپوچینو"},
-                    {name: "آمریکانو"},
-                    {name: "موکا"}
+                    {name: "اسپرسو", price: "25,000 تومان", image: "1.png"},
+                    {name: "لاته", price: "30,000 تومان", image: "2.png"},
+                    {name: "کاپوچینو", price: "32,000 تومان", image: "3.png"},
+                    {name: "آمریکانو", price: "28,000 تومان", image: "4.png"},
+                    {name: "موکا", price: "35,000 تومان", image: "5.png"}
                 ]
             },
             "نوشیدنی‌های گرم": {
                 english: "HOT DRINKS",
                 items: [
-                    {name: "هات چاکلت"},
-                    {name: "وایت چاکلت"},
-                    {name: "هات بیسکویت"},
-                    {name: "چای توت فرنگی"},
-                    {name: "دمنوش راز شب"},
-                    {name: "دمنوش اکسیر"}
+                    {name: "هات چاکلت", price: "28,000 تومان", image: "6.png"},
+                    {name: "وایت چاکلت", price: "30,000 تومان", image: "7.png"},
+                    {name: "هات بیسکویت", price: "32,000 تومان", image: "8.png"},
+                    {name: "چای توت فرنگی", price: "25,000 تومان", image: "9.png"},
+                    {name: "دمنوش راز شب", price: "27,000 تومان", image: "10.png"},
+                    {name: "دمنوش اکسیر", price: "27,000 تومان", image: "11.png"}
                 ]
             },
             "شیک‌ها": {
                 english: "SHAKES",
                 items: [
-                    {name: "توت فرنگی"},
-                    {name: "موزشکلات"},
-                    {name: "نوتلا"},
-                    {name: "اسپرسو"},
-                    {name: "لوتوس"},
-                    {name: "کره بادام زمینی"}
+                    {name: "توت فرنگی", price: "35,000 تومان", image: "12.png"},
+                    {name: "موزشکلات", price: "35,000 تومان", image: "13.png"},
+                    {name: "نوتلا", price: "38,000 تومان", image: "14.png"},
+                    {name: "اسپرسو", price: "40,000 تومان", image: "15.png"},
+                    {name: "لوتوس", price: "42,000 تومان", image: "16.png"},
+                    {name: "کره بادام زمینی", price: "40,000 تومان", image: "17.png"}
                 ]
             },
             "آیس‌ها": {
                 english: "ICED COFFEES",
                 items: [
-                    {name: "آیس لته"},
-                    {name: "آیس موکا"},
-                    {name: "آیس کارامل"},
-                    {name: "آیس وانیل"},
-                    {name: "افوگاتو"}
+                    {name: "آیس لته", price: "32,000 تومان", image: "18.png"},
+                    {name: "آیس موکا", price: "35,000 تومان", image: "19.png"},
+                    {name: "آیس کارامل", price: "35,000 تومان", image: "20.png"},
+                    {name: "آیس وانیل", price: "35,000 تومان", image: "21.png"},
+                    {name: "افوگاتو", price: "38,000 تومان", image: "22.png"}
                 ]
             },
             "نوشیدنی‌های سرد": {
                 english: "COLD DRINKS",
                 items: [
-                    {name: "سودا بری"},
-                    {name: "لونا بلو"},
-                    {name: "ولکانو"},
-                    {name: "فروتی روسی"},
-                    {name: "موهیتو"},
-                    {name: "لیموناد"}
+                    {name: "سودا بری", price: "30,000 تومان", image: "23.png"},
+                    {name: "لونا بلو", price: "32,000 تومان", image: "24.png"},
+                    {name: "ولکانو", price: "35,000 تومان", image: "25.png"},
+                    {name: "فروتی روسی", price: "35,000 تومان", image: "26.png"},
+                    {name: "موهیتو", price: "30,000 تومان", image: "27.png"},
+                    {name: "لیموناد", price: "25,000 تومان", image: "28.png"}
                 ]
             },
             "آبمیوه‌های طبیعی": {
                 english: "FRESH JUICES",
                 items: [
-                    {name: "آناناس توت فرنگی"},
-                    {name: "هندوانه یخی"},
-                    {name: "هندوانه توت فرنگی"},
-                    {name: "طالبی یخی"}
+                    {name: "آناناس توت فرنگی", price: "35,000 تومان", image: "29.png"},
+                    {name: "هندوانه یخی", price: "30,000 تومان", image: "30.png"},
+                    {name: "هندوانه توت فرنگی", price: "35,000 تومان", image: "31.png"},
+                    {name: "طالبی یخی", price: "30,000 تومان", image: "32.png"}
                 ]
             }
         };
@@ -404,9 +404,6 @@
             "نوشیدنی‌های سرد": "fa-wine-glass-alt",
             "آبمیوه‌های طبیعی": "fa-apple-alt"
         };
-
-        // شمارنده برای نام فایل عکس‌ها
-        let imageCounter = 1;
 
         // ایجاد دکمه‌های دسته‌بندی
         Object.keys(menuData).forEach(category => {
@@ -444,17 +441,14 @@
                 itemElement.className = 'menu-item';
                 itemElement.style.animationDelay = `${index * 0.1}s`;
                 
-                const imageNumber = imageCounter++;
                 itemElement.innerHTML = `
-                    <img src="${imageNumber}.png" alt="${item.name}" class="item-image" onclick="openImageModal('${imageNumber}.png')">
+                    <img src="${item.image}" alt="${item.name}" class="item-image" onclick="openImageModal('${item.image}')">
                     <div class="item-name">${item.name}</div>
-                    <div class="item-price">x تومان</div>
+                    <div class="item-price">${item.price}</div>
                 `;
                 
                 menuItems.appendChild(itemElement);
             });
-            
-            // بعد از نمایش هر دسته، شمارنده را ریست نکنید تا شماره‌ها ادامه دار باشند
         }
 
         // تابع برای باز کردن مدال بزرگنمایی عکس
@@ -466,11 +460,6 @@
         // بستن مدال با کلیک روی آن
         imageModal.addEventListener('click', () => {
             imageModal.style.display = 'none';
-        });
-
-        // ریست شمارنده عکس‌ها هنگام بارگذاری صفحه
-        window.addEventListener('load', () => {
-            imageCounter = 1;
         });
     </script>
 </body>
