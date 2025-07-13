@@ -1,4 +1,284 @@
-https://t.me/proxy?server=Ommmm.sitemcinet.co.uk&port=443&secret=7gAA8A8Pd1VV____9QBuLmltZWRpYS5zdGVhbXBvd2VyZWQuY29t
-https://t.me/proxy?server=86.54.82.41&port=200&secret=eeNEgYdJvXrFGRMCIMJdCQtY2RueWVrdGFuZXQuY29tZmFyYWthdi5jb212YW4ubmFqdmEuY29tAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-https://t.me/proxy?server=HAMRAH-AVAL.new-visioncity.ir.&port=9741&secret=ee0000f00f0f775555fffffff5006e2e696d656469612e737465616d706f77657265642e636f6d
-https://t.me/proxy?server=HAME-netha.soren-mashin.ir.&port=9741&secret=ee0000f00f0f775555fffffff5006e2e696d656469612e737465616d706f77657265642e636f6d
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>چرخنده شانس</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #6c757d;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+        
+        .wheel-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto 40px;
+        }
+        
+        .wheel {
+            width: 100%;
+            height: 0;
+            padding-bottom: 100%;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            border: 8px solid #343a40;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+            transform: rotate(0deg);
+        }
+        
+        .wheel-item {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            transform-origin: bottom right;
+            left: 0;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .pointer {
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 40px solid #dc3545;
+            z-index: 10;
+            filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.3));
+        }
+        
+        .btn-spin {
+            background-color: #28a745;
+            color: white;
+            font-weight: bold;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+            transition: all 0.3s;
+            margin-bottom: 30px;
+        }
+        
+        .btn-spin:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.6);
+        }
+        
+        .btn-spin:disabled {
+            background-color: #6c757d;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .winner-display {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #343a40;
+            margin-top: 20px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .winner-number {
+            display: inline-block;
+            background-color: #ffc107;
+            color: #343a40;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-left: 10px;
+            animation: bounce 0.5s ease infinite alternate;
+            box-shadow: 0 0 15px rgba(255, 193, 7, 0.6);
+        }
+        
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+        
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            opacity: 0;
+            z-index: 1000;
+        }
+        
+        @media (max-width: 576px) {
+            .wheel {
+                border-width: 5px;
+            }
+            
+            .wheel-item {
+                font-size: 0.9rem;
+            }
+            
+            .pointer {
+                border-left: 15px solid transparent;
+                border-right: 15px solid transparent;
+                border-top: 30px solid #dc3545;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .btn-spin {
+                padding: 10px 25px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4 mb-5">چرخنده شانس</h1>
+        
+        <div class="wheel-container">
+            <div class="pointer"></div>
+            <div class="wheel" id="wheel"></div>
+        </div>
+        
+        <div class="winner-display">
+            <span id="winner-text">برنده: </span>
+            <div class="winner-number" id="winner-number" style="display: none;"></div>
+        </div>
+        
+        <button class="btn btn-spin mt-4" id="spin-btn">بچرخون!</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const wheel = document.getElementById('wheel');
+            const spinBtn = document.getElementById('spin-btn');
+            const winnerNumber = document.getElementById('winner-number');
+            const winnerText = document.getElementById('winner-text');
+            
+            // ایجاد قطعات چرخنده
+            const colors = [
+                '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF',
+                '#FF9F40', '#8AC24A', '#F06292', '#7986CB', '#FFD54F',
+                '#4DB6AC', '#E57373', '#64B5F6', '#BA68C8', '#FF8A65',
+                '#A1887F', '#90A4AE', '#81C784', '#FFB74D', '#9575CD'
+            ];
+            
+            const items = [];
+            for (let i = 1; i <= 20; i++) {
+                const item = document.createElement('div');
+                item.className = 'wheel-item';
+                item.textContent = i;
+                item.style.backgroundColor = colors[i - 1];
+                item.style.transform = `rotate(${(i - 1) * 18}deg)`;
+                wheel.appendChild(item);
+                items.push(item);
+            }
+            
+            let isSpinning = false;
+            let currentRotation = 0;
+            
+            spinBtn.addEventListener('click', function() {
+                if (isSpinning) return;
+                
+                isSpinning = true;
+                spinBtn.disabled = true;
+                winnerNumber.style.display = 'none';
+                
+                // انتخاب زمان چرخش تصادفی بین 4 تا 7 ثانیه
+                const spinDuration = 4000 + Math.random() * 3000;
+                
+                // انتخاب برنده تصادفی
+                const winner = Math.floor(Math.random() * 20) + 1;
+                
+                // محاسبه درجه چرخش (حداقل 5 دور کامل + موقعیت برنده)
+                const targetRotation = currentRotation + 1800 + (winner * 18) + (Math.random() * 18);
+                
+                // اعمال چرخش
+                wheel.style.transform = `rotate(${targetRotation}deg)`;
+                
+                // پس از اتمام چرخش
+                setTimeout(function() {
+                    isSpinning = false;
+                    spinBtn.disabled = false;
+                    currentRotation = targetRotation % 360;
+                    
+                    // نمایش برنده
+                    winnerNumber.textContent = winner;
+                    winnerNumber.style.display = 'flex';
+                    
+                    // ایجاد کنفتی
+                    createConfetti();
+                }, spinDuration);
+            });
+            
+            function createConfetti() {
+                const colors = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'];
+                
+                for (let i = 0; i < 100; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.opacity = '1';
+                    document.body.appendChild(confetti);
+                    
+                    const animationDuration = Math.random() * 3 + 2;
+                    
+                    confetti.animate([
+                        { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                        { transform: `translateY(${window.innerHeight}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                    ], {
+                        duration: animationDuration * 1000,
+                        easing: 'cubic-bezier(0.1, 0.8, 0.9, 1)'
+                    });
+                    
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, animationDuration * 1000);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
