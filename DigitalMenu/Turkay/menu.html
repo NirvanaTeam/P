@@ -265,7 +265,14 @@
             .items-title {
                 font-size: 20px;
             }
-            
+            .item-description {
+                font-size: 13px;
+                color: #888;
+                text-align: center;
+                margin-top: 8px;
+                line-height: 1.5;
+                direction: rtl;
+            }
             .items-english-title {
                 font-size: 14px;
             }
@@ -341,7 +348,6 @@ const menuData = {
         items: [
             {name: "چای سیاه توت فرنگی", price: "70 تومان", image: "9.png"},
             {name: "چای پینکی", price: "75 تومان", image: "10.png"},
-            {name: "هات بیسکویت", price: "32,000 تومان", image: "11.png"},
             {name: "دمنوش راز شب", price: "95 تومان", image: "12.png"},
             {name: "دمنوش اکسیر", price: "95 تومان", image: "13.png"}
         ]
@@ -371,14 +377,14 @@ const menuData = {
     "ماکتل‌ها": {
         english: "MOCKTAILS",
         items: [
-            {name: "سودا بری", price: "105 تومان", image: "26.png"},
-            {name: "لونا بلو", price: "125 تومان", image: "27.png"},
-            {name: "ولکانو", price: "127 تومان", image: "28.png"},
-            {name: "فروتی روسی", price: "110 تومان", image: "29.png"},
-            {name: "موهیتو", price: "110 تومان", image: "30.png"},
-            {name: "لیموناد", price: "102 تومان", image: "31.png"}
+            {name: "سودا بری", price: "105 تومان", description: "توت فرنگی،سیروپ توت فرنگی،اب سودا", image: "26.png"},
+            {name: "لونا بلو", price: "125 تومان", description: "اب اناناس،شیرنارگیل،سیروپ بلوکاراسائو،ابلیمو،سیروپ نارگیل", image: "27.png"},
+            {name: "ولکانو", price: "127 تومان", description: "توت فرنگی،شاه توت،سیمپل سیروپ،اب الوورا،اب لیمو،سودا لیمویی", image: "28.png"},
+            {name: "فروتی روسی", price: "110 تومان", description: "توت فرنگی،موز،سیروپ کرن بری،اب الوورا،اب لیمو", image: "29.png"},
+            {name: "موهیتو", price: "110 تومان", description: "ابلیمو،لیموتازه،نعناع،سیمپل سیروپ،سیروپ رام", image: "30.png"},
+            {name: "لیموناد", price: "102 تومان", description: "ابلیمو،لیموتازه،سیمپل سیروپ،سیروپ رام", image: "31.png"}
         ]
-    },
+    },,
     "آبمیوه‌های طبیعی": {
         english: "FRESH JUICES",
         items: [
@@ -443,25 +449,31 @@ const menuData = {
         updateItems(Object.keys(menuData)[0]);
 
         // تابع برای به‌روزرسانی آیتم‌ها بر اساس دسته‌بندی انتخاب شده
-        function updateItems(category) {
-            menuItems.innerHTML = '';
-            itemsTitle.textContent = category;
-            itemsEnglishTitle.textContent = menuData[category].english;
-            
-            menuData[category].items.forEach((item, index) => {
-                const itemElement = document.createElement('div');
-                itemElement.className = 'menu-item';
-                itemElement.style.animationDelay = `${index * 0.1}s`;
-                
-                itemElement.innerHTML = `
-                    <img src="${item.image}" alt="${item.name}" class="item-image" onclick="openImageModal('${item.image}')">
-                    <div class="item-name">${item.name}</div>
-                    <div class="item-price">${item.price}</div>
-                `;
-                
-                menuItems.appendChild(itemElement);
-            });
-        }
+            function updateItems(category) {
+                menuItems.innerHTML = '';
+                itemsTitle.textContent = category;
+                itemsEnglishTitle.textContent = menuData[category].english;
+    
+                menuData[category].items.forEach((item, index) => {
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'menu-item';
+                    itemElement.style.animationDelay = `${index * 0.1}s`;
+        
+                    // اگر توضیحی وجود داشت آن را نمایش بده
+                    const descriptionHTML = item.description 
+                        ? `<div class="item-description">${item.description}</div>` 
+                        : '';
+        
+                    itemElement.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}" class="item-image" onclick="openImageModal('${item.image}')">
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-price">${item.price}</div>
+                        ${descriptionHTML}
+                    `;
+        
+                    menuItems.appendChild(itemElement);
+                });
+            }
 
         // تابع برای باز کردن مدال بزرگنمایی عکس
         window.openImageModal = function(imageSrc) {
