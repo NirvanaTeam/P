@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منوی دیجیتال رستوران</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <!-- صفحه ولکام -->
+    <div id="welcome-page" class="welcome-page">
+        <div class="welcome-content animate__animated animate__fadeIn">
+            <h1 class="animate__animated animate__bounceIn">به رستوران ما خوش آمدید</h1>
+            <p class="animate__animated animate__fadeInUp">منوی دیجیتال ما را کشف کنید</p>
+            <button id="enter-btn" class="btn btn-welcome animate__animated animate__pulse animate__infinite">ورود به منو</button>
+        </div>
+    </div>
+
+    <!-- نوار دسته‌بندی‌ها -->
+    <div id="categories-bar" class="categories-bar">
+        <div class="categories-container">
+            <div class="category active" data-target="#pizzas">🍕 پیتزاها</div>
+            <div class="category" data-target="#fries">🍟 سیب‌زمینی‌ها</div>
+            <div class="category" data-target="#fried-chicken">🍗 سوخاری</div>
+            <div class="category" data-target="#salads">🥗 سالادها</div>
+            <div class="category" data-target="#drinks">🧃 نوشیدنی</div>
+            <div class="category" data-target="#shakes">🧋 شیک و بستنی</div>
+            <div class="category" data-target="#ice-coffee">🧊 آیس کافی</div>
+            <div class="category" data-target="#cold-drinks">🥶 نوشیدنی سرد</div>
+            <div class="category" data-target="#glasse">🥤 گلاسه</div>
+            <div class="category" data-target="#hot-drinks">☕️ بار گرم</div>
+            <div class="category" data-target="#tea">🍵 دمنوش</div>
+            <div class="category" data-target="#hookah">🧉 قلیان</div>
+        </div>
+    </div>
+
+    <!-- محتوای اصلی منو -->
+    <div id="menu-content" class="container-fluid menu-content">
+        <!-- پیتزاها -->
+        <section id="pizzas" class="menu-section">
+            <h2 class="section-title animate__animated animate__fadeInRight">🍕 پیتزاها</h2>
+            <div class="row">
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">پیتزا مخلوط ۱ نفره</h5>
+                            <p class="card-price">120,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">پیتزا مخلوط ۲ نفره</h5>
+                            <p class="card-price">220,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">پیتزا پپرونی ۱ نفره</h5>
+                            <p class="card-price">130,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">پیتزا پپرونی ۲ نفره</h5>
+                            <p class="card-price">230,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">پیتزا قارچ و مرغ ۱ نفره</h5>
+                            <p class="card-price">140,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">پیتزا قارچ و مرغ ۲ نفره</h5>
+                            <p class="card-price">240,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">پیتزا جزیره ۱ نفره</h5>
+                            <p class="card-price">150,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">پیتزا جزیره ۲ نفره</h5>
+                            <p class="card-price">250,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- سیب‌زمینی‌ها -->
+        <section id="fries" class="menu-section">
+            <h2 class="section-title animate__animated animate__fadeInRight">🍟 سیب‌زمینی‌ها</h2>
+            <div class="row">
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">سیب‌زمینی معمولی ۱ نفره</h5>
+                            <p class="card-price">50,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">سیب‌زمینی معمولی ۲ نفره</h5>
+                            <p class="card-price">90,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">سیب‌زمینی ویژه ۱ نفره</h5>
+                            <p class="card-price">70,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">سیب‌زمینی ویژه ۲ نفره</h5>
+                            <p class="card-price">120,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">چیپس و پنیر ۱ نفره</h5>
+                            <p class="card-price">60,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">چیپس و پنیر ۲ نفره</h5>
+                            <p class="card-price">110,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- سوخاری -->
+        <section id="fried-chicken" class="menu-section">
+            <h2 class="section-title animate__animated animate__fadeInRight">🍗 سوخاری</h2>
+            <div class="row">
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">مرغ سوخاری ۳ تکه + سیب‌زمینی</h5>
+                            <p class="card-price">150,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- سالادها -->
+        <section id="salads" class="menu-section">
+            <h2 class="section-title animate__animated animate__fadeInRight">🥗 سالادها</h2>
+            <div class="row">
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">سالاد سزار</h5>
+                            <p class="card-price">80,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">پاستا ۱ نفره</h5>
+                            <p class="card-price">90,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">پاستا ۲ نفره</h5>
+                            <p class="card-price">160,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- نوشیدنی -->
+        <section id="drinks" class="menu-section">
+            <h2 class="section-title animate__animated animate__fadeInRight">🧃 نوشیدنی</h2>
+            <div class="row">
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">نوشابه زرد</h5>
+                            <p class="card-price">30,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">نوشابه مشکی</h5>
+                            <p class="card-price">30,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">دلستر</h5>
+                            <p class="card-price">40,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">آب معدنی</h5>
+                            <p class="card-price">20,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- شیک و بستنی -->
+        <section id="shakes" class="menu-section">
+            <h2 class="section-title animate__animated animate__fadeInRight">🧋 شیک و بستنی</h2>
+            <div class="row">
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">وانیل</h5>
+                            <p class="card-price">60,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">نوتلا</h5>
+                            <p class="card-price">70,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">شکلات</h5>
+                            <p class="card-price">65,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">شاتوت</h5>
+                            <p class="card-price">65,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">طالبی</h5>
+                            <p class="card-price">60,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">انبه</h5>
+                            <p class="card-price">70,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">موز شکلات</h5>
+                            <p class="card-price">75,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">بادام زمینی</h5>
+                            <p class="card-price">75,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">کارامل فندقی</h5>
+                            <p class="card-price">80,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">موز</h5>
+                            <p class="card-price">65,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">نسکافه</h5>
+                            <p class="card-price">70,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- آیس کافی -->
+        <section id="ice-coffee" class="menu-section">
+            <h2 class="section-title animate__animated animate__fadeInRight">🧊 آیس کافی</h2>
+            <div class="row">
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">آیس آمریکانو</h5>
+                            <p class="card-price">70,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">آیس لاته</h5>
+                            <p class="card-price">80,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">آیس موکا</h5>
+                            <p class="card-price">85,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">آیس کارامل</h5>
+                            <p class="card-price">90,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">شیرموز خرما</h5>
+                            <p class="card-price">75,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">شیرموز</h5>
+                            <p class="card-price">70,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- نوشیدنی سرد -->
+        <section id="cold-drinks" class="menu-section">
+            <h2 class="section-title animate__animated animate__fadeInRight">🥶 نوشیدنی سرد</h2>
+            <div class="row">
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">موهیتو</h5>
+                            <p class="card-price">60,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">رد موهیتو</h5>
+                            <p class="card-price">65,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">آبمیوه فصل</h5>
+                            <p class="card-price">55,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">سبیک نعناع</h5>
+                            <p class="card-price">60,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- گلاسه -->
+        <section id="glasse" class="menu-section">
+            <h2 class="section-title animate__animated animate__fadeInRight">🥤 گلاسه</h2>
+            <div class="row">
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">قهوه گلاسه</h5>
+                            <p class="card-price">80,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">شکلات گلاسه</h5>
+                            <p class="card-price">85,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">موز گلاسه</h5>
+                            <p class="card-price">85,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">شاتوت گلاسه</h5>
+                            <p class="card-price">85,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">انبه گلاسه</h5>
+                            <p class="card-price">90,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">انبه موز گلاسه</h5>
+                            <p class="card-price">95,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- بار گرم -->
+        <section id="hot-drinks" class="menu-section">
+            <h2 class="section-title animate__animated animate__fadeInRight">☕️ بار گرم</h2>
+            <div class="row">
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">اسپرسو</h5>
+                            <p class="card-price">60,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">آمریکانو</h5>
+                            <p class="card-price">65,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">کافه لاته</h5>
+                            <p class="card-price">70,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">کاپوچینو</h5>
+                            <p class="card-price">75,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">موکا</h5>
+                            <p class="card-price">80,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">کارامل ماکیاتو</h5>
+                            <p class="card-price">85,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">نسکافه</h5>
+                            <p class="card-price">60,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">فرانسه</h5>
+                            <p class="card-price">70,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">ترک</h5>
+                            <p class="card-price">65,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">هات چاکلت</h5>
+                            <p class="card-price">75,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">چای ماسالا</h5>
+                            <p class="card-price">60,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">آووکادو</h5>
+                            <p class="card-price">90,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- دمنوش -->
+        <section id="tea" class="menu-section">
+            <h2 class="section-title animate__animated animate__fadeInRight">🍵 دمنوش</h2>
+            <div class="row">
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">چای لیمو عسل</h5>
+                            <p class="card-price">50,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">زنجبیل لیمو</h5>
+                            <p class="card-price">55,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">گل گاوزبان</h5>
+                            <p class="card-price">50,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">بهارنارنج</h5>
+                            <p class="card-price">50,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <div class="card-body">
+                            <h5 class="card-title">چای ترش</h5>
+                            <p class="card-price">50,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- قلیان -->
+        <section id="hookah" class="menu-section">
+            <h2 class="section-title animate__animated animate__fadeInRight">🧉 قلیان</h2>
+            <div class="row">
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <img src="images/hookah1.jpg" class="card-img-top hookah-image" alt="قلیان هاوایی">
+                        <div class="card-body">
+                            <h5 class="card-title">هاوایی</h5>
+                            <p class="card-price">150,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <img src="images/hookah2.jpg" class="card-img-top hookah-image" alt="قلیان آلبالو">
+                        <div class="card-body">
+                            <h5 class="card-title">آلبالو</h5>
+                            <p class="card-price">140,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <img src="images/hookah3.jpg" class="card-img-top hookah-image" alt="قلیان شلیل">
+                        <div class="card-body">
+                            <h5 class="card-title">شلیل</h5>
+                            <p class="card-price">140,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <img src="images/hookah4.jpg" class="card-img-top hookah-image" alt="قلیان لیمو نعناع">
+                        <div class="card-body">
+                            <h5 class="card-title">لیمو نعناع</h5>
+                            <p class="card-price">130,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <img src="images/hookah5.jpg" class="card-img-top hookah-image" alt="قلیان پرتقال خامه">
+                        <div class="card-body">
+                            <h5 class="card-title">پرتقال خامه</h5>
+                            <p class="card-price">160,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <img src="images/hookah6.jpg" class="card-img-top hookah-image" alt="قلیان پرتقال">
+                        <div class="card-body">
+                            <h5 class="card-title">پرتقال</h5>
+                            <p class="card-price">140,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <img src="images/hookah7.jpg" class="card-img-top hookah-image" alt="قلیان کاپوچینو">
+                        <div class="card-body">
+                            <h5 class="card-title">کاپوچینو</h5>
+                            <p class="card-price">150,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <img src="images/hookah8.jpg" class="card-img-top hookah-image" alt="قلیان نعناع">
+                        <div class="card-body">
+                            <h5 class="card-title">نعناع</h5>
+                            <p class="card-price">130,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <img src="images/hookah9.jpg" class="card-img-top hookah-image" alt="قلیان تمشک سنتی">
+                        <div class="card-body">
+                            <h5 class="card-title">تمشک سنتی</h5>
+                            <p class="card-price">140,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <img src="images/hookah10.jpg" class="card-img-top hookah-image" alt="قلیان سیب یخ">
+                        <div class="card-body">
+                            <h5 class="card-title">سیب یخ</h5>
+                            <p class="card-price">150,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <img src="images/hookah11.jpg" class="card-img-top hookah-image" alt="قلیان هندوانه">
+                        <div class="card-body">
+                            <h5 class="card-title">هندوانه</h5>
+                            <p class="card-price">140,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <img src="images/hookah12.jpg" class="card-img-top hookah-image" alt="قلیان ۷۷">
+                        <div class="card-body">
+                            <h5 class="card-title">۷۷</h5>
+                            <p class="card-price">150,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <img src="images/hookah13.jpg" class="card-img-top hookah-image" alt="قلیان آدامس دارچین">
+                        <div class="card-body">
+                            <h5 class="card-title">آدامس دارچین</h5>
+                            <p class="card-price">140,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <img src="images/hookah14.jpg" class="card-img-top hookah-image" alt="قلیان آلو یخ">
+                        <div class="card-body">
+                            <h5 class="card-title">آلو یخ</h5>
+                            <p class="card-price">140,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <img src="images/hookah15.jpg" class="card-img-top hookah-image" alt="قلیان فیل">
+                        <div class="card-body">
+                            <h5 class="card-title">فیل</h5>
+                            <p class="card-price">160,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <img src="images/hookah16.jpg" class="card-img-top hookah-image" alt="قلیان جوکر">
+                        <div class="card-body">
+                            <h5 class="card-title">جوکر</h5>
+                            <p class="card-price">160,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <img src="images/hookah17.jpg" class="card-img-top hookah-image" alt="قلیان بلوبری">
+                        <div class="card-body">
+                            <h5 class="card-title">بلوبری</h5>
+                            <p class="card-price">150,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <img src="images/hookah18.jpg" class="card-img-top hookah-image" alt="قلیان انبه">
+                        <div class="card-body">
+                            <h5 class="card-title">انبه</h5>
+                            <p class="card-price">150,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <img src="images/hookah19.jpg" class="card-img-top hookah-image" alt="قلیان طالبی">
+                        <div class="card-body">
+                            <h5 class="card-title">طالبی</h5>
+                            <p class="card-price">140,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <img src="images/hookah20.jpg" class="card-img-top hookah-image" alt="قلیان زعفران">
+                        <div class="card-body">
+                            <h5 class="card-title">زعفران</h5>
+                            <p class="card-price">170,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <img src="images/hookah21.jpg" class="card-img-top hookah-image" alt="قلیان انگور">
+                        <div class="card-body">
+                            <h5 class="card-title">انگور</h5>
+                            <p class="card-price">140,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <img src="images/hookah22.jpg" class="card-img-top hookah-image" alt="قلیان دوسیب">
+                        <div class="card-body">
+                            <h5 class="card-title">دوسیب</h5>
+                            <p class="card-price">150,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <img src="images/hookah23.jpg" class="card-img-top hookah-image" alt="قلیان دوسیب آلبالو">
+                        <div class="card-body">
+                            <h5 class="card-title">دوسیب آلبالو</h5>
+                            <p class="card-price">160,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <img src="images/hookah24.jpg" class="card-img-top hookah-image" alt="قلیان دوسیب شلیل">
+                        <div class="card-body">
+                            <h5 class="card-title">دوسیب شلیل</h5>
+                            <p class="card-price">160,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card menu-item animate__animated animate__fadeIn">
+                        <img src="images/hookah25.jpg" class="card-img-top hookah-image" alt="قلیان دوسیب نعناع">
+                        <div class="card-body">
+                            <h5 class="card-title">دوسیب نعناع</h5>
+                            <p class="card-price">150,000 تومان</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- فوتر -->
+    <footer class="footer">
+        <div class="container">
+            <p>رستوران لوکس - بهترین تجربه غذایی را با ما داشته باشید</p>
+            <p>ساعات کاری: هر روز از 12 ظهر تا 12 شب</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./style.js"></script>
+</body>
+</html>
