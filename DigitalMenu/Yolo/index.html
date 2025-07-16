@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>کافه یولو</title>
+    <!-- اضافه کردن بوت استرپ -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- اضافه کردن فونت ایران یکان -->
+    <link rel="stylesheet" href="https://cdn.fontcdn.ir/Font/Persian/IranYekan/IranYekan.css">
+    <!-- آیکون‌های فونت آوسام -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'IranYekan', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #ffffff;
+            color: #001F3F;
+            overflow-x: hidden;
+        }
+        
+        /* Welcome Page Styles */
+        .welcome-page {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            overflow: hidden;
+            padding-bottom: 60px;
+        }
+        
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.8;
+        }
+        
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 31, 63, 0.5);
+            z-index: 0;
+        }
+        
+        .logo-background {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 600px;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .slogan {
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 60px;
+            color: #ffffff;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+            font-weight: bold;
+            animation: fadeInUp 1s ease-out;
+            line-height: 1.4;
+        }
+        
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            width: 90%;
+            max-width: 400px;
+            z-index: 1;
+            animation: fadeIn 1.5s ease-out;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            padding: 20px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover:before {
+            left: 100%;
+        }
+        
+        .btn-info {
+            background-color: #9ECAD6;
+            color: #001F3F;
+            box-shadow: 0 8px 25px rgba(158, 202, 214, 0.5);
+        }
+        
+        .btn-info:hover {
+            background-color: #EBF4F6;
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(158, 202, 214, 0.7);
+        }
+        
+        .btn-menu {
+            background-color: #001F3F;
+            color: #ffffff;
+            box-shadow: 0 8px 25px rgba(0, 31, 63, 0.5);
+        }
+        
+        .btn-menu:hover {
+            background-color: #003366;
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 31, 63, 0.7);
+        }
+        
+        /* Info Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 31, 63, 0.95);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        .modal-content {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 450px;
+            border: 2px solid #9ECAD6;
+            box-shadow: 0 0 30px rgba(158, 202, 214, 0.7);
+            position: relative;
+            animation: slideUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 1.8rem;
+            color: #001F3F;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            color: #9ECAD6;
+            transform: rotate(90deg) scale(1.2);
+        }
+        
+        .modal-logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 25px;
+            display: block;
+            border-radius: 50%;
+            border: 3px solid #9ECAD6;
+            background-color: #ffffff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .modal-logo:hover {
+            transform: rotate(10deg) scale(1.1);
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding: 15px;
+            border-radius: 15px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background-color: rgba(158, 202, 214, 0.1);
+        }
+        
+        .info-item:hover {
+            background-color: rgba(158, 202, 214, 0.3);
+            transform: translateX(-10px);
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #9ECAD6;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 15px;
+            color: #001F3F;
+            font-size: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .info-text {
+            flex: 1;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        
+        .info-text a {
+            color: #001F3F;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .info-text a:hover {
+            color: #9ECAD6;
+            text-decoration: underline;
+        }
+        
+        /* Menu Page Styles */
+        .menu-page {
+            display: none;
+            padding: 20px;
+            max-width: 100%;
+            overflow-y: auto;
+            height: 100vh;
+            background-color: #ffffff;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .menu-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #9ECAD6;
+            position: relative;
+        }
+        
+        .menu-logo {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 3px solid #9ECAD6;
+            background-color: #ffffff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .menu-logo:hover {
+            transform: rotate(10deg) scale(1.1);
+        }
+        
+        .back-btn {
+            position: absolute;
+            left: 20px;
+            background-color: transparent;
+            color: #001F3F;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+        }
+        
+        .back-btn:hover {
+            background-color: #9ECAD6;
+            color: #ffffff;
+            transform: translateX(-5px) scale(1.1);
+            box-shadow: 0 5px 15px rgba(158, 202, 214, 0.5);
+        }
+        
+        /* استایل جدید برای نوار دسته‌بندی‌ها */
+        .categories-container {
+            width: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 20px 0;
+            margin-bottom: 20px;
+            scrollbar-width: none;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .categories-container::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .category-tabs {
+            display: inline-flex;
+            gap: 15px;
+            padding: 0 20px;
+        }
+        
+        .category-tab {
+            background-color: #001F3F;
+            color: #ffffff;
+            padding: 18px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-size: 1.2rem;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 31, 63, 0.3);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+            min-width: 120px;
+            text-align: center;
+        }
+        
+        .category-tab:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .category-tab:hover:before {
+            left: 100%;
+        }
+        
+        .category-tab.active {
+            background-color: #9ECAD6;
+            color: #001F3F;
+            font-weight: bold;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(158, 202, 214, 0.5);
+            border: 2px solid #ffffff;
+        }
+        
+        .category-tab:hover {
+            background-color: #003366;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 31, 63, 0.4);
+        }
+        
+        /* استایل جدید برای بخش‌های منو */
+        .menu-section {
+            margin-bottom: 35px;
+            background-color: #ffffff;
+            border-radius: 20px;
+            padding: 20px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: none;
+            border: 1px solid #f0f0f0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .menu-section.active {
+            display: block;
+            animation: slideUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .menu-section:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(158, 202, 214, 0.3);
+            border: 1px solid #9ECAD6;
+        }
+        
+        .section-title {
+            color: #001F3F;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed #9ECAD6;
+            font-size: 1.8rem;
+            font-weight: bold;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #9ECAD6;
+        }
+        
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            background-color: rgba(158, 202, 214, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .menu-item:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background-color: #9ECAD6;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-item:hover {
+            background-color: rgba(158, 202, 214, 0.2);
+            transform: translateX(10px);
+        }
+        
+        .menu-item:hover:before {
+            width: 10px;
+        }
+        
+        .item-name {
+            flex: 1;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+        
+        .item-price {
+            color: #001F3F;
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 1.3rem;
+            background-color: #9ECAD6;
+            padding: 5px 15px;
+            border-radius: 50px;
+            min-width: 80px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(158, 202, 214, 0.3);
+        }
+        
+        .footer {
+            background-color: #001F3F;
+            padding: 25px;
+            border-radius: 20px;
+            margin-top: 40px;
+            text-align: center;
+            color: #ffffff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .footer p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        
+        .footer p:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .slogan {
+                font-size: 2rem;
+            }
+            
+            .btn {
+                padding: 18px 35px;
+                font-size: 1.3rem;
+            }
+            
+            .category-tab {
+                padding: 16px 28px;
+                font-size: 1.1rem;
+                min-width: 110px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .slogan {
+                font-size: 1.8rem;
+                margin-bottom: 50px;
+            }
+            
+            .btn {
+                padding: 16px 32px;
+                font-size: 1.2rem;
+            }
+            
+            .category-tab {
+                padding: 14px 24px;
+                font-size: 1rem;
+                min-width: 100px;
+            }
+            
+            .item-name {
+                font-size: 1.1rem;
+            }
+            
+            .item-price {
+                font-size: 1.1rem;
+                min-width: 70px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .welcome-page {
+                padding-bottom: 40px;
+            }
+            
+            .slogan {
+                font-size: 1.6rem;
+                margin-bottom: 40px;
+                padding: 0 15px;
+            }
+            
+            .buttons-container {
+                gap: 20px;
+                max-width: 350px;
+                margin-bottom: 20px;
+            }
+            
+            .btn {
+                padding: 14px 28px;
+                font-size: 1.1rem;
+            }
+            
+            .modal-content {
+                padding: 20px;
+            }
+            
+            .category-tab {
+                padding: 12px 20px;
+                font-size: 0.95rem;
+                min-width: 90px;
+            }
+            
+            .menu-item {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 12px;
+            }
+            
+            .item-price {
+                margin-right: 0;
+                margin-top: 10px;
+                align-self: flex-end;
+                font-size: 1rem;
+                padding: 3px 12px;
+            }
+            
+            .back-btn {
+                left: 10px;
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+            
+            .menu-logo {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .slogan {
+                font-size: 1.4rem;
+                margin-bottom: 30px;
+            }
+            
+            .btn {
+                padding: 12px 24px;
+                font-size: 1rem;
+            }
+            
+            .category-tab {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+                min-width: 80px;
+            }
+            
+            .section-title {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Welcome Page -->
+    <div class="welcome-page" id="welcomePage">
+        <video class="video-background" autoplay muted loop>
+            <source src="./IMG_0540.MOV" type="video/mp4">
+        </video>
+        <div class="overlay"></div>
+        <img src="./Picsart_25-07-11_13-54-14-020.png" alt="لوگوی کافه" class="logo-background">
+        
+        <h1 class="slogan">Reflections don't lie <br>You're glowing</h1>
+    
+        <div class="buttons-container">
+            <button class="btn btn-info" id="infoBtn">اطلاعات کافه</button>
+            <button class="btn btn-menu" id="menuBtn">مشاهده منو</button>
+        </div>
+    </div>
+    
+    <!-- Info Modal -->
+    <div class="modal" id="infoModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <img src="./Picsart_25-07-11_13-54-14-020.png" alt="لوگوی کافه" class="modal-logo">
+            
+            <div class="info-item">
+                <div class="info-icon"><i class="fab fa-instagram"></i></div>
+                <div class="info-text">
+                    <a href="https://www.instagram.com/yolo_pastry/" target="_blank">صفحه اینستاگرام ما</a>
+                </div>
+            </div>
+            
+            <div class="info-item">
+                <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                <div class="info-text">
+                    <a href="https://www.google.com/maps/place/35%C2%B041'51.6%22N+51%C2%B015'16.3%22E/@35.697668,51.254514,16z/data=!4m4!3m3!8m2!3d35.697668!4d51.254514?entry=ttu&g_ep=EgoyMDI1MDcwOS4wIKXMDSoASAFQAw%3D%3D" target="_blank">موقعیت مکانی کافه</a>
+                </div>
+            </div>
+            
+            <div class="info-item">
+                <div class="info-icon"><i class="fas fa-phone"></i></div>
+                <div class="info-text">
+                    <a href="tel:+989123274609">09123274609</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Menu Page -->
+    <div class="menu-page" id="menuPage">
+        <div class="menu-header">
+            <button class="back-btn" id="backBtn">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <img src="./Picsart_25-07-11_13-54-14-020.png" alt="لوگوی کافه" class="menu-logo">
+        </div>
+        
+        <!-- نوار دسته‌بندی‌ها -->
+        <div class="categories-container">
+            <div class="category-tabs">
+                <div class="category-tab active" data-category="coffee-based">بر پایه قهوه</div>
+                <div class="category-tab" data-category="cold-coffee">قهوه سرد</div>
+                <div class="category-tab" data-category="hot-drinks">نوشیدنی گرم</div>
+                <div class="category-tab" data-category="tea-herbal">چای و دمنوش</div>
+                <div class="category-tab" data-category="milkshakes">میلک شیک</div>
+                <div class="category-tab" data-category="cakes-desserts">کیک و دسر</div>
+                <div class="category-tab" data-category="mocktails">موکتل‌ها</div>
+                <div class="category-tab" data-category="smoothies">اسموتی‌ها</div>
+                <div class="category-tab" data-category="frappe">فراپه</div>
+                <div class="category-tab" data-category="yolo-diet">یولو دیت</div>
+                <div class="category-tab" data-category="breakfast">صبحانه</div>
+            </div>
+        </div>
+        
+        <!-- Coffee Based -->
+        <div class="menu-section active" id="coffee-based">
+            <h2 class="section-title">بر پایه قهوه</h2>
+            <div class="menu-item">
+                <div class="item-name">اسپرسو</div>
+                <div class="item-price">۷۸</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">اسپرسو ماکیاتو</div>
+                <div class="item-price">۸۷</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">قهوه ترک</div>
+                <div class="item-price">۹۲</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">کاپوچینو</div>
+                <div class="item-price">۹۳</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">فلت وایت</div>
+                <div class="item-price">۹۴</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">کورنادو</div>
+                <div class="item-price">۹۶</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">آمریکانو</div>
+                <div class="item-price">۹۱</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">موکا</div>
+                <div class="item-price">۹۸</div>
+            </div>
+        </div>
+        
+        <!-- Cold Coffee -->
+        <div class="menu-section" id="cold-coffee">
+            <h2 class="section-title">قهوه سرد</h2>
+            <div class="menu-item">
+                <div class="item-name">آفوگاتو</div>
+                <div class="item-price">۱۰۵</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">آیس آمریکانو</div>
+                <div class="item-price">۷۸</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">آیس لاته</div>
+                <div class="item-price">۱۲۶</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">آیس ماچا</div>
+                <div class="item-price">۱۸۲</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">آیس موکا</div>
+                <div class="item-price">۱۴۹</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">آیس لاته باکینگ</div>
+                <div class="item-price">۱۵۹</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">آیس لاته لوتوس</div>
+                <div class="item-price">۱۵۹</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">آیس کارامل ماکیاتو</div>
+                <div class="item-price">۱۴۷</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">آیس لاته اورئو</div>
+                <div class="item-price">۱۷۵</div>
+            </div>
+        </div>
+        
+        <!-- Hot Drinks -->
+        <div class="menu-section" id="hot-drinks">
+            <h2 class="section-title">نوشیدنی گرم</h2>
+            <div class="menu-item">
+                <div class="item-name">هات چاکلت</div>
+                <div class="item-price">۱۵۸</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">وایت چاکلت</div>
+                <div class="item-price">۱۴۷</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">ماسالا</div>
+                <div class="item-price">۱۱۲</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">ماچا</div>
+                <div class="item-price">۱۸۲</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">قهوه یولو (شیر، قهوه، بستنی وانیل، خامه)</div>
+                <div class="item-price">۱۶۷</div>
+            </div>
+        </div>
+        
+        <!-- Tea & Herbal -->
+        <div class="menu-section" id="tea-herbal">
+            <h2 class="section-title">چای و دمنوش</h2>
+            <div class="menu-item">
+                <div class="item-name">چای سیاه ساده</div>
+                <div class="item-price">۴۲</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">دمنوش سیاه</div>
+                <div class="item-price">۶۲</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">دمنوش سبز</div>
+                <div class="item-price">۸۸</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">دمنوش گل گاو زبان</div>
+                <div class="item-price">۸۸</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">دمنوش زنجبیل</div>
+                <div class="item-price">۸۸</div>
+            </div>
+        </div>
+        
+        <!-- Milkshakes -->
+        <div class="menu-section" id="milkshakes">
+            <h2 class="section-title">میلک شیک</h2>
+            <div class="menu-item">
+                <div class="item-name">وانیل</div>
+                <div class="item-price">۱۴۳</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">شکلات</div>
+                <div class="item-price">۱۱۹</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">نوتلا</div>
+                <div class="item-price">۱۱۳</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">بادام زمینی</div>
+                <div class="item-price">۱۴۸</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">قهوه</div>
+                <div class="item-price">۱۴۸</div>
+            </div>
+        </div>
+        
+        <!-- Cakes & Desserts -->
+        <div class="menu-section" id="cakes-desserts">
+            <h2 class="section-title">کیک و دسر</h2>
+            <div class="menu-item">
+                <div class="item-name">براونی و بستنی</div>
+                <div class="item-price">۱۸۳</div>
+            </div>
+        </div>
+        
+        <!-- Mocktails -->
+        <div class="menu-section" id="mocktails">
+            <h2 class="section-title">موکتل‌ها</h2>
+            <div class="menu-item">
+                <div class="item-name">آبمیوه فصل</div>
+                <div class="item-price">۱۱۹</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">موهیتو (لیموناد، نعناع، سودا)</div>
+                <div class="item-price">۱۱۹</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">لیموناد (لیموسودا)</div>
+                <div class="item-price">۱۱۹</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">سیب دارچین (آب سیب، نعناع، دارچین، سودا)</div>
+                <div class="item-price">۱۴۱</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">کریسمس موهیتو (لیموناد، نعناع، نارگیل)</div>
+                <div class="item-price">۱۲۹</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">نفس پاییزی (آب پرتقال، آب سیب، ماچا، نعناع، اسپرایت)</div>
+                <div class="item-price">۱۵۶</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">دتاکس واتر</div>
+                <div class="item-price">۶۸</div>
+            </div>
+        </div>
+        
+        <!-- Smoothies -->
+        <div class="menu-section" id="smoothies">
+            <h2 class="section-title">اسموتی‌ها</h2>
+            <div class="menu-item">
+                <div class="item-name">تروپیکال (آناناس، موز، نارگیل، آناکاس)</div>
+                <div class="item-price">۱۹۰</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">زردی (آب آناناس، توت‌فرنگی، پوره زردآلو)</div>
+                <div class="item-price">۱۸۷</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">سایه بهشت (آناناس، موز، شیر، بادام، وانیل)</div>
+                <div class="item-price">۱۸۸</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">طلاوت (پرتقال، زنجبیل، لیمو، آب سیب، عصاره گل گاو زبان)</div>
+                <div class="item-price">۱۸۹</div>
+            </div>
+        </div>
+        
+        <!-- Frappe -->
+        <div class="menu-section" id="frappe">
+            <h2 class="section-title">فراپه</h2>
+            <div class="menu-item">
+                <div class="item-name">فراپه موکا</div>
+                <div class="item-price">۱۴۱</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">فراپه باکینگ</div>
+                <div class="item-price">۱۴۱</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">فراپه نوت فرنچ</div>
+                <div class="item-price">۱۴۱</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">فراپه کلاسیک</div>
+                <div class="item-price">۱۵۵</div>
+            </div>
+        </div>
+        
+        <!-- Yolo Diet -->
+        <div class="menu-section" id="yolo-diet">
+            <h2 class="section-title">یولو دیت</h2>
+            <div class="menu-item">
+                <div class="item-name">(شیر، خامه، قهوه، طعم‌دهنده، خامه زده‌شده، وانیل)</div>
+                <div class="item-price">۱۶۸</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">اورئولاته</div>
+                <div class="item-price">۱۷۵</div>
+            </div>
+        </div>
+        
+        <!-- Breakfast -->
+        <div class="menu-section" id="breakfast">
+            <h2 class="section-title">صبحانه</h2>
+            <div class="menu-item">
+                <div class="item-name">نیمرو</div>
+                <div class="item-price">۹۹</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">املت گوجه</div>
+                <div class="item-price">۱۱۳</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">املت سوسیس</div>
+                <div class="item-price">۱۱۵</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">املت قارچ</div>
+                <div class="item-price">۱۲۷</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">املت قارچ و سوسیس</div>
+                <div class="item-price">۱۲۷</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">املت مراکشی</div>
+                <div class="item-price">۱۲۷</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">املت لوبیزناتا</div>
+                <div class="item-price">۱۴۹</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">نان سیمت پنیر گوجه</div>
+                <div class="item-price">۱۵۷</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">(نان سیمت، پنیر خامه‌ای، گوجه، زیتون، سبزی، روغن زیتون)</div>
+                <div class="item-price"></div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">نیمرو پنیر برشته</div>
+                <div class="item-price">۱۰۵</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">اردل برد</div>
+                <div class="item-price">۱۸۷</div>
+            </div>
+            <div class="menu-item">
+                <div class="item-name">(نان اردل، بیکن، پنیر پیتزا، تخم‌مرغ، مرغ دودی)</div>
+                <div class="item-price"></div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p><i class="far fa-clock"></i> ساعات کاری کافه: ۸ صبح الی ۱۱ شب</p>
+            <p><i class="fas fa-info-circle"></i> نکته: به تمامی آیتم‌ها ۱۰٪ مالیات و ارزش افزوده اضافه می‌گردد.</p>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // DOM Elements
+        const welcomePage = document.getElementById('welcomePage');
+        const menuPage = document.getElementById('menuPage');
+        const infoModal = document.getElementById('infoModal');
+        const infoBtn = document.getElementById('infoBtn');
+        const menuBtn = document.getElementById('menuBtn');
+        const closeModal = document.getElementById('closeModal');
+        const backBtn = document.getElementById('backBtn');
+        const video = document.querySelector('.video-background');
+        
+        // عناصر جدید برای مدیریت دسته‌بندی‌ها
+        const categoryTabs = document.querySelectorAll('.category-tab');
+        const menuSections = document.querySelectorAll('.menu-section');
+
+        // حل مشکل ویدیو
+        function handleVideo() {
+            video.setAttribute('playsinline', '');
+            video.setAttribute('muted', 'true');
+            video.setAttribute('autoplay', 'true');
+            video.setAttribute('loop', 'true');
+            
+            const playPromise = video.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(e => {
+                    console.log('Video autoplay prevented, showing fallback');
+                    welcomePage.style.background = '#001F3F';
+                });
+            }
+        }
+
+        // مدیریت رویدادهای کلیک
+        function setupEventListeners() {
+            infoBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                infoModal.style.display = 'flex';
+                console.log('Info modal opened');
+            });
+            
+            menuBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                welcomePage.style.display = 'none';
+                menuPage.style.display = 'block';
+                console.log('Menu page opened');
+            });
+            
+            closeModal.addEventListener('click', function(e) {
+                e.preventDefault();
+                infoModal.style.display = 'none';
+            });
+            
+            backBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                menuPage.style.display = 'none';
+                welcomePage.style.display = 'flex';
+            });
+            
+            window.addEventListener('click', function(e) {
+                if (e.target === infoModal) {
+                    infoModal.style.display = 'none';
+                }
+            });
+            
+            // مدیریت کلیک روی دسته‌بندی‌ها
+            categoryTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // حذف کلاس active از همه تب‌ها
+                    categoryTabs.forEach(t => t.classList.remove('active'));
+                    
+                    // اضافه کردن کلاس active به تب انتخاب شده
+                    this.classList.add('active');
+                    
+                    // مخفی کردن همه بخش‌های منو
+                    menuSections.forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    
+                    // نمایش بخش مربوط به تب انتخاب شده
+                    const categoryId = this.getAttribute('data-category');
+                    document.getElementById(categoryId).classList.add('active');
+                    
+                    // اسکرول به بالای بخش
+                    document.getElementById(categoryId).scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+        }
+
+        // مقداردهی اولیه
+        function init() {
+            handleVideo();
+            setupEventListeners();
+            console.log('Cafe Menu initialized');
+        }
+
+        init();
+    });
+    </script>
+</body>
+</html>
