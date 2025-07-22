@@ -352,6 +352,11 @@
             color: #4a5f4d;
         }
         
+        .add-to-cart-half {
+            left: 50px !important;
+            background-color: #6c757d !important;
+        }
+        
         .cafe-logo {
             text-align: center;
             margin: 20px 0;
@@ -576,7 +581,7 @@
 <body>
     <!-- سبد خرید -->
     <div class="cart-icon" id="cartIcon">
-        🛒
+        <i class="fas fa-shopping-cart"></i>
         <span class="cart-count" id="cartCount">0</span>
     </div>
     
@@ -600,11 +605,11 @@
             <h3>لطفا نوع دستگاه خود را انتخاب کنید</h3>
             <div class="device-buttons">
                 <button class="device-btn ios-btn" id="iosBtn">
-                    <span class="device-icon"></span>
+                    <i class="fab fa-apple device-icon"></i>
                     آیفون
                 </button>
                 <button class="device-btn android-btn" id="androidBtn">
-                    <span class="device-icon">🤖</span>
+                    <i class="fab fa-android device-icon"></i>
                     اندروید
                 </button>
             </div>
@@ -652,6 +657,7 @@
 
     <!-- اضافه کردن کتابخانه Leaflet برای نقشه -->
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     
     <script>
         // تابع برای تبدیل اعداد انگلیسی به فارسی
@@ -668,76 +674,75 @@
         }
 
         // داده‌های منو
-// داده‌های منو
-const menuData = {
-    "پاستاها": {
-        english: "PASTA",
-        icon: "fa-solid fa-plate-wheat",
-        items: [
-            {
-                name: "پاربینارا", 
-                description: "مغز ران گوساله ۱۵۰ گرم، قارچ، جعفری، زیتون سبز، سس پاربینارا، پنیر پارمسان", 
-                halfPrice: 165000, 
-                fullPrice: 327000, 
-                image: "2.jpg"
+        const menuData = {
+            "پاستاها": {
+                english: "PASTA",
+                icon: "fa-solid fa-plate-wheat",
+                items: [
+                    {
+                        name: "پاربینارا", 
+                        description: "مغز ران گوساله ۱۵۰ گرم، قارچ، جعفری، زیتون سبز، سس پاربینارا، پنیر پارمسان", 
+                        halfPrice: 165000, 
+                        fullPrice: 327000, 
+                        image: "2.jpg"
+                    },
+                    {
+                        name: "کارتیزه", 
+                        description: "مغز ران گوساله ۱۵۰ گرم، قارچ، گوجه گیلاسی، زیتون سبز، پومودورو، پنیر پارمسان", 
+                        halfPrice: 160000, 
+                        fullPrice: 322000, 
+                        image: "3.jpg"
+                    },
+                    {
+                        name: "کرمستو", 
+                        description: "سینه مرغ مرینت شده ۱۲۰ گرم، قارچ،سیر تازه، زیتون سبز، سس کرم پستو، پنیر پارمسان", 
+                        halfPrice: 159000, 
+                        fullPrice: 318000, 
+                        image: "4.jpg"
+                    },
+                    {
+                        name: "کروبارا", 
+                        description: "بیکن90% 100گرم، قارچ، سیرتازه، تخم‌مرغ، سس خامه، پنیر پارمسان", 
+                        halfPrice: 160000, 
+                        fullPrice: 320000, 
+                        image: "6.jpg"
+                    },
+                    {
+                        name: "رینیو", 
+                        description: "گوشت ریش شده 100 گرم، قارچ،سیر تازه،خلال سیب زمینی، زیتون سبز، سس خامه، پنیر پیتزا", 
+                        halfPrice: 168000, 
+                        fullPrice: 336000, 
+                        image: "7.jpg"
+                    },
+                    {
+                        name: "آلفو", 
+                        description: "سینه مرغ مرینت شده 120 گرم، قارچ،سیر تازه، زیتون سبز، سس آلفردو، پنیر پارمسان", 
+                        halfPrice: 153000, 
+                        fullPrice: 306000, 
+                        image: "8.jpg"
+                    },
+                    {
+                        name: "ماریگو", 
+                        description: "میگو مرینت شده ۱۰۰ گرم، قارچ،سیر تازه، زیتون سبز، سس آلفردو، پنیر پارمسان", 
+                        halfPrice: 171000, 
+                        fullPrice: 342000, 
+                        image: "9.jpg"
+                    }
+                ]
             },
-            {
-                name: "کارتیزه", 
-                description: "مغز ران گوساله ۱۵۰ گرم، قارچ، گوجه گیلاسی، زیتون سبز، پومودورو، پنیر پارمسان", 
-                halfPrice: 160000, 
-                fullPrice: 322000, 
-                image: "3.jpg"
-            },
-            {
-                name: "کرمستو", 
-                description: "سینه مرغ مرینت شده ۱۲۰ گرم، قارچ،سیر تازه، زیتون سبز، سس کرم پستو، پنیر پارمسان", 
-                halfPrice: 159000, 
-                fullPrice: 318000, 
-                image: "4.jpg"
-            },
-            {
-                name: "کروبارا", 
-                description: "بیکن90% 100گرم، قارچ، سیرتازه، تخم‌مرغ، سس خامه، پنیر پارمسان", 
-                halfPrice: 160000, 
-                fullPrice: 320000, 
-                image: "6.jpg"
-            },
-            {
-                name: "رینیو", 
-                description: "گوشت ریش شده 100 گرم، قارچ،سیر تازه،خلال سیب زمینی، زیتون سبز، سس خامه، پنیر پیتزا", 
-                halfPrice: 168000, 
-                fullPrice: 336000, 
-                image: "7.jpg"
-            },
-            {
-                name: "آلفو", 
-                description: "سینه مرغ مرینت شده 120 گرم، قارچ،سیر تازه، زیتون سبز، سس آلفردو، پنیر پارمسان", 
-                halfPrice: 153000, 
-                fullPrice: 306000, 
-                image: "8.jpg"
-            },
-            {
-                name: "ماریگو", 
-                description: "میگو مرینت شده ۱۰۰ گرم، قارچ،سیر تازه، زیتون سبز، سس آلفردو، پنیر پارمسان", 
-                halfPrice: 171000, 
-                fullPrice: 342000, 
-                image: "9.jpg"
+            "لازانیا": {
+                english: "LASAGNA",
+                icon: "fa-solid fa-layer-group",
+                items: [
+                    {
+                        name: "لازانیا رویال", 
+                        description: "گوشت چرخ کرده (مخلوط گوسفندی و گوساله)، قارچ، سس خامه، سس مخصوص، پنیر پیتزا", 
+                        fullPrice: 358000, 
+                        image: "1.jpg"
+                    }
+                ]
             }
-        ]
-    },
-    "لازانیا": {
-        english: "LASAGNA",
-        icon: "fa-solid fa-layer-group",
-        items: [
-            {
-                name: "لازانیا رویال", 
-                description: "گوشت چرخ کرده (مخلوط گوسفندی و گوساله)، قارچ، سس خامه، سس مخصوص، پنیر پیتزا", 
-                fullPrice: 358000, 
-                image: "1.jpg"
-            }
-        ]
-    }
-};
+        };
 
         // متغیرهای DOM
         const categoriesSidebar = document.getElementById('categoriesSidebar');
@@ -797,61 +802,67 @@ const menuData = {
         updateItems(Object.keys(menuData)[0]);
 
         // تابع برای به‌روزرسانی آیتم‌ها بر اساس دسته‌بندی انتخاب شده
-// تابع برای به‌روزرسانی آیتم‌ها بر اساس دسته‌بندی انتخاب شده
-function updateItems(category) {
-    menuItems.innerHTML = '';
-    itemsTitle.textContent = category;
-    itemsEnglishTitle.textContent = menuData[category].english;
-    
-    menuData[category].items.forEach((item, index) => {
-        const itemElement = document.createElement('div');
-        itemElement.className = 'menu-item';
-        itemElement.style.animationDelay = `${index * 0.1}s`;
-        
-        // ایجاد HTML برای نمایش قیمت‌ها بر اساس وجود halfPrice
-        let priceHTML = '';
-        if (item.halfPrice) {
-            priceHTML = `
-                <div class="item-price-container">
-                    <div class="price-option">
-                        <span class="price-label">نیم پرس:</span>
-                        <span class="price-value">${formatPrice(item.halfPrice)} تومان</span>
-                    </div>
-                    <div class="price-option">
-                        <span class="price-label">یک پرس:</span>
-                        <span class="price-value">${formatPrice(item.fullPrice)} تومان</span>
-                    </div>
-                </div>
-            `;
-        } else {
-            priceHTML = `
-                <div class="item-price-container">
-                    <div class="price-option">
-                        <span class="price-value">${formatPrice(item.fullPrice)} تومان</span>
-                    </div>
-                </div>
-            `;
+        function updateItems(category) {
+            menuItems.innerHTML = '';
+            itemsTitle.textContent = category;
+            itemsEnglishTitle.textContent = menuData[category].english;
+            
+            menuData[category].items.forEach((item, index) => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'menu-item';
+                itemElement.style.animationDelay = `${index * 0.1}s`;
+                
+                // ایجاد HTML برای نمایش قیمت‌ها بر اساس وجود halfPrice
+                let priceHTML = '';
+                if (item.halfPrice) {
+                    priceHTML = `
+                        <div class="item-price-container">
+                            <div class="price-option">
+                                <span class="price-label">نیم پرس:</span>
+                                <span class="price-value">${formatPrice(item.halfPrice)} تومان</span>
+                            </div>
+                            <div class="price-option">
+                                <span class="price-label">یک پرس:</span>
+                                <span class="price-value">${formatPrice(item.fullPrice)} تومان</span>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    priceHTML = `
+                        <div class="item-price-container">
+                            <div class="price-option">
+                                <span class="price-value">${formatPrice(item.fullPrice)} تومان</span>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                itemElement.innerHTML = `
+                    <img class="item-image" src="${item.image}" alt="${item.name}">
+                    <div class="item-name">${item.name}</div>
+                    ${item.description ? `<div class="item-description">${item.description}</div>` : ''}
+                    ${priceHTML}
+                    ${item.halfPrice ? `
+                        <button class="add-to-cart add-to-cart-half" data-name="${item.name}" data-price="${item.halfPrice}" data-portion="نیم پرس">+</button>
+                        <button class="add-to-cart" data-name="${item.name}" data-price="${item.fullPrice}" data-portion="یک پرس">+</button>
+                    ` : `
+                        <button class="add-to-cart" data-name="${item.name}" data-price="${item.fullPrice}" data-portion="یک پرس">+</button>
+                    `}
+                `;
+                
+                // اضافه کردن رویداد به دکمه‌های اضافه به سبد خرید
+                itemElement.querySelectorAll('.add-to-cart').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const itemName = this.getAttribute('data-name');
+                        const price = parseInt(this.getAttribute('data-price'));
+                        const portionType = this.getAttribute('data-portion');
+                        addToCart(itemName, price, portionType);
+                    });
+                });
+                
+                menuItems.appendChild(itemElement);
+            });
         }
-        
-        itemElement.innerHTML = `
-            <img class="item-image" src="${item.image}" alt="${item.name}">
-            <div class="item-name">${item.name}</div>
-            ${item.description ? `<div class="item-description">${item.description}</div>` : ''}
-            ${priceHTML}
-            <button class="add-to-cart" data-name="${item.name}" data-price="${item.fullPrice}" data-portion="یک پرس">+</button>
-        `;
-        
-        const addButton = itemElement.querySelector('.add-to-cart');
-        addButton.addEventListener('click', function() {
-            const itemName = this.getAttribute('data-name');
-            const price = parseInt(this.getAttribute('data-price'));
-            const portionType = this.getAttribute('data-portion');
-            addToCart(itemName, price, portionType);
-        });
-        
-        menuItems.appendChild(itemElement);
-    });
-}
 
         // تابع برای اضافه کردن آیتم به سبد خرید
         function addToCart(name, price, portionType) {
