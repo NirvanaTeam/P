@@ -273,7 +273,6 @@
             border-right: 3px solid #4a5f4d;
             border: 1px solid #f9f9f4;
             position: relative;
-            padding-bottom: 40px;
         }
         
         @keyframes fadeIn {
@@ -316,6 +315,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .price-option:last-child {
+            border-bottom: none;
         }
         
         .price-label {
@@ -329,32 +334,43 @@
             font-size: 14px;
         }
         
+        .add-to-cart-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        
         .add-to-cart {
-            position: absolute;
-            left: 10px;
-            bottom: 10px;
             background-color: #4a5f4d;
             color: #f9f9f4;
             border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            padding: 8px 12px;
+            border-radius: 5px;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 14px;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            flex: 1;
+            justify-content: center;
         }
         
         .add-to-cart:hover {
-            background-color: #f9f9f4;
-            color: #4a5f4d;
+            background-color: #3a4f3d;
         }
         
         .add-to-cart-half {
-            left: 50px !important;
-            background-color: #6c757d !important;
+            margin-left: 5px;
+            background-color: #6c757d;
+        }
+        
+        .add-to-cart-half:hover {
+            background-color: #5a6268;
+        }
+        
+        .add-to-cart i {
+            font-size: 16px;
         }
         
         .cafe-logo {
@@ -554,6 +570,11 @@
             
             .cart-sidebar {
                 width: 300px;
+            }
+            
+            .add-to-cart {
+                padding: 6px 8px;
+                font-size: 12px;
             }
         }
         
@@ -812,8 +833,10 @@
                 itemElement.className = 'menu-item';
                 itemElement.style.animationDelay = `${index * 0.1}s`;
                 
-                // ایجاد HTML برای نمایش قیمت‌ها بر اساس وجود halfPrice
+                // ایجاد HTML برای نمایش قیمت‌ها و دکمه‌های اضافه به سبد خرید
                 let priceHTML = '';
+                let buttonsHTML = '';
+                
                 if (item.halfPrice) {
                     priceHTML = `
                         <div class="item-price-container">
@@ -827,12 +850,31 @@
                             </div>
                         </div>
                     `;
+                    
+                    buttonsHTML = `
+                        <div class="add-to-cart-container">
+                            <button class="add-to-cart add-to-cart-half" data-name="${item.name}" data-price="${item.halfPrice}" data-portion="نیم پرس">
+                                <i class="fas fa-plus"></i> نیم پرس
+                            </button>
+                            <button class="add-to-cart" data-name="${item.name}" data-price="${item.fullPrice}" data-portion="یک پرس">
+                                <i class="fas fa-plus"></i> یک پرس
+                            </button>
+                        </div>
+                    `;
                 } else {
                     priceHTML = `
                         <div class="item-price-container">
                             <div class="price-option">
                                 <span class="price-value">${formatPrice(item.fullPrice)} تومان</span>
                             </div>
+                        </div>
+                    `;
+                    
+                    buttonsHTML = `
+                        <div class="add-to-cart-container">
+                            <button class="add-to-cart" data-name="${item.name}" data-price="${item.fullPrice}" data-portion="یک پرس">
+                                <i class="fas fa-plus"></i> افزودن به سبد خرید
+                            </button>
                         </div>
                     `;
                 }
@@ -842,12 +884,7 @@
                     <div class="item-name">${item.name}</div>
                     ${item.description ? `<div class="item-description">${item.description}</div>` : ''}
                     ${priceHTML}
-                    ${item.halfPrice ? `
-                        <button class="add-to-cart add-to-cart-half" data-name="${item.name}" data-price="${item.halfPrice}" data-portion="نیم پرس">+</button>
-                        <button class="add-to-cart" data-name="${item.name}" data-price="${item.fullPrice}" data-portion="یک پرس">+</button>
-                    ` : `
-                        <button class="add-to-cart" data-name="${item.name}" data-price="${item.fullPrice}" data-portion="یک پرس">+</button>
-                    `}
+                    ${buttonsHTML}
                 `;
                 
                 // اضافه کردن رویداد به دکمه‌های اضافه به سبد خرید
@@ -883,6 +920,7 @@
             
             updateCart();
             
+            // انیمیشن برای سبد خرید
             cartIcon.style.transform = 'scale(1.2)';
             setTimeout(() => {
                 cartIcon.style.transform = 'scale(1)';
@@ -917,6 +955,7 @@
             
             cartTotal.textContent = `مجموع: ${formatPrice(total)} تومان`;
             
+            // اضافه کردن رویداد به دکمه‌های کم و زیاد کردن تعداد
             document.querySelectorAll('.cart-item-btn').forEach(button => {
                 button.addEventListener('click', function() {
                     const index = parseInt(this.getAttribute('data-index'));
@@ -1070,6 +1109,7 @@
                 const encodedMessage = encodeURIComponent(message);
                 window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
                 
+                // ریست فرم
                 customerName.value = '';
                 customerAddress.value = '';
                 orderForm.classList.remove('active');
