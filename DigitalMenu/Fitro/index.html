@@ -103,10 +103,10 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end; /* تغییر این خط */
+            justify-content: flex-end; /* محتوا را به پایین می‌چسباند */
             align-items: center;
             padding: 20px;
-            padding-bottom: 30px; /* کاهش این مقدار */
+            padding-bottom: 35px; /* مقدار متوسط بین دو حالت قبلی */
             opacity: 0;
             transition: opacity 0.5s;
         }
@@ -195,13 +195,12 @@
             }
             
             .content {
-                padding: 15px;
-                padding-bottom: 30px;
-                justify-content: flex-end;
+                justify-content: flex-end; /* باقی می‌ماند */
+                padding-bottom: 25px; /* کمی کمتر از دسکتاپ */
             }
             
             .main-content {
-                max-width: 100%;
+                margin-bottom: 10px; /* فاصله کنترل شده از پایین */
             }
             
             .nav-container {
@@ -226,7 +225,7 @@
         }
         
         /* برای صفحه‌های خیلی کوچک (مثل موبایل‌های قدیمی) */
-        @media (max-width: 768px) {
+        @media (max-width: 480px) {
             .loading-logo {
                 width: 80px;
                 height: 80px;
@@ -238,8 +237,7 @@
             }
             
             .content {
-                padding-bottom: 20px; /* مقدار کمتر برای موبایل */
-                justify-content: center; /* تغییر این خط برای وسط چین شدن عمودی */
+                padding-bottom: 20px;
             }
             
             .nav-container {
