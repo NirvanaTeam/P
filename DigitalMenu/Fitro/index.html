@@ -103,10 +103,10 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end; /* تغییر این خط برای انتقال به پایین */
+            justify-content: flex-end;
             align-items: center;
             padding: 20px;
-            padding-bottom: 50px; /* فاصله از پایین صفحه */
+            padding-bottom: 50px;
             opacity: 0;
             transition: opacity 0.5s;
         }
@@ -123,85 +123,168 @@
             max-width: 500px;
         }
         
-.nav-container {
-    background-color: rgba(255, 255, 255, 0.15); /* شفافیت بیشتر */
-    border-radius: 20px;
-    padding: 15px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    backdrop-filter: blur(16px); /* مقدار بلور بیشتر */
-    -webkit-backdrop-filter: blur(16px); /* برای پشتیبانی مرورگرهای وبکیت */
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18); /* سایه نرم‌تر */
-    border: 1px solid rgba(255, 255, 255, 0.3); /* حاشیه نیمه شفاف */
-    overflow: hidden; /* برای جلوگیری از بیرون زدن محتوا */
-    position: relative; /* برای افکت‌های اضافی */
-}
+        .nav-container {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 15px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            overflow: hidden;
+            position: relative;
+        }
 
-/* افکت نور پس‌زمینه برای جلوه شیشه‌ای بیشتر */
-.nav-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
-    z-index: -1;
-    border-radius: inherit;
-}
+        .nav-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+            z-index: -1;
+            border-radius: inherit;
+        }
 
-.nav-btn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: white;
-    text-decoration: none;
-    font-size: 0.95rem;
-    transition: all 0.3s ease;
-    padding: 10px 15px;
-    border-radius: 15px;
-    flex: 1;
-    min-width: calc(50% - 10px);
-    margin: 5px;
-    background-color: rgba(250, 205, 0, 0.7); /* شفافیت برای دکمه */
-    backdrop-filter: blur(8px); /* بلور برای دکمه */
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.2); /* حاشیه نیمه شفاف */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
+        .nav-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            padding: 10px 15px;
+            border-radius: 15px;
+            flex: 1;
+            min-width: calc(50% - 10px);
+            margin: 5px;
+            background-color: rgba(250, 205, 0, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
 
-.nav-btn:hover {
-    background-color: rgba(250, 205, 0, 0.9); /* کمی مات‌تر هنگام هاور */
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-}
+        .nav-btn:hover {
+            background-color: rgba(250, 205, 0, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        }
         
         .nav-btn i {
             font-size: 1.6rem;
             margin-bottom: 8px;
         }
         
-        /* نسخه موبایل */
+        /* نسخه موبایل - تغییرات اساسی برای ریسپانسیو بودن */
         @media (max-width: 768px) {
+            .loading-logo {
+                width: 100px;
+                height: 100px;
+                margin-bottom: 20px;
+            }
+            
+            .loading-bar-container {
+                width: 180px;
+            }
+            
             .content {
-                padding-bottom: 30px; /* فاصله کمتر در موبایل */
+                padding: 15px;
+                padding-bottom: 30px;
+                justify-content: flex-end;
+            }
+            
+            .main-content {
+                max-width: 100%;
             }
             
             .nav-container {
-                padding: 12px;
+                padding: 10px;
+                border-radius: 15px;
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
             }
             
             .nav-btn {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
                 padding: 8px 10px;
                 min-width: calc(50% - 8px);
                 margin: 4px;
+                border-radius: 12px;
             }
             
             .nav-btn i {
-                font-size: 1.4rem;
+                font-size: 1.3rem;
+                margin-bottom: 6px;
+            }
+        }
+        
+        /* برای صفحه‌های خیلی کوچک (مثل موبایل‌های قدیمی) */
+        @media (max-width: 480px) {
+            .loading-logo {
+                width: 80px;
+                height: 80px;
+                margin-bottom: 15px;
+            }
+            
+            .loading-bar-container {
+                width: 160px;
+            }
+            
+            .content {
+                padding: 10px;
+                padding-bottom: 20px;
+            }
+            
+            .nav-container {
+                padding: 8px;
+                border-radius: 12px;
+            }
+            
+            .nav-btn {
+                font-size: 0.8rem;
+                padding: 6px 8px;
+                min-width: calc(50% - 6px);
+                margin: 3px;
+                border-radius: 10px;
+            }
+            
+            .nav-btn i {
+                font-size: 1.2rem;
+                margin-bottom: 5px;
+            }
+        }
+        
+        /* برای حالت landscape در موبایل */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .content {
+                padding-bottom: 15px;
+                justify-content: center;
+            }
+            
+            .nav-container {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            
+            .nav-btn {
+                min-width: calc(25% - 8px);
+                padding: 5px 8px;
+            }
+            
+            .nav-btn i {
+                font-size: 1.1rem;
+                margin-bottom: 4px;
+            }
+            
+            .nav-btn span {
+                font-size: 0.75rem;
             }
         }
     </style>
@@ -252,26 +335,21 @@
             const loadingBar = document.getElementById('loadingBar');
             const mainContent = document.getElementById('mainContent');
             
-            // زمان شروع لودینگ
             const startTime = Date.now();
             
-            // شبیه‌سازی پیشرفت بارگذاری
             let progress = 0;
             const loadingInterval = setInterval(() => {
-                // محاسبه زمان سپری شده
                 const elapsed = Date.now() - startTime;
-                progress = Math.min(100, (elapsed / 3000) * 100); // 3 ثانیه = 3000 میلی‌ثانیه
+                progress = Math.min(100, (elapsed / 3000) * 100);
                 
                 loadingBar.style.width = progress + '%';
                 
-                // بعد از 3 ثانیه صفحه لودینگ را مخفی می‌کنیم
                 if (elapsed >= 3000) {
                     clearInterval(loadingInterval);
                     hideLoadingScreen();
                 }
             }, 30);
             
-            // مخفی کردن صفحه لودینگ
             function hideLoadingScreen() {
                 loadingScreen.style.opacity = '0';
                 
