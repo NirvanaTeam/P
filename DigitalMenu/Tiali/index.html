@@ -81,7 +81,7 @@
             transition: width 0.3s;
         }
         
-        /* صفحه اصلی با ویدیو بکگراند */
+        /* صفحه اصلی با ویدیو بکگراند بهینه‌شده */
         .video-container {
             position: fixed;
             top: 0;
@@ -93,18 +93,21 @@
         }
         
         .video-container video {
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            
+            /* برای iOS */
+            object-fit: cover;
             opacity: 0.8;
         }
         
-        /* محتوای اصلی با تنظیمات جدید برای دکمه‌ها */
+        /* محتوای اصلی با تنظیمات دقیق موقعیت */
         .content {
             height: 100vh;
             display: flex;
@@ -112,7 +115,7 @@
             justify-content: flex-end;
             align-items: center;
             padding: 20px;
-            padding-bottom: 60px; /* افزایش فاصله از پایین برای موبایل */
+            padding-bottom: 40px; /* کاهش فاصله از پایین به 40px (حدود 2cm) */
             opacity: 0;
             transition: opacity 0.5s;
         }
@@ -127,7 +130,6 @@
             align-items: center;
             width: 100%;
             max-width: 500px;
-            margin-bottom: 20px; /* فاصله اضافه از پایین */
         }
         
         .nav-container {
@@ -189,7 +191,7 @@
             margin-bottom: 8px;
         }
         
-        /* نسخه موبایل با تنظیمات جدید */
+        /* نسخه موبایل با تنظیمات دقیق */
         @media (max-width: 768px) {
             .loading-logo {
                 width: 100px;
@@ -202,11 +204,7 @@
             }
             
             .content {
-                padding-bottom: 50px; /* افزایش فاصله از پایین برای موبایل */
-            }
-            
-            .main-content {
-                margin-bottom: 15px; /* فاصله بیشتر از پایین */
+                padding-bottom: 35px; /* کاهش فاصله از پایین به 35px برای موبایل */
             }
             
             .nav-container {
@@ -240,7 +238,7 @@
             }
             
             .content {
-                padding-bottom: 45px; /* افزایش بیشتر فاصله از پایین برای موبایل‌های کوچک */
+                padding-bottom: 30px; /* کاهش فاصله از پایین به 30px برای موبایل‌های کوچک */
             }
             
             .nav-container {
@@ -301,9 +299,9 @@
         </div>
     </div>
     
-    <!-- صفحه اصلی با ویدیو بکگراند -->
+    <!-- صفحه اصلی با ویدیو بکگراند بهینه‌شده -->
     <div class="video-container">
-        <video autoplay muted loop id="bgVideo">
+        <video autoplay muted loop playsinline id="bgVideo">
             <source src="background.mp4" type="video/mp4">
             مرورگر شما از ویدیو پشتیبانی نمی‌کند.
         </video>
@@ -339,8 +337,23 @@
             const mainContent = document.getElementById('mainContent');
             const bgVideo = document.getElementById('bgVideo');
             
-            // شروع پخش ویدیو پس از لود شدن صفحه
-            bgVideo.play().catch(e => console.log('اتوماتیک پخش ویدیو ممکن نیست:', e));
+            // حل مشکل پخش خودکار در iOS
+            function handleVideoPlay() {
+                const promise = bgVideo.play();
+                
+                if (promise !== undefined) {
+                    promise.catch(error => {
+                        // اگر پخش خودکار شکست خورد، با کلیک کاربر پخش شود
+                        document.body.addEventListener('click', function once() {
+                            bgVideo.play();
+                            document.body.removeEventListener('click', once);
+                        });
+                    });
+                }
+            }
+            
+            // شروع پخش ویدیو
+            handleVideoPlay();
             
             const startTime = Date.now();
             
