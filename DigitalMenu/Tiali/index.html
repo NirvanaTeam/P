@@ -37,7 +37,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(78, 41, 22, 0.9); /* رنگ #4E2916 با شفافیت */
+            background-color: rgba(78, 41, 22, 0.9);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -81,27 +81,30 @@
             transition: width 0.3s;
         }
         
-        /* صفحه اصلی */
-        .image-container {
+        /* صفحه اصلی با ویدیو بکگراند */
+        .video-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #000;
+            overflow: hidden;
         }
         
-        .image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .video-container video {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             opacity: 0.8;
         }
         
+        /* محتوای اصلی با تنظیمات جدید برای دکمه‌ها */
         .content {
             height: 100vh;
             display: flex;
@@ -109,7 +112,7 @@
             justify-content: flex-end;
             align-items: center;
             padding: 20px;
-            padding-bottom: 35px;
+            padding-bottom: 60px; /* افزایش فاصله از پایین برای موبایل */
             opacity: 0;
             transition: opacity 0.5s;
         }
@@ -124,10 +127,11 @@
             align-items: center;
             width: 100%;
             max-width: 500px;
+            margin-bottom: 20px; /* فاصله اضافه از پایین */
         }
         
         .nav-container {
-            background-color: rgba(16, 67, 34, 0.8); /* رنگ #104322 با شفافیت */
+            background-color: rgba(16, 67, 34, 0.8);
             border-radius: 20px;
             padding: 15px;
             width: 100%;
@@ -137,7 +141,7 @@
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
-            border: 1px solid rgba(147, 154, 113, 0.5); /* رنگ #939A71 با شفافیت */
+            border: 1px solid rgba(147, 154, 113, 0.5);
             overflow: hidden;
             position: relative;
         }
@@ -167,7 +171,7 @@
             flex: 1;
             min-width: calc(50% - 10px);
             margin: 5px;
-            background-color: rgba(147, 154, 113, 0.7); /* رنگ #939A71 با شفافیت */
+            background-color: rgba(147, 154, 113, 0.7);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -175,7 +179,7 @@
         }
 
         .nav-btn:hover {
-            background-color: rgba(147, 154, 113, 0.9); /* رنگ #939A71 با شفافیت بیشتر */
+            background-color: rgba(147, 154, 113, 0.9);
             transform: translateY(-2px);
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
         }
@@ -185,7 +189,7 @@
             margin-bottom: 8px;
         }
         
-        /* نسخه موبایل */
+        /* نسخه موبایل با تنظیمات جدید */
         @media (max-width: 768px) {
             .loading-logo {
                 width: 100px;
@@ -198,7 +202,11 @@
             }
             
             .content {
-                padding-bottom: 25px;
+                padding-bottom: 50px; /* افزایش فاصله از پایین برای موبایل */
+            }
+            
+            .main-content {
+                margin-bottom: 15px; /* فاصله بیشتر از پایین */
             }
             
             .nav-container {
@@ -232,7 +240,7 @@
             }
             
             .content {
-                padding-bottom: 20px;
+                padding-bottom: 45px; /* افزایش بیشتر فاصله از پایین برای موبایل‌های کوچک */
             }
             
             .nav-container {
@@ -256,7 +264,7 @@
         
         @media (max-height: 500px) and (orientation: landscape) {
             .content {
-                padding-bottom: 15px;
+                padding-bottom: 20px;
                 justify-content: center;
             }
             
@@ -293,9 +301,12 @@
         </div>
     </div>
     
-    <!-- صفحه اصلی -->
-    <div class="image-container">
-        <img src="bg.jpg" alt="پس‌زمینه کافه Tiali Pastry" id="bgImage">
+    <!-- صفحه اصلی با ویدیو بکگراند -->
+    <div class="video-container">
+        <video autoplay muted loop id="bgVideo">
+            <source src="background.mp4" type="video/mp4">
+            مرورگر شما از ویدیو پشتیبانی نمی‌کند.
+        </video>
     </div>
     
     <div class="content" id="mainContent">
@@ -326,6 +337,10 @@
             const loadingScreen = document.getElementById('loadingScreen');
             const loadingBar = document.getElementById('loadingBar');
             const mainContent = document.getElementById('mainContent');
+            const bgVideo = document.getElementById('bgVideo');
+            
+            // شروع پخش ویدیو پس از لود شدن صفحه
+            bgVideo.play().catch(e => console.log('اتوماتیک پخش ویدیو ممکن نیست:', e));
             
             const startTime = Date.now();
             
