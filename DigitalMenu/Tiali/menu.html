@@ -349,7 +349,8 @@
         .cart-items {
             flex: 1;
             overflow-y: auto;
-            margin-bottom: 20px;
+            margin-bottom: 10px; /* کاهش margin برای فضای بیشتر */
+            max-height: calc(100vh - 200px); /* محدودیت ارتفاع برای اسکرول */
         }
         
         .cart-item {
@@ -416,6 +417,9 @@
             background-color: #f9f9f9;
             border-radius: 10px;
             border: 1px solid #ddd;
+            position: sticky; /* ثابت ماندن در پایین */
+            bottom: 10px;
+            margin-top: auto; /* فشار دادن به پایین */
         }
         
         .cart-total {
