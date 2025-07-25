@@ -6,6 +6,8 @@
     <title>منوی رستوران</title>
     <!-- اضافه کردن فونت Vazir -->
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
+    <!-- اضافه کردن Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @font-face {
             font-family: 'ZFont';
@@ -244,7 +246,13 @@
             margin-bottom: 30px;
         }
 
-        .start-button {
+        .welcome-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .start-button, .instagram-button {
             background-color: #0094DA;
             color: #fff;
             border: none;
@@ -253,20 +261,40 @@
             border-radius: 30px;
             cursor: pointer;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .instagram-button {
+            background-color: #E1306C;
         }
 
         .start-button:hover {
             background-color: #007bb5;
             transform: scale(1.05);
         }
+
+        .instagram-button:hover {
+            background-color: #C13584;
+            transform: scale(1.05);
+        }
         
         /* Image styles */
+        .item-image-container {
+            width: 100%;
+            aspect-ratio: 9/16;
+            margin-bottom: 10px;
+            overflow: hidden;
+            border-radius: 8px;
+            position: relative;
+        }
+        
         .item-image {
             width: 100%;
-            height: 150px;
+            height: 100%;
             object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 10px;
             cursor: pointer;
             transition: transform 0.3s ease;
         }
@@ -287,18 +315,22 @@
             z-index: 2000;
             justify-content: center;
             align-items: center;
+            cursor: pointer;
         }
         
         .modal-content {
             position: relative;
             max-width: 90%;
             max-height: 90%;
+            cursor: default;
         }
         
         .modal-image {
             max-width: 100%;
             max-height: 80vh;
             border-radius: 8px;
+            aspect-ratio: 9/16;
+            object-fit: cover;
         }
         
         .close-modal {
@@ -368,10 +400,6 @@
             .welcome-message {
                 font-size: 16px;
             }
-            
-            .item-image {
-                height: 120px;
-            }
         }
         
         @media (max-width: 480px) {
@@ -388,9 +416,14 @@
             .menu-items {
                 grid-template-columns: 1fr;
             }
-            
-            .item-image {
-                height: 100px;
+
+            .welcome-buttons {
+                gap: 10px;
+            }
+
+            .start-button, .instagram-button {
+                padding: 10px 20px;
+                font-size: 14px;
             }
         }
     </style>
@@ -401,7 +434,16 @@
         <div class="welcome-content">
             <h2 class="welcome-title">اهلا وسهلا بکم</h2>
             <p class="welcome-message">برای شروع دکمه زیر را بزنید</p>
-            <button class="start-button" id="startButton">مشاهده منو</button>
+            <div class="welcome-buttons">
+                <button class="start-button" id="startButton">
+                    <i class="fas fa-utensils"></i>
+                    مشاهده منو
+                </button>
+                <button class="instagram-button" id="instagramButton">
+                    <i class="fab fa-instagram"></i>
+                    اینستاگرام ما
+                </button>
+            </div>
         </div>
     </div>
 
@@ -515,6 +557,7 @@
         const itemsTitle = document.querySelector('.items-title');
         const welcomePopup = document.getElementById('welcomePopup');
         const startButton = document.getElementById('startButton');
+        const instagramButton = document.getElementById('instagramButton');
         const backgroundMusic = document.getElementById('backgroundMusic');
         const imageModal = document.getElementById('imageModal');
         const modalImage = document.getElementById('modalImage');
@@ -586,7 +629,9 @@
                     }
                     
                     itemElement.innerHTML = `
-                        <img src="${item.image}" alt="${item.name}" class="item-image" data-image="${item.image}">
+                        <div class="item-image-container">
+                            <img src="${item.image}" alt="${item.name}" class="item-image" data-image="${item.image}">
+                        </div>
                         <div class="item-name">${item.name}</div>
                         ${item.description ? `<div class="item-description">${item.description}</div>` : ''}
                         ${priceContent}
@@ -597,7 +642,8 @@
             
             // Add click event to all images
             document.querySelectorAll('.item-image').forEach(img => {
-                img.addEventListener('click', function() {
+                img.addEventListener('click', function(e) {
+                    e.stopPropagation();
                     modalImage.src = this.src;
                     modalImage.alt = this.alt;
                     imageModal.style.display = 'flex';
@@ -606,15 +652,14 @@
         }
 
         // Close modal when clicking the close button
-        closeModal.addEventListener('click', function() {
+        closeModal.addEventListener('click', function(e) {
+            e.stopPropagation();
             imageModal.style.display = 'none';
         });
 
-        // Close modal when clicking outside the image
-        imageModal.addEventListener('click', function(e) {
-            if (e.target === imageModal) {
-                imageModal.style.display = 'none';
-            }
+        // Close modal when clicking anywhere
+        imageModal.addEventListener('click', function() {
+            imageModal.style.display = 'none';
         });
 
         // Start button functionality
@@ -627,6 +672,11 @@
             
             // Show menu
             document.querySelector('.menu-container').style.display = 'flex';
+        });
+
+        // Instagram button functionality
+        instagramButton.addEventListener('click', () => {
+            window.open('https://instagram.com/zaatar_lebanese', '_blank');
         });
 
         // Initially hide the menu until start button is clicked
