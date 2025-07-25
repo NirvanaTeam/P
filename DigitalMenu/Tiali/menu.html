@@ -820,7 +820,7 @@
         window.addToCart = function(category, name, price, image) {
             // بررسی وجود آیتم در سبد خرید
             const existingItem = cart.find(item => item.name === name);
-            
+    
             if (existingItem) {
                 existingItem.quantity += 1;
             } else {
@@ -832,7 +832,7 @@
                     quantity: 1
                 });
             }
-            
+    
             updateCart();
         };
 
