@@ -101,21 +101,18 @@
             min-height: 100%;
             width: auto;
             height: auto;
-            
-            /* برای iOS */
             object-fit: cover;
             opacity: 0.8;
         }
         
-        /* محتوای اصلی با تنظیمات دقیق موقعیت */
+        /* محتوای اصلی با تنظیمات جدید */
         .content {
             height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
+            justify-content: center; /* تغییر از flex-end به center */
             align-items: center;
             padding: 20px;
-            padding-bottom: 40px; /* کاهش فاصله از پایین به 40px (حدود 2cm) */
             opacity: 0;
             transition: opacity 0.5s;
         }
@@ -130,6 +127,8 @@
             align-items: center;
             width: 100%;
             max-width: 500px;
+            margin-top: auto; /* اضافه شده برای تنظیم موقعیت */
+            margin-bottom: 20px; /* فاصله از پایین */
         }
         
         .nav-container {
@@ -171,13 +170,14 @@
             padding: 10px 15px;
             border-radius: 15px;
             flex: 1;
-            min-width: calc(50% - 10px);
+            min-width: calc(33.33% - 10px); /* تغییر به 3 دکمه در هر ردیف */
             margin: 5px;
             background-color: rgba(147, 154, 113, 0.7);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
 
         .nav-btn:hover {
@@ -191,7 +191,25 @@
             margin-bottom: 8px;
         }
         
-        /* نسخه موبایل با تنظیمات دقیق */
+        /* استایل مخصوص دکمه باشگاه مشتریان */
+        .discount-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #ff5722;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* نسخه موبایل */
         @media (max-width: 768px) {
             .loading-logo {
                 width: 100px;
@@ -204,7 +222,11 @@
             }
             
             .content {
-                padding-bottom: 35px; /* کاهش فاصله از پایین به 35px برای موبایل */
+                padding: 15px;
+            }
+            
+            .main-content {
+                margin-bottom: 15px;
             }
             
             .nav-container {
@@ -215,7 +237,7 @@
             .nav-btn {
                 font-size: 0.85rem;
                 padding: 8px 10px;
-                min-width: calc(50% - 8px);
+                min-width: calc(50% - 8px); /* 2 دکمه در هر ردیف در موبایل */
                 margin: 4px;
                 border-radius: 12px;
             }
@@ -223,6 +245,14 @@
             .nav-btn i {
                 font-size: 1.3rem;
                 margin-bottom: 6px;
+            }
+            
+            .discount-badge {
+                width: 20px;
+                height: 20px;
+                font-size: 10px;
+                top: -6px;
+                right: -6px;
             }
         }
         
@@ -238,7 +268,7 @@
             }
             
             .content {
-                padding-bottom: 30px; /* کاهش فاصله از پایین به 30px برای موبایل‌های کوچک */
+                padding: 10px;
             }
             
             .nav-container {
@@ -260,29 +290,36 @@
             }
         }
         
+        @media (max-height: 600px) {
+            .main-content {
+                margin-bottom: 10px;
+            }
+        }
+        
         @media (max-height: 500px) and (orientation: landscape) {
             .content {
-                padding-bottom: 20px;
-                justify-content: center;
+                padding: 5px;
+                justify-content: flex-start;
             }
             
             .nav-container {
-                max-width: 400px;
-                margin: 0 auto;
+                max-width: 100%;
+                margin: 5px auto;
             }
             
             .nav-btn {
-                min-width: calc(25% - 8px);
-                padding: 5px 8px;
+                min-width: calc(25% - 6px);
+                padding: 5px;
+                margin: 3px;
             }
             
             .nav-btn i {
-                font-size: 1.1rem;
+                font-size: 1rem;
                 margin-bottom: 4px;
             }
             
             .nav-btn span {
-                font-size: 0.75rem;
+                font-size: 0.7rem;
             }
         }
     </style>
@@ -299,7 +336,7 @@
         </div>
     </div>
     
-    <!-- صفحه اصلی با ویدیو بکگراند بهینه‌شده -->
+    <!-- صفحه اصلی با ویدیو بکگراند -->
     <div class="video-container">
         <video autoplay muted loop playsinline id="bgVideo">
             <source src="background.mp4" type="video/mp4">
@@ -326,6 +363,15 @@
                     <i class="fas fa-phone"></i>
                     <span>تماس با ما</span>
                 </a>
+                <a href="https://tiali.ir" class="nav-btn" target="_blank">
+                    <i class="fas fa-globe"></i>
+                    <span>وبسایت تیالی</span>
+                </a>
+                <a href="tel:*6655*88411*#" class="nav-btn">
+                    <i class="fas fa-star"></i>
+                    <span>باشگاه مشتریان</span>
+                    <div class="discount-badge">تخفیف</div>
+                </a>
             </div>
         </div>
     </div>
@@ -343,7 +389,6 @@
                 
                 if (promise !== undefined) {
                     promise.catch(error => {
-                        // اگر پخش خودکار شکست خورد، با کلیک کاربر پخش شود
                         document.body.addEventListener('click', function once() {
                             bgVideo.play();
                             document.body.removeEventListener('click', once);
