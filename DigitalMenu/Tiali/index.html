@@ -81,7 +81,7 @@
             transition: width 0.3s;
         }
         
-        /* صفحه اصلی با ویدیو بکگراند بهینه‌شده */
+        /* صفحه اصلی با ویدیو بکگراند */
         .video-container {
             position: fixed;
             top: 0;
@@ -105,106 +105,66 @@
             opacity: 0.8;
         }
         
-        /* محتوای اصلی با تنظیمات جدید */
-        .content {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center; /* تغییر از flex-end به center */
-            align-items: center;
-            padding: 20px;
-            opacity: 0;
-            transition: opacity 0.5s;
-        }
-        
-        .content.show {
-            opacity: 1;
-        }
-        
-        .main-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            max-width: 500px;
-            margin-top: auto; /* اضافه شده برای تنظیم موقعیت */
-            margin-bottom: 20px; /* فاصله از پایین */
-        }
-        
+        /* نوار دکمه‌های ثابت در پایین صفحه */
         .nav-container {
-            background-color: rgba(16, 67, 34, 0.8);
-            border-radius: 20px;
-            padding: 15px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
             width: 100%;
+            background: linear-gradient(to top, rgba(16, 67, 34, 0.95), rgba(16, 67, 34, 0.85));
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(147, 154, 113, 0.5);
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.3);
+            padding: 10px 15px;
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
-            border: 1px solid rgba(147, 154, 113, 0.5);
-            overflow: hidden;
-            position: relative;
-        }
-
-        .nav-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
-            z-index: -1;
-            border-radius: inherit;
+            z-index: 100;
         }
 
         .nav-btn {
             display: flex;
             flex-direction: column;
             align-items: center;
-            color: white;
+            color: #fff;
             text-decoration: none;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
-            padding: 10px 15px;
-            border-radius: 15px;
+            padding: 8px 10px;
+            border-radius: 12px;
             flex: 1;
-            min-width: calc(33.33% - 10px); /* تغییر به 3 دکمه در هر ردیف */
-            margin: 5px;
+            min-width: calc(20% - 10px);
+            margin: 3px;
             background-color: rgba(147, 154, 113, 0.7);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            position: relative;
         }
 
-        .nav-btn:hover {
+        .nav-btn:hover, .nav-btn:active {
             background-color: rgba(147, 154, 113, 0.9);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+            transform: translateY(-3px);
         }
         
         .nav-btn i {
-            font-size: 1.6rem;
-            margin-bottom: 8px;
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+            color: #fff;
         }
         
         /* استایل مخصوص دکمه باشگاه مشتریان */
         .discount-badge {
             position: absolute;
-            top: -8px;
-            right: -8px;
-            background-color: #ff5722;
+            top: -5px;
+            right: -5px;
+            background-color: #e91e63;
             color: white;
             border-radius: 50%;
-            width: 24px;
-            height: 24px;
+            width: 20px;
+            height: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: bold;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
@@ -221,38 +181,26 @@
                 width: 180px;
             }
             
-            .content {
-                padding: 15px;
-            }
-            
-            .main-content {
-                margin-bottom: 15px;
-            }
-            
             .nav-container {
-                padding: 10px;
-                border-radius: 15px;
+                padding: 8px 10px;
             }
             
             .nav-btn {
-                font-size: 0.85rem;
-                padding: 8px 10px;
-                min-width: calc(50% - 8px); /* 2 دکمه در هر ردیف در موبایل */
-                margin: 4px;
-                border-radius: 12px;
+                font-size: 0.8rem;
+                padding: 6px 8px;
+                min-width: calc(25% - 8px);
+                margin: 2px;
             }
             
             .nav-btn i {
-                font-size: 1.3rem;
-                margin-bottom: 6px;
+                font-size: 1.2rem;
+                margin-bottom: 4px;
             }
             
             .discount-badge {
-                width: 20px;
-                height: 20px;
+                width: 18px;
+                height: 18px;
                 font-size: 10px;
-                top: -6px;
-                right: -6px;
             }
         }
         
@@ -267,59 +215,38 @@
                 width: 160px;
             }
             
-            .content {
-                padding: 10px;
-            }
-            
             .nav-container {
-                padding: 8px;
-                border-radius: 12px;
-            }
-            
-            .nav-btn {
-                font-size: 0.8rem;
                 padding: 6px 8px;
-                min-width: calc(50% - 6px);
-                margin: 3px;
-                border-radius: 10px;
-            }
-            
-            .nav-btn i {
-                font-size: 1.2rem;
-                margin-bottom: 5px;
-            }
-        }
-        
-        @media (max-height: 600px) {
-            .main-content {
-                margin-bottom: 10px;
-            }
-        }
-        
-        @media (max-height: 500px) and (orientation: landscape) {
-            .content {
-                padding: 5px;
-                justify-content: flex-start;
-            }
-            
-            .nav-container {
-                max-width: 100%;
-                margin: 5px auto;
             }
             
             .nav-btn {
-                min-width: calc(25% - 6px);
-                padding: 5px;
-                margin: 3px;
+                font-size: 0.7rem;
+                padding: 5px 6px;
+                min-width: calc(33.33% - 6px);
             }
             
             .nav-btn i {
                 font-size: 1rem;
-                margin-bottom: 4px;
+                margin-bottom: 3px;
+            }
+        }
+        
+        @media (max-height: 500px) and (orientation: landscape) {
+            .nav-container {
+                padding: 5px;
+            }
+            
+            .nav-btn {
+                min-width: calc(20% - 6px);
+                padding: 4px;
+            }
+            
+            .nav-btn i {
+                font-size: 0.9rem;
             }
             
             .nav-btn span {
-                font-size: 0.7rem;
+                font-size: 0.6rem;
             }
         }
     </style>
@@ -344,43 +271,39 @@
         </video>
     </div>
     
-    <div class="content" id="mainContent">
-        <div class="main-content">
-            <div class="nav-container">
-                <a href="https://instagram.com/tiali.pastry" class="nav-btn" target="_blank">
-                    <i class="fab fa-instagram"></i>
-                    <span>اینستاگرام</span>
-                </a>
-                <a href="menu.html" class="nav-btn">
-                    <i class="fas fa-clipboard-list"></i>
-                    <span>منو</span>
-                </a>
-                <a href="https://www.google.com/maps?q=36.2025115,49.1887941" class="nav-btn" target="_blank">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>لوکیشن</span>
-                </a>
-                <a href="tel:09022423538" class="nav-btn">
-                    <i class="fas fa-phone"></i>
-                    <span>تماس با ما</span>
-                </a>
-                <a href="https://tiali.ir" class="nav-btn" target="_blank">
-                    <i class="fas fa-globe"></i>
-                    <span>وبسایت تیالی</span>
-                </a>
-                <a href="tel:*6655*88411*#" class="nav-btn">
-                    <i class="fas fa-star"></i>
-                    <span>باشگاه مشتریان</span>
-                    <div class="discount-badge">تخفیف</div>
-                </a>
-            </div>
-        </div>
+    <!-- نوار دکمه‌های ثابت در پایین صفحه -->
+    <div class="nav-container">
+        <a href="https://instagram.com/tiali.pastry" class="nav-btn" target="_blank">
+            <i class="fab fa-instagram"></i>
+            <span>اینستاگرام</span>
+        </a>
+        <a href="menu.html" class="nav-btn">
+            <i class="fas fa-clipboard-list"></i>
+            <span>منو</span>
+        </a>
+        <a href="https://www.google.com/maps?q=36.2025115,49.1887941" class="nav-btn" target="_blank">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>لوکیشن</span>
+        </a>
+        <a href="tel:09022423538" class="nav-btn">
+            <i class="fas fa-phone"></i>
+            <span>تماس با ما</span>
+        </a>
+        <a href="https://tiali.ir" class="nav-btn" target="_blank">
+            <i class="fas fa-globe"></i>
+            <span>وبسایت</span>
+        </a>
+        <a href="tel:*6655*88411*#" class="nav-btn">
+            <i class="fas fa-star"></i>
+            <span>باشگاه مشتریان</span>
+            <div class="discount-badge">تخفیف</div>
+        </a>
     </div>
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const loadingScreen = document.getElementById('loadingScreen');
             const loadingBar = document.getElementById('loadingBar');
-            const mainContent = document.getElementById('mainContent');
             const bgVideo = document.getElementById('bgVideo');
             
             // حل مشکل پخش خودکار در iOS
@@ -420,7 +343,6 @@
                 
                 setTimeout(() => {
                     loadingScreen.style.display = 'none';
-                    mainContent.classList.add('show');
                 }, 500);
             }
         });
