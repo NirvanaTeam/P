@@ -137,6 +137,7 @@
             animation: fadeIn 0.8s forwards;
             border-right: 3px solid #104322;
             border: 1px solid #939A71;
+            position: relative;
         }
         
         @keyframes fadeIn {
@@ -172,7 +173,7 @@
         
         .item-image {
             width: 100%;
-            height: 180px; /* ارتفاع بیشتر برای نسبت 9:16 */
+            height: 180px;
             object-fit: cover;
             object-position: center;
             border-radius: 8px;
@@ -183,6 +184,30 @@
         
         .item-image:hover {
             transform: scale(1.03);
+        }
+        
+        .add-to-cart-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #104322;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+            transition: all 0.3s;
+        }
+        
+        .add-to-cart-btn:hover {
+            background-color: #4E2916;
+            transform: scale(1.1);
         }
         
         .cafe-logo {
@@ -197,7 +222,7 @@
         .cafe-logo img {
             max-width: 150px;
             max-height: 80px;
-            border-radius: 50%; /* کادر گرد برای لوگو */
+            border-radius: 50%;
             border: 3px solid #4E2916;
             padding: 5px;
             object-fit: cover;
@@ -235,6 +260,178 @@
             max-height: 90%;
             border-radius: 8px;
             object-fit: contain;
+        }
+        
+        /* سبد خرید */
+        .cart-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #4E2916;
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .cart-btn:hover {
+            background-color: #104322;
+            transform: scale(1.1);
+        }
+        
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #ff4757;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            left: -400px;
+            width: 350px;
+            height: 100vh;
+            background-color: white;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .cart-sidebar.open {
+            left: 0;
+        }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-title {
+            font-size: 20px;
+            color: #4E2916;
+            font-weight: bold;
+        }
+        
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+        
+        .cart-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #ddd;
+        }
+        
+        .cart-item-image {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-left: 10px;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+        }
+        
+        .cart-item-name {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-price {
+            font-size: 13px;
+            color: #4E2916;
+        }
+        
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+        }
+        
+        .cart-item-quantity {
+            margin: 0 10px;
+            font-size: 14px;
+        }
+        
+        .cart-item-btn {
+            background-color: #104322;
+            color: white;
+            border: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .cart-item-btn:hover {
+            background-color: #4E2916;
+        }
+        
+        .cart-summary {
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+        
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #4E2916;
+        }
+        
+        .empty-cart {
+            text-align: center;
+            color: #666;
+            padding: 20px;
+            font-size: 14px;
         }
         
         @media (max-width: 768px) {
@@ -288,7 +485,11 @@
             }
             
             .item-image {
-                height: 140px; /* ارتفاع کمتر برای موبایل */
+                height: 140px;
+            }
+            
+            .cart-sidebar {
+                width: 300px;
             }
         }
         
@@ -308,13 +509,41 @@
             }
             
             .item-image {
-                height: 200px; /* ارتفاع بیشتر برای نمایش بهتر در موبایل */
+                height: 200px;
+            }
+            
+            .cart-sidebar {
+                width: 280px;
             }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+    <!-- دکمه سبد خرید -->
+    <button class="cart-btn" id="cartBtn">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-badge" id="cartBadge">0</span>
+    </button>
+    
+    <!-- سبد خرید -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <div class="cart-title">سبد خرید</div>
+            <button class="close-cart" id="closeCart">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- آیتم‌های سبد خرید اینجا نمایش داده می‌شوند -->
+            <div class="empty-cart">سبد خرید شما خالی است</div>
+        </div>
+        <div class="cart-summary">
+            <div class="cart-total">
+                <span>جمع کل:</span>
+                <span id="cartTotal">0 تومان</span>
+            </div>
+        </div>
+    </div>
+
     <div class="menu-container">
         <div class="categories-sidebar" id="categoriesSidebar">
             <!-- دسته‌بندی‌ها توسط جاوااسکریپت اضافه می‌شوند -->
@@ -351,156 +580,156 @@
             "شیک‌ها": {
                 english: "SHAKES",
                 items: [
-                    {name: "نوتلا", price: "x تومان", description: "بستنی وانیلی + شیر + نوتلا دستساز 30 درصد فندق", image: "1.jpg"},
-                    {name: "بادام زمینی", price: "x تومان", image: "2.jpg"},
-                    {name: "قهوه", price: "x تومان", image: "3.jpg"},
-                    {name: "انبه", price: "x تومان", image: "4.jpg"},
-                    {name: "طالبی", price: "x تومان", image: "5.jpg"},
-                    {name: "موز شکلات", price: "x تومان", image: "6.jpg"},
-                    {name: "توت فرنگی", price: "x تومان", image: "7.jpg"},
-                    {name: "ماچا", price: "x تومان", image: "8.jpg"},
-                    {name: "معجون", price: "x تومان", description: "بستنی سنتی + شیر + موز + پسته + گردو + پودر نارگیل + کنجد + آناناس", image: "9.jpg"},
-                    {name: "پسته", price: "x تومان", image: "10.jpg"},
-                    {name: "موز توت فرنگی", price: "x تومان", image: "11.jpg"},
-                    {name: "برونی", price: "x تومان", image: "12.jpg"},
-                    {name: "لوتوس", price: "x تومان", image: "13.jpg"}
+                    {name: "نوتلا", price: "1 تومان", description: "بستنی وانیلی + شیر + نوتلا دستساز 30 درصد فندق", image: "1.jpg"},
+                    {name: "بادام زمینی", price: "1 تومان", image: "2.jpg"},
+                    {name: "قهوه", price: "1 تومان", image: "3.jpg"},
+                    {name: "انبه", price: "1 تومان", image: "4.jpg"},
+                    {name: "طالبی", price: "1 تومان", image: "5.jpg"},
+                    {name: "موز شکلات", price: "1 تومان", image: "6.jpg"},
+                    {name: "توت فرنگی", price: "1 تومان", image: "7.jpg"},
+                    {name: "ماچا", price: "1 تومان", image: "8.jpg"},
+                    {name: "معجون", price: "1 تومان", description: "بستنی سنتی + شیر + موز + پسته + گردو + پودر نارگیل + کنجد + آناناس", image: "9.jpg"},
+                    {name: "پسته", price: "1 تومان", image: "10.jpg"},
+                    {name: "موز توت فرنگی", price: "1 تومان", image: "11.jpg"},
+                    {name: "برونی", price: "1 تومان", image: "12.jpg"},
+                    {name: "لوتوس", price: "1 تومان", image: "13.jpg"}
                 ]
             },
             "نوشیدنی‌های گرم": {
                 english: "HOT DRINKS",
                 items: [
-                    {name: "اسپرسو تک", price: "x تومان", description: "قهوه 30-70", image: "14.jpg"},
-                    {name: "اسپرسو دبل", price: "x تومان", description: "قهوه 30-70", image: "15.jpg"},
-                    {name: "لته کلاسیک", price: "x تومان", description: "قهوه اسپرسو دبل + شیر + فوم شیر", image: "16.jpg"},
-                    {name: "لته فندقی", price: "x تومان", description: "قهوه اسپرسو دبل + شیر + فوم شیر + سیروپ فندق", image: "17.jpg"},
-                    {name: "لته پسته", price: "x تومان", description: "قهوه اسپرسو دبل + شیر + فوم شیر + کرم پسته", image: "18.jpg"},
-                    {name: "لته لوتوس", price: "x تومان", description: "قهوه اسپرسو دبل + شیر + فوم شیر + کره لوتوس", image: "19.jpg"},
-                    {name: "کاپوچینو کلاسیک", price: "x تومان", description: "قهوه اسپرسو تک + شیر + فوم شیر", image: "20.jpg"},
-                    {name: "کاپوچینو کاراملی", price: "x تومان", description: "قهوه اسپرسو تک + شیر + فوم شیر + سیروپ کارامل", image: "21.jpg"},
-                    {name: "کورتادو", price: "x تومان", description: "قهوه اسپرسو دبل + شیر + فوم شیر", image: "22.jpg"},
-                    {name: "آمریکانو", price: "x تومان", description: "قهوه اسپرسو تک + آب جوش", image: "23.jpg"},
-                    {name: "نسکافه", price: "x تومان", description: "قهوه اسپرسو تک + شیر + فوم شیر + شکر قهوه‌ای", image: "24.jpg"},
-                    {name: "هات چاکلت", price: "x تومان", description: "شکلات + پودر کاکائو + خامه صبحانه + شیر + فوم شیر", image: "25.jpg"},
-                    {name: "موکاچینو", price: "x تومان", description: "سیروپ شکلات + شیر + فوم شیر + قهوه اسپرسو تک", image: "26.jpg"},
-                    {name: "کارامل ماکیاتو", price: "x تومان", description: "سیروپ وانیل + شیر + فوم شیر + قهوه اسپرسو تک + سس کارامل", image: "27.jpg"}
+                    {name: "اسپرسو تک", price: "1 تومان", description: "قهوه 30-70", image: "14.jpg"},
+                    {name: "اسپرسو دبل", price: "1 تومان", description: "قهوه 30-70", image: "15.jpg"},
+                    {name: "لته کلاسیک", price: "1 تومان", description: "قهوه اسپرسو دبل + شیر + فوم شیر", image: "16.jpg"},
+                    {name: "لته فندقی", price: "1 تومان", description: "قهوه اسپرسو دبل + شیر + فوم شیر + سیروپ فندق", image: "17.jpg"},
+                    {name: "لته پسته", price: "1 تومان", description: "قهوه اسپرسو دبل + شیر + فوم شیر + کرم پسته", image: "18.jpg"},
+                    {name: "لته لوتوس", price: "1 تومان", description: "قهوه اسپرسو دبل + شیر + فوم شیر + کره لوتوس", image: "19.jpg"},
+                    {name: "کاپوچینو کلاسیک", price: "1 تومان", description: "قهوه اسپرسو تک + شیر + فوم شیر", image: "20.jpg"},
+                    {name: "کاپوچینو کاراملی", price: "1 تومان", description: "قهوه اسپرسو تک + شیر + فوم شیر + سیروپ کارامل", image: "21.jpg"},
+                    {name: "کورتادو", price: "1 تومان", description: "قهوه اسپرسو دبل + شیر + فوم شیر", image: "22.jpg"},
+                    {name: "آمریکانو", price: "1 تومان", description: "قهوه اسپرسو تک + آب جوش", image: "23.jpg"},
+                    {name: "نسکافه", price: "1 تومان", description: "قهوه اسپرسو تک + شیر + فوم شیر + شکر قهوه‌ای", image: "24.jpg"},
+                    {name: "هات چاکلت", price: "1 تومان", description: "شکلات + پودر کاکائو + خامه صبحانه + شیر + فوم شیر", image: "25.jpg"},
+                    {name: "موکاچینو", price: "1 تومان", description: "سیروپ شکلات + شیر + فوم شیر + قهوه اسپرسو تک", image: "26.jpg"},
+                    {name: "کارامل ماکیاتو", price: "1 تومان", description: "سیروپ وانیل + شیر + فوم شیر + قهوه اسپرسو تک + سس کارامل", image: "27.jpg"}
                 ]
             },
             "آبمیوه‌ها": {
                 english: "JUICES",
                 items: [
-                    {name: "شیرموز", price: "x تومان", image: "28.jpg"},
-                    {name: "شیرموز بستنی", price: "x تومان", image: "29.jpg"},
-                    {name: "آب طالبی", price: "x تومان", image: "30.jpg"},
-                    {name: "آب طالبی بستنی", price: "x تومان", image: "31.jpg"},
-                    {name: "آب هویج", price: "x تومان", image: "32.jpg"},
-                    {name: "آب هویج بستنی", price: "x تومان", image: "33.jpg"},
-                    {name: "آب انبه", price: "x تومان", image: "34.jpg"},
-                    {name: "آب انبه بستنی", price: "x تومان", image: "35.jpg"},
-                    {name: "آب پرتقال", price: "x تومان", image: "36.jpg"},
-                    {name: "آب انار", price: "x تومان", image: "37.jpg"},
-                    {name: "آب سیب", price: "x تومان", image: "38.jpg"},
-                    {name: "آب سیب پرتقال", price: "x تومان", image: "39.jpg"},
-                    {name: "آب هویج و کرفس", price: "x تومان", image: "40.jpg"}
+                    {name: "شیرموز", price: "1 تومان", image: "28.jpg"},
+                    {name: "شیرموز بستنی", price: "1 تومان", image: "29.jpg"},
+                    {name: "آب طالبی", price: "1 تومان", image: "30.jpg"},
+                    {name: "آب طالبی بستنی", price: "1 تومان", image: "31.jpg"},
+                    {name: "آب هویج", price: "1 تومان", image: "32.jpg"},
+                    {name: "آب هویج بستنی", price: "1 تومان", image: "33.jpg"},
+                    {name: "آب انبه", price: "1 تومان", image: "34.jpg"},
+                    {name: "آب انبه بستنی", price: "1 تومان", image: "35.jpg"},
+                    {name: "آب پرتقال", price: "1 تومان", image: "36.jpg"},
+                    {name: "آب انار", price: "1 تومان", image: "37.jpg"},
+                    {name: "آب سیب", price: "1 تومان", image: "38.jpg"},
+                    {name: "آب سیب پرتقال", price: "1 تومان", image: "39.jpg"},
+                    {name: "آب هویج و کرفس", price: "1 تومان", image: "40.jpg"}
                 ]
             },
             "نوشیدنی‌های سرد": {
                 english: "COLD DRINKS",
                 items: [
-                    {name: "آیس ماچا", price: "x تومان", description: "ماچا اصل ژاپن + شیر + یخ", image: "41.jpg"},
-                    {name: "آیس لته کلاسیک", price: "x تومان", description: "قهوه اسپرسو دبل + شیر + یخ", image: "42.jpg"},
-                    {name: "آیس لته فندقی", price: "x تومان", description: "قهوه اسپرسو دبل + شیر + یخ + سیروپ فندق", image: "43.jpg"},
-                    {name: "آیس لته توت فرنگی", price: "x تومان", description: "قهوه اسپرسو دبل + شیر + یخ + سیروپ کارامل + توت فرنگی", image: "44.jpg"},
-                    {name: "آیس اسپانیش", price: "x تومان", description: "قهوه اسپرسو دبل + شیر + شیرعسل", image: "45.jpg"},
-                    {name: "آیس موکا", price: "x تومان", description: "قهوه اسپرسو دبل + شیر + یخ + سیروپ شکلات", image: "46.jpg"},
-                    {name: "آیس کارامل", price: "x تومان", description: "قهوه اسپرسو دبل + شیر + یخ + سیروپ کارامل", image: "47.jpg"},
-                    {name: "آیس آمریکانو", price: "x تومان", description: "قهوه اسپرسو دبل + یخ", image: "48.jpg"},
-                    {name: "موهیتو", price: "x تومان", description: "نعناء + لیمو تازه + نوشابه اسپیرایت + یخ", image: "49.jpg"},
-                    {name: "موهیتو کهکشانی", price: "x تومان", description: "نعناء + لیمو تازه + نوشابه اسپیرایت + یخ + پنیرک + شربت موهیتو", image: "50.jpg"},
-                    {name: "رد موهیتو", price: "x تومان", description: "نعناء + لیمو تازه + نوشابه اسپیرایت + یخ + توت فرنگی + شربت موهیتو", image: "51.jpg"},
-                    {name: "لیموناد", price: "x تومان", description: "لیمو تازه + نوشابه اسپیرایت + یخ + شربت لیمو", image: "52.jpg"},
-                    {name: "لیموناد کهکشانی", price: "x تومان", description: "لیمو تازه + نوشابه اسپیرایت + یخ + شربت لیمو + پنیرک", image: "53.jpg"}
+                    {name: "آیس ماچا", price: "1 تومان", description: "ماچا اصل ژاپن + شیر + یخ", image: "41.jpg"},
+                    {name: "آیس لته کلاسیک", price: "1 تومان", description: "قهوه اسپرسو دبل + شیر + یخ", image: "42.jpg"},
+                    {name: "آیس لته فندقی", price: "1 تومان", description: "قهوه اسپرسو دبل + شیر + یخ + سیروپ فندق", image: "43.jpg"},
+                    {name: "آیس لته توت فرنگی", price: "1 تومان", description: "قهوه اسپرسو دبل + شیر + یخ + سیروپ کارامل + توت فرنگی", image: "44.jpg"},
+                    {name: "آیس اسپانیش", price: "1 تومان", description: "قهوه اسپرسو دبل + شیر + شیرعسل", image: "45.jpg"},
+                    {name: "آیس موکا", price: "1 تومان", description: "قهوه اسپرسو دبل + شیر + یخ + سیروپ شکلات", image: "46.jpg"},
+                    {name: "آیس کارامل", price: "1 تومان", description: "قهوه اسپرسو دبل + شیر + یخ + سیروپ کارامل", image: "47.jpg"},
+                    {name: "آیس آمریکانو", price: "1 تومان", description: "قهوه اسپرسو دبل + یخ", image: "48.jpg"},
+                    {name: "موهیتو", price: "1 تومان", description: "نعناء + لیمو تازه + نوشابه اسپیرایت + یخ", image: "49.jpg"},
+                    {name: "موهیتو کهکشانی", price: "1 تومان", description: "نعناء + لیمو تازه + نوشابه اسپیرایت + یخ + پنیرک + شربت موهیتو", image: "50.jpg"},
+                    {name: "رد موهیتو", price: "1 تومان", description: "نعناء + لیمو تازه + نوشابه اسپیرایت + یخ + توت فرنگی + شربت موهیتو", image: "51.jpg"},
+                    {name: "لیموناد", price: "1 تومان", description: "لیمو تازه + نوشابه اسپیرایت + یخ + شربت لیمو", image: "52.jpg"},
+                    {name: "لیموناد کهکشانی", price: "1 تومان", description: "لیمو تازه + نوشابه اسپیرایت + یخ + شربت لیمو + پنیرک", image: "53.jpg"}
                 ]
             },
             "آیتم‌های رژیمی": {
                 english: "DIET ITEMS",
                 items: [
-                    {name: "کیک وانیل گردو", price: "x تومان", description: "آرد نارگیل + آرد بادام + روغن نارگیل + روغن هسته انگور + سفیده تخم مرغ + آرد برنج + گردو", image: "54.jpg"},
-                    {name: "کیک وانیل بادام", price: "x تومان", description: "آرد نارگیل + آرد بادام + روغن نارگیل + روغن هسته انگور + سفیده تخم مرغ + آرد برنج + بادام", image: "55.jpg"},
-                    {name: "بستنی موز و توت فرنگی", price: "x تومان", description: "موز + توت فرنگی + عسل وحشی یا شربت بدون قند", image: "56.jpg"},
-                    {name: "آیس آمریکانو", price: "x تومان", description: "قهوه + یخ + آب تصفیه شده", image: "57.jpg"},
-                    {name: "هات چاکلت رژیمی", price: "x تومان", description: "شکلات بدون شکر + آب + شربت بدون قند", image: "58.jpg"},
-                    {name: "آیس ماچا", price: "x تومان", description: "ماچا اصل ژاپن + آب تصفیه شده + یخ + شربت بدون قند", image: "59.jpg"},
-                    {name: "شیر پسته", price: "x تومان", description: "کره پسته بدون شکر + آب + عسل وحشی یا شربت بدون قند", image: "60.jpg"},
-                    {name: "شیر بادام", price: "x تومان", description: "کره بادام بدون شکر + آب + عسل وحشی یا شربت بدون قند", image: "61.jpg"},
-                    {name: "شیر گردو", price: "x تومان", description: "کره گردو بدون شکر + آب + عسل وحشی یا شربت بدون قند", image: "62.jpg"}
+                    {name: "کیک وانیل گردو", price: "1 تومان", description: "آرد نارگیل + آرد بادام + روغن نارگیل + روغن هسته انگور + سفیده تخم مرغ + آرد برنج + گردو", image: "54.jpg"},
+                    {name: "کیک وانیل بادام", price: "1 تومان", description: "آرد نارگیل + آرد بادام + روغن نارگیل + روغن هسته انگور + سفیده تخم مرغ + آرد برنج + بادام", image: "55.jpg"},
+                    {name: "بستنی موز و توت فرنگی", price: "1 تومان", description: "موز + توت فرنگی + عسل وحشی یا شربت بدون قند", image: "56.jpg"},
+                    {name: "آیس آمریکانو", price: "1 تومان", description: "قهوه + یخ + آب تصفیه شده", image: "57.jpg"},
+                    {name: "هات چاکلت رژیمی", price: "1 تومان", description: "شکلات بدون شکر + آب + شربت بدون قند", image: "58.jpg"},
+                    {name: "آیس ماچا", price: "1 تومان", description: "ماچا اصل ژاپن + آب تصفیه شده + یخ + شربت بدون قند", image: "59.jpg"},
+                    {name: "شیر پسته", price: "1 تومان", description: "کره پسته بدون شکر + آب + عسل وحشی یا شربت بدون قند", image: "60.jpg"},
+                    {name: "شیر بادام", price: "1 تومان", description: "کره بادام بدون شکر + آب + عسل وحشی یا شربت بدون قند", image: "61.jpg"},
+                    {name: "شیر گردو", price: "1 تومان", description: "کره گردو بدون شکر + آب + عسل وحشی یا شربت بدون قند", image: "62.jpg"}
                 ]
             },
             "بستنی و فالوده": {
                 english: "ICE CREAM & FALOODEH",
                 items: [
-                    {name: "بستنی سنتی مخصوص", price: "x تومان", description: "بستنی سنتی + خامه بدون شکر + خامه پولکی + مربای آلبالو", image: "63.jpg"},
-                    {name: "فالوده", price: "x تومان", description: "فالوده + شربت آلبالو + آبلیمو", image: "64.jpg"},
-                    {name: "فالوده بستنی", price: "x تومان", description: "بستنی سنتی + فالوده + شربت آلبالو + آبلیمو", image: "65.jpg"},
-                    {name: "سان شاین", price: "x تومان", description: "بستنی سنتی + خامه بدون شکر + توت فرنگی + موز + آناناس", image: "66.jpg"},
-                    {name: "وافل بستنی", price: "x تومان", description: "نان وافل + سس شکلات + موز + گردو + توت فرنگی + بستنی سنتی", image: "67.jpg"},
-                    {name: "نوتلا بستنی", price: "x تومان", description: "بستنی وانیلی + نوتلا اصل + پودر کیک شکلاتی", image: "68.jpg"},
-                    {name: "آفوگاتو", price: "x تومان", description: "بستنی سنتی + قهوه اسپرسو تک", image: "69.jpg"},
-                    {name: "کروسان بستنی", price: "x تومان", description: "نصف کروسان شکلاتی + بستنی پسته‌ای + بستنی وانیلی", image: "70.jpg"},
-                    {name: "کنافه بستنی", price: "x تومان", description: "کنافه کره‌ای بدون شربت + خامه بدون شکر + بستنی سنتی", image: "71.jpg"},
-                    {name: "ژلاتو توت فرنگی", price: "x تومان", image: "72.jpg"},
-                    {name: "ژلاتو انبه", price: "x تومان", image: "73.jpg"},
-                    {name: "ژلاتو نوتلا", price: "x تومان", image: "74.jpg"},
-                    {name: "ژلاتو قهوه", price: "x تومان", image: "75.jpg"},
-                    {name: "ژلاتو بادام زمینی", price: "x تومان", image: "76.jpg"},
-                    {name: "ژلاتو موز شکلات", price: "x تومان", image: "77.jpg"},
-                    {name: "ژلاتو پسته", price: "x تومان", image: "78.jpg"},
-                    {name: "ژلاتو لوتوس", price: "x تومان", image: "79.jpg"},
-                    {name: "ژلاتو آناناس", price: "x تومان", image: "80.jpg"},
-                    {name: "ژلاتو ماچا پسته", price: "x تومان", image: "81.jpg"},
-                    {name: "کافه گلاسه", price: "x تومان", description: "بستنی وانیلی و پسته + قهوه", image: "82.jpg"}
+                    {name: "بستنی سنتی مخصوص", price: "1 تومان", description: "بستنی سنتی + خامه بدون شکر + خامه پولکی + مربای آلبالو", image: "63.jpg"},
+                    {name: "فالوده", price: "1 تومان", description: "فالوده + شربت آلبالو + آبلیمو", image: "64.jpg"},
+                    {name: "فالوده بستنی", price: "1 تومان", description: "بستنی سنتی + فالوده + شربت آلبالو + آبلیمو", image: "65.jpg"},
+                    {name: "سان شاین", price: "1 تومان", description: "بستنی سنتی + خامه بدون شکر + توت فرنگی + موز + آناناس", image: "66.jpg"},
+                    {name: "وافل بستنی", price: "1 تومان", description: "نان وافل + سس شکلات + موز + گردو + توت فرنگی + بستنی سنتی", image: "67.jpg"},
+                    {name: "نوتلا بستنی", price: "1 تومان", description: "بستنی وانیلی + نوتلا اصل + پودر کیک شکلاتی", image: "68.jpg"},
+                    {name: "آفوگاتو", price: "1 تومان", description: "بستنی سنتی + قهوه اسپرسو تک", image: "69.jpg"},
+                    {name: "کروسان بستنی", price: "1 تومان", description: "نصف کروسان شکلاتی + بستنی پسته‌ای + بستنی وانیلی", image: "70.jpg"},
+                    {name: "کنافه بستنی", price: "1 تومان", description: "کنافه کره‌ای بدون شربت + خامه بدون شکر + بستنی سنتی", image: "71.jpg"},
+                    {name: "ژلاتو توت فرنگی", price: "1 تومان", image: "72.jpg"},
+                    {name: "ژلاتو انبه", price: "1 تومان", image: "73.jpg"},
+                    {name: "ژلاتو نوتلا", price: "1 تومان", image: "74.jpg"},
+                    {name: "ژلاتو قهوه", price: "1 تومان", image: "75.jpg"},
+                    {name: "ژلاتو بادام زمینی", price: "1 تومان", image: "76.jpg"},
+                    {name: "ژلاتو موز شکلات", price: "1 تومان", image: "77.jpg"},
+                    {name: "ژلاتو پسته", price: "1 تومان", image: "78.jpg"},
+                    {name: "ژلاتو لوتوس", price: "1 تومان", image: "79.jpg"},
+                    {name: "ژلاتو آناناس", price: "1 تومان", image: "80.jpg"},
+                    {name: "ژلاتو ماچا پسته", price: "1 تومان", image: "81.jpg"},
+                    {name: "کافه گلاسه", price: "1 تومان", description: "بستنی وانیلی و پسته + قهوه", image: "82.jpg"}
                 ]
             },
             "شیرینی و دسر": {
                 english: "DESSERTS",
                 items: [
-                    {name: "کنافه سرشیر", price: "x تومان", description: "باقلوا کنافه + سرشیر", image: "83.jpg"},
-                    {name: "چاکلت بری", price: "x تومان", description: "توت فرنگی + شکلات مایع", image: "84.jpg"},
-                    {name: "چاکلت بری پسته", price: "x تومان", description: "توت فرنگی + شکلات مایع + کره پسته", image: "85.jpg"},
-                    {name: "وافل نوتلا و میوه", price: "x تومان", description: "نون وافل + شکلات نوتلا دستساز + موز + توت فرنگی + گردو", image: "86.jpg"},
-                    {name: "تیرامیسو", price: "x تومان", image: "87.jpg"},
-                    {name: "کروسان شکلاتی", price: "x تومان", image: "88.jpg"},
-                    {name: "نیویورک رول پسته", price: "x تومان", image: "89.jpg"},
-                    {name: "پن سوئیس", price: "x تومان", image: "90.jpg"},
-                    {name: "رول گردو و دارچین و کشمش", price: "x تومان", image: "91.jpg"},
-                    {name: "چیزکیک لوتوس", price: "x تومان", image: "92.jpg"},
-                    {name: "چیزکیک پسته", price: "x تومان", image: "93.jpg"},
-                    {name: "چیزکیک دبل چاکلت", price: "x تومان", image: "94.jpg"},
-                    {name: "چیزکیک نوتلا", price: "x تومان", image: "95.jpg"},
-                    {name: "چیزکیک سن سباستین", price: "x تومان", image: "96.jpg"},
-                    {name: "تارت پسته", price: "x تومان", image: "97.jpg"},
-                    {name: "تارت توت فرنگی", price: "x تومان", image: "98.jpg"},
-                    {name: "پاریس برست پسته", price: "x تومان", image: "99.jpg"},
-                    {name: "کیک هویج", price: "x تومان", image: "100.jpg"},
-                    {name: "کیک نوتلا", price: "x تومان", image: "101.jpg"},
-                    {name: "کیک شکلاتی", price: "x تومان", image: "102.jpg"},
-                    {name: "کیک موکا", price: "x تومان", image: "103.jpg"},
-                    {name: "کیک خیس شکلاتی", price: "x تومان", image: "104.jpg"},
-                    {name: "غول خامه‌ای", price: "x تومان", image: "105.jpg"},
-                    {name: "رولت ترک", price: "x تومان", image: "106.jpg"},
-                    {name: "رولت ساده بزرگ", price: "x تومان", image: "107.jpg"},
-                    {name: "ماکارون", price: "x تومان", image: "108.jpg"},
-                    {name: "موچی", price: "x تومان", image: "109.jpg"}
+                    {name: "کنافه سرشیر", price: "1 تومان", description: "باقلوا کنافه + سرشیر", image: "83.jpg"},
+                    {name: "چاکلت بری", price: "1 تومان", description: "توت فرنگی + شکلات مایع", image: "84.jpg"},
+                    {name: "چاکلت بری پسته", price: "1 تومان", description: "توت فرنگی + شکلات مایع + کره پسته", image: "85.jpg"},
+                    {name: "وافل نوتلا و میوه", price: "1 تومان", description: "نون وافل + شکلات نوتلا دستساز + موز + توت فرنگی + گردو", image: "86.jpg"},
+                    {name: "تیرامیسو", price: "1 تومان", image: "87.jpg"},
+                    {name: "کروسان شکلاتی", price: "1 تومان", image: "88.jpg"},
+                    {name: "نیویورک رول پسته", price: "1 تومان", image: "89.jpg"},
+                    {name: "پن سوئیس", price: "1 تومان", image: "90.jpg"},
+                    {name: "رول گردو و دارچین و کشمش", price: "1 تومان", image: "91.jpg"},
+                    {name: "چیزکیک لوتوس", price: "1 تومان", image: "92.jpg"},
+                    {name: "چیزکیک پسته", price: "1 تومان", image: "93.jpg"},
+                    {name: "چیزکیک دبل چاکلت", price: "1 تومان", image: "94.jpg"},
+                    {name: "چیزکیک نوتلا", price: "1 تومان", image: "95.jpg"},
+                    {name: "چیزکیک سن سباستین", price: "1 تومان", image: "96.jpg"},
+                    {name: "تارت پسته", price: "1 تومان", image: "97.jpg"},
+                    {name: "تارت توت فرنگی", price: "1 تومان", image: "98.jpg"},
+                    {name: "پاریس برست پسته", price: "1 تومان", image: "99.jpg"},
+                    {name: "کیک هویج", price: "1 تومان", image: "100.jpg"},
+                    {name: "کیک نوتلا", price: "1 تومان", image: "101.jpg"},
+                    {name: "کیک شکلاتی", price: "1 تومان", image: "102.jpg"},
+                    {name: "کیک موکا", price: "1 تومان", image: "103.jpg"},
+                    {name: "کیک خیس شکلاتی", price: "1 تومان", image: "104.jpg"},
+                    {name: "غول خامه‌ای", price: "1 تومان", image: "105.jpg"},
+                    {name: "رولت ترک", price: "1 تومان", image: "106.jpg"},
+                    {name: "رولت ساده بزرگ", price: "1 تومان", image: "107.jpg"},
+                    {name: "ماکارون", price: "1 تومان", image: "108.jpg"},
+                    {name: "موچی", price: "1 تومان", image: "109.jpg"}
                 ]
             },
             "دمنوش‌ها": {
                 english: "HERBAL TEAS",
                 items: [
-                    {name: "چای", price: "x تومان", description: "چای سیلان", image: "110.jpg"},
-                    {name: "چای دارچین", price: "x تومان", description: "چای سیلان + دارچین سیلان", image: "111.jpg"},
-                    {name: "چای ماسالا", price: "x تومان", description: "هل + دارچین + زنجفیل + شیر + شیره انگور", image: "112.jpg"},
-                    {name: "دمنوش 1", price: "x تومان", description: "گل گاوزبان + به لیمو", image: "113.jpg"},
-                    {name: "دمنوش 2", price: "x تومان", description: "هل + دارچین + زنجفیل", image: "114.jpg"},
-                    {name: "دمنوش 3", price: "x تومان", description: "آویشن + نعناء", image: "115.jpg"}
+                    {name: "چای", price: "1 تومان", description: "چای سیلان", image: "110.jpg"},
+                    {name: "چای دارچین", price: "1 تومان", description: "چای سیلان + دارچین سیلان", image: "111.jpg"},
+                    {name: "چای ماسالا", price: "1 تومان", description: "هل + دارچین + زنجفیل + شیر + شیره انگور", image: "112.jpg"},
+                    {name: "دمنوش 1", price: "1 تومان", description: "گل گاوزبان + به لیمو", image: "113.jpg"},
+                    {name: "دمنوش 2", price: "1 تومان", description: "هل + دارچین + زنجفیل", image: "114.jpg"},
+                    {name: "دمنوش 3", price: "1 تومان", description: "آویشن + نعناء", image: "115.jpg"}
                 ]
             }
         };
@@ -512,6 +741,15 @@
         const itemsEnglishTitle = document.getElementById('itemsEnglishTitle');
         const imageModal = document.getElementById('imageModal');
         const modalImage = document.getElementById('modalImage');
+        const cartBtn = document.getElementById('cartBtn');
+        const cartBadge = document.getElementById('cartBadge');
+        const cartSidebar = document.getElementById('cartSidebar');
+        const closeCart = document.getElementById('closeCart');
+        const cartItems = document.getElementById('cartItems');
+        const cartTotal = document.getElementById('cartTotal');
+
+        // سبد خرید
+        let cart = [];
 
         // آیکون‌های دسته‌بندی‌ها (از Font Awesome)
         const categoryIcons = {
@@ -568,6 +806,7 @@
                 
                 itemElement.innerHTML = `
                     <img src="${item.image}" alt="${item.name}" class="item-image" onclick="openImageModal('${item.image}')">
+                    <button class="add-to-cart-btn" onclick="addToCart('${category}', '${item.name}', '${item.price}', '${item.image}')">+</button>
                     <div class="item-name">${item.name}</div>
                     <div class="item-price">${item.price}</div>
                     ${descriptionHTML}
@@ -576,6 +815,92 @@
                 menuItems.appendChild(itemElement);
             });
         }
+
+        // تابع برای اضافه کردن آیتم به سبد خرید
+        window.addToCart = function(category, name, price, image) {
+            // بررسی وجود آیتم در سبد خرید
+            const existingItem = cart.find(item => item.name === name);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    category,
+                    name,
+                    price: parseInt(price),
+                    image,
+                    quantity: 1
+                });
+            }
+            
+            updateCart();
+            showCart();
+        };
+
+        // تابع برای به‌روزرسانی سبد خرید
+        function updateCart() {
+            // به‌روزرسانی تعداد آیتم‌ها در بج
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartBadge.textContent = totalItems;
+            
+            // به‌روزرسانی لیست آیتم‌ها در سبد خرید
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<div class="empty-cart">سبد خرید شما خالی است</div>';
+            } else {
+                cartItems.innerHTML = '';
+                cart.forEach((item, index) => {
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    cartItem.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                        <div class="cart-item-details">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">${item.price * item.quantity} تومان</div>
+                        </div>
+                        <div class="cart-item-controls">
+                            <button class="cart-item-btn" onclick="decreaseQuantity(${index})">-</button>
+                            <div class="cart-item-quantity">${item.quantity}</div>
+                            <button class="cart-item-btn" onclick="increaseQuantity(${index})">+</button>
+                        </div>
+                    `;
+                    cartItems.appendChild(cartItem);
+                });
+            }
+            
+            // محاسبه و نمایش مبلغ کل
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotal.textContent = `${totalPrice} تومان`;
+        }
+
+        // تابع برای افزایش تعداد آیتم در سبد خرید
+        window.increaseQuantity = function(index) {
+            cart[index].quantity += 1;
+            updateCart();
+        };
+
+        // تابع برای کاهش تعداد آیتم در سبد خرید
+        window.decreaseQuantity = function(index) {
+            if (cart[index].quantity > 1) {
+                cart[index].quantity -= 1;
+            } else {
+                cart.splice(index, 1);
+            }
+            updateCart();
+        };
+
+        // تابع برای نمایش سبد خرید
+        function showCart() {
+            cartSidebar.classList.add('open');
+        }
+
+        // تابع برای مخفی کردن سبد خرید
+        function hideCart() {
+            cartSidebar.classList.remove('open');
+        }
+
+        // رویدادهای سبد خرید
+        cartBtn.addEventListener('click', showCart);
+        closeCart.addEventListener('click', hideCart);
 
         // تابع برای باز کردن مدال بزرگنمایی عکس
         window.openImageModal = function(imageSrc) {
