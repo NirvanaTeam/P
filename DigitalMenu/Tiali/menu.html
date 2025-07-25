@@ -820,7 +820,7 @@
         window.addToCart = function(category, name, price, image) {
             // بررسی وجود آیتم در سبد خرید
             const existingItem = cart.find(item => item.name === name);
-    
+            
             if (existingItem) {
                 existingItem.quantity += 1;
             } else {
@@ -832,7 +832,7 @@
                     quantity: 1
                 });
             }
-    
+            
             updateCart();
         };
 
@@ -887,7 +887,10 @@
             updateCart();
         };
 
-// sss
+        // تابع برای نمایش سبد خرید
+        function showCart() {
+            cartSidebar.classList.add('open');
+        }
 
         // تابع برای مخفی کردن سبد خرید
         function hideCart() {
