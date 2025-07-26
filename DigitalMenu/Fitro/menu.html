@@ -140,6 +140,15 @@
             }
         }
         
+        .item-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #FACD00;
+        }
+        
         .item-name {
             font-weight: 500;
             font-size: 15px;
@@ -159,6 +168,7 @@
             margin-top: 8px;
             font-style: italic;
             opacity: 0.8;
+            line-height: 1.6;
         }
         
         .cafe-logo {
@@ -306,18 +316,18 @@
         // Menu data
         const menuData = {
             "قهوه": [
-                {name: "اسپرسو", price: "سینگل 48 | دبل 58"},
-                {name: "لته", price: "92"},
-                {name: "آیس لته", price: "92"},
-                {name: "آمریکانو", price: "65"},
-                {name: "آیس آمریکانو", price: "65"}
+                {name: "اسپرسو", price: "سینگل 48 | دبل 58", image: "1.jpg"},
+                {name: "لته", price: "92", image: "2.jpg"},
+                {name: "آیس لته", price: "92", image: "3.jpg"},
+                {name: "آمریکانو", price: "65", image: "4.jpg"},
+                {name: "آیس آمریکانو", price: "65", image: "5.jpg"}
             ],
             "غذای ایرانی": [],
             "پیتزا": [],
             "برگر": [],
             "سالاد": [],
             "صبحانه": [
-                {name: "املت", price: "95"}
+                {name: "املت", price: "95", image: "6.jpg", description: "۲ عدد تخم مرغ، گوجه تازه، روغن زیتون، ادویه مخصوص، نان بربری تازه"}
             ],
             "نوشیدنی": []
         };
@@ -329,6 +339,7 @@
             "پیتزا": "fa-pizza-slice",
             "برگر": "fa-burger",
             "سالاد": "fa-leaf",
+            "صبحانه": "fa-egg",
             "نوشیدنی": "fa-glass-water"
         };
 
@@ -393,15 +404,20 @@
                     itemElement.className = 'menu-item';
                     itemElement.style.animationDelay = `${index * 0.1}s`;
                     
+                    let imageHtml = '';
+                    if (item.image) {
+                        imageHtml = `<img src="${item.image}" alt="${item.name}" class="item-image">`;
+                    }
+                    
                     let descriptionHtml = '';
                     if (item.description) {
                         descriptionHtml = `<div class="item-description">${item.description}</div>`;
                     }
                     
                     itemElement.innerHTML = `
+                        ${imageHtml}
                         <div class="item-name">${item.name}</div>
                         <div class="item-price">${item.price}</div>
-
                         ${descriptionHtml}
                     `;
                     menuItems.appendChild(itemElement);
