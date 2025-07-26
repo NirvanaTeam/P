@@ -140,26 +140,50 @@
             }
         }
         
-        .item-image {
+        .item-image-container {
+            position: relative;
             width: 100%;
-            height: 160px;
-            object-fit: cover;
+            padding-top: 177.78%; /* 16:9 aspect ratio */
+            overflow: hidden;
             border-radius: 8px;
             margin-bottom: 10px;
             border: 1px solid #FACD00;
+        }
+        
+        .item-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .item-image:hover {
+            transform: scale(1.03);
+        }
+        
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
         }
         
         .item-name {
             font-weight: 500;
             font-size: 15px;
             color: #1B3884;
-            margin-bottom: 5px;
+            text-align: right;
         }
         
         .item-price {
             color: #1B3884;
             font-weight: 500;
             font-size: 16px;
+            text-align: left;
         }
         
         .item-description {
@@ -169,6 +193,7 @@
             font-style: italic;
             opacity: 0.8;
             line-height: 1.6;
+            text-align: right;
         }
         
         .cafe-logo {
@@ -210,6 +235,35 @@
         .footer a:hover {
             color: #1B3884;
             text-decoration: underline;
+        }
+
+        /* Image modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .modal-content img {
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border: 3px solid #FACD00;
+            border-radius: 8px;
         }
         
         @media (max-width: 768px) {
@@ -312,15 +366,22 @@
         </div>
     </div>
 
+    <!-- Image Modal -->
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <img id="expandedImage" src="" alt="تصویر بزرگ شده">
+        </div>
+    </div>
+
     <script>
         // Menu data
         const menuData = {
             "قهوه": [
-                {name: "اسپرسو", price: "سینگل 48 | دبل 58", image: "1.jpg"},
-                {name: "لته", price: "92", image: "2.jpg"},
-                {name: "آیس لته", price: "92", image: "3.jpg"},
-                {name: "آمریکانو", price: "65", image: "4.jpg"},
-                {name: "آیس آمریکانو", price: "65", image: "5.jpg"}
+                {name: "اسپرسو", price: "سینگل 48 | دبل 58", image: "1.jpg", description: "قهوه اسپرسوی اصل با طعمی غنی و خالص"},
+                {name: "لته", price: "92", image: "2.jpg", description: "ترکیب اسپرسو با شیر گرم و فوم شیر"},
+                {name: "آیس لته", price: "92", image: "3.jpg", description: "لته خنک با یخ و طعمی ملایم"},
+                {name: "آمریکانو", price: "65", image: "4.jpg", description: "اسپرسو با آب داغ برای طعمی ملایم‌تر"},
+                {name: "آیس آمریکانو", price: "65", image: "5.jpg", description: "آمریکانوی خنک با یخ برای روزهای گرم"}
             ],
             "غذای ایرانی": [],
             "پیتزا": [],
@@ -347,6 +408,8 @@
         const categoriesSidebar = document.getElementById('categoriesSidebar');
         const menuItems = document.getElementById('menuItems');
         const itemsTitle = document.querySelector('.items-title');
+        const modal = document.getElementById('imageModal');
+        const expandedImg = document.getElementById('expandedImage');
 
         // Create category buttons
         Object.keys(menuData).forEach(category => {
@@ -406,7 +469,11 @@
                     
                     let imageHtml = '';
                     if (item.image) {
-                        imageHtml = `<img src="${item.image}" alt="${item.name}" class="item-image">`;
+                        imageHtml = `
+                            <div class="item-image-container">
+                                <img src="${item.image}" alt="${item.name}" class="item-image" onclick="openModal('${item.image}')">
+                            </div>
+                        `;
                     }
                     
                     let descriptionHtml = '';
@@ -416,14 +483,30 @@
                     
                     itemElement.innerHTML = `
                         ${imageHtml}
-                        <div class="item-name">${item.name}</div>
-                        <div class="item-price">${item.price}</div>
+                        <div class="item-header">
+                            <div class="item-price">${item.price}</div>
+                            <div class="item-name">${item.name}</div>
+                        </div>
                         ${descriptionHtml}
                     `;
                     menuItems.appendChild(itemElement);
                 }, 50);
             });
         }
+
+        // Modal functions
+        function openModal(imageSrc) {
+            expandedImg.src = imageSrc;
+            modal.style.display = 'flex';
+        }
+
+        // Close modal when clicking anywhere
+        modal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // Make the function available globally
+        window.openModal = openModal;
     </script>
 </body>
 </html>
