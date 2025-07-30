@@ -3,22 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منوی کافه رستوران فیترو</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/jalali-moment/dist/jalali-moment.browser.js"></script>
+    <title>منوی رستوران</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: Vazir, Tahoma, sans-serif;
         }
         
         body {
-            background-color: #F0F2F1;
+            background-color: #fff;
             padding: 10px;
             overflow-x: hidden;
-            color: #1B3884;
+            color: #333;
         }
         
         .menu-container {
@@ -30,9 +29,7 @@
         
         .categories-sidebar {
             width: 120px;
-            background-color: rgba(27, 56, 132, 0.9);
-            backdrop-filter: blur(3px);
-            -webkit-backdrop-filter: blur(3px);
+            background-color: #939A71;
             border-radius: 20px 0 0 20px;
             padding: 20px 10px;
             display: flex;
@@ -42,7 +39,7 @@
             box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
             z-index: 2;
             overflow-y: auto;
-            border: 1px solid #FACD00;
+            border: 1px solid #4E2916;
         }
         
         .category-item {
@@ -55,54 +52,71 @@
             cursor: pointer;
             border-radius: 15px;
             transition: all 0.4s ease;
-            color: #B0BAFF;
+            color: #20120D;
             text-align: center;
         }
         
         .category-item:hover {
-            background-color: rgba(176, 186, 255, 0.2);
+            background-color: #104322;
+            color: #fff;
             transform: translateY(-2px);
         }
         
         .category-item.active {
-            background-color: rgba(250, 205, 0, 0.3);
-            color: #FACD00;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border: 1px solid #FACD00;
+            background-color: #4E2916;
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(78, 41, 22, 0.3);
+            border: 1px solid #20120D;
         }
 
+        .category-item.today {
+            background-color: #4E2916;
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(78, 41, 22, 0.3);
+            border: 1px solid #20120D;
+        }
+        
+        .category-item.other-day {
+            background-color: #f5f5f5;
+            color: #666;
+        }
+        
+        .not-available {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        
         .category-item.inactive {
-            background-color: rgba(128, 128, 128, 0.2);
-            color: #888;
-            cursor: default;
+            background-color: #d3d3d3;
+            color: #666;
+            cursor: not-allowed;
         }
         
         .category-icon {
-            font-size: 24px;
-            margin-bottom: 8px;
-            color: #FACD00;
-        }
-
-        .category-icon.inactive {
-            color: #888;
+            width: 30px;
+            height: 30px;
+            margin-bottom: 5px;
+            object-fit: contain;
         }
         
         .category-name {
             font-size: 14px;
             font-weight: 500;
+            white-space: pre-line;
         }
         
         .items-container {
             flex: 1;
-            background-color: rgba(240, 242, 241, 0.9);
-            backdrop-filter: blur(3px);
-            -webkit-backdrop-filter: blur(3px);
+            background-color: rgba(147, 154, 113, 0.1);
             border-radius: 0 20px 20px 0;
             padding: 20px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             overflow-y: auto;
             position: relative;
-            border: 1px solid #FACD00;
+            border: 1px solid #939A71;
             display: flex;
             flex-direction: column;
         }
@@ -114,24 +128,21 @@
         .items-title {
             font-size: 22px;
             margin-bottom: 20px;
-            color: #1B3884;
+            color: #4E2916;
             text-align: center;
             padding-bottom: 10px;
-            border-bottom: 2px dashed #FACD00;
+            border-bottom: 2px dashed #104322;
             position: relative;
             z-index: 1;
             font-weight: 500;
         }
-
-        .today-special {
-            background-color: rgba(250, 205, 0, 0.2);
-            border: 1px dashed #FACD00;
-            padding: 10px;
-            border-radius: 10px;
-            margin-bottom: 20px;
+        
+        .items-english-title {
+            font-size: 16px;
+            color: #939A71;
             text-align: center;
-            font-weight: 500;
-            color: #1B3884;
+            margin-top: -15px;
+            margin-bottom: 15px;
         }
         
         .menu-items {
@@ -142,17 +153,22 @@
         }
         
         .menu-item {
-            background-color: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(2px);
-            -webkit-backdrop-filter: blur(2px);
+            background-color: #fff;
             padding: 14px;
             border-radius: 10px;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
             transition: all 0.4s ease;
             opacity: 0;
             transform: translateY(15px);
             animation: fadeIn 0.8s forwards;
-            border-right: 3px solid #FACD00;
+            border-right: 3px solid #104322;
+            border: 1px solid #939A71;
+            position: relative;
+        }
+        
+        .today-item {
+            background-color: #FFF8E1;
+            border: 2px solid #FFC107;
         }
         
         @keyframes fadeIn {
@@ -162,23 +178,37 @@
             }
         }
         
-        .item-image-container {
-            position: relative;
-            width: 100%;
-            padding-top: 177.78%; /* 16:9 aspect ratio */
-            overflow: hidden;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #FACD00;
+        .item-name {
+            font-weight: 500;
+            font-size: 15px;
+            color: #20120D;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+        
+        .item-price {
+            font-size: 14px;
+            color: #4E2916;
+            text-align: center;
+            margin-top: 5px;
+        }
+ 
+        .item-description {
+            font-size: 13px;
+            color: #666;
+            text-align: center;
+            margin-top: 8px;
+            line-height: 1.5;
+            direction: rtl;
         }
         
         .item-image {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
-            height: 100%;
+            height: 180px;
             object-fit: cover;
+            object-position: center;
+            border-radius: 8px;
+            margin-bottom: 8px;
             cursor: pointer;
             transition: transform 0.3s;
         }
@@ -187,118 +217,258 @@
             transform: scale(1.03);
         }
         
-        .item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 5px;
-        }
-        
-        .item-name {
-            font-weight: 500;
-            font-size: 15px;
-            color: #1B3884;
-            text-align: right;
-        }
-        
-        .item-price {
-            color: #1B3884;
-            font-weight: 500;
+        .add-to-cart-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #104322;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
             font-size: 16px;
-            text-align: left;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+            transition: all 0.3s;
         }
         
-        .item-description {
-            color: #1B3884;
-            font-size: 13px;
-            margin-top: 8px;
-            font-style: italic;
-            opacity: 0.8;
-            line-height: 1.6;
-            text-align: right;
+        .add-to-cart-btn:hover {
+            background-color: #4E2916;
+            transform: scale(1.1);
         }
         
         .cafe-logo {
             text-align: center;
             margin: 20px 0;
             padding: 15px;
-            background-color: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(3px);
-            -webkit-backdrop-filter: blur(3px);
+            background-color: #fff;
             border-radius: 10px;
-            border: 1px solid #FACD00;
+            border: 1px solid #939A71;
         }
         
         .cafe-logo img {
-            max-width: 200px;
-            max-height: 100px;
-            object-fit: contain;
+            max-width: 150px;
+            max-height: 80px;
+            border-radius: 50%;
+            border: 3px solid #4E2916;
+            padding: 5px;
+            object-fit: cover;
+            width: 100px;
+            height: 100px;
         }
         
         .footer {
             text-align: center;
             padding: 15px;
             margin-top: auto;
-            background-color: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(3px);
-            -webkit-backdrop-filter: blur(3px);
+            background-color: #104322;
             border-radius: 10px;
-            border-top: 1px solid #FACD00;
+            border-top: 1px solid #4E2916;
             font-size: 14px;
-            color: #1B3884;
+            color: #fff;
         }
         
-        .footer a {
-            color: #FACD00;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer a:hover {
-            color: #1B3884;
-            text-decoration: underline;
-        }
-
-        /* Modal styles */
-        .modal {
+        /* مدال بزرگنمایی عکس و ویدئو */
+        .image-modal {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.8);
             z-index: 1000;
             justify-content: center;
             align-items: center;
         }
         
-        .modal-content {
+        .image-modal img,
+        .image-modal video {
             max-width: 90%;
             max-height: 90%;
-            position: relative;
+            border-radius: 8px;
+            object-fit: contain;
         }
         
-        .modal-content img,
-        .modal-content video {
-            width: auto;
-            height: auto;
-            max-width: 100%;
-            max-height: 90vh;
-            object-fit: contain;
-            border: 3px solid #FACD00;
+        /* سبد خرید */
+        .cart-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #4E2916;
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .cart-btn:hover {
+            background-color: #104322;
+            transform: scale(1.1);
+        }
+        
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #ff4757;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            left: -400px;
+            width: 350px;
+            height: 100vh;
+            background-color: white;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+        
+        .cart-sidebar.open {
+            left: 0;
+        }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-title {
+            font-size: 20px;
+            color: #4E2916;
+            font-weight: bold;
+        }
+        
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            max-height: calc(100vh - 200px);
+        }
+        
+        .cart-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #ddd;
+        }
+        
+        .cart-item-image {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
             border-radius: 8px;
+            margin-left: 10px;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+        }
+        
+        .cart-item-name {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-price {
+            font-size: 13px;
+            color: #4E2916;
+        }
+        
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+        }
+        
+        .cart-item-quantity {
+            margin: 0 10px;
+            font-size: 14px;
+        }
+        
+        .cart-item-btn {
+            background-color: #104322;
+            color: white;
+            border: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .cart-item-btn:hover {
+            background-color: #4E2916;
+        }
+        
+        .cart-summary {
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            position: sticky;
+            bottom: 10px;
+            margin-top: auto;
+        }
+        
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #4E2916;
+        }
+        
+        .empty-cart {
+            text-align: center;
+            color: #666;
+            padding: 20px;
+            font-size: 14px;
         }
 
-        .close-modal {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            color: white;
-            font-size: 30px;
-            cursor: pointer;
-            z-index: 1001;
-        }
         
         @media (max-width: 768px) {
             .menu-container {
@@ -323,10 +493,6 @@
                 min-height: auto;
             }
             
-            .category-icon {
-                font-size: 20px;
-            }
-            
             .category-name {
                 font-size: 12px;
                 line-height: 1.4;
@@ -338,7 +504,8 @@
             }
             
             .cafe-logo img {
-                max-width: 150px;
+                max-width: 80px;
+                max-height: 80px;
             }
             
             .menu-items {
@@ -347,6 +514,18 @@
             
             .items-title {
                 font-size: 20px;
+            }
+            
+            .items-english-title {
+                font-size: 14px;
+            }
+            
+            .item-image {
+                height: 140px;
+            }
+            
+            .cart-sidebar {
+                width: 300px;
             }
         }
         
@@ -357,10 +536,6 @@
                 gap: 12px;
             }
             
-            .category-icon {
-                font-size: 18px;
-            }
-            
             .category-name {
                 font-size: 11px;
             }
@@ -369,112 +544,174 @@
                 grid-template-columns: 1fr;
             }
             
-            .cafe-logo img {
-                max-width: 120px;
+            .item-image {
+                height: 200px;
+            }
+            
+            .cart-sidebar {
+                width: 280px;
             }
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- افزودن کتابخانه تاریخ شمسی -->
+    <script src="https://cdn.jsdelivr.net/npm/jalali-moment/dist/jalali-moment.browser.js"></script>
 </head>
 <body>
+    <!-- دکمه سبد خرید -->
+    <button class="cart-btn" id="cartBtn">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-badge" id="cartBadge">0</span>
+    </button>
+    
+    <!-- سبد خرید -->
+    <div class="cart-sidebar" id="cartSidebar">
+            <div class="cart-header">
+                <div class="cart-title">سبد خرید</div>
+                <button class="close-cart" id="closeCart">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <div class="empty-cart">سبد خرید شما خالی است</div>
+            </div>
+            <div class="cart-summary">
+                <div class="cart-total">
+                    <span>جمع کل:</span>
+                    <span id="cartTotal">0 تومان</span>
+                </div>
+            </div>
+        </div>
+
     <div class="menu-container">
         <div class="categories-sidebar" id="categoriesSidebar">
-            <!-- Categories will be added by JavaScript -->
+            <!-- دسته‌بندی‌ها توسط جاوااسکریپت اضافه می‌شوند -->
         </div>
         <div class="items-container" id="itemsContainer">
             <div class="items-content">
-                <h2 class="items-title">منوی کافه رستوران فیترو</h2>
-                <div id="todaySpecial" class="today-special" style="display: none;">
-                    غذای ویژه امروز
-                </div>
+                <h2 class="items-title" id="itemsTitle">منوی رستوران</h2>
+                <div class="items-english-title" id="itemsEnglishTitle"></div>
                 <div class="menu-items" id="menuItems">
-                    <!-- Items will be added by JavaScript -->
+                    <!-- آیتم‌ها توسط جاوااسکریپت اضافه می‌شوند -->
                 </div>
                 
-                <!-- Cafe Logo Section -->
+                <!-- لوگوی رستوران -->
                 <div class="cafe-logo">
-                    <img src="looogo.png" alt="لوگوی کافه رستوران فیترو">
+                    <img src="logo.jpg" alt="لوگوی رستوران">
                 </div>
             </div>
             
-            <!-- Footer -->
+            <!-- فوتر -->
             <div class="footer">
-                کافه رستوران فیترو - تمام حقوق محفوظ است
+                تمامی حقوق محفوظ است | رستوران ۲۰۲۵ ©
             </div>
         </div>
     </div>
 
-    <!-- Video Modal -->
-    <div class="modal" id="videoModal">
-        <span class="close-modal" onclick="closeModal()">&times;</span>
-        <div class="modal-content">
-            <video id="expandedVideo" controls autoplay>
-                Your browser does not support the video tag.
-            </video>
-        </div>
+    <!-- مدال بزرگنمایی عکس و ویدئو -->
+    <div class="image-modal" id="imageModal">
+        <video id="modalVideo" controls style="display:none;"></video>
+        <img id="modalImage" src="" alt="تصویر بزرگ شده">
     </div>
 
     <script>
-        // Get current Persian day
-        const persianDays = ['شنبه', 'یکشنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنج‌شنبه', 'جمعه'];
-        const today = new Date();
-        const persianDate = jalaliMoment(today).locale('fa');
-        const dayOfWeek = persianDate.format('dddd');
-        const todayIndex = persianDays.indexOf(dayOfWeek);
-
-        // Menu data
+        // داده‌های منو با قیمت‌ها و نام عکس‌ها
         const menuData = {
-            "چلوکباب": [
-                {name: "چلوکباب سلطانی", price: "1045", image: "kabab-soltani.jpg", video: "kabab-soltani.mp4"},
-                {name: "چلوکباب برگ", price: "831", image: "kabab-barg.jpg", video: "kabab-barg.mp4"},
-                {name: "چلوکباب لقمه", price: "363", image: "kabab-laghme.jpg", video: "kabab-laghme.mp4"},
-                {name: "چلوکباب میکس", price: "545", image: "kabab-mix.jpg", video: "kabab-mix.mp4"},
-                {name: "چلوجوجه کباب", price: "330", image: "jooje-kabab.jpg", video: "jooje-kabab.mp4"},
-                {name: "چلوماهی قزل آلا", price: "385", image: "mahii.jpg", video: "mahii.mp4"},
-                {name: "چلوجوجه با استخوان", price: "462", image: "jooje-ostokhan.jpg", video: "jooje-ostokhan.mp4"}
-            ],
-            "خوراک‌ها": [
-                {name: "خوراک کباب سلطانی", price: "1018", image: "khorak-soltani.jpg", video: "khorak-soltani.mp4"},
-                {name: "خوراک کباب برگ", price: "798", image: "khorak-barg.jpg", video: "khorak-barg.mp4"},
-                {name: "خوراک کباب لقمه", price: "341", image: "khorak-laghme.jpg", video: "khorak-laghme.mp4"},
-                {name: "خوراک کباب میکس", price: "523", image: "khorak-mix.jpg", video: "khorak-mix.mp4"},
-                {name: "خوراک جوجه کباب", price: "303", image: "khorak-jooje.jpg", video: "khorak-jooje.mp4"},
-                {name: "خوراک ماهی قزل آلا", price: "363", image: "khorak-mahi.jpg", video: "khorak-mahi.mp4"},
-                {name: "خوراک مرغ", price: "297", image: "khorak-morgh.jpg", video: "khorak-morgh.mp4"},
-                {name: "خوراک جوجه با استخوان", price: "440", image: "khorak-jooje-ostokhan.jpg", video: "khorak-jooje-ostokhan.mp4"}
-            ],
-            "شنبه": [
-                {name: "چلو خورشت قیمه", price: "275", image: "ghormeh.jpg", video: "ghormeh.mp4"}
-            ],
-            "یک‌شنبه": [
-                {name: "چلو خورشت قورمه سبزی", price: "275", image: "ghormeh-sabzi.jpg", video: "ghormeh-sabzi.mp4"},
-                {name: "باقالی پلو با ماهیچه", price: "990", image: "baghali-mahiche.jpg", video: "baghali-mahiche.mp4"},
-                {name: "باقالی پلو با مرغ", price: "330", image: "baghali-morgh.jpg", video: "baghali-morgh.mp4"}
-            ],
-            "دوشنبه": [
-                {name: "چلو خورشت قیمه", price: "275", image: "ghormeh.jpg", video: "ghormeh.mp4"}
-            ],
-            "سه‌شنبه": [
-                {name: "چلو خورشت قیمه", price: "275", image: "ghormeh.jpg", video: "ghormeh.mp4"},
-                {name: "لوبیا پلو با گوشت", price: "270", image: "loobia.jpg", video: "loobia.mp4"}
-            ],
-            "چهارشنبه": [
-                {name: "چلو خورشت قورمه سبزی", price: "275", image: "ghormeh-sabzi.jpg", video: "ghormeh-sabzi.mp4"},
-                {name: "سبزی پلو با ماهی قزل‌آلا", price: "413", image: "sabzi-mahi.jpg", video: "sabzi-mahi.mp4"}
-            ],
-            "پنج‌شنبه": [
-                {name: "چلو خورشت قیمه", price: "275", image: "ghormeh.jpg", video: "ghormeh.mp4"},
-                {name: "چلو خورشت قورمه سبزی", price: "275", image: "ghormeh-sabzi.jpg", video: "ghormeh-sabzi.mp4"}
-            ],
-            "جمعه": [
-                {name: "چلو خورشت قیمه", price: "275", image: "ghormeh.jpg", video: "ghormeh.mp4"},
-                {name: "چلو خورشت قورمه سبزی", price: "275", image: "ghormeh-sabzi.jpg", video: "ghormeh-sabzi.mp4"}
-            ]
+            "چلوکباب": {
+                english: "KABAB WITH RICE",
+                items: [
+                    {name: "چلوکباب سلطانی", price: "1045", image: "kabab1.jpg", video: "kabab1.mp4"},
+                    {name: "چلوکباب برگ", price: "831", image: "kabab2.jpg", video: "kabab2.mp4"},
+                    {name: "چلوکباب لقمه", price: "363", image: "kabab3.jpg", video: "kabab3.mp4"},
+                    {name: "چلوکباب میکس", price: "545", image: "kabab4.jpg", video: "kabab4.mp4"},
+                    {name: "چلوجوجه کباب", price: "330", image: "kabab5.jpg", video: "kabab5.mp4"},
+                    {name: "چلوماهی قزل آلا", price: "385", image: "kabab6.jpg", video: "kabab6.mp4"},
+                    {name: "چلوجوجه با استخوان", price: "462", image: "kabab7.jpg", video: "kabab7.mp4"}
+                ]
+            },
+            "خوراک‌ها": {
+                english: "STEWS",
+                items: [
+                    {name: "خوراک کباب سلطانی", price: "1018", image: "stew1.jpg", video: "stew1.mp4"},
+                    {name: "خوراک کباب برگ", price: "798", image: "stew2.jpg", video: "stew2.mp4"},
+                    {name: "خوراک کباب لقمه", price: "341", image: "stew3.jpg", video: "stew3.mp4"},
+                    {name: "خوراک کباب میکس", price: "523", image: "stew4.jpg", video: "stew4.mp4"},
+                    {name: "خوراک جوجه کباب", price: "303", image: "stew5.jpg", video: "stew5.mp4"},
+                    {name: "خوراک ماهی قزل آلا", price: "363", image: "stew6.jpg", video: "stew6.mp4"},
+                    {name: "خوراک مرغ", price: "297", image: "stew7.jpg", video: "stew7.mp4"},
+                    {name: "خوراک جوجه با استخوان", price: "440", image: "stew8.jpg", video: "stew8.mp4"}
+                ]
+            },
+            "شنبه": {
+                english: "SATURDAY",
+                items: [
+                    {name: "چلو خورشت قیمه", price: "275", image: "ghormeh1.jpg", video: "ghormeh1.mp4"}
+                ]
+            },
+            "یک‌شنبه": {
+                english: "SUNDAY",
+                items: [
+                    {name: "چلو خورشت قورمه سبزی", price: "275", image: "ghormeh2.jpg", video: "ghormeh2.mp4"},
+                    {name: "باقالی پلو با ماهیچه", price: "990", image: "baghali1.jpg", video: "baghali1.mp4"},
+                    {name: "باقالی پلو با مرغ", price: "330", image: "baghali2.jpg", video: "baghali2.mp4"}
+                ]
+            },
+            "دوشنبه": {
+                english: "MONDAY",
+                items: [
+                    {name: "چلو خورشت قیمه", price: "275", image: "ghormeh1.jpg", video: "ghormeh1.mp4"}
+                ]
+            },
+            "سه‌شنبه": {
+                english: "TUESDAY",
+                items: [
+                    {name: "چلو خورشت قیمه", price: "275", image: "ghormeh1.jpg", video: "ghormeh1.mp4"},
+                    {name: "لوبیا پلو با گوشت", price: "270", image: "loobia.jpg", video: "loobia.mp4"}
+                ]
+            },
+            "چهارشنبه": {
+                english: "WEDNESDAY",
+                items: [
+                    {name: "چلو خورشت قورمه سبزی", price: "275", image: "ghormeh2.jpg", video: "ghormeh2.mp4"},
+                    {name: "سبزی پلو با ماهی قزل‌آلا", price: "413", image: "sabzi.jpg", video: "sabzi.mp4"}
+                ]
+            },
+            "پنج‌شنبه": {
+                english: "THURSDAY",
+                items: [
+                    {name: "چلو خورشت قیمه", price: "275", image: "ghormeh1.jpg", video: "ghormeh1.mp4"},
+                    {name: "چلو خورشت قورمه سبزی", price: "275", image: "ghormeh2.jpg", video: "ghormeh2.mp4"}
+                ]
+            },
+            "جمعه": {
+                english: "FRIDAY",
+                items: [
+                    {name: "چلو خورشت قیمه", price: "275", image: "ghormeh1.jpg", video: "ghormeh1.mp4"},
+                    {name: "چلو خورشت قورمه سبزی", price: "275", image: "ghormeh2.jpg", video: "ghormeh2.mp4"}
+                ]
+            }
         };
 
-        // Category icons (using Font Awesome icons)
+        // متغیرهای DOM
+        const categoriesSidebar = document.getElementById('categoriesSidebar');
+        const menuItems = document.getElementById('menuItems');
+        const itemsTitle = document.getElementById('itemsTitle');
+        const itemsEnglishTitle = document.getElementById('itemsEnglishTitle');
+        const imageModal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalVideo = document.getElementById('modalVideo');
+        const cartBtn = document.getElementById('cartBtn');
+        const cartBadge = document.getElementById('cartBadge');
+        const cartSidebar = document.getElementById('cartSidebar');
+        const closeCart = document.getElementById('closeCart');
+        const cartItems = document.getElementById('cartItems');
+        const cartTotal = document.getElementById('cartTotal');
+
+        // سبد خرید
+        let cart = [];
+
+        // آیکون‌های دسته‌بندی‌ها (از Font Awesome)
         const categoryIcons = {
             "چلوکباب": "fa-utensils",
-            "خوراک‌ها": "fa-bowl-food",
+            "خوراک‌ها": "fa-drumstick-bite",
             "شنبه": "fa-calendar-day",
             "یک‌شنبه": "fa-calendar-day",
             "دوشنبه": "fa-calendar-day",
@@ -484,176 +721,253 @@
             "جمعه": "fa-calendar-day"
         };
 
-        // DOM elements
-        const categoriesSidebar = document.getElementById('categoriesSidebar');
-        const menuItems = document.getElementById('menuItems');
-        const itemsTitle = document.querySelector('.items-title');
-        const todaySpecial = document.getElementById('todaySpecial');
-        const videoModal = document.getElementById('videoModal');
-        const expandedVideo = document.getElementById('expandedVideo');
+        // تشخیص روز جاری شمسی - روش جدید و مطمئن
+        function getTodayPersianDay() {
+            const daysMap = {
+                'Saturday': 'شنبه',
+                'Sunday': 'یک‌شنبه',
+                'Monday': 'دوشنبه',
+                'Tuesday': 'سه‌شنبه',
+                'Wednesday': 'چهارشنبه',
+                'Thursday': 'پنج‌شنبه',
+                'Friday': 'جمعه'
+            };
+            
+            try {
+                const today = new Date();
+                const dayName = today.toLocaleDateString('fa-IR', { weekday: 'long' });
+                return dayName;
+            } catch (e) {
+                // اگر خطایی رخ داد از روش جایگزین استفاده کنیم
+                const englishDay = new Date().toLocaleDateString('en-US', { weekday: 'long' });
+                return daysMap[englishDay] || 'شنبه'; // پیش‌فرض شنبه اگر تشخیص داده نشد
+            }
+        }
 
-        // Create category buttons
+        const todayPersian = getTodayPersianDay();
+        console.log("امروز است:", todayPersian); // برای دیباگ
+
+        // ایجاد دسته‌بندی‌ها
         function createCategories() {
-            // Add main categories first
-            const mainCategories = ["چلوکباب", "خوراک‌ها"];
-            mainCategories.forEach(category => {
+            categoriesSidebar.innerHTML = ''; // پاک کردن محتوای قبلی
+            
+            Object.keys(menuData).forEach(category => {
                 const categoryItem = document.createElement('div');
                 categoryItem.className = 'category-item';
-                categoryItem.innerHTML = `
-                    <i class="fas ${categoryIcons[category] || 'fa-utensils'} category-icon"></i>
-                    <div class="category-name">${category}</div>
-                `;
                 
+                // تعیین نام نمایشی
+                const displayName = category === todayPersian ? "غذای امروز" : category;
+                
+                categoryItem.innerHTML = `
+                    <i class="fas ${categoryIcons[category]} category-icon"></i>
+                    <div class="category-name">${displayName}</div>
+                `;
+
+                // تنظیم کلاس‌ها بر اساس نوع دسته‌بندی
+                if (category === todayPersian) {
+                    categoryItem.classList.add('today');
+                } else if (["شنبه", "یک‌شنبه", "دوشنبه", "سه‌شنبه", "چهارشنبه", "پنج‌شنبه", "جمعه"].includes(category)) {
+                    categoryItem.classList.add('inactive');
+                }
+                
+                // رویداد کلیک
                 categoryItem.addEventListener('click', () => {
-                    // Remove active class from all categories
+                    if (categoryItem.classList.contains('inactive')) return;
+                    
                     document.querySelectorAll('.category-item').forEach(item => {
-                        item.classList.remove('active');
+                        item.classList.remove('active', 'today');
                     });
                     
-                    // Add active class to clicked category
                     categoryItem.classList.add('active');
-                    
-                    // Hide today special banner
-                    todaySpecial.style.display = 'none';
-                    
-                    // Update items
+                    if (category === todayPersian) {
+                        categoryItem.classList.add('today');
+                    }
                     updateItems(category);
                 });
                 
                 categoriesSidebar.appendChild(categoryItem);
             });
-
-            // Add separator
-            const separator = document.createElement('div');
-            separator.style.width = '80%';
-            separator.style.height = '1px';
-            separator.style.backgroundColor = '#FACD00';
-            separator.style.margin = '10px 0';
-            categoriesSidebar.appendChild(separator);
-
-            // Add days of week
-            persianDays.forEach((day, index) => {
-                const categoryItem = document.createElement('div');
-                const isToday = index === todayIndex;
-                
-                categoryItem.className = isToday ? 'category-item active' : 'category-item inactive';
-                categoryItem.innerHTML = `
-                    <i class="fas ${categoryIcons[day] || 'fa-calendar-day'} category-icon ${isToday ? '' : 'inactive'}"></i>
-                    <div class="category-name">${isToday ? 'غذای امروز' : day}</div>
-                `;
-                
-                if (!isToday) {
-                    categoryItem.style.cursor = 'default';
-                } else {
-                    categoryItem.addEventListener('click', () => {
-                        // Remove active class from all categories
-                        document.querySelectorAll('.category-item').forEach(item => {
-                            item.classList.remove('active');
-                        });
-                        
-                        // Add active class to clicked category
-                        categoryItem.classList.add('active');
-                        
-                        // Show today special banner
-                        todaySpecial.style.display = 'block';
-                        todaySpecial.textContent = `غذای ویژه ${day}`;
-                        
-                        // Update items
-                        updateItems(day);
-                    });
-                }
-                
-                categoriesSidebar.appendChild(categoryItem);
-            });
+            
+            // تنظیم دسته‌بندی پیش‌فرض
+            setDefaultActiveCategory();
         }
 
-        // Function to update items based on selected category
+        // به‌روزرسانی آیتم‌های منو
         function updateItems(category) {
-            // Clear previous items
             menuItems.innerHTML = '';
             
-            // Update title
-            itemsTitle.textContent = category === persianDays[todayIndex] ? 'غذای امروز' : category;
+            const displayTitle = category === todayPersian ? "غذای امروز" : category;
+            itemsTitle.textContent = displayTitle;
+            itemsEnglishTitle.textContent = menuData[category].english;
             
-            // Check if category is empty
-            if (!menuData[category] || menuData[category].length === 0) {
-                const emptyMessage = document.createElement('div');
-                emptyMessage.className = 'menu-item';
-                emptyMessage.innerHTML = `
-                    <div class="item-name">آیتمی برای نمایش وجود ندارد</div>
-                    <div class="item-description">به زودی منوی این بخش تکمیل خواهد شد</div>
-                `;
-                menuItems.appendChild(emptyMessage);
+            // بررسی برای روزهای غیرفعال
+            if (["شنبه", "یک‌شنبه", "دوشنبه", "سه‌شنبه", "چهارشنبه", "پنج‌شنبه", "جمعه"].includes(category) && category !== todayPersian) {
+                const notAvailableMsg = document.createElement('div');
+                notAvailableMsg.className = 'not-available';
+                notAvailableMsg.textContent = 'این غذا امروز سرو نمی‌شود';
+                menuItems.appendChild(notAvailableMsg);
                 return;
             }
             
-            // Add items with animation delay
-            menuData[category].forEach((item, index) => {
-                setTimeout(() => {
-                    const itemElement = document.createElement('div');
-                    itemElement.className = 'menu-item';
-                    itemElement.style.animationDelay = `${index * 0.1}s`;
-                    
-                    let imageHtml = '';
-                    if (item.image) {
-                        imageHtml = `
-                            <div class="item-image-container">
-                                <img src="${item.image}" alt="${item.name}" class="item-image" onclick="openVideoModal('${item.video}')">
-                            </div>
-                        `;
-                    }
-                    
-                    itemElement.innerHTML = `
-                        ${imageHtml}
-                        <div class="item-header">
-                            <div class="item-name">${item.name}</div>
-                            <div class="item-price">${item.price} تومان</div>
-                        </div>
-                    `;
-                    menuItems.appendChild(itemElement);
-                }, 50);
+            // نمایش آیتم‌های منو
+            menuData[category].items.forEach((item, index) => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'menu-item';
+                
+                if (category === todayPersian) {
+                    itemElement.classList.add('today-item');
+                }
+                
+                itemElement.style.animationDelay = `${index * 0.1}s`;
+                itemElement.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" class="item-image" onclick="openImageModal('${item.image}', '${item.video}')">
+                    <button class="add-to-cart-btn" onclick="addToCart('${category}', '${item.name}', '${item.price}', '${item.image}')">+</button>
+                    <div class="item-name">${item.name}</div>
+                    <div class="item-price">${item.price} تومان</div>
+                `;
+                
+                menuItems.appendChild(itemElement);
             });
         }
 
-        // Modal functions
-        function openVideoModal(videoSrc) {
-            expandedVideo.src = videoSrc;
-            videoModal.style.display = 'flex';
-            expandedVideo.play();
+        // تنظیم دسته‌بندی پیش‌فرض
+        function setDefaultActiveCategory() {
+            const categories = Object.keys(menuData);
+            let defaultCategory = categories[0]; // اولین دسته به عنوان پیش‌فرض
+            
+            // اگر امروز یکی از روزهای هفته است، آن را به عنوان پیش‌فرض انتخاب کنید
+            if (todayPersian && menuData[todayPersian]) {
+                defaultCategory = todayPersian;
+            }
+            
+            // پیدا کردن و فعال کردن دسته‌بندی مناسب
+            const categoryElements = document.querySelectorAll('.category-item');
+            categoryElements.forEach(element => {
+                const categoryName = element.querySelector('.category-name').textContent;
+                if (categoryName === "غذای امروز" || categoryName === defaultCategory) {
+                    element.classList.add('active');
+                    if (defaultCategory === todayPersian) {
+                        element.classList.add('today');
+                    }
+                    updateItems(defaultCategory);
+                }
+            });
         }
 
-        function closeModal() {
-            videoModal.style.display = 'none';
-            expandedVideo.pause();
-            expandedVideo.currentTime = 0;
+        // تابع برای اضافه کردن آیتم به سبد خرید
+        window.addToCart = function(category, name, price, image) {
+            // بررسی وجود آیتم در سبد خرید
+            const existingItem = cart.find(item => item.name === name);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    category,
+                    name,
+                    price: parseInt(price),
+                    image,
+                    quantity: 1
+                });
+            }
+            
+            updateCart();
+        };
+
+        // تابع برای به‌روزرسانی سبد خرید
+        function updateCart() {
+            // به‌روزرسانی تعداد آیتم‌ها در بج
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartBadge.textContent = totalItems;
+            
+            // به‌روزرسانی لیست آیتم‌ها در سبد خرید
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<div class="empty-cart">سبد خرید شما خالی است</div>';
+            } else {
+                cartItems.innerHTML = '';
+                cart.forEach((item, index) => {
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    cartItem.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                        <div class="cart-item-details">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">${item.price * item.quantity} تومان</div>
+                        </div>
+                        <div class="cart-item-controls">
+                            <button class="cart-item-btn" onclick="decreaseQuantity(${index})">-</button>
+                            <div class="cart-item-quantity">${item.quantity}</div>
+                            <button class="cart-item-btn" onclick="increaseQuantity(${index})">+</button>
+                        </div>
+                    `;
+                    cartItems.appendChild(cartItem);
+                });
+            }
+            
+            // محاسبه و نمایش مبلغ کل
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotal.textContent = `${totalPrice.toLocaleString()} تومان`;
         }
 
-        // Close modal when clicking outside
-        videoModal.addEventListener('click', (e) => {
-            if (e.target === videoModal) {
-                closeModal();
+        // تابع برای افزایش تعداد آیتم در سبد خرید
+        window.increaseQuantity = function(index) {
+            cart[index].quantity += 1;
+            updateCart();
+        };
+
+        // تابع برای کاهش تعداد آیتم در سبد خرید
+        window.decreaseQuantity = function(index) {
+            if (cart[index].quantity > 1) {
+                cart[index].quantity -= 1;
+            } else {
+                cart.splice(index, 1);
+            }
+            updateCart();
+        };
+
+        // تابع برای نمایش سبد خرید
+        function showCart() {
+            cartSidebar.classList.add('open');
+        }
+
+        // تابع برای مخفی کردن سبد خرید
+        function hideCart() {
+            cartSidebar.classList.remove('open');
+        }
+
+        // رویدادهای سبد خرید
+        cartBtn.addEventListener('click', showCart);
+        closeCart.addEventListener('click', hideCart);
+
+        // تابع برای باز کردن مدال بزرگنمایی عکس یا ویدئو
+        window.openImageModal = function(imageSrc, videoSrc) {
+            if (videoSrc) {
+                modalImage.style.display = 'none';
+                modalVideo.style.display = 'block';
+                modalVideo.src = videoSrc;
+                modalVideo.play();
+            } else {
+                modalVideo.style.display = 'none';
+                modalImage.style.display = 'block';
+                modalImage.src = imageSrc;
+            }
+            imageModal.style.display = 'flex';
+        };
+
+        // بستن مدال با کلیک روی آن
+        imageModal.addEventListener('click', (e) => {
+            if (e.target === imageModal) {
+                if (modalVideo.style.display === 'block') {
+                    modalVideo.pause();
+                }
+                imageModal.style.display = 'none';
             }
         });
 
-        // Make functions available globally
-        window.openVideoModal = openVideoModal;
-        window.closeModal = closeModal;
-
-        // Initialize the menu
-        createCategories();
-        
-        // Set first category as active by default
-        document.querySelector('.category-item').classList.add('active');
-        updateItems("چلوکباب");
-        
-        // If today is one of the days, show today's special
-        if (todayIndex >= 0) {
-            const todayCategory = document.querySelectorAll('.category-item')[todayIndex + 3]; // +3 for main categories and separator
-            todayCategory.classList.add('active');
-            todaySpecial.style.display = 'block';
-            todaySpecial.textContent = `غذای ویژه ${persianDays[todayIndex]}`;
-            updateItems(persianDays[todayIndex]);
-        }
+        // مقداردهی اولیه هنگام بارگذاری صفحه
+        document.addEventListener('DOMContentLoaded', () => {
+            createCategories();
+        });
     </script>
 </body>
 </html>
