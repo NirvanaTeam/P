@@ -1,1 +1,27 @@
-hi
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>ChatBot Test</title>
+</head>
+<body>
+  <h2>Chat with Bot</h2>
+  <input type="text" id="userInput" placeholder="پیام خود را وارد کنید">
+  <button onclick="sendMessage()">ارسال</button>
+  <p id="botReply"></p>
+
+  <script>
+    async function sendMessage() {
+      const message = document.getElementById('userInput').value;
+      const res = await fetch("http://nirvanarise.subnitro.pro/chatbot/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message })
+      });
+
+      const data = await res.json();
+      document.getElementById('botReply').innerText = data.reply;
+    }
+  </script>
+</body>
+</html>
