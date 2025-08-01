@@ -13,7 +13,7 @@
   <script>
     async function sendMessage() {
       const message = document.getElementById('userInput').value;
-      const res = await fetch("http://nirvanarise.subnitro.pro/chatbot", {
+      const res = await fetch("http://nirvanarise.subnitro.pro/chatbot/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message })
