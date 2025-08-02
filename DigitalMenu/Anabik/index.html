@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>منوی آنلاین آنابیک</title>
+
+  <!-- فونت فارسی و Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <style>
+    :root {
+      --primary: #E33F16;
+      --secondary: #2E2E2E;
+      --bg-light: #F5F5F5;
+      --text-dark: #333;
+      --text-light: #fff;
+      --accent: #FFC107;
+    }
+    * { box-sizing: border-box; margin:0; padding:0 }
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      background: var(--secondary);
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+    header img { height: 50px }
+    nav ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    nav a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color .3s;
+    }
+    nav a:hover { color: var(--accent) }
+
+    main {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    /* دسته‌بندی‌ها */
+    .menu-section {
+      margin-bottom: 50px;
+    }
+    .menu-section h2 {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.8rem;
+      color: var(--primary);
+      border-bottom: 3px solid var(--primary);
+      padding-bottom: 6px;
+      margin-bottom: 20px;
+    }
+    .menu-section h2 img.category-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    /* گرید آیتم‌ها */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+      gap: 20px;
+    }
+    .menu-item {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .menu-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .menu-item h3 {
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .price {
+      background: var(--accent);
+      color: var(--secondary);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+    .menu-item p {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    footer {
+      background: var(--secondary);
+      color: var(--text-light);
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+    }
+    footer a { color: var(--accent); text-decoration: none }
+
+    @media (max-width: 600px) {
+      .menu-section h2 { font-size: 1.5rem }
+      nav ul { gap: 8px }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <img src="./img/anabik-logo.png" alt="لوگو آنابیک" />
+    <nav>
+      <ul>
+        <li><a href="#sandwiches"><i class="fas fa-hamburger"></i> ساندویچ‌ها</a></li>
+        <li><a href="#special"><i class="fas fa-star"></i> ویژه‌ها</a></li>
+        <li><a href="#plates"><i class="fas fa-drumstick-bite"></i> غذاهای پرسی</a></li>
+        <li><a href="#appetizers"><i class="fas fa-utensils"></i> پیش‌غذا</a></li>
+        <li><a href="#family-pizza"><i class="fas fa-pizza-slice"></i> پیتزا خانوادگی</a></li>
+        <li><a href="#single-pizza"><i class="fas fa-pizza-slice"></i> پیتزا تک‌نفره</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ساندویچ‌ها -->
+    <section id="sandwiches" class="menu-section">
+      <h2>
+        <img
+          class="category-img"
+          src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=80&h=80&q=60"
+          alt="ساندویچ"
+        />
+        ساندویچ‌ها
+      </h2>
+      <div class="menu-grid">
+        <div class="menu-item">
+          <h3>فلافل مخصوص <span class="price">77,000 تومان</span></h3>
+          <p>فلافل سنتی با چاشنی ویژه آنابیک و سس مخصوص.</p>
+        </div>
+        <div class="menu-item">
+          <h3>فلافل (قارچ و پنیر) <span class="price">112,000 تومان</span></h3>
+          <p>فلافل با قارچ تازه و پنیر موزارلا ذوب شده.</p>
+        </div>
+        <div class="menu-item">
+          <h3>هات داگ ۹۰٪ <span class="price">91,000 تومان</span></h3>
+          <p>هات‌داگ با گوشت مرغ ۹۰٪ و سس مخصوص.</p>
+        </div>
+        <div class="menu-item">
+          <h3>هات داگ (قارچ و پنیر) <span class="price">127,000 تومان</span></h3>
+          <p>هات‌داگ مرغ با قارچ و پنیر چدار.</p>
+        </div>
+        <div class="menu-item">
+          <h3>همبرگر <span class="price">108,000 تومان</span></h3>
+          <p>همبرگر با گوشت ۱۰۰٪ گوساله و سس مخصوص آنابیک.</p>
+        </div>
+        <div class="menu-item">
+          <h3>همبرگر (قارچ و پنیر) <span class="price">138,000 تومان</span></h3>
+          <p>همبرگر با قارچ تفت‌داده و پنیر پیتزا.</p>
+        </div>
+        <div class="menu-item">
+          <h3>چیز برگر <span class="price">121,000 تومان</span></h3>
+          <p>همبرگر با پنیر چدار و مخلفات ویژه.</p>
+        </div>
+        <div class="menu-item">
+          <h3>دوبل برگر <span class="price">127,000 تومان</span></h3>
+          <p>دو عدد همبرگر با پنیر و سس اختصاصی.</p>
+        </div>
+        <div class="menu-item">
+          <h3>بندری <span class="price">95,000 تومان</span></h3>
+          <p>سوسیس مخصوص بندری با مخلفات و سس تند.</p>
+        </div>
+        <div class="menu-item">
+          <h3>بندری (قارچ و پنیر) <span class="price">129,000 تومان</span></h3>
+          <p>سوسیس بندری با قارچ و پنیر موزارلا.</p>
+        </div>
+        <div class="menu-item">
+          <h3>کوکتل <span class="price">96,000 تومان</span></h3>
+          <p>کوکتل با سس مخصوص و مخلفات تازه.</p>
+        </div>
+        <div class="menu-item">
+          <h3>کوکتل (قارچ و پنیر) <span class="price">133,000 تومان</span></h3>
+          <p>کوکتل با قارچ و پنیر.</p>
+        </div>
+        <div class="menu-item">
+          <h3>بلغاری <span class="price">97,000 تومان</span></h3>
+          <p>سوسیس بلغاری با سس کرمی و مخلفات ویژه.</p>
+        </div>
+        <div class="menu-item">
+          <h3>بلغاری (قارچ و پنیر) <span class="price">136,000 تومان</span></h3>
+          <p>بلغاری با قارچ و پنیر.</p>
+        </div>
+        <div class="menu-item">
+          <h3>ژامبون گوشت و مرغ ۹۰٪ <span class="price">106,000 تومان</span></h3>
+          <p>ژامبون مخلوط گوشت گوساله و مرغ ۹۰٪.</p>
+        </div>
+        <div class="menu-item">
+          <h3>فیله مرغ <span class="price">134,000 تومان</span></h3>
+          <p>فیله مرغ گریل‌شده با سس مخصوص.</p>
+        </div>
+        <div class="menu-item">
+          <h3>فیله مرغ (قارچ و پنیر) <span class="price">171,000 تومان</span></h3>
+          <p>فیله مرغ با قارچ و پنیر موزارلا.</p>
+        </div>
+        <div class="menu-item">
+          <h3>کراکت پنیری <span class="price">132,000 تومان</span></h3>
+          <p>کراکت سیب‌زمینی با پنیر داخل.</p>
+        </div>
+        <div class="menu-item">
+          <h3>کراکت پنیری (قارچ و پنیر) <span class="price">169,000 تومان</span></h3>
+          <p>کراکت پنیری با قارچ و پنیر اضافه.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ویژه‌ها -->
+    <section id="special" class="menu-section">
+      <h2>
+        <img
+          class="category-img"
+          src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=80&h=80&q=60"
+          alt="ویژه‌ها"
+        />
+        ساندویچ‌های ویژه
+      </h2>
+      <div class="menu-grid">
+        <div class="menu-item">
+          <h3>ویژه آنابیک <span class="price">193,000 تومان</span></h3>
+          <p>میکس فیله مرغ، همبرگر، ژامبون، قارچ و پنیر.</p>
+        </div>
+        <div class="menu-item">
+          <h3>ویژه زابیتا <span class="price">181,000 تومان</span></h3>
+          <p>فیله مرغ، هات‌داگ، ژامبون، قارچ و پنیر.</p>
+        </div>
+        <div class="menu-item">
+          <h3>رویال فیله مرغ <span class="price">188,000 تومان</span></h3>
+          <p>فیله مرغ خاص با ژامبون و پنیر.</p>
+        </div>
+        <div class="menu-item">
+          <h3>رویال برگر <span class="price">145,000 تومان</span></h3>
+          <p>همبرگر ویژه با ژامبون و پنیر دلخواه.</p>
+        </div>
+        <div class="menu-item">
+          <h3>رویال هات <span class="price">142,000 تومان</span></h3>
+          <p>هات‌داگ ویژه با ژامبون و پنیر.</p>
+        </div>
+        <div class="menu-item">
+          <h3>رویال کراکت <span class="price">177,000 تومان</span></h3>
+          <p>کراکت پنیری با ژامبون، قارچ و پنیر.</p>
+        </div>
+        <div class="menu-item">
+          <h3>رویال فلافل <span class="price">131,000 تومان</span></h3>
+          <p>فلافل ویژه با ژامبون و پنیر.</p>
+        </div>
+        <div class="menu-item">
+          <h3>ژامبون تنوری <span class="price">139,000 تومان</span></h3>
+          <p>ژامبون گوشت و مرغ تنوری با پنیر.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- غذاهای پرسی -->
+    <section id="plates" class="menu-section">
+      <h2>
+        <img
+          class="category-img"
+          src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=80&h=80&q=60"
+          alt="غذاهای پرسی"
+        />
+        غذاهای پرسی
+      </h2>
+      <div class="menu-grid">
+        <div class="menu-item">
+          <h3>بندری پرسی <span class="price">129,000 تومان</span></h3>
+          <p>سوسیس بندری با کلمو، گوجه و خیارشور.</p>
+        </div>
+        <div class="menu-item">
+          <h3>فیله مرغ پرسی <span class="price">146,000 تومان</span></h3>
+          <p>فیله مرغ با کلمو، گوجه و خیارشور.</p>
+        </div>
+        <div class="menu-item">
+          <h3>کراکت پنیری پرسی <span class="price">144,000 تومان</span></h3>
+          <p>کراکت خردشده با سیب‌زمینی سرخ‌شده و پنیر فرانسوی.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- پیش‌غذا -->
+    <section id="appetizers" class="menu-section">
+      <h2>
+        <img
+          class="category-img"
+          src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=80&h=80&q=60"
+          alt="پیش‌غذا"
+        />
+        پیش‌غذا
+      </h2>
+      <div class="menu-grid">
+        <div class="menu-item">
+          <h3>سیب مزرعه ویژه <span class="price">323,000 تومان</span></h3>
+          <p>سیب‌زمینی تنوری با ادویه ویژه، قارچ، پنیر و ذرت.</p>
+        </div>
+        <div class="menu-item">
+          <h3>مزرعه سیب پنیری <span class="price">268,000 تومان</span></h3>
+          <p>سیب‌زمینی با ژامبون، قارچ و پنیر فرانسوی.</p>
+        </div>
+        <div class="menu-item">
+          <h3>سیب ویژه <span class="price">137,000 تومان</span></h3>
+          <p>سیب‌زمینی تنوری با ژامبون، قارچ، پنیر و فلفل دلمه.</p>
+        </div>
+        <div class="menu-item">
+          <h3>سیب ساده <span class="price">91,000 تومان</span></h3>
+          <p>سیب‌زمینی سرخ‌کرده تازه.</p>
+        </div>  
+      </div>
+    </section>
+
+    <!-- پیتزا خانوادگی -->
+    <section id="family-pizza" class="menu-section">
+      <h2>
+        <img
+          class="category-img"
+          src="https://images.unsplash.com/photo-1548365328-8ca2cb947e4a?auto=format&fit=crop&w=80&h=80&q=60"
+          alt="پیتزا خانوادگی"
+        />
+        پیتزا خانوادگی
+      </h2>
+      <div class="menu-grid">
+        <div class="menu-item">
+          <h3>پیتزا بمب ترکیبی <span class="price">316,000 تومان</span></h3>
+          <p>سوسیس، ژامبون، قارچ، پنیر، ذرت و سس مخصوص.</p>
+        </div>
+        <div class="menu-item">
+          <h3>پیتزا بمب مخلوط <span class="price">303,000 تومان</span></h3>
+          <p>قارچ، پنیر، ژامبون، ذرت و سس ویژه.</p>
+        </div>
+        <div class="menu-item">
+          <h3>پیتزا بمب چیکن <span class="price">343,000 تومان</span></h3>
+          <p>مرغ، قارچ، پنیر، ذرت و سس مخصوص.</p>
+        </div>
+        <div class="menu-item">
+          <h3>پیتزا بمب پپرونی <span class="price">305,000 تومان</span></h3>
+          <p>پپرونی، قارچ، پنیر، ذرت و سس مخصوص.</p>
+        </div>
+        <div class="menu-item">
+          <h3>پیتزا بمب گوشت <span class="price">327,000 تومان</span></h3>
+          <p>گوشت چرخ‌کرده، قارچ، پنیر، ذرت و سس مخصوص.</p>
+        </div>
+        <div class="menu-item">
+          <h3>پیتزا رست بیف <span class="price">547,000 تومان</span></h3>
+          <p>گوشت رست بیف، قارچ، پنیر، ذرت و سس مخصوص.</p>
+        </div>
+        <div class="menu-item">
+          <h3>پیتزا بمب گوشت و مرغ <span class="price">328,000 تومان</span></h3>
+          <p>مرغ، گوشت، قارچ، پنیر، ذرت و سس مخصوص.</p>
+        </div>
+        <div class="menu-item">
+          <h3>پیتزا بمب گوشت و مرغ ۹۰٪ <span class="price">351,000 تومان</span></h3>
+          <p>مرغ ۹۰٪ و گوشت، قارچ، پنیر، ذرت و سس مخصوص.</p>
+        </div>
+        <div class="menu-item">
+          <h3>ابر پیتزا <span class="price">417,000 تومان</span></h3>
+          <p>میکس ویژه از انواع تاپینگ و پنیر فراوان.</p>
+        </div>
+        <div class="menu-item">
+          <h3>پیتزا بمب میکس ترکیبی <span class="price">326,000 تومان</span></h3>
+          <p>مرغ، گوشت، هات‌داگ، قارچ، پنیر، ذرت و سس مخصوص.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- پیتزا تک‌نفره -->
+    <section id="single-pizza" class="menu-section">
+      <h2>
+        <img
+          class="category-img"
+          src="https://images.unsplash.com/photo-1601924582975-3f00e95ac0b7?auto=format&fit=crop&w=80&h=80&q=60"
+          alt="پیتزا تک‌نفره"
+        />
+        پیتزا تک‌نفره
+      </h2>
+      <div class="menu-grid">
+        <div class="menu-item">
+          <h3>پیتزا مخصوص آنابیک <span class="price">186,000 تومان</span></h3>
+          <p>قارچ، سوسیس، ژامبون، پنیر، ذرت و سس مخصوص.</p>
+        </div>
+        <div class="menu-item">
+          <h3>پیتزا مخلوط <span class="price">177,000 تومان</span></h3>
+          <p>قارچ، سوسیس، پنیر، ذرت و سس مخصوص.</p>
+        </div>
+        <div class="menu-item">
+          <h3>پیتزا چیکن <span class="price">205,000 تومان</span></h3>
+          <p>مرغ، قارچ، پنیر، ذرت و سس مخصوص.</p>
+        </div>
+        <div class="menu-item">
+          <h3>پیتزا پپرونی <span class="price">183,000 تومان</span></h3>
+          <p>پپرونی، قارچ، پنیر، ذرت و سس مخصوص.</p>
+        </div>
+        <div class="menu-item">
+          <h3>پیتزا گوشت <span class="price">203,000 تومان</span></h3>
+          <p>گوشت چرخ‌کرده، قارچ، پنیر، ذرت و سس مخصوص.</p>
+        </div>
+        <div class="menu-item">
+          <h3>پیتزا گوشت و مرغ <span class="price">204,000 تومان</span></h3>
+          <p>مرغ، گوشت، قارچ، پنیر، ذرت و سس مخصوص.</p>
+        </div>
+        <div class="menu-item">
+          <h3>پیتزا گوشت و مرغ ۹۰٪ <span class="price">217,000 تومان</span></h3>
+          <p>مرغ ۹۰٪ و گوشت، قارچ، پنیر، ذرت و سس مخصوص.</p>
+        </div>
+        <div class="menu-item">
+          <h3>پیتزا رست بیف <span class="price">196,000 تومان</span></h3>
+          <p>گوشت رست بیف، قارچ، پنیر، ذرت و سس مخصوص.</p>
+        </div>
+        <div class="menu-item">
+          <h3>پیتزا میکس ترکیبی <span class="price">349,000 تومان</span></h3>
+          <p>مرغ، گوشت، هات‌داگ، قارچ، پنیر، ذرت و سس مخصوص.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>برای سفارش و اطلاعات بیشتر:</p>
+    <p><i class="fab fa-instagram"></i> <a href="https://instagram.com/anabik_fast_food" target="_blank">@anabik_fast_food</a></p>
+    <p><i class="fas fa-phone"></i> ۰۲۱ ۶۶۲۵۴۰۳۶ – ۰۲۱ ۶۶۲۷۰۷۵۱</p>
+  </footer>
+
+</body>
+</html>
