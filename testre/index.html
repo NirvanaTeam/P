@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>گزارش مشکل در خرید - توسعه اندیش اسپادانا</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .logo {
+            max-height: 80px;
+            margin-bottom: 20px;
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            border: none;
+        }
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        .step {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #e9ecef;
+            color: #6c757d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 10px;
+            font-weight: bold;
+            position: relative;
+        }
+        .step.active {
+            background-color: #0d6efd;
+            color: white;
+        }
+        .step.completed {
+            background-color: #198754;
+            color: white;
+        }
+        .step-line {
+            height: 2px;
+            background-color: #e9ecef;
+            flex-grow: 1;
+            margin: auto 0;
+            position: relative;
+            top: 20px;
+        }
+        .step-line.active {
+            background-color: #0d6efd;
+        }
+        .btn-next {
+            background-color: #0d6efd;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+        }
+        .btn-next:hover {
+            background-color: #0b5ed7;
+            color: white;
+        }
+        .form-control {
+            border-radius: 10px;
+            padding: 12px 15px;
+        }
+        .camera-btn {
+            background-color: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .camera-btn:hover {
+            border-color: #0d6efd;
+            background-color: #e7f1ff;
+        }
+        .camera-icon {
+            font-size: 50px;
+            color: #6c757d;
+            margin-bottom: 15px;
+        }
+        .success-icon {
+            font-size: 80px;
+            color: #198754;
+            margin-bottom: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="text-center mb-4">
+                    <img src="https://spadanavending.com/wp-content/uploads/2024/09/spadana-logo-1.png" alt="شرکت مهندسی توسعه اندیش اسپادانا" class="logo">
+                    <h2 class="mt-3">گزارش مشکل در خرید</h2>
+                    <p class="text-muted">در صورتی که دستگاه کالا را تحویل نداده است، لطفاً اطلاعات زیر را تکمیل کنید</p>
+                </div>
+
+                <!-- Step Indicator -->
+                <div class="step-indicator">
+                    <div class="step active" id="step1-indicator">1</div>
+                    <div class="step-line"></div>
+                    <div class="step" id="step2-indicator">2</div>
+                    <div class="step-line"></div>
+                    <div class="step" id="step3-indicator">3</div>
+                    <div class="step-line"></div>
+                    <div class="step" id="step4-indicator">4</div>
+                </div>
+
+                <!-- Step 1: Device Info -->
+                <div class="card p-4 mb-4" id="step1">
+                    <h4 class="mb-4">اطلاعات دستگاه</h4>
+                    <div class="mb-3">
+                        <label for="deviceNumber" class="form-label">شماره پلاک دستگاه</label>
+                        <input type="text" class="form-control" id="deviceNumber" placeholder="مثال: ۱۲۳۴۵۶">
+                    </div>
+                    <div class="mb-3">
+                        <label for="deviceLocation" class="form-label">محل قرارگیری دستگاه</label>
+                        <input type="text" class="form-control" id="deviceLocation" placeholder="مثال: میدان انقلاب، جنب بانک ملی">
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-next" onclick="nextStep(1)">مرحله بعد <i class="bi bi-arrow-left"></i></button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Personal Info -->
+                <div class="card p-4 mb-4 hidden" id="step2">
+                    <h4 class="mb-4">اطلاعات شخصی</h4>
+                    <div class="mb-3">
+                        <label for="fullName" class="form-label">نام و نام خانوادگی</label>
+                        <input type="text" class="form-control" id="fullName" placeholder="مثال: علی محمدی">
+                    </div>
+                    <div class="mb-3">
+                        <label for="phoneNumber" class="form-label">شماره تلفن همراه</label>
+                        <input type="tel" class="form-control" id="phoneNumber" placeholder="مثال: ۰۹۱۲۱۲۳۴۵۶۷">
+                    </div>
+                    <div class="mb-3">
+                        <label for="nationalCode" class="form-label">کد ملی</label>
+                        <input type="text" class="form-control" id="nationalCode" placeholder="مثال: ۰۰۱۲۳۴۵۶۷۸">
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <button class="btn btn-outline-secondary" onclick="prevStep(2)"><i class="bi bi-arrow-right"></i> مرحله قبل</button>
+                        <button class="btn btn-next" onclick="nextStep(2)">مرحله بعد <i class="bi bi-arrow-left"></i></button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Payment Info -->
+                <div class="card p-4 mb-4 hidden" id="step3">
+                    <h4 class="mb-4">اطلاعات پرداخت</h4>
+                    <div class="mb-3">
+                        <label for="cardNumber" class="form-label">شماره کارت بانکی</label>
+                        <input type="text" class="form-control" id="cardNumber" placeholder="مثال: ۶۲۱۹۸۶۱۰۱۲۳۴۵۶۷۸۹">
+                    </div>
+                    <div class="mb-3">
+                        <label for="amount" class="form-label">مبلغ پرداختی (ریال)</label>
+                        <input type="number" class="form-control" id="amount" placeholder="مثال: ۵۰۰۰۰">
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label">عکس رسید پرداختی</label>
+                        <div class="camera-btn" onclick="takePhoto()">
+                            <i class="bi bi-camera camera-icon"></i>
+                            <p>برای گرفتن عکس کلیک کنید</p>
+                            <small class="text-muted">لطفاً رسید پرداخت را واضح عکس بگیرید</small>
+                        </div>
+                        <input type="file" id="receiptPhoto" accept="image/*" capture="environment" class="d-none">
+                        <div id="photoPreview" class="mt-3 text-center hidden">
+                            <img id="previewImage" src="" class="img-thumbnail" style="max-height: 200px;">
+                            <button class="btn btn-sm btn-danger mt-2" onclick="removePhoto()">حذف عکس</button>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <button class="btn btn-outline-secondary" onclick="prevStep(3)"><i class="bi bi-arrow-right"></i> مرحله قبل</button>
+                        <button class="btn btn-next" onclick="nextStep(3)">مرحله بعد <i class="bi bi-arrow-left"></i></button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Confirmation -->
+                <div class="card p-4 mb-4 hidden" id="step4">
+                    <div class="text-center py-4">
+                        <i class="bi bi-check-circle-fill success-icon"></i>
+                        <h3 class="mb-3">با تشکر از شما!</h3>
+                        <p class="lead">اطلاعات شما با موفقیت ثبت شد.</p>
+                        <p>مبلغ پرداختی شما حداکثر تا ۷۲ ساعت آینده به حساب بانکی ارائه شده عودت داده خواهد شد.</p>
+                        <p class="text-muted mt-4">در صورت هرگونه سوال می‌توانید با پشتیبانی شرکت توسعه اندیش اسپادانا تماس بگیرید.</p>
+                        <div class="mt-4">
+                            <button class="btn btn-primary" onclick="restartProcess()">ثبت گزارش جدید</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Extract device number from URL
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const deviceNumber = urlParams.get('device');
+            if (deviceNumber) {
+                document.getElementById('deviceNumber').value = deviceNumber;
+            }
+        });
+
+        let currentStep = 1;
+        const totalSteps = 4;
+
+        function nextStep(step) {
+            // Validate current step before proceeding
+            if (!validateStep(step)) {
+                return;
+            }
+
+            // Hide current step
+            document.getElementById(`step${step}`).classList.add('hidden');
+            document.getElementById(`step${step}-indicator`).classList.remove('active');
+            document.getElementById(`step${step}-indicator`).classList.add('completed');
+
+            // Show next step
+            currentStep = step + 1;
+            document.getElementById(`step${currentStep}`).classList.remove('hidden');
+            document.getElementById(`step${currentStep}-indicator`).classList.add('active');
+
+            // Update step lines
+            updateStepLines();
+        }
+
+        function prevStep(step) {
+            // Hide current step
+            document.getElementById(`step${step}`).classList.add('hidden');
+            document.getElementById(`step${step}-indicator`).classList.remove('active');
+
+            // Show previous step
+            currentStep = step - 1;
+            document.getElementById(`step${currentStep}`).classList.remove('hidden');
+            document.getElementById(`step${currentStep}-indicator`).classList.add('active');
+            document.getElementById(`step${currentStep}-indicator`).classList.remove('completed');
+
+            // Update step lines
+            updateStepLines();
+        }
+
+        function updateStepLines() {
+            const lines = document.querySelectorAll('.step-line');
+            lines.forEach((line, index) => {
+                if (index < currentStep - 1) {
+                    line.classList.add('active');
+                } else {
+                    line.classList.remove('active');
+                }
+            });
+        }
+
+        function validateStep(step) {
+            switch(step) {
+                case 1:
+                    const deviceNumber = document.getElementById('deviceNumber').value;
+                    if (!deviceNumber) {
+                        alert('لطفاً شماره پلاک دستگاه را وارد کنید');
+                        return false;
+                    }
+                    return true;
+                case 2:
+                    const fullName = document.getElementById('fullName').value;
+                    const phoneNumber = document.getElementById('phoneNumber').value;
+                    const nationalCode = document.getElementById('nationalCode').value;
+                    
+                    if (!fullName) {
+                        alert('لطفاً نام و نام خانوادگی را وارد کنید');
+                        return false;
+                    }
+                    if (!phoneNumber || phoneNumber.length !== 11 || !phoneNumber.startsWith('09')) {
+                        alert('لطفاً شماره تلفن همراه معتبر وارد کنید');
+                        return false;
+                    }
+                    if (!nationalCode || nationalCode.length !== 10) {
+                        alert('لطفاً کد ملی معتبر وارد کنید');
+                        return false;
+                    }
+                    return true;
+                case 3:
+                    const cardNumber = document.getElementById('cardNumber').value;
+                    const amount = document.getElementById('amount').value;
+                    const photoPreview = document.getElementById('photoPreview');
+                    
+                    if (!cardNumber || cardNumber.length < 16) {
+                        alert('لطفاً شماره کارت معتبر وارد کنید');
+                        return false;
+                    }
+                    if (!amount) {
+                        alert('لطفاً مبلغ پرداختی را وارد کنید');
+                        return false;
+                    }
+                    if (photoPreview.classList.contains('hidden')) {
+                        alert('لطفاً از رسید پرداختی عکس بگیرید');
+                        return false;
+                    }
+                    return true;
+                default:
+                    return true;
+            }
+        }
+
+        function takePhoto() {
+            document.getElementById('receiptPhoto').click();
+        }
+
+        document.getElementById('receiptPhoto').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    document.getElementById('previewImage').src = event.target.result;
+                    document.getElementById('photoPreview').classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function removePhoto() {
+            document.getElementById('receiptPhoto').value = '';
+            document.getElementById('photoPreview').classList.add('hidden');
+        }
+
+        function restartProcess() {
+            // Reset all steps
+            for (let i = 1; i <= totalSteps; i++) {
+                document.getElementById(`step${i}`).classList.add('hidden');
+                document.getElementById(`step${i}-indicator`).classList.remove('active', 'completed');
+            }
+
+            // Show first step
+            currentStep = 1;
+            document.getElementById('step1').classList.remove('hidden');
+            document.getElementById('step1-indicator').classList.add('active');
+
+            // Reset step lines
+            document.querySelectorAll('.step-line').forEach(line => {
+                line.classList.remove('active');
+            });
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
