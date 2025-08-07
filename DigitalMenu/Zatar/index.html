@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>منوی رستوران — نسخه موبایل بهینه</title>
+  <title>منوی رستوران</title>
 
   <!-- فونت Vazir -->
   <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
@@ -15,7 +15,7 @@
        Design Tokens
        ===================== */
     :root {
-      --primary: #0094DA; /* رنگ اصلی */
+      --primary: #0094DA; /* رنگ اصلی (درخواست شما) */
       --primary-600: #007bb5;
       --primary-200: #d9f1fc;
       --bg: #f5f7fb;
@@ -38,7 +38,14 @@
       --primary-200: rgba(0,148,218,.17);
     }
 
+    @font-face {
+      font-family: 'ZFont';
+      src: url('z.ttf') format('truetype');
+      font-display: swap;
+    }
+
     * { box-sizing: border-box; }
+
     html, body { height: 100%; }
 
     body {
@@ -98,7 +105,6 @@
       border: 1px dashed transparent;
       transition: .25s ease;
       user-select: none;
-      min-width: 88px;
     }
     .cat:hover { background: rgba(0,0,0,.03); transform: translateY(-1px); }
     .cat.active {
@@ -107,7 +113,7 @@
       box-shadow: 0 10px 20px rgba(0,148,218,.25);
     }
     .cat i { font-size: 18px; text-align: center; }
-    .cat .name { font-size: 12px; line-height: 1.3; }
+    .cat .name { font-size: 12px; line-height: 1.3; font-family: ZFont, Vazir, Tahoma, sans-serif; }
 
     /* محتوای آیتم‌ها */
     .content {
@@ -116,7 +122,7 @@
       overflow: hidden;
     }
 
-    /* نوار ابزار بالای لیست - جستجو و مرتب‌سازی حذف شد */
+    /* نوار ابزار بالای لیست */
     .toolbar {
       position: sticky; top: 0; z-index: 3;
       padding: 12px;
@@ -167,8 +173,6 @@
       transform: translateY(6px);
       opacity: 0;
       animation: fadeInUp .6s forwards;
-      content-visibility: auto; /* رندر تنبل کارت‌ها */
-      contain-intrinsic-size: 300px 260px;
     }
     .card:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(0,0,0,.12); }
 
@@ -176,19 +180,31 @@
       to { transform: translateY(0); opacity: 1; }
     }
 
-    .img-box {
-      height: 170px;
-      overflow: hidden;
+    .img-box { 
+      height: 170px; 
+      overflow: hidden; 
       background: #e9eff5;
-      aspect-ratio: 16/10;
+      position: relative;
     }
-    .img-box img {
+    .img-box img { 
+      width: 100%; 
+      height: 100%; 
+      object-fit: cover; 
+      display: block; 
+      transition: transform .35s ease;
+    }
+    .img-box .placeholder {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform .35s ease, opacity .2s ease;
-      opacity: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #e9eff5;
+      color: var(--muted);
+      font-size: 14px;
     }
     .card:hover .img-box img { transform: scale(1.05); }
 
@@ -249,29 +265,69 @@
     /* ریسپانسیو */
     @media (max-width: 900px) {
       .app { grid-template-columns: 92px 1fr; }
+      .toolbar { grid-template-columns: 1fr auto; }
+      .img-box { height: 160px; }
     }
 
     @media (max-width: 640px) {
-      .app {
+      .app { 
         grid-template-columns: 1fr;
         grid-template-rows: auto 1fr;
+        padding: 10px;
+        gap: 10px;
       }
+      
       .sidebar {
         flex-direction: row;
         overflow-x: auto;
         overflow-y: hidden;
-        white-space: nowrap;
         padding: 10px;
+        gap: 8px;
+        scrollbar-height: none;
       }
+      
+      .sidebar::-webkit-scrollbar {
+        display: none;
+      }
+      
       .cat {
         grid-template-columns: 1fr;
-        grid-auto-rows: auto;
+        grid-template-rows: 24px 1fr;
+        min-width: 80px;
+        height: 80px;
         text-align: center;
+        padding: 8px;
       }
-      .toolbar { grid-template-columns: 1fr auto; }
-      .welcome .btns { grid-template-columns: 1fr; }
-      .img-box { height: auto; }
-      .grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+      
+      .cat .name {
+        font-size: 11px;
+        line-height: 1.2;
+      }
+      
+      .grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      }
+      
+      .img-box {
+        height: 140px;
+      }
+      
+      .content-box {
+        padding: 10px;
+      }
+      
+      .name {
+        font-size: 13px;
+      }
+      
+      .desc {
+        font-size: 11px;
+        min-height: 30px;
+      }
+      
+      .price-tag {
+        font-size: 13px;
+      }
     }
 
     /* احترام به کاربران حساس به حرکت */
@@ -314,9 +370,10 @@
 
     <!-- محتوا -->
     <main class="content glass">
-      <!-- نوار ابزار بالا (جستجو و مرتب‌سازی حذف شد) -->
+      <!-- نوار ابزار بالا -->
       <div class="toolbar">
         <div class="brand" id="brandTitle"><i class="fa-solid fa-bowl-food"></i><span>منوی رستوران</span></div>
+
         <button class="btn ghost" id="themeBtn" title="تغییر حالت روشن/تاریک">
           <i class="fa-solid fa-moon"></i>
           <span class="hide-sm">ظاهر</span>
@@ -430,6 +487,7 @@
     const brandTitle = $('#brandTitle span');
     const imgModal = $('#imgModal');
     const modalImage = $('#modalImage');
+
     const toTop = $('#toTop');
 
     // Welcome & audio & theme
@@ -460,7 +518,7 @@
     categories.forEach((cat, idx) => {
       const el = document.createElement('button');
       el.className = 'cat';
-      el.innerHTML = `<i class="fa-solid ${iconFor(cat)}"></i><div class="name">${cat.replace('\\n','<br>')}</div>`;
+      el.innerHTML = `<i class="fa-solid ${iconFor(cat)}"></i><div class="name">${cat.replace('\n','<br>')}</div>`;
       el.addEventListener('click', () => selectCategory(cat, el));
       sidebar.appendChild(el);
       if (idx === 0) {
@@ -479,21 +537,6 @@
       renderItems();
     }
 
-    /* ====== Lazy Loading بهینه با IntersectionObserver ====== */
-    const io = new IntersectionObserver((entries) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          const img = entry.target;
-          if (img.dataset.src) {
-            img.src = img.dataset.src;
-            img.onload = () => { img.style.opacity = 1; };
-            img.removeAttribute('data-src');
-          }
-          io.unobserve(img);
-        }
-      }
-    }, { root: $('#itemsWrap'), rootMargin: '200px 0px', threshold: 0.01 });
-
     function renderItems() {
       grid.innerHTML = '';
       const list = menuData[currentCategory];
@@ -503,7 +546,9 @@
         card.className = 'card';
         card.style.animationDelay = `${idx * 60}ms`;
 
+        const imgSrc = item.image;
         const hasDouble = currentCategory === 'پیتزا لبنانی';
+
         const priceHTML = hasDouble ? `
           <div class="price-row">
             <div class="price-col">
@@ -521,20 +566,10 @@
           </div>
         `;
 
-        const placeholder = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500"></svg>';
-        const imgAttrs = `
-          src="${placeholder}"
-          data-src="${item.image}"
-          alt="${item.name}"
-          loading="lazy"
-          decoding="async"
-          width="800" height="500"
-          ${idx < 4 ? 'fetchpriority="high"' : ''}
-        `;
-
         card.innerHTML = `
           <div class="img-box">
-            <img ${imgAttrs} />
+            <div class="placeholder"><i class="fas fa-spinner fa-spin"></i></div>
+            <img src="${imgSrc}" alt="${item.name}" loading="lazy" onload="this.previousElementSibling.style.display='none'" />
           </div>
           <div class="content-box">
             <div class="name">${item.name}</div>
@@ -544,16 +579,21 @@
         `;
 
         const img = card.querySelector('img');
-        img.onerror = () => { img.src = 'logo.png'; img.style.objectFit = 'contain'; img.style.padding = '16px'; img.style.opacity = 1; };
+        img.onerror = () => { 
+          img.src = 'logo.png'; 
+          img.style.objectFit = 'contain'; 
+          img.style.padding = '16px';
+          img.previousElementSibling.style.display = 'none';
+        };
+        
         img.addEventListener('click', (e) => {
           e.stopPropagation();
-          modalImage.src = img.getAttribute('src') === placeholder ? img.dataset.src || '' : img.src;
+          modalImage.src = img.src;
           modalImage.alt = item.name;
           imgModal.classList.add('open');
         });
 
         grid.appendChild(card);
-        io.observe(img);
       });
 
       // نشان دادن دکمه بالا
@@ -564,12 +604,12 @@
     }
 
     // مودال تصویر بستن
-    document.getElementById('closeModal').addEventListener('click', () => imgModal.classList.remove('open'));
+    $('#closeModal').addEventListener('click', () => imgModal.classList.remove('open'));
     imgModal.addEventListener('click', () => imgModal.classList.remove('open'));
 
     // دکمه بالا
     toTop.addEventListener('click', () => {
-      document.getElementById('itemsWrap').scrollTo({ top: 0, behavior: 'smooth' });
+      $('#itemsWrap').scrollTo({ top: 0, behavior: 'smooth' });
     });
 
     // Welcome & actions
