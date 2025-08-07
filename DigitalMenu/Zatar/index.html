@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-  <title>منوی رستوران (موبایل)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>منوی رستوران</title>
 
   <!-- فونت Vazir -->
   <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
@@ -11,104 +11,339 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <style>
+    /* =====================
+       Design Tokens
+       ===================== */
     :root {
-      --primary: #0094DA; /* رنگ اصلی شما */
+      --primary: #0094DA; /* رنگ اصلی */
       --primary-600: #007bb5;
-      --bg: #f7fafc;
+      --primary-200: #d9f1fc;
+      --bg: #f5f7fb;
       --card: #ffffff;
       --text: #1f2937;
       --muted: #6b7280;
       --border: #e5e7eb;
-      --shadow: 0 8px 22px rgba(0,0,0,.08);
-      --radius: 16px;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --radius-lg: 18px;
+      --radius-md: 14px;
     }
 
-    @font-face { font-family: 'ZFont'; src: url('z.ttf') format('truetype'); font-display: swap; }
-
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    html, body { height: 100%; background: var(--bg); }
-    body { margin: 0; font-family: Vazir, Tahoma, sans-serif; color: var(--text); overflow: hidden; }
-
-    /* کانتینر موبایل */
-    .app { height: 100%; display: grid; grid-template-rows: auto 1fr auto; }
-
-    /* هدر فیکس و کم‌حجم */
-    .topbar { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; gap: 8px; padding: 10px 12px; background: var(--card); border-bottom: 1px solid var(--border); }
-    .brand { display: flex; align-items: center; gap: 8px; color: var(--primary); font-weight: 700; font-size: 16px; }
-
-    /* دسته‌ها: چیپ‌های افقی اسکرول‌دار */
-    .cats { display: flex; gap: 8px; padding: 10px 12px; overflow-x: auto; background: var(--card); border-bottom: 1px solid var(--border); }
-    .chip { flex: none; display: inline-flex; align-items: center; gap: 6px; padding: 8px 12px; border-radius: 999px; border: 1px solid var(--border); color: var(--muted); background: #fff; font-size: 13px; }
-    .chip i { font-size: 13px; }
-    .chip.active { color: #fff; background: linear-gradient(135deg, var(--primary), var(--primary-600)); border-color: transparent; box-shadow: 0 8px 18px rgba(0,148,218,.22); }
-
-    /* لیست آیتم‌ها: شبکهٔ ۲ ستونه مخصوص موبایل */
-    .list { overflow-y: auto; padding: 10px 10px 76px; }
-    .title { position: sticky; top: 0; z-index: 5; padding: 10px; margin: 0 -10px 10px; background: linear-gradient(#ffffff, rgba(255,255,255,.8)); border-bottom: 1px solid var(--border); color: var(--primary); font-weight: 700; }
-
-    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-    @media (max-width: 360px) { .grid { grid-template-columns: 1fr; } }
-
-    .card { position: relative; background: var(--card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); }
-    .img { width: 100%; height: 150px; background: #eef2f7; display: block; object-fit: cover; }
-
-    /* اسکلت بارگذاری (شیمِر) */
-    .skeleton { position: relative; background: #e9eef5; }
-    .skeleton::after { content: ""; position: absolute; inset: 0; transform: translateX(-100%);
-      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.55) 50%, rgba(255,255,255,0) 100%);
-      animation: shimmer 1.1s infinite;
+    :root.dark {
+      --bg: #0b1220;
+      --card: #0f172a;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --border: #1f2937;
+      --shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      --primary-200: rgba(0,148,218,.17);
     }
-    @keyframes shimmer { 100% { transform: translateX(100%); } }
 
-    .box { padding: 10px; }
-    .name { font-weight: 700; font-size: 13px; margin-bottom: 4px; }
-    .desc { color: var(--muted); font-size: 11px; min-height: 32px; line-height: 1.6; }
-    .price { margin-top: 8px; font-size: 13px; font-weight: 800; color: var(--primary-600); }
-    .price-row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-    .lbl { font-size: 10px; color: var(--muted); }
+    @font-face {
+      font-family: 'ZFont';
+      src: url('z.ttf') format('truetype');
+      font-display: swap;
+    }
 
-    /* فوتر کوچک */
-    .footer { position: sticky; bottom: 0; background: var(--card); border-top: 1px solid var(--border); padding: 10px; text-align: center; font-size: 12px; color: var(--muted); }
-    .footer a { color: var(--primary); text-decoration: none; }
+    * { box-sizing: border-box; }
 
-    /* مودال تصویر ساده و سبک */
-    .modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,.88); z-index: 40; }
+    html, body { height: 100%; }
+
+    body {
+      margin: 0;
+      font-family: Vazir, Tahoma, sans-serif;
+      background:
+        radial-gradient(1200px 600px at 10% -10%, var(--primary-200), transparent 60%),
+        radial-gradient(800px 400px at 100% 100%, rgba(0,0,0,0.05), transparent 50%),
+        var(--bg);
+      color: var(--text);
+      overflow: hidden; /* اسکرول داخل کانتینر اصلی انجام می‌شود */
+    }
+
+    /* Scrollbar زیباتر */
+    *::-webkit-scrollbar { width: 10px; height: 10px; }
+    *::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--primary), var(--primary-600)); border-radius: 10px; }
+    *::-webkit-scrollbar-track { background: transparent; }
+
+    /* لایه کلی */
+    .app {
+      max-width: 1260px;
+      margin: 0 auto;
+      padding: 12px;
+      height: 100%;
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 12px;
+    }
+
+    .glass {
+      background: color-mix(in lab, var(--card) 85%, transparent);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      backdrop-filter: saturate(130%) blur(10px);
+    }
+
+    /* سایدبار دسته‌بندی‌ها */
+    .sidebar {
+      padding: 12px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+      overflow-y: auto;
+    }
+
+    .cat {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 8px;
+      border-radius: var(--radius-md);
+      color: var(--muted);
+      cursor: pointer;
+      border: 1px dashed transparent;
+      transition: .25s ease;
+      user-select: none;
+    }
+    .cat:hover { background: rgba(0,0,0,.03); transform: translateY(-1px); }
+    .cat.active {
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary), var(--primary-600));
+      box-shadow: 0 10px 20px rgba(0,148,218,.25);
+    }
+    .cat i { font-size: 18px; text-align: center; }
+    .cat .name { font-size: 12px; line-height: 1.3; font-family: ZFont, Vazir, Tahoma, sans-serif; }
+
+    /* محتوای آیتم‌ها */
+    .content {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      overflow: hidden;
+    }
+
+    /* نوار ابزار بالای لیست (ساده شده: فقط برند + دکمه تم) */
+    .toolbar {
+      position: sticky; top: 0; z-index: 3;
+      padding: 10px 12px;
+      display: grid; gap: 10px; grid-template-columns: 1fr auto;
+      align-items: center;
+      background: color-mix(in lab, var(--card) 88%, transparent);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+
+    .brand {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 600; color: var(--primary);
+      min-width: 0;
+    }
+    .brand i { font-size: 18px; }
+    .brand span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid transparent; cursor: pointer;
+      padding: 9px 12px; border-radius: 12px;
+      transition: .2s ease; user-select: none;
+    }
+    .btn.primary { background: linear-gradient(135deg, var(--primary), var(--primary-600)); color: #fff; }
+    .btn.primary:hover { transform: translateY(-1px); box-shadow: 0 10px 20px rgba(0,148,218,.25); }
+    .btn.ghost { color: var(--muted); border-color: var(--border); background: var(--card); }
+    .btn.ghost:hover { background: rgba(0,0,0,.04); }
+
+    .items-wrap { padding: 14px; overflow-y: auto; -webkit-overflow-scrolling: touch; touch-action: pan-y; }
+
+    .title { font-size: 18px; color: var(--primary); font-weight: 700; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+    .title i { font-size: 18px; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      position: relative;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform .25s ease, box-shadow .25s ease;
+      transform: translateY(6px);
+      opacity: 0;
+      animation: fadeInUp .6s forwards;
+      content-visibility: auto;
+      contain-intrinsic-size: 360px;
+    }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(0,0,0,.12); }
+
+    @keyframes fadeInUp {
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* جعبه تصویر با نسبت ثابت + اسکلت لودینگ */
+    .img-box { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: #e9eff5; }
+    .img-box.loading::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, #e9eff5 0%, #f4f7fb 40%, #e9eff5 80%);
+      background-size: 200% 100%;
+      animation: shimmer 1.2s linear infinite;
+    }
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .img-box img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block; transition: transform .35s ease;
+    }
+    .card:hover .img-box img { transform: scale(1.05); }
+
+    .content-box { padding: 12px; }
+    .name { font-weight: 800; font-size: 14px; margin-bottom: 6px; }
+    .desc { color: var(--muted); font-size: 12px; line-height: 1.6; min-height: 34px; }
+
+    .price-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 10px; }
+    .price-tag { color: var(--primary-600); font-weight: 800; font-size: 14px; }
+    .price-col { display: grid; gap: 4px; }
+    .price-label { font-size: 11px; color: var(--muted); }
+
+    /* Modal تصویر */
+    .modal {
+      position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 50;
+      background: rgba(0,0,0,.85);
+    }
     .modal.open { display: flex; }
-    .modal img { max-width: 92vw; max-height: 80vh; border-radius: 12px; }
-    .close { position: fixed; top: 10px; right: 12px; color: #fff; font-size: 28px; }
+    .modal-inner { position: relative; max-width: 92%; max-height: 90vh; }
+    .modal img { max-width: 100%; max-height: 86vh; border-radius: 12px; object-fit: contain; }
+    .modal .close {
+      position: absolute; inset-inline-end: -8px; inset-block-start: -46px; font-size: 32px; color: #fff; cursor: pointer;
+    }
 
-    /* احترام به کاهش حرکت */
-    @media (prefers-reduced-motion: reduce) { .skeleton::after { display: none; } }
+    /* Welcome Popup با افکت شیشه‌ای */
+    .welcome {
+      position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; background: rgba(0,0,0,.35);
+      backdrop-filter: blur(2px);
+    }
+    .welcome .box {
+      width: min(560px, 92%);
+      padding: 24px 18px; text-align: center;
+      border-radius: 20px; border: 1px solid var(--border);
+      background: linear-gradient(180deg, color-mix(in lab, var(--card) 85%, transparent), color-mix(in lab, var(--card) 70%, transparent));
+      box-shadow: var(--shadow);
+    }
+    .welcome h2 { margin: 0 0 8px; font-size: 24px; color: var(--primary); }
+    .welcome p { margin: 0 0 16px; color: var(--text); }
+    .welcome .btns { display: grid; gap: 10px; grid-template-columns: 1fr 1fr; }
+
+    /* فوتر */
+    .footer {
+      padding: 10px 14px; font-size: 13px; color: var(--muted);
+      border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: center; gap: 6px;
+      border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+      background: color-mix(in lab, var(--card) 88%, transparent);
+    }
+    .footer a { color: var(--primary); text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+
+    /* دکمه شناور رفتن بالا */
+    .to-top {
+      position: fixed; inset-inline-end: 20px; inset-block-end: 20px; z-index: 20;
+      opacity: 0; visibility: hidden; transform: translateY(10px); transition: .25s ease;
+    }
+    .to-top.show { opacity: 1; visibility: visible; transform: translateY(0); }
+
+    /* ریسپانسیو */
+    @media (max-width: 900px) {
+      .app { grid-template-columns: 90px 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .app { grid-template-columns: 82px 1fr; padding: 8px; gap: 8px; }
+      .welcome .btns { grid-template-columns: 1fr; }
+      .title { font-size: 16px; }
+      .grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
+    }
+
+    /* احترام به کاربران حساس به حرکت */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+      .img-box.loading::after { display: none; }
+    }
   </style>
 </head>
 <body>
-  <div class="app">
-    <!-- هدر موبایل -->
-    <header class="topbar">
-      <div class="brand"><i class="fa-solid fa-utensils"></i> <span>منوی رستوران</span></div>
-    </header>
-
-    <!-- دسته‌ها (اسکرول افقی) -->
-    <nav class="cats" id="cats"></nav>
-
-    <!-- لیست آیتم‌ها -->
-    <main class="list" id="list">
-      <div class="title" id="title">...</div>
-      <section class="grid" id="grid"></section>
-    </main>
-
-    <!-- فوتر کوچک -->
-    <footer class="footer">طراحی شده توسط تیم <a href="https://nirvanadev.ir" target="_blank" rel="noopener">نیروانا</a></footer>
+  <!-- پنجره خوشامدگویی -->
+  <div class="welcome" id="welcome">
+    <div class="box glass">
+      <h2>اهلا وسهلا بکم</h2>
+      <p>برای شروع روی دکمه زیر بزنید</p>
+      <div class="btns">
+        <button class="btn primary" id="startBtn"><i class="fas fa-utensils"></i><span>مشاهده منو</span></button>
+        <button class="btn ghost" id="instaBtn"><i class="fab fa-instagram"></i><span>اینستاگرام ما</span></button>
+      </div>
+    </div>
   </div>
+
+  <!-- موزیک پس‌زمینه -->
+  <audio id="bgm" loop>
+    <source src="Song.mp3" type="audio/mpeg" />
+    مرورگر شما از پخش صدا پشتیبانی نمی‌کند.
+  </audio>
 
   <!-- مودال تصویر -->
-  <div class="modal" id="imgModal" role="dialog" aria-modal="true">
-    <span class="close" id="closeModal">&times;</span>
-    <img id="modalImage" alt="" />
+  <div class="modal" id="imgModal">
+    <div class="modal-inner">
+      <span class="close" id="closeModal">&times;</span>
+      <img id="modalImage" alt="" />
+    </div>
   </div>
 
+  <!-- بدنه اپ -->
+  <div class="app">
+    <!-- سایدبار دسته‌ها -->
+    <aside class="sidebar glass" id="sidebar"></aside>
+
+    <!-- محتوا -->
+    <main class="content glass">
+      <!-- نوار ابزار بالا (حذف سرچ و مرتب‌سازی) -->
+      <div class="toolbar">
+        <div class="brand" id="brandTitle"><i class="fa-solid fa-bowl-food"></i><span>منوی رستوران</span></div>
+        <button class="btn ghost" id="themeBtn" title="تغییر حالت روشن/تاریک">
+          <i class="fa-solid fa-moon"></i>
+          <span class="hide-sm">ظاهر</span>
+        </button>
+      </div>
+
+      <!-- لیست آیتم‌ها -->
+      <div class="items-wrap" id="itemsWrap">
+        <h2 class="title" id="itemsTitle"><i class="fa-solid fa-bowl-food"></i><span>...</span></h2>
+        <section class="grid" id="grid"></section>
+
+        <!-- لوگو -->
+        <div style="text-align:center; margin: 14px 0 2px;">
+          <img src="logo.png" alt="لوگوی رستوران" style="max-width: 160px; max-height: 80px; opacity:.9;" onerror="this.style.display='none'" />
+        </div>
+      </div>
+
+      <!-- فوتر -->
+      <footer class="footer">
+        <span>طراحی شده توسط تیم</span>
+        <a href="https://nirvanadev.ir" target="_blank" rel="noopener">نیروانا</a>
+      </footer>
+    </main>
+  </div>
+
+  <!-- دکمه شناور بالا -->
+  <button class="btn primary to-top" id="toTop"><i class="fa-solid fa-arrow-up"></i><span>بالا</span></button>
+
   <script>
-    // ===== داده‌ها (بدون تغییر محتوایی) =====
+    // ====== داده‌ها ======
     const menuData = {
       "شاورما": [
         {name: "شاورما دجاج باگت", description: "ساندویچ شاورما مرغ با نان مخصوص", price: "185", image: "1.jpg"},
@@ -165,9 +400,10 @@
       ]
     };
 
-    // ===== ابزارها =====
+    // ====== ابزارها ======
     const $ = (s, r=document) => r.querySelector(s);
     const $$ = (s, r=document) => r.querySelectorAll(s);
+
     const faDigits = n => n.toLocaleString('fa-IR');
     const parseNum = s => parseInt(String(s).replace(/[^\d]/g, ''), 10);
     const formatPrice = s => {
@@ -184,147 +420,175 @@
       return 'fa-utensils';
     };
 
-    // ===== DOM =====
-    const cats = $('#cats');
+    // ====== المان‌ها ======
+    const sidebar = $('#sidebar');
     const grid = $('#grid');
-    const title = $('#title');
-
+    const itemsTitle = $('#itemsTitle span');
+    const brandTitle = $('#brandTitle span');
     const imgModal = $('#imgModal');
     const modalImage = $('#modalImage');
-    $('#closeModal').addEventListener('click', () => imgModal.classList.remove('open'));
-    imgModal.addEventListener('click', () => imgModal.classList.remove('open'));
+    const toTop = $('#toTop');
 
-    // ساخت چیپ‌های دسته‌ها
-    const categories = Object.keys(menuData);
-    categories.forEach((cat, i) => {
-      const b = document.createElement('button');
-      b.className = 'chip' + (i===0 ? ' active' : '');
-      b.innerHTML = `<i class="fa-solid ${iconFor(cat)}"></i><span>${cat.replace('\n',' ')}</span>`;
-      b.addEventListener('click', () => selectCategory(cat, b));
-      cats.appendChild(b);
+    // Welcome & audio & theme
+    const welcome = $('#welcome');
+    const startBtn = $('#startBtn');
+    const instaBtn = $('#instaBtn');
+    const bgm = $('#bgm');
+    const themeBtn = $('#themeBtn');
+
+    // حالت تیره از LocalStorage
+    const applyTheme = () => {
+      const dark = localStorage.getItem('theme') === 'dark';
+      document.documentElement.classList.toggle('dark', dark);
+      themeBtn.innerHTML = dark
+        ? '<i class="fa-solid fa-sun"></i><span class="hide-sm">ظاهر</span>'
+        : '<i class="fa-solid fa-moon"></i><span class="hide-sm">ظاهر</span>';
+    };
+    applyTheme();
+
+    themeBtn.addEventListener('click', () => {
+      const dark = !(localStorage.getItem('theme') === 'dark');
+      localStorage.setItem('theme', dark ? 'dark' : 'light');
+      applyTheme();
     });
 
-    // انتخاب دسته و رندر آیتم‌ها (با رندر تدریجی + Lazy)
+    // ساخت دکمه‌های دسته‌ها
+    const categories = Object.keys(menuData);
+    categories.forEach((cat, idx) => {
+      const el = document.createElement('button');
+      el.className = 'cat';
+      el.innerHTML = `<i class="fa-solid ${iconFor(cat)}"></i><div class="name">${cat.replace('\\n','<br>')}</div>`;
+      el.addEventListener('click', () => selectCategory(cat, el));
+      sidebar.appendChild(el);
+      if (idx === 0) {
+        requestAnimationFrame(() => selectCategory(cat, el));
+      }
+    });
+
     let currentCategory = categories[0];
-    selectCategory(currentCategory, cats.firstElementChild);
 
     function selectCategory(cat, el) {
       currentCategory = cat;
-      $$('.chip').forEach(c => c.classList.remove('active'));
+      $$('.cat').forEach(c => c.classList.remove('active'));
       el.classList.add('active');
-      title.textContent = cat === 'پیتزا لبنانی' ? 'پیتزا لبنانی (تک نفره و دو نفره)' : cat;
+      itemsTitle.textContent = cat === 'پیتزا لبنانی' ? 'پیتزا لبنانی (تک نفره و دو نفره)' : cat;
+      brandTitle.textContent = 'منوی ' + cat;
       renderItems();
-      // اسکرول بالا
-      $('#list').scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // رندر در دسته‌های کوچک برای کاهش درخواست‌ها
-    const BATCH = 6; // هر بار چند کارت بسازیم
-    let batchIndex = 0; // برای ناوبری بین دسته‌ها
+    // ------ Lazy image loader با IntersectionObserver + اسکلت ------
+    const io = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        const img = entry.target;
+        const real = img.dataset.src;
+        if (real) {
+          img.src = real;
+          img.removeAttribute('data-src');
+        }
+        io.unobserve(img);
+      }
+    }, { root: $('#itemsWrap'), rootMargin: '250px 0px 350px 0px', threshold: 0 });
+
+    const tinyPlaceholder = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 4 3%22/%3E';
 
     function renderItems() {
       grid.innerHTML = '';
-      batchIndex = 0;
-      const items = menuData[currentCategory];
-      appendBatch(items);
+      const list = menuData[currentCategory] || [];
 
-      // sentinel برای بارگذاری بیشتر هنگام نزدیک شدن به انتهای صفحه
-      const sentinel = document.createElement('div');
-      sentinel.style.height = '1px';
-      grid.appendChild(sentinel);
+      list.forEach((item, idx) => {
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.style.animationDelay = `${idx * 60}ms`;
 
-      const ioMore = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-          appendBatch(items);
-          if ((batchIndex * BATCH) >= items.length) ioMore.disconnect();
-        }
-      }, { root: $('#list'), rootMargin: '200px' });
-      ioMore.observe(sentinel);
-    }
+        const imgSrc = item.image;
+        const hasDouble = currentCategory === 'پیتزا لبنانی';
 
-    function appendBatch(items) {
-      const start = batchIndex * BATCH;
-      const end = Math.min(start + BATCH, items.length);
-      for (let i = start; i < end; i++) createCard(items[i]);
-      batchIndex++;
-    }
-
-    // Lazy Image با IntersectionObserver + Placeholder سبک
-    const ioImg = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const img = entry.target;
-          const real = img.getAttribute('data-src');
-          img.src = real;
-          img.onload = () => img.classList.remove('skeleton');
-          ioImg.unobserve(img);
-        }
-      });
-    }, { root: $('#list'), rootMargin: '300px' });
-
-    function createCard(item) {
-      const card = document.createElement('article');
-      card.className = 'card';
-
-      const img = document.createElement('img');
-      img.className = 'img skeleton';
-      img.alt = item.name;
-      // Placeholder SVG فوق‌العاده سبک تا وقتی تصویر اصلی لود شود
-      img.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="8" height="5" viewBox="0 0 8 5"><rect width="8" height="5" fill="%23e9eef5"/></svg>';
-      img.setAttribute('data-src', item.image);
-      img.setAttribute('loading', 'lazy');
-      img.setAttribute('decoding', 'async');
-      img.setAttribute('fetchpriority', 'low');
-      img.referrerPolicy = 'no-referrer';
-
-      img.onerror = () => { img.classList.remove('skeleton'); img.src = 'logo.png'; img.style.objectFit = 'contain'; };
-      img.addEventListener('click', (e) => {
-        e.stopPropagation();
-        modalImage.src = img.getAttribute('data-src') || img.src;
-        modalImage.alt = item.name;
-        imgModal.classList.add('open');
-      });
-
-      ioImg.observe(img);
-
-      const box = document.createElement('div');
-      box.className = 'box';
-
-      const name = document.createElement('div');
-      name.className = 'name';
-      name.textContent = item.name;
-
-      const desc = document.createElement('div');
-      desc.className = 'desc';
-      desc.textContent = item.description || '';
-
-      const price = document.createElement('div');
-
-      if (currentCategory === 'پیتزا لبنانی') {
-        const row = document.createElement('div');
-        row.className = 'price-row';
-        row.innerHTML = `
-          <div><div class="lbl">تک نفره</div><div class="price">${formatPrice(item.priceSingle)}</div></div>
-          <div><div class="lbl">دو نفره</div><div class="price">${formatPrice(item.priceDouble)}</div></div>
+        const priceHTML = hasDouble ? `
+          <div class="price-row">
+            <div class="price-col">
+              <span class="price-label">تک نفره</span>
+              <span class="price-tag">${formatPrice(item.priceSingle)}</span>
+            </div>
+            <div class="price-col">
+              <span class="price-label">دو نفره</span>
+              <span class="price-tag">${formatPrice(item.priceDouble)}</span>
+            </div>
+          </div>
+        ` : `
+          <div class="price-row">
+            <span class="price-tag">${item.price ? formatPrice(item.price) : ''}</span>
+          </div>
         `;
-        price.appendChild(row);
-      } else {
-        price.className = 'price';
-        price.textContent = item.price ? formatPrice(item.price) : '';
-      }
 
-      const boxFrag = document.createDocumentFragment();
-      boxFrag.appendChild(name);
-      boxFrag.appendChild(desc);
-      boxFrag.appendChild(price);
+        card.innerHTML = `
+          <div class="img-box loading">
+            <img alt="${item.name}" loading="lazy" decoding="async" />
+          </div>
+          <div class="content-box">
+            <div class="name">${item.name}</div>
+            ${item.description ? `<div class="desc">${item.description}</div>` : ''}
+            ${priceHTML}
+          </div>
+        `;
 
-      box.appendChild(boxFrag);
+        const img = card.querySelector('img');
+        const imgBox = card.querySelector('.img-box');
 
-      card.appendChild(img);
-      card.appendChild(box);
+        // خطای تصویر → جایگزین لوگو
+        const handleError = () => { img.src = 'logo.png'; img.style.objectFit = 'contain'; img.style.padding = '16px'; imgBox.classList.remove('loading'); };
+        img.onerror = handleError;
 
-      grid.appendChild(card);
+        img.onload = () => imgBox.classList.remove('loading');
+
+        // اولویت بالاتر برای چند تصویر اول (بالای صفحه)، بقیه lazy با IO
+        if (idx < 4) {
+          img.setAttribute('fetchpriority', 'high');
+          img.src = imgSrc;
+        } else {
+          img.setAttribute('fetchpriority', 'low');
+          img.src = tinyPlaceholder;
+          img.dataset.src = imgSrc;
+          io.observe(img);
+        }
+
+        // بازکردن در مودال
+        img.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const src = img.dataset.src || img.src;
+          modalImage.src = src;
+          modalImage.alt = item.name;
+          imgModal.classList.add('open');
+        });
+
+        grid.appendChild(card);
+      });
+
+      // نشان دادن دکمه بالا
+      const wrap = document.getElementById('itemsWrap');
+      wrap.addEventListener('scroll', () => {
+        toTop.classList.toggle('show', wrap.scrollTop > 400);
+      }, { passive: true });
     }
+
+    // مودال تصویر بستن
+    document.getElementById('closeModal').addEventListener('click', () => imgModal.classList.remove('open'));
+    imgModal.addEventListener('click', () => imgModal.classList.remove('open'));
+
+    // دکمه بالا
+    toTop.addEventListener('click', () => {
+      document.getElementById('itemsWrap').scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Welcome & actions
+    startBtn.addEventListener('click', () => {
+      welcome.style.display = 'none';
+      bgm.play().catch(() => {/* اگر مرورگر اجازه ندهد */});
+    });
+
+    instaBtn.addEventListener('click', () => {
+      window.open('https://instagram.com/zaatar_lebanese', '_blank');
+    });
   </script>
 </body>
 </html>
