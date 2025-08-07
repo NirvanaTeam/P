@@ -1,697 +1,600 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منوی رستوران</title>
-    <!-- اضافه کردن فونت Vazir -->
-    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
-    <!-- اضافه کردن Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        @font-face {
-            font-family: 'ZFont';
-            src: url('z.ttf') format('truetype');
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Vazir, Tahoma, sans-serif;
-        }
-        
-        .category-name {
-            font-family: 'ZFont', Vazir, Tahoma, sans-serif;
-        }
-        
-        body {
-            background-color: #f5f5f5;
-            padding: 10px;
-            overflow-x: hidden;
-            color: #333;
-        }
-        
-        .menu-container {
-            display: flex;
-            height: 100vh;
-            gap: 10px;
-            position: relative;
-        }
-        
-        .categories-sidebar {
-            width: 120px;
-            background-color: #fff;
-            border-radius: 20px 0 0 20px;
-            padding: 20px 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 30px;
-            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
-            z-index: 2;
-            overflow-y: auto;
-            border: 1px solid #e0e0e0;
-        }
-        
-        .category-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            padding: 10px 5px;
-            cursor: pointer;
-            border-radius: 15px;
-            transition: all 0.4s ease;
-            color: #666;
-            text-align: center;
-        }
-        
-        .category-item:hover {
-            background-color: #f0f0f0;
-            transform: translateY(-2px);
-        }
-        
-        .category-item.active {
-            background-color: #0094DA;
-            color: #fff;
-            box-shadow: 0 5px 15px rgba(0, 148, 218, 0.3);
-            border: 1px solid #007bb5;
-        }
-        
-        .category-name {
-            font-size: 14px;
-            font-weight: 500;
-            white-space: pre-line;
-        }
-        
-        .items-container {
-            flex: 1;
-            background-color: #fff;
-            border-radius: 0 20px 20px 0;
-            padding: 20px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            overflow-y: auto;
-            position: relative;
-            border: 1px solid #e0e0e0;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .items-content {
-            flex: 1;
-        }
-        
-        .items-title {
-            font-size: 22px;
-            margin-bottom: 15px;
-            color: #0094DA;
-            text-align: center;
-            padding-bottom: 10px;
-            border-bottom: 2px dashed #ddd;
-            position: relative;
-            z-index: 1;
-            font-weight: 500;
-        }
-        
-        .menu-items {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        
-        .menu-item {
-            background-color: #fff;
-            padding: 12px;
-            border-radius: 10px;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s ease;
-            opacity: 0;
-            transform: translateY(15px);
-            animation: fadeIn 0.8s forwards;
-            border-right: 3px solid #0094DA;
-            border: 1px solid #e0e0e0;
-        }
-        
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .item-name {
-            font-weight: 500;
-            font-size: 14px;
-            color: #333;
-            margin-bottom: 4px;
-        }
-        
-        .item-description {
-            color: #666;
-            font-size: 12px;
-            margin-bottom: 6px;
-            line-height: 1.4;
-            min-height: 36px;
-        }
-        
-        .item-price {
-            color: #0052B5;
-            font-weight: 600;
-            font-size: 15px;
-            margin-top: 4px;
-        }
-        
-        .price-container {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 4px;
-        }
-        
-        .price-label {
-            font-size: 12px;
-            color: #666;
-        }
-        
-        .cafe-logo {
-            text-align: center;
-            margin: 15px 0;
-            padding: 12px;
-            background-color: #fff;
-            border-radius: 10px;
-            border: 1px solid #e0e0e0;
-        }
-        
-        .cafe-logo img {
-            max-width: 140px;
-            max-height: 70px;
-        }
-        
-        .footer {
-            text-align: center;
-            padding: 12px;
-            margin-top: auto;
-            background-color: #fff;
-            border-radius: 10px;
-            border-top: 1px solid #e0e0e0;
-            font-size: 13px;
-            color: #666;
-        }
-        
-        .footer a {
-            color: #0094DA;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer a:hover {
-            color: #0052B5;
-            text-decoration: underline;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>منوی رستوران</title>
 
-        /* Welcome Popup */
-        .welcome-popup {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            flex-direction: column;
-            text-align: center;
-        }
+  <!-- فونت Vazir -->
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
+  <!-- Font Awesome (آیکون‌ها) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-        .welcome-content {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 15px;
-            border: 2px solid #0094DA;
-            max-width: 80%;
-        }
+  <style>
+    /* =====================
+       Design Tokens
+       ===================== */
+    :root {
+      --primary: #0094DA; /* رنگ اصلی (درخواست شما) */
+      --primary-600: #007bb5;
+      --primary-200: #d9f1fc;
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --radius-lg: 18px;
+      --radius-md: 14px;
+    }
 
-        .welcome-title {
-            font-size: 24px;
-            color: #0094DA;
-            margin-bottom: 20px;
-        }
+    :root.dark {
+      --bg: #0b1220;
+      --card: #0f172a;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --border: #1f2937;
+      --shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      --primary-200: rgba(0,148,218,.17);
+    }
 
-        .welcome-message {
-            font-size: 18px;
-            color: #333;
-            margin-bottom: 25px;
-        }
+    @font-face {
+      font-family: 'ZFont';
+      src: url('z.ttf') format('truetype');
+      font-display: swap;
+    }
 
-        .welcome-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+    * { box-sizing: border-box; }
 
-        .start-button, .instagram-button {
-            background-color: #0094DA;
-            color: #fff;
-            border: none;
-            padding: 10px 25px;
-            font-size: 15px;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
+    html, body { height: 100%; }
 
-        .start-button:hover, .instagram-button:hover {
-            background-color: #007bb5;
-            transform: scale(1.05);
-        }
-        
-        /* Image styles */
-        .item-image-container {
-            width: 100%;
-            height: 180px;
-            margin-bottom: 8px;
-            overflow: hidden;
-            border-radius: 8px;
-            position: relative;
-        }
-        
-        .item-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-        
-        .item-image:hover {
-            transform: scale(1.03);
-        }
-        
-        /* Image modal styles */
-        .image-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-        }
-        
-        .modal-content {
-            position: relative;
-            max-width: 90%;
-            max-height: 90%;
-            cursor: default;
-        }
-        
-        .modal-image {
-            max-width: 100%;
-            max-height: 80vh;
-            border-radius: 8px;
-            object-fit: contain;
-        }
-        
-        .close-modal {
-            position: absolute;
-            top: -40px;
-            right: 0;
-            color: white;
-            font-size: 35px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        
-        @media (max-width: 768px) {
-            .menu-container {
-                flex-direction: row;
-                height: 100vh;
-            }
-            
-            .categories-sidebar {
-                width: 100px;
-                flex-direction: column;
-                flex-wrap: nowrap;
-                border-radius: 20px 0 0 20px;
-                padding: 15px 8px;
-                gap: 15px;
-                justify-content: flex-start;
-                overflow-y: auto;
-            }
-            
-            .category-item {
-                width: 100%;
-                padding: 10px 5px;
-                min-height: auto;
-            }
-            
-            .category-name {
-                font-size: 12px;
-                line-height: 1.4;
-            }
-            
-            .items-container {
-                border-radius: 0 20px 20px 0;
-                padding: 15px;
-            }
-            
-            .menu-items {
-                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            }
-            
-            .items-title {
-                font-size: 20px;
-                margin-bottom: 12px;
-            }
+    body {
+      margin: 0;
+      font-family: Vazir, Tahoma, sans-serif;
+      background:
+        radial-gradient(1200px 600px at 10% -10%, var(--primary-200), transparent 60%),
+        radial-gradient(800px 400px at 100% 100%, rgba(0,0,0,0.05), transparent 50%),
+        var(--bg);
+      color: var(--text);
+      overflow: hidden; /* اسکرول داخل کانتینر اصلی انجام می‌شود */
+    }
 
-            .item-image-container {
-                height: 150px;
-            }
+    /* Scrollbar زیباتر */
+    *::-webkit-scrollbar { width: 10px; height: 10px; }
+    *::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--primary), var(--primary-600)); border-radius: 10px; }
+    *::-webkit-scrollbar-track { background: transparent; }
 
-            .item-name {
-                font-size: 13px;
-            }
+    /* لایه کلی */
+    .app {
+      max-width: 1260px;
+      margin: 0 auto;
+      padding: 16px;
+      height: 100%;
+      display: grid;
+      grid-template-columns: 112px 1fr;
+      gap: 14px;
+    }
 
-            .item-description {
-                font-size: 11px;
-                min-height: 32px;
-            }
+    .glass {
+      background: color-mix(in lab, var(--card) 85%, transparent);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      backdrop-filter: saturate(130%) blur(10px);
+    }
 
-            .item-price {
-                font-size: 14px;
-            }
+    /* سایدبار دسته‌بندی‌ها */
+    .sidebar {
+      padding: 14px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+      overflow-y: auto;
+    }
 
-            .welcome-content {
-                padding: 20px;
-                max-width: 90%;
-            }
+    .cat {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 8px;
+      border-radius: var(--radius-md);
+      color: var(--muted);
+      cursor: pointer;
+      border: 1px dashed transparent;
+      transition: .25s ease;
+      user-select: none;
+    }
+    .cat:hover { background: rgba(0,0,0,.03); transform: translateY(-1px); }
+    .cat.active {
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary), var(--primary-600));
+      box-shadow: 0 10px 20px rgba(0,148,218,.25);
+    }
+    .cat i { font-size: 18px; text-align: center; }
+    .cat .name { font-size: 12px; line-height: 1.3; font-family: ZFont, Vazir, Tahoma, sans-serif; }
 
-            .welcome-title {
-                font-size: 20px;
-            }
+    /* محتوای آیتم‌ها */
+    .content {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      overflow: hidden;
+    }
 
-            .welcome-message {
-                font-size: 16px;
-                margin-bottom: 20px;
-            }
+    /* نوار ابزار بالای لیست */
+    .toolbar {
+      position: sticky; top: 0; z-index: 3;
+      padding: 12px;
+      display: grid; gap: 10px; grid-template-columns: 1fr auto auto auto;
+      align-items: center;
+      background: color-mix(in lab, var(--card) 88%, transparent);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
 
-            .start-button, .instagram-button {
-                padding: 8px 20px;
-                font-size: 14px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .categories-sidebar {
-                width: 85px;
-                padding: 12px 5px;
-                gap: 12px;
-            }
-            
-            .category-name {
-                font-size: 11px;
-            }
-            
-            .menu-items {
-                grid-template-columns: 1fr;
-            }
+    .brand {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 600; color: var(--primary);
+    }
+    .brand i { font-size: 18px; }
 
-            .item-image-container {
-                height: 200px;
-            }
+    .search {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 12px; border: 1px solid var(--border);
+      border-radius: 12px; background: var(--card);
+    }
+    .search input {
+      all: unset; direction: rtl; font-size: 14px; width: 200px;
+    }
 
-            .welcome-buttons {
-                gap: 10px;
-            }
-        }
-    </style>
+    .select {
+      display: flex; align-items: center; gap: 8px;
+      padding: 9px 12px; border: 1px solid var(--border);
+      border-radius: 12px; background: var(--card);
+      font-size: 13px; color: var(--muted);
+    }
+    .select select { all: unset; direction: rtl; cursor: pointer; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid transparent; cursor: pointer;
+      padding: 9px 12px; border-radius: 12px;
+      transition: .2s ease; user-select: none;
+    }
+    .btn.primary { background: linear-gradient(135deg, var(--primary), var(--primary-600)); color: #fff; }
+    .btn.primary:hover { transform: translateY(-1px); box-shadow: 0 10px 20px rgba(0,148,218,.25); }
+    .btn.ghost { color: var(--muted); border-color: var(--border); background: var(--card); }
+    .btn.ghost:hover { background: rgba(0,0,0,.04); }
+
+    .items-wrap { padding: 16px; overflow-y: auto; }
+
+    .title { font-size: 20px; color: var(--primary); font-weight: 600; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+    .title i { font-size: 18px; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      position: relative;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform .25s ease, box-shadow .25s ease;
+      transform: translateY(6px);
+      opacity: 0;
+      animation: fadeInUp .6s forwards;
+    }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(0,0,0,.12); }
+
+    @keyframes fadeInUp {
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .img-box { height: 170px; overflow: hidden; background: #e9eff5; }
+    .img-box img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .35s ease; }
+    .card:hover .img-box img { transform: scale(1.05); }
+
+    .content-box { padding: 12px; }
+    .name { font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+    .desc { color: var(--muted); font-size: 12px; line-height: 1.6; min-height: 34px; }
+
+    .price-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 10px; }
+    .price-tag { color: var(--primary-600); font-weight: 800; font-size: 14px; }
+    .price-col { display: grid; gap: 4px; }
+    .price-label { font-size: 11px; color: var(--muted); }
+
+    /* Modal تصویر */
+    .modal {
+      position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 50;
+      background: rgba(0,0,0,.85);
+    }
+    .modal.open { display: flex; }
+    .modal-inner { position: relative; max-width: 92%; max-height: 90vh; }
+    .modal img { max-width: 100%; max-height: 86vh; border-radius: 12px; object-fit: contain; }
+    .modal .close {
+      position: absolute; inset-inline-end: -8px; inset-block-start: -46px; font-size: 32px; color: #fff; cursor: pointer;
+    }
+
+    /* Welcome Popup با افکت شیشه‌ای */
+    .welcome {
+      position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; background: rgba(0,0,0,.35);
+      backdrop-filter: blur(2px);
+    }
+    .welcome .box {
+      width: min(560px, 92%);
+      padding: 24px 18px; text-align: center;
+      border-radius: 20px; border: 1px solid var(--border);
+      background: linear-gradient(180deg, color-mix(in lab, var(--card) 85%, transparent), color-mix(in lab, var(--card) 70%, transparent));
+      box-shadow: var(--shadow);
+    }
+    .welcome h2 { margin: 0 0 8px; font-size: 24px; color: var(--primary); }
+    .welcome p { margin: 0 0 16px; color: var(--text); }
+    .welcome .btns { display: grid; gap: 10px; grid-template-columns: 1fr 1fr; }
+
+    /* فوتر */
+    .footer {
+      padding: 10px 14px; font-size: 13px; color: var(--muted);
+      border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: center; gap: 6px;
+      border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+      background: color-mix(in lab, var(--card) 88%, transparent);
+    }
+    .footer a { color: var(--primary); text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+
+    /* دکمه شناور رفتن بالا */
+    .to-top {
+      position: fixed; inset-inline-end: 20px; inset-block-end: 20px; z-index: 20;
+      opacity: 0; visibility: hidden; transform: translateY(10px); transition: .25s ease;
+    }
+    .to-top.show { opacity: 1; visibility: visible; transform: translateY(0); }
+
+    /* ریسپانسیو */
+    @media (max-width: 900px) {
+      .app { grid-template-columns: 92px 1fr; }
+      .toolbar { grid-template-columns: 1fr auto auto; grid-auto-rows: min-content; }
+      .search input { width: 160px; }
+    }
+
+    @media (max-width: 640px) {
+      .app { grid-template-columns: 86px 1fr; }
+      .toolbar { grid-template-columns: 1fr auto; }
+      .welcome .btns { grid-template-columns: 1fr; }
+      .img-box { height: 160px; }
+    }
+
+    /* احترام به کاربران حساس به حرکت */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+  </style>
 </head>
 <body>
-    <!-- Welcome Popup -->
-    <div class="welcome-popup" id="welcomePopup">
-        <div class="welcome-content">
-            <h2 class="welcome-title">اهلا وسهلا بکم</h2>
-            <p class="welcome-message">برای شروع دکمه زیر را بزنید</p>
-            <div class="welcome-buttons">
-                <button class="start-button" id="startButton">
-                    <i class="fas fa-utensils"></i>
-                    مشاهده منو
-                </button>
-                <button class="instagram-button" id="instagramButton">
-                    <i class="fab fa-instagram"></i>
-                    اینستاگرام ما
-                </button>
-            </div>
-        </div>
+  <!-- پنجره خوشامدگویی -->
+  <div class="welcome" id="welcome">
+    <div class="box glass">
+      <h2>اهلا وسهلا بکم</h2>
+      <p>برای شروع روی دکمه زیر بزنید</p>
+      <div class="btns">
+        <button class="btn primary" id="startBtn"><i class="fas fa-utensils"></i><span>مشاهده منو</span></button>
+        <button class="btn ghost" id="instaBtn"><i class="fab fa-instagram"></i><span>اینستاگرام ما</span></button>
+      </div>
     </div>
+  </div>
 
-    <!-- Image Modal -->
-    <div class="image-modal" id="imageModal">
-        <div class="modal-content">
-            <span class="close-modal" id="closeModal">&times;</span>
-            <img class="modal-image" id="modalImage">
-        </div>
+  <!-- موزیک پس‌زمینه -->
+  <audio id="bgm" loop>
+    <source src="Song.mp3" type="audio/mpeg" />
+    مرورگر شما از پخش صدا پشتیبانی نمی‌کند.
+  </audio>
+
+  <!-- مودال تصویر -->
+  <div class="modal" id="imgModal">
+    <div class="modal-inner">
+      <span class="close" id="closeModal">&times;</span>
+      <img id="modalImage" alt="" />
     </div>
+  </div>
 
-    <!-- Audio Element -->
-    <audio id="backgroundMusic" loop>
-        <source src="Song.mp3" type="audio/mpeg">
-        مرورگر شما از پخش صدا پشتیبانی نمی‌کند.
-    </audio>
+  <!-- بدنه اپ -->
+  <div class="app">
+    <!-- سایدبار دسته‌ها -->
+    <aside class="sidebar glass" id="sidebar"></aside>
 
-    <div class="menu-container">
-        <div class="categories-sidebar" id="categoriesSidebar">
-            <!-- Categories will be added by JavaScript -->
+    <!-- محتوا -->
+    <main class="content glass">
+      <!-- نوار ابزار بالا -->
+      <div class="toolbar">
+        <div class="brand" id="brandTitle"><i class="fa-solid fa-bowl-food"></i><span>منوی رستوران</span></div>
+
+        <div class="search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input id="searchInput" placeholder="جستجوی آیتم‌ها..." />
         </div>
-        <div class="items-container" id="itemsContainer">
-            <div class="items-content">
-                <h2 class="items-title">منوی رستوران</h2>
-                <div class="menu-items" id="menuItems">
-                    <!-- Items will be added by JavaScript -->
-                </div>
-                
-                <!-- Cafe Logo Section -->
-                <div class="cafe-logo">
-                    <img src="logo.png" alt="لوگوی رستوران">
-                </div>
-            </div>
-            
-            <!-- Footer -->
-            <div class="footer">
-                طراحی شده توسط تیم <a href="https://nirvanadev.ir" target="_blank">نیروانا</a>
-            </div>
+
+        <div class="select">
+          <i class="fa-solid fa-arrow-down-wide-short"></i>
+          <select id="sortSelect">
+            <option value="default">مرتب‌سازی: پیش‌فرض</option>
+            <option value="price-asc">قیمت کم → زیاد</option>
+            <option value="price-desc">قیمت زیاد → کم</option>
+          </select>
         </div>
-    </div>
 
-    <script>
-        // Function to convert English numbers to Persian
-        function toPersianNumbers(num) {
-            const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-            return num.toString().replace(/\d/g, function(match) {
-                return persianNumbers[parseInt(match)];
-            });
-        }
+        <button class="btn ghost" id="themeBtn" title="تغییر حالت روشن/تاریک">
+          <i class="fa-solid fa-moon"></i>
+          <span class="hide-sm">ظاهر</span>
+        </button>
+      </div>
 
-        // Menu data with Persian numbers and image numbers
-        const menuData = {
-            "شاورما": [
-                {name: "شاورما دجاج باگت", description: "ساندویچ شاورما مرغ با نان مخصوص", price: "185", image: "1.jpg"},
-                {name: "شاورما دجاج عربی", description: "ساندویچ لقمه شده همراه سیب زمینی + سالاد + سس", price: "255", image: "A3.jpg"},
-                {name: "شاورما دجاج صاج", description: "ساندویچ شاورما صاج با نون مخصوص", price: "255", image: "2.jpg"},
-                {name: "مینی شاورما", description: "نصف ساندویچ شاورما با نان مخصوص", price: "100", image: "3.jpg"},
-                {name: "پرس شاورما", description: "۲۵۰ گرم شاورما + سالاد + نان", price: "400", image: "4.jpg"}
-            ],
-            "فلافل": [
-                {name: "ساندویچ فلافل", description: "ساندویچ فلافل 5 عددی با نان مخصوص و سبزیجات تازه", price: "100", image: "5.jpg"},
-                {name: "ساندویچ فلافل مُشَکَل", description: "ساندویچ فلافل همراه سیب زمینی + بادمجان", price: "120", image: "6.jpg"},
-                {name: "ساندویچ فلافل مخصوص زعتر", description: "نان صاج همراه فلافل + حمص", price: "110", image: "7.jpg"},
-                {name: "فلافل تکی", description: "", price: "15", image: "A1.jpg"},
-                {name: "ساندویچ هات داگ", description: "هات داگ با نان مخصوص و سس های ویژه", price: "120", image: "8.jpg"},
-                {name: "همبرگر", description: "همبرگر دست ساز", price: "280", image: "A2.WEBP"}
-            ],
-            "معجنات": [
-                {name: "مینی صفیحه", description: "گوشت، گوجه، پیاز چرخ کرده، ادویه مخصوص", price: "88", image: "9.jpg"},
-                {name: "مینی دجاج بالعجین", description: "مرغ شاورما، پنیر، قارچ، ذرت، زیتون", price: "88", image: "10.jpg"},
-                {name: "مینی پیتزا دجاج", description: "مرغ شاورما، پنیر، قارچ، ذرت، زیتون", price: "98", image: "25.jpg"},
-                {name: "مینی زعتر", description: "آویشن لبنانی، روغن زیتون، کنجد", price: "88", image: "12.jpg"},
-                {name: "مینی زعتر قشقوان", description: "آویشن لبنانی، روغن زیتون، پنیر پیتزا", price: "88", image: "13.jpg"},
-                {name: "مینی محمره قشقوان", description: "سس مخصوص تند، پنیر، کنجد، سیاه دانه", price: "88", image: "14.jpg"},
-                {name: "مینی کبابه", description: "گوشت کبابی، ادویه مخصوص زعتر", price: "88", image: "15.jpg"},
-                {name: "مینی جنبه زیتون", description: "پنیر، زیتون، ادویه مخصوص زعتر", price: "88", image: "16.jpg"},
-                {name: "مینی جبن بالعجین", description: "پنیر پیتزا، ادویه مخصوص زعتر", price: "88", image: "17.jpg"},
-                {name: "مینی پپرونی", description: "پپرونی با پنیر و سس مخصوص", price: "98", image: "18.jpg"}
-            ],
-            "صحون\n(بشقاب ها)": [
-                {name: "کبه برنج", description: "کبۀ مخصوص با برنج عربی و ادویه‌های ویژه", price: "88", image: "19.jpg"},
-                {name: "سیب زمینی", description: "سیب زمینی سرخ شده با ادویه مخصوص", price: "120", image: "20.jpg"},
-                {name: "سیب زمینی مخصوص زعتر", description: "سیب زمینی با ادویه مخصوص و مرغ شاورما", price: "220", image: "21.jpg"},
-                {name: "سمبوسه پیتزایی", description: "سمبوسه مواد پیتزا و پنیر پیتزا و ادویه مخصوص", price: "78", image: "22.jpg"},
-                {name: "سمبوسه ساده", description: "سمبوسه با سیب زمینی و سبزیجات", price: "68", image: "22.jpg"}
-            ],
-            "پیتزا لبنانی": [
-                {name: "پیتزا بعلبکی", description: "پیتزا مخصوص سرآشپز - مرغ شاورما، مواد پیتزا، خمیر مخصوص دو طرفه", priceSingle: "248", priceDouble: "448", image: "24.jpg"},
-                {name: "پیتزا دجاج", description: "مرغ شاورما با پنیر و سس مخصوص", priceSingle: "228", priceDouble: "428", image: "25.jpg"},
-                {name: "پیتزا پپرونی", description: "پپرونی با پنیر و سس مخصوص", priceSingle: "198", priceDouble: "298", image: "18.jpg"}
-            ],
-            "مقبلات (سالاد)": [
-                {name: "تبوله", description: "جعفری، گوجه بلغور گندم، سس مخصوص زعتر", price: "100", image: "27.jpg"},
-                {name: "حمص بطحینه", description: "ارده، نخود، روغن زیتون", price: "100", image: "28.jpg"},
-                {name: "متبل", description: "ماست، ارده، بادمجان ذغالی", price: "100", image: "29.jpg"},
-                {name: "بذنجانیه", description: "بادمجان سرخ شده، خیار، گوجه، فلفل دلمه، پیاز، سس مخصوص", price: "100", image: "30.JPG"},
-                {name: "فته بذنجان", description: "بادمجان سرخ شده، ماست، ارده", price: "100", image: "31.jpg"},
-                {name: "صحن مقبلات مُشکل", description: "۴نوع سینی مزه به دلخواه", price: "400", image: "32.JPG"}
-            ],
-            "باکس ها": [
-                {name: "باکس ۲ نفره", description: "۲ عدد شاورما عربی + ۲ مدل سالاد + سس + نوشابه", price: "620", image: "33.jpg"},
-                {name: "باکس ۲ نفره مُشکل", description: "۱ عدد شاورما عربی + ۱ عدد ساندویچ فلافل + ۲ مدل سالاد + سس + نوشابه", price: "520", image: "33.jpg"},
-                {name: "باکس خانواده", description: "۵ عدد شاورما عربی + ۴ مدل سالاد + سس + نوشابه", price: "1,510", image: "35.jpg"},
-                {name: "باکس معجنات", description: "9 عدد مینی معجنات به دلخواه", price: "765", image: "36.jpg"}
-            ]
-        };
+      <!-- لیست آیتم‌ها -->
+      <div class="items-wrap" id="itemsWrap">
+        <h2 class="title" id="itemsTitle"><i class="fa-solid fa-bowl-food"></i><span>...</span></h2>
+        <section class="grid" id="grid"></section>
 
-        // DOM elements
-        const categoriesSidebar = document.getElementById('categoriesSidebar');
-        const menuItems = document.getElementById('menuItems');
-        const itemsTitle = document.querySelector('.items-title');
-        const welcomePopup = document.getElementById('welcomePopup');
-        const startButton = document.getElementById('startButton');
-        const instagramButton = document.getElementById('instagramButton');
-        const backgroundMusic = document.getElementById('backgroundMusic');
-        const imageModal = document.getElementById('imageModal');
-        const modalImage = document.getElementById('modalImage');
-        const closeModal = document.getElementById('closeModal');
+        <!-- لوگو -->
+        <div style="text-align:center; margin: 14px 0 2px;">
+          <img src="logo.png" alt="لوگوی رستوران" style="max-width: 160px; max-height: 80px; opacity:.9;" onerror="this.style.display='none'" />
+        </div>
+      </div>
 
-        // Create category buttons without icons
-        Object.keys(menuData).forEach(category => {
-            const categoryItem = document.createElement('div');
-            categoryItem.className = 'category-item';
-            categoryItem.innerHTML = `
-                <div class="category-name">${category}</div>
-            `;
-            
-            categoryItem.addEventListener('click', () => {
-                // Remove active class from all categories
-                document.querySelectorAll('.category-item').forEach(item => {
-                    item.classList.remove('active');
-                });
-                
-                // Add active class to clicked category
-                categoryItem.classList.add('active');
-                
-                // Update items with special title for pizza category
-                if (category === "پیتزا لبنانی") {
-                    updateItems(category, "پیتزا لبنانی (تک نفره و دو نفره)");
-                } else {
-                    updateItems(category, category);
-                }
-            });
-            
-            categoriesSidebar.appendChild(categoryItem);
+      <!-- فوتر -->
+      <footer class="footer">
+        <span>طراحی شده توسط تیم</span>
+        <a href="https://nirvanadev.ir" target="_blank" rel="noopener">نیروانا</a>
+      </footer>
+    </main>
+  </div>
+
+  <!-- دکمه شناور بالا -->
+  <button class="btn primary to-top" id="toTop"><i class="fa-solid fa-arrow-up"></i><span>بالا</span></button>
+
+  <script>
+    // ====== داده‌ها ======
+    const menuData = {
+      "شاورما": [
+        {name: "شاورما دجاج باگت", description: "ساندویچ شاورما مرغ با نان مخصوص", price: "185", image: "1.jpg"},
+        {name: "شاورما دجاج عربی", description: "ساندویچ لقمه شده همراه سیب زمینی + سالاد + سس", price: "255", image: "A3.jpg"},
+        {name: "شاورما دجاج صاج", description: "ساندویچ شاورما صاج با نون مخصوص", price: "255", image: "2.jpg"},
+        {name: "مینی شاورما", description: "نصف ساندویچ شاورما با نان مخصوص", price: "100", image: "3.jpg"},
+        {name: "پرس شاورما", description: "۲۵۰ گرم شاورما + سالاد + نان", price: "400", image: "4.jpg"}
+      ],
+      "فلافل": [
+        {name: "ساندویچ فلافل", description: "ساندویچ فلافل 5 عددی با نان مخصوص و سبزیجات تازه", price: "100", image: "5.jpg"},
+        {name: "ساندویچ فلافل مُشَکَل", description: "ساندویچ فلافل همراه سیب زمینی + بادمجان", price: "120", image: "6.jpg"},
+        {name: "ساندویچ فلافل مخصوص زعتر", description: "نان صاج همراه فلافل + حمص", price: "110", image: "7.jpg"},
+        {name: "فلافل تکی", description: "", price: "15", image: "A1.jpg"},
+        {name: "ساندویچ هات داگ", description: "هات داگ با نان مخصوص و سس های ویژه", price: "120", image: "8.jpg"},
+        {name: "همبرگر", description: "همبرگر دست ساز", price: "280", image: "A2.WEBP"}
+      ],
+      "معجنات": [
+        {name: "مینی صفیحه", description: "گوشت، گوجه، پیاز چرخ کرده، ادویه مخصوص", price: "88", image: "9.jpg"},
+        {name: "مینی دجاج بالعجین", description: "مرغ شاورما، پنیر، قارچ، ذرت، زیتون", price: "88", image: "10.jpg"},
+        {name: "مینی پیتزا دجاج", description: "مرغ شاورما، پنیر، قارچ، ذرت، زیتون", price: "98", image: "25.jpg"},
+        {name: "مینی زعتر", description: "آویشن لبنانی، روغن زیتون، کنجد", price: "88", image: "12.jpg"},
+        {name: "مینی زعتر قشقوان", description: "آویشن لبنانی، روغن زیتون، پنیر پیتزا", price: "88", image: "13.jpg"},
+        {name: "مینی محمره قشقوان", description: "سس مخصوص تند، پنیر، کنجد، سیاه دانه", price: "88", image: "14.jpg"},
+        {name: "مینی کبابه", description: "گوشت کبابی، ادویه مخصوص زعتر", price: "88", image: "15.jpg"},
+        {name: "مینی جنبه زیتون", description: "پنیر، زیتون، ادویه مخصوص زعتر", price: "88", image: "16.jpg"},
+        {name: "مینی جبن بالعجین", description: "پنیر پیتزا، ادویه مخصوص زعتر", price: "88", image: "17.jpg"},
+        {name: "مینی پپرونی", description: "پپرونی با پنیر و سس مخصوص", price: "98", image: "18.jpg"}
+      ],
+      "صحون\n(بشقاب ها)": [
+        {name: "کبه برنج", description: "کبۀ مخصوص با برنج عربی و ادویه‌های ویژه", price: "88", image: "19.jpg"},
+        {name: "سیب زمینی", description: "سیب زمینی سرخ شده با ادویه مخصوص", price: "120", image: "20.jpg"},
+        {name: "سیب زمینی مخصوص زعتر", description: "سیب زمینی با ادویه مخصوص و مرغ شاورما", price: "220", image: "21.jpg"},
+        {name: "سمبوسه پیتزایی", description: "سمبوسه مواد پیتزا و پنیر پیتزا و ادویه مخصوص", price: "78", image: "22.jpg"},
+        {name: "سمبوسه ساده", description: "سمبوسه با سیب زمینی و سبزیجات", price: "68", image: "22.jpg"}
+      ],
+      "پیتزا لبنانی": [
+        {name: "پیتزا بعلبکی", description: "پیتزا مخصوص سرآشپز - مرغ شاورما، مواد پیتزا، خمیر مخصوص دو طرفه", priceSingle: "248", priceDouble: "448", image: "24.jpg"},
+        {name: "پیتزا دجاج", description: "مرغ شاورما با پنیر و سس مخصوص", priceSingle: "228", priceDouble: "428", image: "25.jpg"},
+        {name: "پیتزا پپرونی", description: "پپرونی با پنیر و سس مخصوص", priceSingle: "198", priceDouble: "298", image: "18.jpg"}
+      ],
+      "مقبلات (سالاد)": [
+        {name: "تبوله", description: "جعفری، گوجه بلغور گندم، سس مخصوص زعتر", price: "100", image: "27.jpg"},
+        {name: "حمص بطحینه", description: "ارده، نخود، روغن زیتون", price: "100", image: "28.jpg"},
+        {name: "متبل", description: "ماست، ارده، بادمجان ذغالی", price: "100", image: "29.jpg"},
+        {name: "بذنجانیه", description: "بادمجان سرخ شده، خیار، گوجه، فلفل دلمه، پیاز، سس مخصوص", price: "100", image: "30.JPG"},
+        {name: "فته بذنجان", description: "بادمجان سرخ شده، ماست، ارده", price: "100", image: "31.jpg"},
+        {name: "صحن مقبلات مُشکل", description: "۴نوع سینی مزه به دلخواه", price: "400", image: "32.JPG"}
+      ],
+      "باکس ها": [
+        {name: "باکس ۲ نفره", description: "۲ عدد شاورما عربی + ۲ مدل سالاد + سس + نوشابه", price: "620", image: "33.jpg"},
+        {name: "باکس ۲ نفره مُشکل", description: "۱ عدد شاورما عربی + ۱ عدد ساندویچ فلافل + ۲ مدل سالاد + سس + نوشابه", price: "520", image: "33.jpg"},
+        {name: "باکس خانواده", description: "۵ عدد شاورما عربی + ۴ مدل سالاد + سس + نوشابه", price: "1,510", image: "35.jpg"},
+        {name: "باکس معجنات", description: "9 عدد مینی معجنات به دلخواه", price: "765", image: "36.jpg"}
+      ]
+    };
+
+    // ====== ابزارها ======
+    const $ = (s, r=document) => r.querySelector(s);
+    const $$ = (s, r=document) => r.querySelectorAll(s);
+
+    const faDigits = n => n.toLocaleString('fa-IR');
+    const parseNum = s => parseInt(String(s).replace(/[^\d]/g, ''), 10);
+    const formatPrice = s => {
+      const num = parseNum(s);
+      return isNaN(num) ? s : `${faDigits(num)} تومان`;
+    };
+
+    const iconFor = (cat) => {
+      if (cat.includes('پیتزا')) return 'fa-pizza-slice';
+      if (cat.includes('شاورما')) return 'fa-drumstick-bite';
+      if (cat.includes('فلافل')) return 'fa-burger';
+      if (cat.includes('مقبلات') || cat.includes('سالاد')) return 'fa-bowl-food';
+      if (cat.includes('باکس')) return 'fa-box-open';
+      return 'fa-utensils';
+    };
+
+    // ====== المان‌ها ======
+    const sidebar = $('#sidebar');
+    const grid = $('#grid');
+    const itemsTitle = $('#itemsTitle span');
+    const brandTitle = $('#brandTitle span');
+    const searchInput = $('#searchInput');
+    const sortSelect = $('#sortSelect');
+    const imgModal = $('#imgModal');
+    const modalImage = $('#modalImage');
+
+    const toTop = $('#toTop');
+
+    // Welcome & audio & theme
+    const welcome = $('#welcome');
+    const startBtn = $('#startBtn');
+    const instaBtn = $('#instaBtn');
+    const bgm = $('#bgm');
+    const themeBtn = $('#themeBtn');
+
+    // حالت تیره از LocalStorage
+    const applyTheme = () => {
+      const dark = localStorage.getItem('theme') === 'dark';
+      document.documentElement.classList.toggle('dark', dark);
+      themeBtn.innerHTML = dark
+        ? '<i class="fa-solid fa-sun"></i><span class="hide-sm">ظاهر</span>'
+        : '<i class="fa-solid fa-moon"></i><span class="hide-sm">ظاهر</span>';
+    };
+    applyTheme();
+
+    themeBtn.addEventListener('click', () => {
+      const dark = !(localStorage.getItem('theme') === 'dark');
+      localStorage.setItem('theme', dark ? 'dark' : 'light');
+      applyTheme();
+    });
+
+    // ساخت دکمه‌های دسته‌ها
+    const categories = Object.keys(menuData);
+    categories.forEach((cat, idx) => {
+      const el = document.createElement('button');
+      el.className = 'cat';
+      el.innerHTML = `<i class="fa-solid ${iconFor(cat)}"></i><div class="name">${cat.replace('\n','<br>')}</div>`;
+      el.addEventListener('click', () => selectCategory(cat, el));
+      sidebar.appendChild(el);
+      if (idx === 0) {
+        requestAnimationFrame(() => selectCategory(cat, el));
+      }
+    });
+
+    let currentCategory = categories[0];
+    let currentFilter = '';
+
+    function selectCategory(cat, el) {
+      currentCategory = cat;
+      $$('.cat').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      itemsTitle.textContent = cat === 'پیتزا لبنانی' ? 'پیتزا لبنانی (تک نفره و دو نفره)' : cat;
+      brandTitle.textContent = 'منوی ' + cat;
+      renderItems();
+    }
+
+    // جستجو و مرتب‌سازی
+    searchInput.addEventListener('input', (e) => {
+      currentFilter = normalize(e.target.value);
+      renderItems();
+    });
+    sortSelect.addEventListener('change', renderItems);
+
+    const normalize = (s) => (s || '')
+      .replace(/[ي]/g, 'ی')
+      .replace(/[ك]/g, 'ک')
+      .trim();
+
+    function filteredAndSorted(list) {
+      const q = currentFilter;
+      let l = list.filter(it => !q || normalize(it.name + ' ' + (it.description||'')).includes(q));
+      const mode = sortSelect.value;
+      if (mode.startsWith('price')) {
+        l = [...l].sort((a,b) => {
+          const getP = (x) => parseNum(x.price ?? x.priceSingle ?? '0');
+          return mode === 'price-asc' ? getP(a) - getP(b) : getP(b) - getP(a);
+        });
+      }
+      return l;
+    }
+
+    function renderItems() {
+      grid.innerHTML = '';
+      const list = filteredAndSorted(menuData[currentCategory]);
+
+      list.forEach((item, idx) => {
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.style.animationDelay = `${idx * 60}ms`;
+
+        const imgSrc = item.image;
+        const hasDouble = currentCategory === 'پیتزا لبنانی';
+
+        const priceHTML = hasDouble ? `
+          <div class="price-row">
+            <div class="price-col">
+              <span class="price-label">تک نفره</span>
+              <span class="price-tag">${formatPrice(item.priceSingle)}</span>
+            </div>
+            <div class="price-col">
+              <span class="price-label">دو نفره</span>
+              <span class="price-tag">${formatPrice(item.priceDouble)}</span>
+            </div>
+          </div>
+        ` : `
+          <div class="price-row">
+            <span class="price-tag">${item.price ? formatPrice(item.price) : ''}</span>
+          </div>
+        `;
+
+        card.innerHTML = `
+          <div class="img-box">
+            <img src="${imgSrc}" alt="${item.name}" loading="lazy" />
+          </div>
+          <div class="content-box">
+            <div class="name">${item.name}</div>
+            ${item.description ? `<div class="desc">${item.description}</div>` : ''}
+            ${priceHTML}
+          </div>
+        `;
+
+        const img = card.querySelector('img');
+        img.onerror = () => { img.src = 'logo.png'; img.style.objectFit = 'contain'; img.style.padding = '16px'; };
+        img.addEventListener('click', (e) => {
+          e.stopPropagation();
+          modalImage.src = img.src;
+          modalImage.alt = item.name;
+          imgModal.classList.add('open');
         });
 
-        // Set first category as active by default
-        document.querySelector('.category-item').classList.add('active');
-        updateItems(Object.keys(menuData)[0], Object.keys(menuData)[0]);
+        grid.appendChild(card);
+      });
 
-        // Function to update items based on selected category
-        function updateItems(category, title = null) {
-            // Clear previous items
-            menuItems.innerHTML = '';
-            
-            // Update title
-            itemsTitle.textContent = title || category;
-            
-            // Add items with animation delay
-            menuData[category].forEach((item, index) => {
-                setTimeout(() => {
-                    const itemElement = document.createElement('div');
-                    itemElement.className = 'menu-item';
-                    itemElement.style.animationDelay = `${index * 0.1}s`;
-                    
-                    let priceContent = '';
-                    if (category === "پیتزا لبنانی") {
-                        priceContent = `
-                            <div class="price-container">
-                                <div>
-                                    <span class="price-label">تک نفره:</span>
-                                    <span class="item-price">${item.priceSingle} t</span>
-                                </div>
-                                <div>
-                                    <span class="price-label">دو نفره:</span>
-                                    <span class="item-price">${item.priceDouble} t</span>
-                                </div>
-                            </div>
-                        `;
-                    } else if (item.price) {
-                        priceContent = `<div class="item-price">${item.price} t</div>`;
-                    }
-                    
-                    itemElement.innerHTML = `
-                        <div class="item-image-container">
-                            <img src="${item.image}" alt="${item.name}" class="item-image" data-image="${item.image}">
-                        </div>
-                        <div class="item-name">${item.name}</div>
-                        ${item.description ? `<div class="item-description">${item.description}</div>` : ''}
-                        ${priceContent}
-                    `;
-                    menuItems.appendChild(itemElement);
-                }, 50);
-            });
-            
-            // Add click event to all images
-            document.querySelectorAll('.item-image').forEach(img => {
-                img.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    modalImage.src = this.src;
-                    modalImage.alt = this.alt;
-                    imageModal.style.display = 'flex';
-                });
-            });
-        }
+      // نشان دادن دکمه بالا
+      const wrap = document.getElementById('itemsWrap');
+      wrap.addEventListener('scroll', () => {
+        toTop.classList.toggle('show', wrap.scrollTop > 400);
+      }, { passive: true });
+    }
 
-        // Close modal when clicking the close button
-        closeModal.addEventListener('click', function(e) {
-            e.stopPropagation();
-            imageModal.style.display = 'none';
-        });
+    // مودال تصویر بستن
+    $('#closeModal').addEventListener('click', () => imgModal.classList.remove('open'));
+    imgModal.addEventListener('click', () => imgModal.classList.remove('open'));
 
-        // Close modal when clicking anywhere
-        imageModal.addEventListener('click', function() {
-            imageModal.style.display = 'none';
-        });
+    // دکمه بالا
+    toTop.addEventListener('click', () => {
+      $('#itemsWrap').scrollTo({ top: 0, behavior: 'smooth' });
+    });
 
-        // Start button functionality
-        startButton.addEventListener('click', () => {
-            // Hide welcome popup
-            welcomePopup.style.display = 'none';
-            
-            // Play background music
-            backgroundMusic.play();
-            
-            // Show menu
-            document.querySelector('.menu-container').style.display = 'flex';
-        });
+    // Welcome & actions
+    startBtn.addEventListener('click', () => {
+      welcome.style.display = 'none';
+      bgm.play().catch(() => {/* بی‌صدا اگر مرورگر اجازه ندهد */});
+    });
 
-        // Instagram button functionality
-        instagramButton.addEventListener('click', () => {
-            window.open('https://instagram.com/zaatar_lebanese', '_blank');
-        });
-
-        // Initially hide the menu until start button is clicked
-        document.querySelector('.menu-container').style.display = 'none';
-    </script>
+    instaBtn.addEventListener('click', () => {
+      window.open('https://instagram.com/zaatar_lebanese', '_blank');
+    });
+  </script>
 </body>
 </html>
