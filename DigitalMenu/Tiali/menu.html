@@ -1,405 +1,451 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>منوی کافه – نسخه موبایل زیباتر</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <title>کافه تیالی | منوی موبایل</title>
 
-  <!-- Fonts -->
-  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
-  <!-- Bootstrap RTL 5.3 -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-  <!-- Icons -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
+  <!-- Bootstrap RTL (only for mobile) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet"/>
 
   <style>
     :root{
-      --brand-1:#104322; /* سبز تیره */
-      --brand-2:#4E2916; /* قهوه‌ای */
-      --brand-3:#939A71; /* زیتونی روشن */
-      --bg:#FBFBF9;
-      --card:#ffffff;
-      --muted:#6b7280;
-      --radius:18px;
-      --shadow:0 10px 30px rgba(0,0,0,.08);
+      --appbar-h: 60px;
+      --rail-w: 84px;  /* دسته‌بندی سمت راست */
+      --radius: 14px;
+      --brand: #2f3e46;
+      --accent: #0d6efd; /* می‌تونه بعداً با هویت تیالی عوض بشه */
+      --muted: #6c757d;
+      --bg-soft: #f8f9fa;
+      --card-shadow: 0 6px 20px rgba(0,0,0,.06);
     }
-    *{font-family: Vazir, Tahoma, sans-serif}
-    body{background: var(--bg); color:#1f2937}
 
-    /* نوار بالا */
-    .appbar{position: sticky; top:0; z-index: 1000; backdrop-filter:saturate(1.2) blur(8px); background: linear-gradient(135deg, rgba(16,67,34,.96), rgba(78,41,22,.93));}
-    .appbar .brand{color:#fff}
-    .appbar .brand small{opacity:.8}
+    body{ background:#fff; }
 
-    /* دسته‌بندی‌ها – اسکرولی و چیپ */
-    .cat-strip{position: sticky; top:56px; z-index: 999; background:linear-gradient(180deg, rgba(251,251,249,1), rgba(251,251,249,.92)); padding:.65rem .75rem .8rem; border-bottom:1px dashed rgba(16,67,34,.15)}
-    .cat-chip{white-space:nowrap; border-radius: 999px; border:1px solid rgba(16,67,34,.12); background:#fff; color:#0f172a}
-    .cat-chip.active{background: var(--brand-1); color:#fff; border-color:var(--brand-1)}
+    /* App bar */
+    .appbar{
+      height: var(--appbar-h);
+      -webkit-backdrop-filter: saturate(180%) blur(14px);
+      backdrop-filter: saturate(180%) blur(14px);
+      background: rgba(255,255,255,.85);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+    .brand{
+      font-weight: 800;
+      color: var(--brand);
+      letter-spacing: .3px;
+    }
 
-    /* کارت آیتم */
-    .menu-card{border:none; border-radius: var(--radius); box-shadow: var(--shadow); overflow:hidden; background:var(--card); transition: transform .2s ease, box-shadow .2s ease}
-    .menu-card:active{transform: scale(.995)}
-    .menu-img{width:100%; height: 220px; object-fit: cover}
-    .price{color:var(--brand-2); font-weight:600}
-    .desc{color:var(--muted); font-size:.9rem}
-    .add-btn{border-radius:999px}
+    /* دسته‌بندی عمودی سمت راست */
+    #catRail{
+      position: fixed;
+      top: var(--appbar-h);
+      bottom: 0;
+      right: 0;
+      width: var(--rail-w);
+      z-index: 998;
+      background: #fff;
+      border-left: 1px solid rgba(0,0,0,.06);
+      padding: 8px 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .cat-btn{
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      min-height: 44px;
+      padding: 8px 6px;
+      border: 1px solid rgba(0,0,0,.08);
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,.04);
+      font-size: 12px; line-height: 1.2;
+      color: #222;
+    }
+    .cat-btn.active{
+      border-color: var(--accent);
+      box-shadow: 0 6px 16px rgba(13,110,253,.15);
+      color: var(--accent);
+      font-weight: 700;
+    }
 
-    /* لوگو */
-    .brand-logo{width:84px; height:84px; border-radius:50%; border:3px solid var(--brand-2); object-fit:cover}
-    .logo-card{border-radius: var(--radius); background:#fff; box-shadow: var(--shadow)}
+    /* فضای محتوا کنار ریل راست */
+    main{
+      padding-top: var(--appbar-h);
+      padding-bottom: 90px; /* جا برای CTA پایین اگر بعداً خواستی */
+    }
+    .content{
+      margin-right: calc(var(--rail-w) + 8px);
+      padding: 12px;
+    }
 
-    /* نوار پایین (اَکشن‌ها) */
-    .bottom-nav{position: sticky; bottom:0; z-index: 1000; background: rgba(255,255,255,.85); backdrop-filter: blur(10px); border-top:1px solid rgba(16,67,34,.12)}
+    /* بخش‌ها و آیتم‌ها (کمپکت) */
+    .section-title{
+      font-weight: 800;
+      font-size: 18px;
+      color: #111;
+      margin: 10px 0 6px;
+      scroll-margin-top: calc(var(--appbar-h) + 8px);
+    }
+    .menu-item{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 6px;
+      border-bottom: 1px solid rgba(0,0,0,.05);
+      min-height: 82px; /* جمع‌وجور */
+    }
+    .thumb{
+      width: 68px; height: 68px; border-radius: 12px; flex: 0 0 68px;
+      background: #eee; overflow: hidden; border: 1px solid rgba(0,0,0,.06);
+    }
+    .thumb img{ width: 100%; height: 100%; object-fit: cover; display: block; }
+    .mi-text{ flex: 1 1 auto; min-width: 0; }
+    .mi-name{
+      font-weight: 700; font-size: 14px; color:#111;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .mi-desc{
+      color: var(--muted); font-size: 12px;
+      display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .mi-foot{ display:flex; align-items:center; justify-content:space-between; margin-top:4px; }
+    .price{ font-weight:800; font-size:13px; color:#222; }
+    .add-btn{
+      border: 1px solid rgba(0,0,0,.08);
+      border-radius: 100px;
+      padding: 6px 10px;
+      font-weight: 700;
+      background:#fff;
+    }
 
-    /* سبد خرید (Bottom Sheet) */
-    .offcanvas-bottom{height: 70vh; border-top-left-radius:20px; border-top-right-radius:20px}
+    /* Badge سبد خرید در اپ‌بار */
+    .cart-btn{
+      position: relative;
+      border: 1px solid rgba(0,0,0,.08);
+      border-radius: 12px;
+      background:#fff;
+      padding: 8px 12px;
+    }
+    .cart-badge{
+      position: absolute; top: -6px; left: -6px;
+      background: #dc3545;
+      color:#fff; font-size: 11px; font-weight: 800;
+      padding: 2px 6px; border-radius: 999px;
+      min-width: 20px; text-align:center;
+      box-shadow: 0 2px 8px rgba(220,53,69,.35);
+    }
 
-    /* Skeleton */
-    .skel{background: linear-gradient(90deg, #eee, #f5f5f5, #eee); background-size:200% 100%; animation: shine 1.2s linear infinite}
-    @keyframes shine{to{background-position:-200% 0}}
+    /* سبد خرید فول‌اسکرین */
+    .cart-overlay{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.18);
+      display: none;
+      z-index: 1200;
+    }
+    .cart-sheet{
+      position: absolute;
+      bottom: 0; right: 0; left: 0;
+      height: 92vh; /* بزرگ و تقریباً تمام‌صفحه */
+      background: #fff;
+      border-top-left-radius: 18px;
+      border-top-right-radius: 18px;
+      box-shadow: 0 -20px 40px rgba(0,0,0,.15);
+      transform: translateY(100%);
+      transition: transform .32s ease;
+      display: flex; flex-direction: column;
+    }
+    .cart-overlay.show{ display:block; }
+    .cart-overlay.show .cart-sheet{ transform: translateY(0); }
 
-    /* فقط موبایل: مخفی‌سازی اسکرول افقی ناخوشایند و محدودسازی عرض */
-    @media (min-width:768px){.only-mobile{max-width:520px; margin:auto}}
+    .cart-header{
+      padding: 14px 16px; border-bottom: 1px solid rgba(0,0,0,.06);
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .cart-title{ font-weight:800; font-size:16px; }
+    .cart-body{
+      flex: 1 1 auto;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 8px 12px 90px;
+    }
+    .cart-item{
+      display:flex; align-items:center; gap:10px;
+      padding:10px 8px; border-bottom: 1px solid rgba(0,0,0,.05);
+    }
+    .ci-thumb{ width:48px; height:48px; border-radius:10px; overflow:hidden; background:#f1f1f1; flex:0 0 48px; }
+    .ci-name{ font-weight:700; font-size:13px; color:#111; }
+    .ci-price{ font-weight:800; font-size:12px; color:#222; }
+    .qty{
+      display:flex; align-items:center; gap:6px;
+      border:1px solid rgba(0,0,0,.08); border-radius:999px; padding:4px 8px;
+    }
+    .qty button{ border:0; background:#fff; width:28px; height:28px; border-radius:999px; }
+    .qty span{ min-width:22px; text-align:center; font-weight:800; }
+
+    .cart-footer{
+      position: absolute; bottom: 0; right:0; left:0;
+      padding: 10px 12px;
+      background: #fff;
+      border-top: 1px solid rgba(0,0,0,.08);
+    }
+    .total-line{ display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; font-weight:800; }
+    .checkout-btn{
+      width:100%; border-radius:12px; padding:12px 14px; font-weight:800;
+      box-shadow: 0 8px 24px rgba(13,110,253,.25);
+    }
+
+    /* Placeholder thumb via inline SVG keeps it light */
+    .ph {
+      background-image: url('data:image/svg+xml;utf8,       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">       <rect width="200" height="200" fill="%23e9ecef"/>       <circle cx="100" cy="70" r="36" fill="%23ced4da"/>       <rect x="36" y="128" width="128" height="12" rx="6" fill="%23ced4da"/>       <rect x="56" y="148" width="88" height="12" rx="6" fill="%23dee2e6"/>       </svg>');
+      background-size: cover; background-position: center;
+    }
+
+    /* فقط موبایل: اگه کسی اتفاقی روی دسکتاپ باز کرد */
+    @media (min-width: 640px){
+      body::before{
+        content:"این نسخه فقط برای موبایل طراحی شده است";
+        position: fixed; inset: 0; background:#fff; display:flex; align-items:center; justify-content:center;
+        z-index:2000; font-weight:800; color:#111;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="only-mobile">
-    <!-- App Bar -->
-    <nav class="appbar px-3 py-2 d-flex align-items-center justify-content-between">
-      <div class="brand d-flex align-items-center gap-2">
-        <img src="logo.jpg" alt="لوگوی کافه" class="brand-logo">
-        <div>
-          <div class="fw-bold">کافه تایم</div>
-          <small>منوی امروز</small>
+
+  <!-- App Bar -->
+  <header class="appbar fixed-top d-flex align-items-center justify-content-between px-3">
+    <div class="d-flex align-items-center gap-2">
+      <span class="brand">کافه تیالی</span>
+    </div>
+    <button id="btnCart" class="cart-btn">
+      <span class="me-1">سبد خرید</span>
+      <span id="cartBadge" class="cart-badge d-none">0</span>
+    </button>
+  </header>
+
+  <!-- دسته‌بندی عمودی (راست) -->
+  <nav id="catRail" aria-label="دسته‌بندی"></nav>
+
+  <main>
+    <div class="content">
+      <!-- بخش‌ها اینجا با JS از روی داده‌ها ساخته می‌شن -->
+      <div id="sections"></div>
+    </div>
+  </main>
+
+  <!-- سبد خرید فول‌اسکرین -->
+  <aside id="cartOverlay" class="cart-overlay" aria-hidden="true">
+    <div class="cart-sheet">
+      <div class="cart-header">
+        <div class="cart-title">سبد خرید</div>
+        <button id="closeCart" class="btn btn-link text-decoration-none">بستن</button>
+      </div>
+      <div id="cartBody" class="cart-body"></div>
+      <div class="cart-footer">
+        <div class="total-line">
+          <span>جمع کل</span>
+          <span id="grandTotal">۰ تومان</span>
         </div>
-      </div>
-      <button class="btn btn-sm btn-light position-relative" data-bs-toggle="offcanvas" data-bs-target="#cartSheet" aria-controls="cartSheet">
-        <i class="fa-solid fa-cart-shopping"></i>
-        <span id="cartBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-danger">0</span>
-      </button>
-    </nav>
-
-    <!-- Category strip -->
-    <div id="catStrip" class="cat-strip overflow-auto">
-      <div class="d-flex gap-2 flex-nowrap" id="catContainer"></div>
-    </div>
-
-    <!-- محتوا -->
-    <main class="container py-3" id="menuRoot">
-      <!-- سکلتون اولیه -->
-      <div class="row g-3" id="skeleton">
-        ${Array.from({length: 6}).map(()=>`
-          <div class='col-12'>
-            <div class='menu-card p-2'>
-              <div class='skel' style='height:220px;border-radius:16px'></div>
-              <div class='p-2'>
-                <div class='skel my-2' style='height:18px;border-radius:8px;width:60%'></div>
-                <div class='skel my-2' style='height:14px;border-radius:8px;width:40%'></div>
-                <div class='skel my-2' style='height:12px;border-radius:8px;width:80%'></div>
-              </div>
-            </div>
-          </div>`).join('')}
-      </div>
-      <div class="row g-3 d-none" id="menuList"></div>
-
-      <!-- لوگو/فوتر مینیمال -->
-      <div class="logo-card mt-4 p-3 text-center">
-        <img src="logo.jpg" class="brand-logo" alt="لوگو">
-        <div class="small text-muted mt-2">تمامی حقوق محفوظ است | کافه ۲۰۲۵ ©</div>
-      </div>
-    </main>
-
-    <!-- Bottom actions -->
-    <div class="bottom-nav py-2 px-3 d-flex align-items-center justify-content-between">
-      <button class="btn btn-outline-success flex-fill mx-1" id="btnHome"><i class="fa-solid fa-home me-1"></i>خانه</button>
-      <button class="btn btn-outline-success flex-fill mx-1" id="btnTop"><i class="fa-solid fa-arrow-up me-1"></i>بالا</button>
-      <button class="btn btn-success flex-fill mx-1" data-bs-toggle="offcanvas" data-bs-target="#cartSheet"><i class="fa-solid fa-basket-shopping me-1"></i>سبد</button>
-    </div>
-  </div>
-
-  <!-- سبد خرید: Bottom Sheet -->
-  <div class="offcanvas offcanvas-bottom" tabindex="-1" id="cartSheet" aria-labelledby="cartSheetLabel">
-    <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="cartSheetLabel"><i class="fa-solid fa-bag-shopping ms-2"></i>سبد خرید</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body d-flex flex-column pt-0">
-      <div id="cartItems" class="flex-grow-1 overflow-auto">
-        <div class="text-center text-muted py-4">سبد خرید شما خالی است</div>
-      </div>
-      <div class="border-top pt-2">
-        <div class="d-flex justify-content-between align-items-center mb-2">
-          <span class="fw-semibold">جمع کل:</span>
-          <span id="cartTotal" class="price">۰ تومان</span>
-        </div>
-        <button class="btn btn-success w-100" id="checkoutBtn" disabled>تسویه حساب</button>
+        <button class="btn btn-primary checkout-btn">ثبت سفارش</button>
       </div>
     </div>
-  </div>
-
-  <!-- Modal تصویر -->
-  <div class="modal fade" id="imgModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content" style="border-radius:18px; overflow:hidden">
-        <img id="modalImg" src="" alt="" style="width:100%; height:auto" />
-      </div>
-    </div>
-  </div>
+  </aside>
 
   <script>
-    // داده‌های منو - همان ساختار نسخه قبلی برای سازگاری
-    const menuData = {
-      "شیک‌ها": { english:"SHAKES", icon:"fa-glass-whiskey", items:[
-        {name:"نوتلا", price:"100 تومان", description:"بستنی وانیلی + شیر + نوتلا دستساز 30 درصد فندق", image:"1.jpg"},
-        {name:"بادام زمینی", price:"60 تومان", image:"2.jpg"},
-        {name:"قهوه", price:"70 تومان", image:"3.jpg"},
-        {name:"انبه", price:"130 تومان", image:"4.jpg"},
-        {name:"طالبی", price:"60 تومان", image:"5.jpg"},
-        {name:"موز شکلات", price:"100 تومان", image:"6.jpg"},
-        {name:"توت فرنگی", price:"100 تومان", image:"7.jpg"},
-        {name:"ماچا", price:"90 تومان", image:"8.jpg"},
-        {name:"معجون", price:"160 تومان", description:"بستنی سنتی + شیر + موز + پسته + گردو + پودر نارگیل + کنجد + آناناس", image:"9.jpg"},
-        {name:"پسته", price:"150 تومان", image:"10.jpg"},
-        {name:"موز توت فرنگی", price:"110 تومان", image:"11.jpg"},
-        {name:"برونی", price:"60 تومان", image:"12.jpg"},
-        {name:"لوتوس", price:"90 تومان", image:"13.jpg"},
-      ]},
-      "نوشیدنی‌های گرم": { english:"HOT DRINKS", icon:"fa-mug-hot", items:[
-        {name:"اسپرسو تک", price:"1 تومان", description:"قهوه 30-70", image:"14.jpg"},
-        {name:"اسپرسو دبل", price:"1 تومان", description:"قهوه 30-70", image:"15.jpg"},
-        {name:"لته کلاسیک", price:"1 تومان", description:"قهوه اسپرسو دبل + شیر + فوم شیر", image:"16.jpg"},
-        {name:"لته فندقی", price:"1 تومان", description:"قهوه اسپرسو دبل + شیر + فوم شیر + سیروپ فندق", image:"17.jpg"},
-        {name:"لته پسته", price:"1 تومان", description:"قهوه اسپرسو دبل + شیر + فوم شیر + کرم پسته", image:"18.jpg"},
-        {name:"لته لوتوس", price:"1 تومان", description:"قهوه اسپرسو دبل + شیر + فوم شیر + کره لوتوس", image:"19.jpg"},
-        {name:"کاپوچینو کلاسیک", price:"1 تومان", description:"قهوه اسپرسو تک + شیر + فوم شیر", image:"20.jpg"},
-        {name:"کاپوچینو کاراملی", price:"1 تومان", description:"قهوه اسپرسو تک + شیر + فوم شیر + سیروپ کارامل", image:"21.jpg"},
-        {name:"کورتادو", price:"1 تومان", description:"قهوه اسپرسو دبل + شیر + فوم شیر", image:"22.jpg"},
-        {name:"آمریکانو", price:"1 تومان", description:"قهوه اسپرسو تک + آب جوش", image:"23.jpg"},
-        {name:"نسکافه", price:"1 تومان", description:"قهوه اسپرسو تک + شیر + فوم شیر + شکر قهوه‌ای", image:"24.jpg"},
-        {name:"هات چاکلت", price:"1 تومان", description:"شکلات + پودر کاکائو + خامه صبحانه + شیر + فوم شیر", image:"25.jpg"},
-        {name:"موکاچینو", price:"1 تومان", description:"سیروپ شکلات + شیر + فوم شیر + قهوه اسپرسو تک", image:"26.jpg"},
-        {name:"کارامل ماکیاتو", price:"1 تومان", description:"سیروپ وانیل + شیر + فوم شیر + قهوه اسپرسو تک + سس کارامل", image:"27.jpg"},
-      ]},
-      "آبمیوه‌ها": { english:"JUICES", icon:"fa-apple-alt", items:[
-        {name:"شیرموز", price:"1 تومان", image:"28.jpg"},
-        {name:"شیرموز بستنی", price:"1 تومان", image:"29.jpg"},
-        {name:"آب طالبی", price:"1 تومان", image:"30.jpg"},
-        {name:"آب طالبی بستنی", price:"1 تومان", image:"31.jpg"},
-        {name:"آب هویج", price:"1 تومان", image:"32.jpg"},
-        {name:"آب هویج بستنی", price:"1 تومان", image:"33.jpg"},
-        {name:"آب انبه", price:"1 تومان", image:"34.jpg"},
-        {name:"آب انبه بستنی", price:"1 تومان", image:"35.jpg"},
-        {name:"آب پرتقال", price:"1 تومان", image:"36.jpg"},
-        {name:"آب انار", price:"1 تومان", image:"37.jpg"},
-        {name:"آب سیب", price:"1 تومان", image:"38.jpg"},
-        {name:"آب سیب پرتقال", price:"1 تومان", image:"39.jpg"},
-        {name:"آب هویج و کرفس", price:"1 تومان", image:"40.jpg"},
-      ]},
-      "نوشیدنی‌های سرد": { english:"COLD DRINKS", icon:"fa-snowflake", items:[
-        {name:"آیس ماچا", price:"1 تومان", description:"ماچا اصل ژاپن + شیر + یخ", image:"41.jpg"},
-        {name:"آیس لته کلاسیک", price:"1 تومان", description:"قهوه اسپرسو دبل + شیر + یخ", image:"42.jpg"},
-        {name:"آیس لته فندقی", price:"1 تومان", description:"قهوه اسپرسو دبل + شیر + یخ + سیروپ فندق", image:"43.jpg"},
-        {name:"آیس لته توت فرنگی", price:"1 تومان", description:"قهوه اسپرسو دبل + شیر + یخ + سیروپ کارامل + توت فرنگی", image:"44.jpg"},
-        {name:"آیس اسپانیش", price:"1 تومان", description:"قهوه اسپرسو دبل + شیر + شیرعسل", image:"45.jpg"},
-        {name:"آیس موکا", price:"1 تومان", description:"قهوه اسپرسو دبل + شیر + یخ + سیروپ شکلات", image:"46.jpg"},
-        {name:"آیس کارامل", price:"1 تومان", description:"قهوه اسپرسو دبل + شیر + یخ + سیروپ کارامل", image:"47.jpg"},
-        {name:"آیس آمریکانو", price:"1 تومان", description:"قهوه اسپرسو دبل + یخ", image:"48.jpg"},
-        {name:"موهیتو", price:"1 تومان", description:"نعناء + لیمو تازه + نوشابه اسپیرایت + یخ", image:"49.jpg"},
-        {name:"موهیتو کهکشانی", price:"1 تومان", description:"نعناء + لیمو تازه + نوشابه اسپیرایت + یخ + پنیرک + شربت موهیتو", image:"50.jpg"},
-        {name:"رد موهیتو", price:"1 تومان", description:"نعناء + لیمو تازه + نوشابه اسپیرایت + یخ + توت فرنگی + شربت موهیتو", image:"51.jpg"},
-        {name:"لیموناد", price:"1 تومان", description:"لیمو تازه + نوشابه اسپیرایت + یخ + شربت لیمو", image:"52.jpg"},
-        {name:"لیموناد کهکشانی", price:"1 تومان", description:"لیمو تازه + نوشابه اسپیرایت + یخ + شربت لیمو + پنیرک", image:"53.jpg"},
-      ]},
-      "آیتم‌های رژیمی": { english:"DIET ITEMS", icon:"fa-seedling", items:[
-        {name:"کیک وانیل گردو", price:"1 تومان", description:"آرد نارگیل + آرد بادام + روغن نارگیل + روغن هسته انگور + سفیده تخم مرغ + آرد برنج + گردو", image:"54.jpg"},
-        {name:"کیک وانیل بادام", price:"1 تومان", description:"آرد نارگیل + آرد بادام + روغن نارگیل + روغن هسته انگور + سفیده تخم مرغ + آرد برنج + بادام", image:"55.jpg"},
-        {name:"بستنی موز و توت فرنگی", price:"1 تومان", description:"موز + توت فرنگی + عسل وحشی یا شربت بدون قند", image:"56.jpg"},
-        {name:"آیس آمریکانو", price:"1 تومان", description:"قهوه + یخ + آب تصفیه شده", image:"57.jpg"},
-        {name:"هات چاکلت رژیمی", price:"1 تومان", description:"شکلات بدون شکر + آب + شربت بدون قند", image:"58.jpg"},
-        {name:"آیس ماچا", price:"1 تومان", description:"ماچا اصل ژاپن + آب تصفیه شده + یخ + شربت بدون قند", image:"59.jpg"},
-        {name:"شیر پسته", price:"1 تومان", description:"کره پسته بدون شکر + آب + عسل وحشی یا شربت بدون قند", image:"60.jpg"},
-        {name:"شیر بادام", price:"1 تومان", description:"کره بادام بدون شکر + آب + عسل وحشی یا شربت بدون قند", image:"61.jpg"},
-        {name:"شیر گردو", price:"1 تومان", description:"کره گردو بدون شکر + آب + عسل وحشی یا شربت بدون قند", image:"62.jpg"},
-      ]},
-      "بستنی و فالوده": { english:"ICE CREAM & FALOODEH", icon:"fa-ice-cream", items:[
-        {name:"بستنی سنتی مخصوص", price:"1 تومان", description:"بستنی سنتی + خامه بدون شکر + خامه پولکی + مربای آلبالو", image:"63.jpg"},
-        {name:"فالوده", price:"1 تومان", description:"فالوده + شربت آلبالو + آبلیمو", image:"64.jpg"},
-        {name:"فالوده بستنی", price:"1 تومان", description:"بستنی سنتی + فالوده + شربت آلبالو + آبلیمو", image:"65.jpg"},
-        {name:"سان شاین", price:"1 تومان", description:"بستنی سنتی + خامه بدون شکر + توت فرنگی + موز + آناناس", image:"66.jpg"},
-        {name:"وافل بستنی", price:"1 تومان", description:"نان وافل + سس شکلات + موز + گردو + توت فرنگی + بستنی سنتی", image:"67.jpg"},
-        {name:"نوتلا بستنی", price:"1 تومان", description:"بستنی وانیلی + نوتلا اصل + پودر کیک شکلاتی", image:"68.jpg"},
-        {name:"آفوگاتو", price:"1 تومان", description:"بستنی سنتی + قهوه اسپرسو تک", image:"69.jpg"},
-        {name:"کروسان بستنی", price:"1 تومان", description:"نصف کروسان شکلاتی + بستنی پسته‌ای + بستنی وانیلی", image:"70.jpg"},
-        {name:"کنافه بستنی", price:"1 تومان", description:"کنافه کره‌ای بدون شربت + خامه بدون شکر + بستنی سنتی", image:"71.jpg"},
-        {name:"ژلاتو توت فرنگی", price:"1 تومان", image:"72.jpg"},
-        {name:"ژلاتو انبه", price:"1 تومان", image:"73.jpg"},
-        {name:"ژلاتو نوتلا", price:"1 تومان", image:"74.jpg"},
-        {name:"ژلاتو قهوه", price:"1 تومان", image:"75.jpg"},
-        {name:"ژلاتو بادام زمینی", price:"1 تومان", image:"76.jpg"},
-        {name:"ژلاتو موز شکلات", price:"1 تومان", image:"77.jpg"},
-        {name:"ژلاتو پسته", price:"1 تومان", image:"78.jpg"},
-        {name:"ژلاتو لوتوس", price:"1 تومان", image:"79.jpg"},
-        {name:"ژلاتو آناناس", price:"1 تومان", image:"80.jpg"},
-        {name:"ژلاتو ماچا پسته", price:"1 تومان", image:"81.jpg"},
-        {name:"کافه گلاسه", price:"1 تومان", description:"بستنی وانیلی و پسته + قهوه", image:"82.jpg"},
-      ]},
-      "شیرینی و دسر": { english:"DESSERTS", icon:"fa-cookie", items:[
-        {name:"کنافه سرشیر", price:"1 تومان", description:"باقلوا کنافه + سرشیر", image:"83.jpg"},
-        {name:"چاکلت بری", price:"1 تومان", description:"توت فرنگی + شکلات مایع", image:"84.jpg"},
-        {name:"چاکلت بری پسته", price:"1 تومان", description:"توت فرنگی + شکلات مایع + کره پسته", image:"85.jpg"},
-        {name:"وافل نوتلا و میوه", price:"1 تومان", description:"نون وافل + شکلات نوتلا دستساز + موز + توت فرنگی + گردو", image:"86.jpg"},
-        {name:"تیرامیسو", price:"1 تومان", image:"87.jpg"},
-        {name:"کروسان شکلاتی", price:"1 تومان", image:"88.jpg"},
-        {name:"نیویورک رول پسته", price:"1 تومان", image:"89.jpg"},
-        {name:"پن سوئیس", price:"1 تومان", image:"90.jpg"},
-        {name:"رول گردو و دارچین و کشمش", price:"1 تومان", image:"91.jpg"},
-        {name:"چیزکیک لوتوس", price:"1 تومان", image:"92.jpg"},
-        {name:"چیزکیک پسته", price:"1 تومان", image:"93.jpg"},
-        {name:"چیزکیک دبل چاکلت", price:"1 تومان", image:"94.jpg"},
-        {name:"چیزکیک نوتلا", price:"1 تومان", image:"95.jpg"},
-        {name:"چیزکیک سن سباستین", price:"1 تومان", image:"96.jpg"},
-        {name:"تارت پسته", price:"1 تومان", image:"97.jpg"},
-        {name:"تارت توت فرنگی", price:"1 تومان", image:"98.jpg"},
-        {name:"پاریس برست پسته", price:"1 تومان", image:"99.jpg"},
-        {name:"کیک هویج", price:"1 تومان", image:"100.jpg"},
-        {name:"کیک نوتلا", price:"1 تومان", image:"101.jpg"},
-        {name:"کیک شکلاتی", price:"1 تومان", image:"102.jpg"},
-        {name:"کیک موکا", price:"1 تومان", image:"103.jpg"},
-        {name:"کیک خیس شکلاتی", price:"1 تومان", image:"104.jpg"},
-        {name:"غول خامه‌ای", price:"1 تومان", image:"105.jpg"},
-        {name:"رولت ترک", price:"1 تومان", image:"106.jpg"},
-        {name:"رولت ساده بزرگ", price:"1 تومان", image:"107.jpg"},
-        {name:"ماکارون", price:"1 تومان", image:"108.jpg"},
-        {name:"موچی", price:"1 تومان", image:"109.jpg"},
-      ]},
-      "دمنوش‌ها": { english:"HERBAL TEAS", icon:"fa-leaf", items:[
-        {name:"چای", price:"1 تومان", description:"چای سیلان", image:"110.jpg"},
-        {name:"چای دارچین", price:"1 تومان", description:"چای سیلان + دارچین سیلان", image:"111.jpg"},
-        {name:"چای ماسالا", price:"1 تومان", description:"هل + دارچین + زنجفیل + شیر + شیره انگور", image:"112.jpg"},
-        {name:"دمنوش 1", price:"1 تومان", description:"گل گاوزبان + به لیمو", image:"113.jpg"},
-        {name:"دمنوش 2", price:"1 تومان", description:"هل + دارچین + زنجفیل", image:"114.jpg"},
-        {name:"دمنوش 3", price:"1 تومان", description:"آویشن + نعناء", image:"115.jpg"},
-      ]},
+    // ----- داده نمونه (می‌تونی بعداً جایگزین کنی) -----
+    const MENU = [
+      {id:'c1', cat:'قهوه', name:'اسپرسو', desc:'ساده و غلیظ', price:80000},
+      {id:'c2', cat:'قهوه', name:'آمریکانو', desc:'ملایم و طولانی', price:90000},
+      {id:'c3', cat:'قهوه', name:'کاپوچینو', desc:'فوم شیر + اسپرسو', price:120000},
+      {id:'t1', cat:'چای', name:'چای سیاه ممتاز', desc:'سنتی ایرانی', price:50000},
+      {id:'t2', cat:'چای', name:'چای سبز', desc:'لطیف و آرامش‌بخش', price:60000},
+      {id:'h1', cat:'دمنوش', name:'دمنوش نعناع', desc:'خنک و سبک', price:70000},
+      {id:'h2', cat:'دمنوش', name:'دمنوش بابونه', desc:'ریلکس‌کننده', price:75000},
+      {id:'c4', cat:'نوشیدنی سرد', name:'آیس لاته', desc:'سرد و خامه‌ای', price:140000},
+      {id:'c5', cat:'نوشیدنی سرد', name:'موهیتو', desc:'نعنا و لیمو', price:130000},
+      {id:'f1', cat:'صبحانه', name:'کراتسان کره‌ای', desc:'تازه و کره‌ای', price:110000},
+      {id:'d1', cat:'کیک و دسر', name:'چیزکیک', desc:'کلاسیک و خامه‌ای', price:150000},
+    ];
+
+    // ----- ابزارهای کوچک -----
+    const fmt = n => new Intl.NumberFormat('fa-IR').format(n) + ' تومان';
+
+    // ----- ساخت ریل دسته‌بندی و بخش‌ها -----
+    const catRail = document.getElementById('catRail');
+    const sections = document.getElementById('sections');
+
+    const CATS = [...new Set(MENU.map(m => m.cat))];
+
+    // ساخت ریل راست
+    CATS.forEach((c,i) => {
+      const b = document.createElement('button');
+      b.className = 'cat-btn' + (i===0 ? ' active' : '');
+      b.textContent = c;
+      b.dataset.target = 'sec-' + c;
+      b.addEventListener('click', () => {
+        document.getElementById(b.dataset.target).scrollIntoView({behavior:'smooth', block:'start'});
+      });
+      catRail.appendChild(b);
+    });
+
+    // ساخت بخش‌ها و آیتم‌ها (کمپکت)
+    CATS.forEach(cat => {
+      const sec = document.createElement('section');
+      sec.id = 'sec-' + cat;
+      const h = document.createElement('h2');
+      h.className = 'section-title';
+      h.textContent = cat;
+      sec.appendChild(h);
+
+      MENU.filter(m => m.cat===cat).forEach(m => {
+        const row = document.createElement('div');
+        row.className = 'menu-item';
+
+        const th = document.createElement('div');
+        th.className = 'thumb ph';
+        const im = document.createElement('img');
+        im.loading = 'lazy';
+        im.alt = m.name;
+        im.style.display = 'none'; // اگر بعداً تصویر گذاشتی، این رو نمایان کن
+        th.appendChild(im);
+
+        const text = document.createElement('div');
+        text.className = 'mi-text';
+        const nm = document.createElement('div');
+        nm.className = 'mi-name'; nm.textContent = m.name;
+        const ds = document.createElement('div');
+        ds.className = 'mi-desc'; ds.textContent = m.desc || '';
+        const foot = document.createElement('div');
+        foot.className = 'mi-foot';
+        const pr = document.createElement('div');
+        pr.className = 'price'; pr.textContent = fmt(m.price);
+        const add = document.createElement('button');
+        add.className = 'add-btn';
+        add.textContent = 'افزودن';
+        add.addEventListener('click', () => addToCart(m));
+
+        foot.appendChild(pr); foot.appendChild(add);
+        text.appendChild(nm); text.appendChild(ds); text.appendChild(foot);
+
+        row.appendChild(th); row.appendChild(text);
+        sec.appendChild(row);
+      });
+
+      sections.appendChild(sec);
+    });
+
+    // هایلایت دسته فعال با IntersectionObserver
+    const observer = new IntersectionObserver((entries)=>{
+      const visible = entries.filter(e => e.isIntersecting).sort((a,b)=> b.intersectionRatio - a.intersectionRatio);
+      if(!visible.length) return;
+      const id = visible[0].target.id;
+      document.querySelectorAll('.cat-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.target === id);
+      });
+    }, {rootMargin: "-40% 0px -55% 0px", threshold:[0, .2, .4, .6, .8, 1]});
+    document.querySelectorAll('section[id^="sec-"]').forEach(s => observer.observe(s));
+
+    // ----- سبد خرید -----
+    const cartOverlay = document.getElementById('cartOverlay');
+    const cartBody = document.getElementById('cartBody');
+    const btnCart = document.getElementById('btnCart');
+    const closeCart = document.getElementById('closeCart');
+    const cartBadge = document.getElementById('cartBadge');
+    const grandTotal = document.getElementById('grandTotal');
+
+    const CART = new Map();
+
+    const refreshBadge = () => {
+      const count = Array.from(CART.values()).reduce((s,it)=> s + it.qty, 0);
+      if(count > 0){
+        cartBadge.classList.remove('d-none');
+        cartBadge.textContent = count;
+      }else{
+        cartBadge.classList.add('d-none');
+      }
     };
 
-    // حالت‌ها
-    let activeCategory = Object.keys(menuData)[0];
-    const cart = [];
+    function addToCart(item){
+      const cur = CART.get(item.id) || { ...item, qty:0 };
+      cur.qty += 1;
+      CART.set(item.id, cur);
+      refreshBadge();
+      renderCart();
+    }
 
-    // عناصر
-    const catContainer = document.getElementById('catContainer');
-    const menuList = document.getElementById('menuList');
-    const skeleton = document.getElementById('skeleton');
-    const cartBadge = document.getElementById('cartBadge');
-    const cartItems = document.getElementById('cartItems');
-    const cartTotal = document.getElementById('cartTotal');
-    const checkoutBtn = document.getElementById('checkoutBtn');
+    function changeQty(id, delta){
+      const cur = CART.get(id);
+      if(!cur) return;
+      cur.qty += delta;
+      if(cur.qty <= 0) CART.delete(id);
+      else CART.set(id, cur);
+      refreshBadge();
+      renderCart();
+    }
 
-    // ساخت چیپ‌های دسته‌بندی
-    for(const cat of Object.keys(menuData)){
-      const chip = document.createElement('button');
-      chip.className = 'cat-chip btn btn-sm px-3 py-2';
-      chip.innerHTML = `<i class="fa-solid ${menuData[cat].icon} ms-1"></i>${cat}`;
-      chip.addEventListener('click', ()=>{
-        document.querySelectorAll('.cat-chip').forEach(c=>c.classList.remove('active'));
-        chip.classList.add('active');
-        activeCategory = cat;
-        renderMenu();
-        // اسکرول به ابتدای محتوا
-        document.getElementById('menuRoot').scrollIntoView({behavior:'smooth'});
+    function renderCart(){
+      cartBody.innerHTML = '';
+      let total = 0;
+
+      CART.forEach(ci => {
+        total += ci.price * ci.qty;
+
+        const row = document.createElement('div');
+        row.className = 'cart-item';
+
+        const th = document.createElement('div'); th.className = 'ci-thumb ph';
+        const info = document.createElement('div'); info.style.flex = '1 1 auto'; info.style.minWidth='0';
+
+        const top = document.createElement('div');
+        top.style.display='flex'; top.style.alignItems='center'; top.style.justifyContent='space-between'; top.style.gap='8px';
+        const name = document.createElement('div'); name.className='ci-name'; name.textContent = ci.name;
+        const price = document.createElement('div'); price.className='ci-price'; price.textContent = fmt(ci.price * ci.qty);
+        top.appendChild(name); top.appendChild(price);
+
+        const bottom = document.createElement('div');
+        bottom.style.marginTop='6px';
+        bottom.style.display='flex'; bottom.style.alignItems='center'; bottom.style.justifyContent='space-between';
+        const desc = document.createElement('div'); desc.className='text-muted small'; desc.textContent = ci.desc || '';
+        const qty = document.createElement('div'); qty.className='qty';
+        const minus = document.createElement('button'); minus.textContent='−';
+        const num = document.createElement('span'); num.textContent = ci.qty;
+        const plus = document.createElement('button'); plus.textContent='+';
+        minus.addEventListener('click', ()=> changeQty(ci.id, -1));
+        plus.addEventListener('click', ()=> changeQty(ci.id, +1));
+        qty.append(minus, num, plus);
+
+        bottom.appendChild(desc); bottom.appendChild(qty);
+
+        info.appendChild(top); info.appendChild(bottom);
+
+        row.appendChild(th); row.appendChild(info);
+        cartBody.appendChild(row);
       });
-      if(cat===activeCategory) chip.classList.add('active');
-      catContainer.appendChild(chip);
+
+      grandTotal.textContent = fmt(total);
     }
 
-    // رندر آیتم‌های منو
-    function renderMenu(){
-      menuList.classList.add('d-none');
-      skeleton.classList.remove('d-none');
-      menuList.innerHTML = '';
-      const items = menuData[activeCategory].items;
-      setTimeout(()=>{ // شبیه‌سازی بارگذاری
-        for(const item of items){
-          const col = document.createElement('div');
-          col.className = 'col-12';
-          col.innerHTML = `
-            <article class="menu-card">
-              <img loading="lazy" src="${item.image}" alt="${item.name}" class="menu-img" onclick="openImg('${item.image}')">
-              <div class="p-3">
-                <div class="d-flex justify-content-between align-items-start">
-                  <div>
-                    <h6 class="mb-1">${item.name}</h6>
-                    <div class="price">${item.price}</div>
-                  </div>
-                  <button class="btn btn-success btn-sm add-btn" onclick="addToCart('${item.name}','${item.price}','${item.image}')"><i class="fa-solid fa-plus"></i></button>
-                </div>
-                ${item.description ? `<p class='desc mt-2 mb-0'>${item.description}</p>` : ''}
-              </div>
-            </article>`;
-          menuList.appendChild(col);
-        }
-        skeleton.classList.add('d-none');
-        menuList.classList.remove('d-none');
-      }, 300);
-    }
-
-    // سبد خرید
-    function addToCart(name, priceStr, image){
-      const price = parseInt(priceStr);
-      const existing = cart.find(i=>i.name===name);
-      if(existing){ existing.qty += 1; }
-      else{ cart.push({name, price, image, qty:1}); }
-      updateCart();
-    }
-    function updateCart(){
-      const totalItems = cart.reduce((s,i)=>s+i.qty,0);
-      cartBadge.textContent = totalItems;
-      checkoutBtn.disabled = totalItems===0;
-
-      if(cart.length===0){
-        cartItems.innerHTML = '<div class="text-center text-muted py-4">سبد خرید شما خالی است</div>';
-      } else {
-        cartItems.innerHTML = '';
-        for(const [idx, it] of cart.entries()){
-          const row = document.createElement('div');
-          row.className = 'd-flex align-items-center justify-content-between border-bottom py-2';
-          row.innerHTML = `
-            <div class="d-flex align-items-center gap-2">
-              <img src="${it.image}" alt="${it.name}" style="width:56px;height:56px;border-radius:12px;object-fit:cover">
-              <div>
-                <div class="fw-semibold small">${it.name}</div>
-                <div class="price small">${(it.price*it.qty).toLocaleString('fa-IR')} تومان</div>
-              </div>
-            </div>
-            <div class="btn-group" role="group">
-              <button class="btn btn-outline-success btn-sm" onclick="decQty(${idx})">−</button>
-              <button class="btn btn-light btn-sm" disabled>${it.qty}</button>
-              <button class="btn btn-outline-success btn-sm" onclick="incQty(${idx})">+</button>
-            </div>`;
-          cartItems.appendChild(row);
-        }
+    btnCart.addEventListener('click', ()=>{
+      renderCart();
+      cartOverlay.classList.add('show');
+      cartOverlay.setAttribute('aria-hidden','false');
+    });
+    closeCart.addEventListener('click', ()=>{
+      cartOverlay.classList.remove('show');
+      cartOverlay.setAttribute('aria-hidden','true');
+    });
+    cartOverlay.addEventListener('click', (e)=>{
+      if(e.target === cartOverlay){
+        cartOverlay.classList.remove('show');
+        cartOverlay.setAttribute('aria-hidden','true');
       }
-      const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
-      cartTotal.textContent = `${total.toLocaleString('fa-IR')} تومان`;
-    }
-    function incQty(i){ cart[i].qty++; updateCart(); }
-    function decQty(i){ cart[i].qty>1 ? cart[i].qty-- : cart.splice(i,1); updateCart(); }
+    });
 
-    // تصویر بزرگ
-    function openImg(src){
-      document.getElementById('modalImg').src = src;
-      const m = new bootstrap.Modal('#imgModal'); m.show();
-    }
-    window.openImg = openImg;
-    window.addToCart = addToCart;
-    window.incQty = incQty; window.decQty = decQty;
-
-    // اسکرول به بالا
-    document.getElementById('btnTop').addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
-
-    // شروع
-    renderMenu();
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
