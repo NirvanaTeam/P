@@ -128,19 +128,20 @@
       .card-media{ height: 320px; }
     }
 
-    .card-body{ padding:10px 12px; text-align:center }
-    .item-name{ font-weight:900; font-size:15px; }
-    .item-desc{ color:#cbbfae; font-size:12px; line-height:1.7; margin-top:6px }
-    .price{ margin-top:8px; color: var(--brand-olive); font-weight:900; }
-
-    .add{
-      position:absolute; top:10px; left:10px;
-      width:36px; height:36px; border-radius:12px; border:1px solid rgba(255,255,255,.14);
-      background: color-mix(in oklab, var(--brand-green) 12%, rgba(255,255,255,.08));
-      color:#fff; display:grid; place-items:center; cursor:pointer;
+    .card-body{ padding:10px 12px; }
+    .item-name{ font-weight:900; font-size:15px; text-align:center }
+    .item-desc{ color:#cbbfae; font-size:12px; line-height:1.7; margin-top:6px; text-align:center }
+    .buy-row{
+      margin-top:10px;
+      display:flex; align-items:center; justify-content: center; gap:10px;
     }
-
-    .card-wrap{ position:relative }
+    .price{ color: var(--brand-olive); font-weight:900; }
+    .add{
+      padding:8px 12px; border-radius: 12px; border:1px solid rgba(255,255,255,.14);
+      background: color-mix(in oklab, var(--brand-green) 12%, rgba(255,255,255,.08));
+      color:#fff; display:inline-flex; align-items:center; gap:6px; cursor:pointer;
+    }
+    .add i{ font-size:12px }
 
     /* Floating Cart Button */
     .fab{
@@ -225,8 +226,8 @@
     <!-- header -->
     <header class="header">
       <div class="logo">
-        <!-- قرار دادن فایل لوگو در کنار HTML با نام logo.png -->
-        <img src="logo.png" alt="لوگوی تیالی" onerror="this.replaceWith(Object.assign(document.createElement('div'),{textContent:'TY',style:'font-weight:900;color:#fff'}))">
+        <!-- لوگو -->
+        <img src="logo.jpg" alt="لوگوی تیالی" onerror="this.replaceWith(Object.assign(document.createElement('div'),{textContent:'TY',style:'font-weight:900;color:#fff'}))">
       </div>
       <div class="brand-block">
         <div class="brand-name">کافه تیالی</div>
@@ -300,9 +301,10 @@
 
       // Build category chips
       const icons = getIcons();
-      cats.forEach((c, i) => {
+      const defaultCat = cats.includes('شیک‌ها') ? 'شیک‌ها' : cats[0]; // نمایش پیشفرض شیک‌ها
+      cats.forEach((c) => {
         const el = document.createElement('button');
-        el.className = 'chip' + (i===0 ? ' active' : '');
+        el.className = 'chip' + (c===defaultCat ? ' active' : '');
         el.dataset.cat = c;
         el.innerHTML = '<i class="fa-solid '+(icons[c]||'fa-circle')+'"></i><span>'+c+'</span>';
         el.addEventListener('click', () => selectCategory(c, el));
@@ -314,17 +316,17 @@
         const desc = item.description ? '<div class="item-desc">'+item.description+'</div>' : '';
         return (
           '<article class="card" style="animation-delay:'+delay+'s">'+
-            '<div class="card-wrap">'+
               '<img src="'+item.image+'" alt="'+item.name+'" class="card-media" data-zoom="'+item.image+'"/>'+
-              '<button class="add" aria-label="افزودن" data-name="'+esc(item.name)+'" data-price="'+esc(item.price)+'" data-image="'+esc(item.image)+'">'+
-                '<i class="fa-solid fa-plus"></i>'+
-              '</button>'+
-            '</div>'+
-            '<div class="card-body">'+
-              '<div class="item-name">'+item.name+'</div>'+
-              desc +
-              '<div class="price">'+item.price+'</div>'+
-            '</div>'+
+              '<div class="card-body">'+
+                '<div class="item-name">'+item.name+'</div>'+
+                 desc +
+                '<div class="buy-row">'+
+                  '<div class="price">'+item.price+'</div>'+
+                  '<button class="add" aria-label="افزودن" data-name="'+esc(item.name)+'" data-price="'+esc(item.price)+'" data-image="'+esc(item.image)+'">'+
+                    '<i class="fa-solid fa-plus"></i><span>افزودن</span>'+
+                  '</button>'+
+                '</div>'+
+              '</div>'+
           '</article>'
         );
       }
@@ -370,12 +372,29 @@
       }
 
       searchEl.addEventListener('input', () => {
-        const active = localStorage.getItem('activeCat') || cats[0];
+        const activeBtn = catsEl.querySelector('.chip.active');
+        const active = activeBtn ? activeBtn.dataset.cat : defaultCat;
         render(active, searchEl.value);
       });
 
-      // Cart state
-      const state = { items: JSON.parse(localStorage.getItem('cart') || '[]') };
+      // Cart state with sanitization
+      const loaded = JSON.parse(localStorage.getItem('cart') || '[]');
+      const state = {
+        items: sanitizeCart(loaded)
+      };
+      function sanitizeCart(list){
+        if(!Array.isArray(list)) return [];
+        const clean = list.filter(x => x && typeof x.name === 'string' && x.name.trim().length>0
+          && typeof x.price === 'string' && /\d/.test(x.price)
+          && typeof x.image === 'string'
+          && Number.isFinite(parseInt(x.qty,10)) && parseInt(x.qty,10) > 0
+        ).map(x => ({ name: x.name.trim(), price: x.price, image: x.image, qty: Math.min(99, parseInt(x.qty,10)) }));
+        // اگر چیز مشکوکی بود کل سبد را ریست کن تا "دو آیتم عجیب" پاک شود
+        if(clean.length < list.length){
+          localStorage.setItem('cart', JSON.stringify(clean));
+        }
+        return clean;
+      }
       function parsePrice(p){ const m = (p||'').match(/\d+/g); return m ? parseInt(m.join(''),10) : 0; }
       function toFa(n){ return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',').replace(/[0-9]/g, d => '۰۱۲۳۴۵۶۷۸۹'[parseInt(d,10)]); }
       function formatToman(n){ return toFa(n) + ' تومان'; }
@@ -392,8 +411,9 @@
         else state.items.push({name:item.name, price:item.price, image:item.image, qty:1});
         save();
       }
-      function inc(i){ state.items[i].qty++; save(); }
-      function dec(i){ state.items[i].qty--; if(state.items[i].qty<=0) state.items.splice(i,1); save(); }
+      function inc(i){ state.items[i].qty = Math.min(99, state.items[i].qty+1); save(); }
+      function dec(i){ state.items[i].qty -= 1; if(state.items[i].qty<=0) state.items.splice(i,1); save(); }
+      function renderLinePrice(it){ return formatToman(parsePrice(it.price) * it.qty); }
       function renderCart(){
         cartItems.innerHTML='';
         if(state.items.length===0){
@@ -405,10 +425,10 @@
           row.className='row';
           row.innerHTML =
             '<img class="thumb" src="'+it.image+'" alt="'+it.name+'"/>'+
-            '<div><div class="rn">'+it.name+'</div><div class="rp">'+it.price+'</div></div>'+
+            '<div><div class="rn">'+it.name+'</div><div class="rp">'+renderLinePrice(it)+'</div></div>'+
             '<div class="qty">'+
               '<button class="qbtn" aria-label="کم کردن">-</button>'+
-              '<div>'+it.qty+'</div>'+
+              '<div>'+toFa(it.qty)+'</div>'+
               '<button class="qbtn" aria-label="زیاد کردن">+</button>'+
             '</div>';
           const [minus, plus] = row.querySelectorAll('.qbtn');
@@ -424,13 +444,8 @@
       overlay.addEventListener('click', e => { if(e.target === overlay) overlay.classList.remove('open'); });
       modal.addEventListener('click', () => modal.classList.remove('open'));
 
-      // Boot
-      const active = localStorage.getItem('activeCat') || cats[0];
-      const chosen = cats.includes(active) ? active : cats[0];
-      // mark chip active
-      const chip = Array.from(catsEl.children).find(x => x.dataset.cat === chosen) || catsEl.children[0];
-      if(chip){ chip.classList.add('active'); }
-      render(chosen, '');
+      // Initial render: always default to "شیک‌ها" regardless of previous visits
+      render(defaultCat, '');
       save();
     }
 
