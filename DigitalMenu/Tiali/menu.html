@@ -3,63 +3,67 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>منوی کافه — نسخه لوکس پایدار</title>
+  <title>منوی کافه تیالی — نسخه ریسپانسیو</title>
 
   <!-- Vazir Font -->
   <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
 
-  <!-- Icons (no SRI to avoid blocking on hash mismatch) -->
+  <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer" />
 
   <style>
     :root{
-      /* ---------- تنظیم رنگ سازمانی: فقط این یکی را تغییر بده ---------- */
-      --brand-main:#4E2916;      /* ← این را با رنگ اصلی سازمانت جایگزین کن */
-      /* ------------------------------------------------------------------ */
+      /* برند تیالی */
+      --brand-green: #104322;  /* اصلی */
+      --brand-olive: #8D916A;  /* مکمل */
+      --brand-brown: #4E2916;  /* قهوه‌ای */
 
-      --bg-1:#0f0e0d;
-      --bg-2:#1b1816;
-      --brand-1:color-mix(in oklab, var(--brand-main) 92%, #e9d7b6 8%);
-      --brand-2:color-mix(in oklab, var(--brand-main) 70%, #8bd3ad 30%);
-      --accent: #2b5e45;
-      --ink:#f1eee9;
-      --ink-dim:#d7d1c7;
-      --card:#171615;
-      --muted:#a69c8d;
-      --glass:rgba(255,255,255,0.07);
-      --ring:color-mix(in oklab, var(--brand-main) 55%, #ffffff 45%);
-      --shadow:0 10px 30px rgba(0,0,0,.45);
-      --radius:18px;
+      --bg-1: #0f0e0d;
+      --bg-2: #191614;
+      --ink: #F2EFEA;
+      --ink-dim: #D6D0C6;
+      --muted: #B1A89A;
+      --card: #171615;
+      --glass: rgba(255,255,255,0.07);
+      --shadow: 0 10px 30px rgba(0,0,0,.45);
+      --radius: 18px;
     }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
+    *{ box-sizing:border-box }
+    html,body{ height:100% }
     body{
       margin:0;
       font-family: Vazir, Tahoma, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
       color:var(--ink);
       background:
-        radial-gradient(1200px 600px at 100% -10%, color-mix(in oklab, var(--brand-main) 12%, transparent) , transparent 60%),
-        radial-gradient(1000px 600px at -10% 110%, color-mix(in oklab, var(--accent) 18%, transparent) , transparent 60%),
+        radial-gradient(1100px 520px at 100% -10%, rgba(16,67,34,.24), transparent 60%),
+        radial-gradient(900px 540px at -10% 110%, rgba(141,145,106,.22), transparent 60%),
         linear-gradient(160deg,var(--bg-1),var(--bg-2));
       overflow-x:hidden;
     }
 
-    /* layout */
-    .shell{ position:relative; z-index:1; padding:18px; max-width:1400px; margin:0 auto; }
-    .topbar{ display:flex; align-items:center; gap:14px; margin-bottom:18px; }
-    .brand{ display:flex; align-items:center; gap:12px; padding:10px 14px; border-radius:999px;
-            background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-            border:1px solid rgba(255,255,255,.08); box-shadow: var(--shadow); }
-    .brand-logo{ width:42px;height:42px; border-radius:50%;
-                 background: radial-gradient(circle at 30% 30%, var(--brand-1), var(--brand-main));
-                 display:grid;place-items:center; color:#fff; font-weight:900; letter-spacing:1px; }
-    .brand-name{ font-weight:700; letter-spacing:.2px; color:var(--ink); }
+    .shell{ position:relative; z-index:1; padding:18px; max-width:1200px; margin:0 auto; }
+    .topbar{ display:flex; align-items:center; gap:14px; margin-bottom:18px; position:sticky; top:0; z-index:5; }
+    .brand{
+      display:flex; align-items:center; gap:12px; padding:10px 14px; border-radius:999px;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.08); box-shadow: var(--shadow);
+    }
+    .brand-logo{
+      width:42px;height:42px; border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, var(--brand-olive), var(--brand-brown));
+      display:grid;place-items:center; color:#fff; font-weight:900; letter-spacing:1px;
+    }
+    .brand-name{ font-weight:800; color:var(--ink); }
+    .brand-sub{ font-size:12px; color:var(--muted) }
 
-    .search-wrap{ margin-inline-start:auto; display:flex; align-items:center; gap:10px; padding:8px 12px;
-                  background:var(--glass); border:1px solid rgba(255,255,255,.09); border-radius:999px;
-                  backdrop-filter:saturate(140%) blur(8px); box-shadow: var(--shadow); min-width:240px; }
-    .search-wrap i{color:var(--muted)}
+    .topbar .right{ margin-inline-start:auto; display:flex; align-items:center; gap:10px; }
+    .search-wrap{
+      display:flex; align-items:center; gap:10px; padding:8px 12px;
+      background:var(--glass); border:1px solid rgba(255,255,255,.09); border-radius:999px;
+      backdrop-filter:saturate(140%) blur(8px); box-shadow: var(--shadow); min-width:220px;
+    }
+    .search-wrap i{ color:var(--muted) }
     .search-input{ flex:1; border:none; outline:none; background:transparent; color:var(--ink); font-size:14px; }
     .theme-toggle{ background:var(--glass); border:1px solid rgba(255,255,255,.1); color:var(--ink);
                    padding:8px 12px; border-radius:12px; cursor:pointer; transition:.25s ease; }
@@ -68,86 +72,123 @@
     .layout{ display:grid; grid-template-columns: 240px 1fr; gap:18px; min-height:calc(100vh - 120px); }
 
     /* categories */
-    .categories{ position:sticky; top:18px; height:calc(100vh - 36px); padding:14px; border-radius:var(--radius);
-                 background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
-                 border:1px solid rgba(255,255,255,.10); backdrop-filter:saturate(140%) blur(8px);
-                 box-shadow: var(--shadow); overflow:auto; }
-    .cat-title{ color:var(--ink-dim); font-size:13px; margin:6px 8px 12px; letter-spacing:.4px; }
-    .cat{ display:flex; align-items:center; gap:10px; padding:10px 12px; margin:6px 0; border-radius:12px; cursor:pointer;
-          color:var(--ink); border:1px solid transparent; transition:.25s ease; }
-    .cat i{ width:22px; text-align:center; color:var(--brand-1) }
+    .categories{
+      position:sticky; top:74px; height:calc(100vh - 92px); padding:12px; border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border:1px solid rgba(255,255,255,.10); backdrop-filter:saturate(140%) blur(8px);
+      box-shadow: var(--shadow); overflow:auto;
+    }
+    .cat-title{ color:var(--ink-dim); font-size:13px; margin:6px 8px 10px; letter-spacing:.4px; }
+    .cat{
+      display:flex; align-items:center; gap:10px; padding:10px 12px; margin:6px 0; border-radius:12px;
+      cursor:pointer; color:var(--ink); border:1px solid transparent; transition:.25s ease;
+    }
+    .cat i{ width:22px; text-align:center; color:var(--brand-olive) }
     .cat:hover{ background:rgba(255,255,255,.06) }
-    .cat.active{ background:linear-gradient(180deg, color-mix(in oklab, var(--brand-main) 16%, transparent), rgba(255,255,255,.06));
-                 border-color:var(--ring); box-shadow:0 0 0 3px rgba(255,255,255,.05) inset; }
+    .cat.active{
+      background:linear-gradient(180deg, rgba(16,67,34,.18), rgba(16,67,34,.08));
+      border-color: rgba(16,67,34,.45);
+      box-shadow:0 0 0 3px rgba(16,67,34,.12) inset;
+    }
 
-    /* items area */
+    /* items */
     .stage{ display:flex; flex-direction:column; gap:14px; }
-    .hero{ position:relative; padding:18px; border-radius:var(--radius);
-           background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-           border:1px solid rgba(255,255,255,.09); box-shadow: var(--shadow); overflow:hidden; }
+    .hero{
+      position:relative; padding:18px; border-radius:var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.09); box-shadow: var(--shadow);
+    }
     .hero-head{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:center; text-align:center; }
-    .title-fa{ font-size:22px; font-weight:800; color:var(--ink) }
+    .title-fa{ font-size:22px; font-weight:900; color:var(--ink) }
     .title-en{ font-size:13px; color:var(--muted); letter-spacing:.8px }
 
-    .grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap:14px; }
-    .card{ position:relative; background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:16px; overflow:hidden;
-           box-shadow: var(--shadow); transform: translateY(10px); opacity:0; animation: fadeUp .6s ease forwards; }
+    .grid{ display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:14px; }
+    /* کارت‌ها */
+    .card{
+      position:relative; background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:16px; overflow:hidden;
+      box-shadow: var(--shadow); transform: translateY(10px); opacity:0; animation: fadeUp .6s ease forwards;
+    }
     @keyframes fadeUp{ to { transform: none; opacity:1; } }
-    .card-media{ width:100%; height:170px; object-fit:cover; display:block; transition: transform .4s ease; background:#2a2623; }
+
+    /* تصویر عمودی‌تر: نسبت 4:5 + fallback ارتفاع ثابت */
+    .card-media{
+      width:100%; aspect-ratio: 4 / 5; height:auto; object-fit:cover; display:block; transition: transform .4s ease;
+      background:#2a2623;
+    }
+    @supports not (aspect-ratio: 1){
+      .card-media{ height: 260px; }
+    }
+
     .card:hover .card-media{ transform: scale(1.04); }
     .card-body{ padding:12px 12px 14px; text-align:center }
-    .item-name{ font-weight:800; color:var(--ink); font-size:15px }
+    .item-name{ font-weight:900; color:var(--ink); font-size:15px }
     .item-desc{ color:var(--muted); font-size:12px; line-height:1.7; margin-top:6px; min-height:36px }
-    .price{ margin-top:10px; color:var(--brand-1); font-weight:900; letter-spacing:.5px; }
+    .price{ margin-top:10px; color:var(--brand-olive); font-weight:900; letter-spacing:.5px; }
 
-    .add{ position:absolute; top:10px; left:10px; width:38px; height:38px; border-radius:12px;
-          border:1px solid rgba(255,255,255,.12); background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
-          color:var(--ink); display:grid; place-items:center; cursor:pointer; transition:.25s ease; }
-    .add:hover{ transform:translateY(-2px); background:color-mix(in oklab, var(--brand-main) 18%, rgba(255,255,255,.12)); color:#fff }
+    .add{
+      position:absolute; top:10px; left:10px; width:38px; height:38px; border-radius:12px;
+      border:1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
+      color:var(--ink); display:grid; place-items:center; cursor:pointer; transition:.25s ease;
+    }
+    .add:hover{ transform:translateY(-2px); background:rgba(16,67,34,.28); color:#fff }
 
-    /* floating cart button */
-    .fab-cart{ position:fixed; left:20px; bottom:24px; width:58px; height:58px; border-radius:16px;
-               background: radial-gradient(120px 120px at 30% 20%, var(--brand-1), var(--brand-main));
-               color:#fff; display:grid; place-items:center; border:none; cursor:pointer; box-shadow: 0 12px 24px rgba(0,0,0,.45);
-               z-index:10; transition:.25s ease; }
+    /* سبد خرید */
+    .fab-cart{
+      position:fixed; left:16px; bottom:18px; width:56px; height:56px; border-radius:16px;
+      background: radial-gradient(120px 120px at 30% 20%, var(--brand-olive), var(--brand-green));
+      color:#fff; display:grid; place-items:center; border:none; cursor:pointer; box-shadow: 0 12px 24px rgba(0,0,0,.45);
+      z-index:10; transition:.25s ease;
+    }
     .fab-cart:hover{ transform: translateY(-2px) scale(1.02) }
     .badge{ position:absolute; top:-6px; right:-6px; width:22px; height:22px; border-radius:999px; background:#ff4757; color:#fff;
             display:grid; place-items:center; font-size:12px; font-weight:700; border:2px solid #1d1b19; }
 
-    /* cart panel - replace 'translate' property with widely-supported transform */
     .cart{ position:fixed; top:0; right:0; bottom:0; width:min(420px, 92vw);
            transform: translateX(100%); transition: transform .35s ease; z-index:20; display:flex; }
     .cart.open{ transform: translateX(0); }
-    .cart .panel{ margin:0; height:100%; width:100%; background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+    .cart .panel{ margin:0; height:100%; width:100%;
+                  background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
                   border-left:1px solid rgba(255,255,255,.16); box-shadow: -24px 0 40px rgba(0,0,0,.35);
                   backdrop-filter: saturate(140%) blur(14px); display:flex; flex-direction:column; }
     .cart-head{ display:flex; align-items:center; justify-content:space-between; padding:16px 14px; border-bottom:1px dashed rgba(255,255,255,.18); }
-    .cart-title{ font-weight:900; color:var(--brand-1) }
+    .cart-title{ font-weight:900; color:var(--brand-olive) }
     .cart-close{ background:none; border:none; color:var(--ink); font-size:20px; cursor:pointer; }
     .cart-items{ padding:14px; overflow:auto; flex:1 }
     .cart-row{ display:flex; gap:10px; align-items:center; padding:10px 0; border-bottom:1px dashed rgba(255,255,255,.12); }
     .cart-thumb{ width:58px; height:58px; border-radius:10px; object-fit:cover; background:#2a2623; }
     .cart-name{ font-size:14px; font-weight:800 }
-    .cart-price{ color:var(--brand-1); font-weight:900; font-size:13px }
+    .cart-price{ color:var(--brand-olive); font-weight:900; font-size:13px }
     .qty{ display:flex; align-items:center; gap:8px; margin-inline-start:auto }
     .qty-btn{ width:28px; height:28px; border-radius:10px; border:1px solid rgba(255,255,255,.16);
               background:rgba(255,255,255,.08); color:var(--ink); cursor:pointer; }
 
     .cart-summary{ padding:14px; border-top:1px dashed rgba(255,255,255,.18);
                    background:linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.05)); }
-    .total{ display:flex; justify-content:space-between; font-weight:900; color:var(--brand-1) }
+    .total{ display:flex; justify-content:space-between; font-weight:900; color:var(--brand-olive) }
 
-    /* image modal */
-    .modal{ position:fixed; inset:0; background:rgba(0,0,0,.7); display:none; align-items:center; justify-content:center; z-index:30; }
-    .modal.open{ display:flex }
-    .modal img{ max-width:92vw; max-height:92vh; border-radius:14px; box-shadow: var(--shadow); background:#222 }
-
-    /* responsive */
-    @media (max-width: 900px){
+    /* ریسپانسیو */
+    @media (max-width: 1024px){
+      .layout{ grid-template-columns: 200px 1fr; }
+      .grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .categories{ top:72px; height:calc(100vh - 100px); }
+    }
+    @media (max-width: 768px){
       .layout{ grid-template-columns: 1fr; }
-      .categories{ position:relative; height:auto; display:flex; gap:8px; overflow:auto; white-space:nowrap }
+      .categories{
+        position:relative; top:auto; height:auto; display:flex; gap:8px; overflow:auto; white-space:nowrap; padding:10px;
+      }
       .cat{ flex:0 0 auto }
-      .hero{ text-align:center }
+      .grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .fab-cart{ left:12px; bottom:14px; width:54px; height:54px; }
+      .cart{ width:100vw; }
+    }
+    @media (max-width: 520px){
+      .grid{ grid-template-columns: 1fr; }
+      .card-media{ aspect-ratio: 3 / 4; }
+      @supports not (aspect-ratio: 1){
+        .card-media{ height: 300px; }
+      }
     }
   </style>
 </head>
@@ -155,18 +196,23 @@
   <div class="shell">
     <div class="topbar">
       <div class="brand">
-        <div class="brand-logo">CA</div>
-        <div class="brand-name">کافه شما</div>
+        <div class="brand-logo">TY</div>
+        <div>
+          <div class="brand-name">کافه تیالی</div>
+          <div class="brand-sub">منوی ویژه</div>
+        </div>
       </div>
 
-      <div class="search-wrap">
-        <i class="fa fa-magnifying-glass"></i>
-        <input id="search" class="search-input" placeholder="جستجو در منو (مثلاً موکا، لاته، توت‌فرنگی)">
-      </div>
+      <div class="right">
+        <div class="search-wrap">
+          <i class="fa fa-magnifying-glass"></i>
+          <input id="search" class="search-input" placeholder="جستجو در منو (مثلاً موکا، لاته، توت‌فرنگی)">
+        </div>
 
-      <button id="themeToggle" class="theme-toggle" title="کنتراست بیشتر">
-        <i class="fa-solid fa-sun"></i>
-      </button>
+        <button id="themeToggle" class="theme-toggle" title="کنتراست بیشتر">
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
     </div>
 
     <div class="layout">
@@ -178,7 +224,7 @@
       <main class="stage">
         <section class="hero">
           <div class="hero-head">
-            <div class="title-fa" id="headingFa">منوی کافه</div>
+            <div class="title-fa" id="headingFa">منوی کافه تیالی</div>
           </div>
           <div class="title-en" id="headingEn"></div>
         </section>
@@ -217,16 +263,10 @@
   <div class="modal" id="modal"><img id="modalImg" alt=""/></div>
 
   <script>
-    // --- Safe DOM ready ---
     (function(){ if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', boot); } else { boot(); } })();
 
     function boot(){
-      try{
-        initUI();
-      }catch(err){
-        console.error('Init error:', err);
-        alert('خطایی رخ داد: '+ err.message);
-      }
+      try{ initUI(); }catch(err){ console.error(err); alert('خطا در بارگذاری: '+err.message); }
     }
 
     function initUI(){
@@ -251,7 +291,6 @@
 
       const themeToggle = document.getElementById('themeToggle');
 
-      // theme toggle
       themeToggle.addEventListener('click', () => {
         const isHigh = document.body.dataset.high === '1';
         document.body.dataset.high = isHigh ? '0' : '1';
@@ -271,7 +310,6 @@
         catsEl.appendChild(el);
       });
 
-      // render items
       function clearGrid(){ gridEl.innerHTML = ''; }
       function cardTemplate(item, delay){
         const desc = item.description ? '<div class="item-desc">'+item.description+'</div>' : '';
@@ -289,7 +327,6 @@
           '</article>'
         );
       }
-
       function escapeAttr(v){ return String(v).replace(/"/g, '&quot;'); }
 
       function renderItems(cat, filterText){
@@ -315,7 +352,6 @@
             modal.classList.add('open');
           });
         });
-
         gridEl.querySelectorAll('.add').forEach(btn => {
           btn.addEventListener('click', () => {
             const item = {
@@ -335,7 +371,6 @@
         localStorage.setItem('activeCat', cat);
       }
 
-      // search
       searchInput.addEventListener('input', () => {
         const active = localStorage.getItem('activeCat') || categories[0];
         renderItems(active, searchInput.value.trim());
@@ -388,15 +423,12 @@
         });
       }
 
-      // cart open/close
       fabCart.addEventListener('click', () => cart.classList.add('open'));
       cartClose.addEventListener('click', () => cart.classList.remove('open'));
       cart.addEventListener('click', e => { if(e.target === cart) cart.classList.remove('open'); });
-
-      // modal close
       modal.addEventListener('click', () => modal.classList.remove('open'));
 
-      // boot flow
+      // boot
       const active = localStorage.getItem('activeCat');
       const firstCat = categories[0];
       const chosen = categories.includes(active) ? active : firstCat;
