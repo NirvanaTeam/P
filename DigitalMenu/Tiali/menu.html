@@ -3,27 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>منوی کافه — نسخه لوکس</title>
+  <title>منوی کافه — نسخه لوکس پایدار</title>
 
   <!-- Vazir Font -->
   <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
 
-  <!-- Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2Pkf6kB8q8J+qCczWcO7X8p1FGrS+2H6Vt8bVnQdG0j2pJ8oMA8nV+Xx7Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Icons (no SRI to avoid blocking on hash mismatch) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer" />
 
   <style>
     :root{
+      /* ---------- تنظیم رنگ سازمانی: فقط این یکی را تغییر بده ---------- */
+      --brand-main:#4E2916;      /* ← این را با رنگ اصلی سازمانت جایگزین کن */
+      /* ------------------------------------------------------------------ */
+
       --bg-1:#0f0e0d;
-      --bg-2:#201c1a;
-      --brand-1:#D2B48C;       /* طلایی قهوه‌ای */
-      --brand-2:#A67C52;       /* برنزی */
-      --brand-3:#37664b;       /* سبز عمیق */
+      --bg-2:#1b1816;
+      --brand-1:color-mix(in oklab, var(--brand-main) 92%, #e9d7b6 8%);
+      --brand-2:color-mix(in oklab, var(--brand-main) 70%, #8bd3ad 30%);
+      --accent: #2b5e45;
       --ink:#f1eee9;
-      --ink-dim:#cdc6bb;
+      --ink-dim:#d7d1c7;
       --card:#171615;
-      --muted:#8f8577;
-      --glass:rgba(255,255,255,0.06);
-      --ring:rgba(210,180,140,0.55);
+      --muted:#a69c8d;
+      --glass:rgba(255,255,255,0.07);
+      --ring:color-mix(in oklab, var(--brand-main) 55%, #ffffff 45%);
       --shadow:0 10px 30px rgba(0,0,0,.45);
       --radius:18px;
     }
@@ -35,296 +39,108 @@
       font-family: Vazir, Tahoma, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
       color:var(--ink);
       background:
-        radial-gradient(1200px 600px at 100% -10%, rgba(214,174,116,.25), transparent 60%),
-        radial-gradient(1000px 600px at -10% 110%, rgba(55,102,75,.25), transparent 60%),
+        radial-gradient(1200px 600px at 100% -10%, color-mix(in oklab, var(--brand-main) 12%, transparent) , transparent 60%),
+        radial-gradient(1000px 600px at -10% 110%, color-mix(in oklab, var(--accent) 18%, transparent) , transparent 60%),
         linear-gradient(160deg,var(--bg-1),var(--bg-2));
       overflow-x:hidden;
     }
 
-    /* decorative noise */
-    body::before{
-      content:"";
-      position:fixed; inset:0;
-      pointer-events:none;
-      background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140" viewBox="0 0 140 140"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.95" numOctaves="2" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="0.04"/></svg>');
-      mix-blend-mode:soft-light;
-      z-index:0;
-    }
-
     /* layout */
-    .shell{
-      position:relative;
-      z-index:1;
-      padding:18px;
-      max-width:1400px;
-      margin:0 auto;
-    }
+    .shell{ position:relative; z-index:1; padding:18px; max-width:1400px; margin:0 auto; }
+    .topbar{ display:flex; align-items:center; gap:14px; margin-bottom:18px; }
+    .brand{ display:flex; align-items:center; gap:12px; padding:10px 14px; border-radius:999px;
+            background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+            border:1px solid rgba(255,255,255,.08); box-shadow: var(--shadow); }
+    .brand-logo{ width:42px;height:42px; border-radius:50%;
+                 background: radial-gradient(circle at 30% 30%, var(--brand-1), var(--brand-main));
+                 display:grid;place-items:center; color:#fff; font-weight:900; letter-spacing:1px; }
+    .brand-name{ font-weight:700; letter-spacing:.2px; color:var(--ink); }
 
-    .topbar{
-      display:flex;
-      align-items:center;
-      gap:14px;
-      margin-bottom:18px;
-    }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      padding:10px 14px;
-      border-radius:999px;
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-      border:1px solid rgba(255,255,255,.08);
-      box-shadow: var(--shadow);
-    }
-    .brand-logo{
-      width:42px;height:42px;
-      border-radius:50%;
-      background: radial-gradient(circle at 30% 30%, var(--brand-1), var(--brand-2));
-      display:grid;place-items:center;
-      color:#2a221a;
-      font-weight:900;
-      letter-spacing:1px;
-    }
-    .brand-name{
-      font-weight:700;
-      letter-spacing:.2px;
-      color:var(--ink);
-    }
-
-    .search-wrap{
-      margin-inline-start:auto;
-      display:flex; align-items:center; gap:10px;
-      padding:8px 12px;
-      background:var(--glass);
-      border:1px solid rgba(255,255,255,.09);
-      border-radius:999px;
-      backdrop-filter:saturate(140%) blur(8px);
-      box-shadow: var(--shadow);
-      min-width:240px;
-    }
+    .search-wrap{ margin-inline-start:auto; display:flex; align-items:center; gap:10px; padding:8px 12px;
+                  background:var(--glass); border:1px solid rgba(255,255,255,.09); border-radius:999px;
+                  backdrop-filter:saturate(140%) blur(8px); box-shadow: var(--shadow); min-width:240px; }
     .search-wrap i{color:var(--muted)}
-    .search-input{
-      flex:1;
-      border:none; outline:none; background:transparent;
-      color:var(--ink); font-size:14px;
-    }
-    .theme-toggle{
-      background:var(--glass);
-      border:1px solid rgba(255,255,255,.1);
-      color:var(--ink);
-      padding:8px 12px; border-radius:12px;
-      cursor:pointer;
-      transition:.25s ease;
-    }
-    .theme-toggle:hover{transform:translateY(-1px)}
+    .search-input{ flex:1; border:none; outline:none; background:transparent; color:var(--ink); font-size:14px; }
+    .theme-toggle{ background:var(--glass); border:1px solid rgba(255,255,255,.1); color:var(--ink);
+                   padding:8px 12px; border-radius:12px; cursor:pointer; transition:.25s ease; }
+    .theme-toggle:hover{ transform:translateY(-1px) }
 
-    .layout{
-      display:grid;
-      grid-template-columns: 240px 1fr;
-      gap:18px;
-      min-height:calc(100vh - 120px);
-    }
+    .layout{ display:grid; grid-template-columns: 240px 1fr; gap:18px; min-height:calc(100vh - 120px); }
 
-    /* categories (glass sidebar) */
-    .categories{
-      position:sticky; top:18px;
-      height:calc(100vh - 36px);
-      padding:14px;
-      border-radius:var(--radius);
-      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
-      border:1px solid rgba(255,255,255,.10);
-      backdrop-filter:saturate(140%) blur(8px);
-      box-shadow: var(--shadow);
-      overflow:auto;
-    }
-    .cat-title{
-      color:var(--ink-dim);
-      font-size:13px;
-      margin:6px 8px 12px;
-      letter-spacing:.4px;
-    }
-    .cat{
-      display:flex; align-items:center; gap:10px;
-      padding:10px 12px;
-      margin:6px 0;
-      border-radius:12px;
-      cursor:pointer;
-      color:var(--ink);
-      border:1px solid transparent;
-      transition:.25s ease;
-    }
-    .cat i{width:22px; text-align:center; color:var(--brand-1)}
-    .cat:hover{background:rgba(255,255,255,.06)}
-    .cat.active{
-      background:linear-gradient(180deg, rgba(210,180,140,.18), rgba(210,180,140,.10));
-      border-color:var(--ring);
-      box-shadow:0 0 0 3px rgba(210,180,140,.08) inset;
-    }
+    /* categories */
+    .categories{ position:sticky; top:18px; height:calc(100vh - 36px); padding:14px; border-radius:var(--radius);
+                 background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+                 border:1px solid rgba(255,255,255,.10); backdrop-filter:saturate(140%) blur(8px);
+                 box-shadow: var(--shadow); overflow:auto; }
+    .cat-title{ color:var(--ink-dim); font-size:13px; margin:6px 8px 12px; letter-spacing:.4px; }
+    .cat{ display:flex; align-items:center; gap:10px; padding:10px 12px; margin:6px 0; border-radius:12px; cursor:pointer;
+          color:var(--ink); border:1px solid transparent; transition:.25s ease; }
+    .cat i{ width:22px; text-align:center; color:var(--brand-1) }
+    .cat:hover{ background:rgba(255,255,255,.06) }
+    .cat.active{ background:linear-gradient(180deg, color-mix(in oklab, var(--brand-main) 16%, transparent), rgba(255,255,255,.06));
+                 border-color:var(--ring); box-shadow:0 0 0 3px rgba(255,255,255,.05) inset; }
 
     /* items area */
-    .stage{
-      display:flex; flex-direction:column; gap:14px;
-    }
-    .hero{
-      position:relative;
-      padding:18px;
-      border-radius:var(--radius);
-      background:
-        radial-gradient(600px 240px at 90% -20%, rgba(55,102,75,.35), transparent 60%),
-        radial-gradient(600px 280px at -10% 120%, rgba(210,180,140,.30), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      border:1px solid rgba(255,255,255,.09);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-    .hero::after{
-      content:"";
-      position:absolute; inset:-2px;
-      border-radius:inherit;
-      padding:1px;
-      background: linear-gradient(120deg, transparent, rgba(210,180,140,.35), transparent, rgba(55,102,75,.35), transparent);
-      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-      -webkit-mask-composite: xor; mask-composite: exclude;
-      animation:borderflow 6s linear infinite;
-    }
-    @keyframes borderflow{
-      to { transform: rotate(360deg); }
-    }
-    .hero-head{
-      display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:center;
-      text-align:center;
-    }
-    .title-fa{font-size:22px; font-weight:700; color:var(--ink)}
-    .title-en{font-size:13px; color:var(--muted); letter-spacing:.8px}
+    .stage{ display:flex; flex-direction:column; gap:14px; }
+    .hero{ position:relative; padding:18px; border-radius:var(--radius);
+           background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+           border:1px solid rgba(255,255,255,.09); box-shadow: var(--shadow); overflow:hidden; }
+    .hero-head{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:center; text-align:center; }
+    .title-fa{ font-size:22px; font-weight:800; color:var(--ink) }
+    .title-en{ font-size:13px; color:var(--muted); letter-spacing:.8px }
 
-    /* grid of cards */
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-      gap:14px;
-    }
-
-    .card{
-      position:relative;
-      background:var(--card);
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:16px;
-      overflow:hidden;
-      box-shadow: var(--shadow);
-      transform: translateY(10px);
-      opacity:0;
-      animation: fadeUp .6s ease forwards;
-    }
-    @keyframes fadeUp{
-      to { transform: none; opacity:1; }
-    }
-
-    .card-media{
-      width:100%; height:170px; object-fit:cover;
-      display:block;
-      transition: transform .4s ease;
-    }
+    .grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap:14px; }
+    .card{ position:relative; background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:16px; overflow:hidden;
+           box-shadow: var(--shadow); transform: translateY(10px); opacity:0; animation: fadeUp .6s ease forwards; }
+    @keyframes fadeUp{ to { transform: none; opacity:1; } }
+    .card-media{ width:100%; height:170px; object-fit:cover; display:block; transition: transform .4s ease; background:#2a2623; }
     .card:hover .card-media{ transform: scale(1.04); }
-
     .card-body{ padding:12px 12px 14px; text-align:center }
-    .item-name{ font-weight:700; color:var(--ink); font-size:15px }
+    .item-name{ font-weight:800; color:var(--ink); font-size:15px }
     .item-desc{ color:var(--muted); font-size:12px; line-height:1.7; margin-top:6px; min-height:36px }
-    .price{
-      margin-top:10px;
-      color:var(--brand-1);
-      font-weight:800;
-      letter-spacing:.5px;
-    }
+    .price{ margin-top:10px; color:var(--brand-1); font-weight:900; letter-spacing:.5px; }
 
-    .add{
-      position:absolute; top:10px; left:10px;
-      width:38px; height:38px; border-radius:12px;
-      border:1px solid rgba(255,255,255,.12);
-      background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
-      color:var(--ink);
-      display:grid; place-items:center;
-      cursor:pointer;
-      transition:.25s ease;
-    }
-    .add:hover{ transform:translateY(-2px); background:rgba(210,180,140,.25); color:#1b140c }
+    .add{ position:absolute; top:10px; left:10px; width:38px; height:38px; border-radius:12px;
+          border:1px solid rgba(255,255,255,.12); background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
+          color:var(--ink); display:grid; place-items:center; cursor:pointer; transition:.25s ease; }
+    .add:hover{ transform:translateY(-2px); background:color-mix(in oklab, var(--brand-main) 18%, rgba(255,255,255,.12)); color:#fff }
 
     /* floating cart button */
-    .fab-cart{
-      position:fixed;
-      left:20px; bottom:24px;
-      width:58px; height:58px; border-radius:16px;
-      background: radial-gradient(120px 120px at 30% 20%, var(--brand-1), var(--brand-2));
-      color:#1b140c;
-      display:grid; place-items:center;
-      border:none; cursor:pointer;
-      box-shadow: 0 12px 24px rgba(0,0,0,.45);
-      z-index:10;
-      transition:.25s ease;
-    }
+    .fab-cart{ position:fixed; left:20px; bottom:24px; width:58px; height:58px; border-radius:16px;
+               background: radial-gradient(120px 120px at 30% 20%, var(--brand-1), var(--brand-main));
+               color:#fff; display:grid; place-items:center; border:none; cursor:pointer; box-shadow: 0 12px 24px rgba(0,0,0,.45);
+               z-index:10; transition:.25s ease; }
     .fab-cart:hover{ transform: translateY(-2px) scale(1.02) }
-    .badge{
-      position:absolute; top:-6px; right:-6px;
-      width:22px; height:22px; border-radius:999px;
-      background:#ff4757; color:#fff; display:grid; place-items:center;
-      font-size:12px; font-weight:700;
-      border:2px solid #1d1b19;
-    }
+    .badge{ position:absolute; top:-6px; right:-6px; width:22px; height:22px; border-radius:999px; background:#ff4757; color:#fff;
+            display:grid; place-items:center; font-size:12px; font-weight:700; border:2px solid #1d1b19; }
 
-    /* cart panel (glass) */
-    .cart{
-      position:fixed; inset:0 0 0 auto; width:min(420px, 92vw);
-      translate: 100% 0;
-      transition: translate .35s ease;
-      z-index:20;
-      display:flex; flex-direction:column;
-      backdrop-filter: blur(0); /* animated */
-    }
-    .cart.open{ translate: 0 0; }
-    .cart .panel{
-      margin:0; height:100%;
-      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
-      border-left:1px solid rgba(255,255,255,.16);
-      box-shadow: -24px 0 40px rgba(0,0,0,.35);
-      backdrop-filter: saturate(140%) blur(14px);
-      display:flex; flex-direction:column;
-    }
-    .cart-head{
-      display:flex; align-items:center; justify-content:space-between;
-      padding:16px 14px; border-bottom:1px dashed rgba(255,255,255,.18);
-    }
-    .cart-title{ font-weight:800; color:var(--brand-1) }
-    .cart-close{
-      background:none; border:none; color:var(--ink); font-size:20px; cursor:pointer;
-    }
+    /* cart panel - replace 'translate' property with widely-supported transform */
+    .cart{ position:fixed; top:0; right:0; bottom:0; width:min(420px, 92vw);
+           transform: translateX(100%); transition: transform .35s ease; z-index:20; display:flex; }
+    .cart.open{ transform: translateX(0); }
+    .cart .panel{ margin:0; height:100%; width:100%; background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+                  border-left:1px solid rgba(255,255,255,.16); box-shadow: -24px 0 40px rgba(0,0,0,.35);
+                  backdrop-filter: saturate(140%) blur(14px); display:flex; flex-direction:column; }
+    .cart-head{ display:flex; align-items:center; justify-content:space-between; padding:16px 14px; border-bottom:1px dashed rgba(255,255,255,.18); }
+    .cart-title{ font-weight:900; color:var(--brand-1) }
+    .cart-close{ background:none; border:none; color:var(--ink); font-size:20px; cursor:pointer; }
     .cart-items{ padding:14px; overflow:auto; flex:1 }
-    .cart-row{
-      display:flex; gap:10px; align-items:center;
-      padding:10px 0; border-bottom:1px dashed rgba(255,255,255,.12);
-    }
-    .cart-thumb{ width:58px; height:58px; border-radius:10px; object-fit:cover }
-    .cart-name{ font-size:14px; font-weight:700 }
-    .cart-price{ color:var(--brand-1); font-weight:800; font-size:13px }
+    .cart-row{ display:flex; gap:10px; align-items:center; padding:10px 0; border-bottom:1px dashed rgba(255,255,255,.12); }
+    .cart-thumb{ width:58px; height:58px; border-radius:10px; object-fit:cover; background:#2a2623; }
+    .cart-name{ font-size:14px; font-weight:800 }
+    .cart-price{ color:var(--brand-1); font-weight:900; font-size:13px }
     .qty{ display:flex; align-items:center; gap:8px; margin-inline-start:auto }
-    .qty-btn{
-      width:28px; height:28px; border-radius:10px; border:1px solid rgba(255,255,255,.16);
-      background:rgba(255,255,255,.08); color:var(--ink); cursor:pointer;
-    }
+    .qty-btn{ width:28px; height:28px; border-radius:10px; border:1px solid rgba(255,255,255,.16);
+              background:rgba(255,255,255,.08); color:var(--ink); cursor:pointer; }
 
-    .cart-summary{
-      padding:14px; border-top:1px dashed rgba(255,255,255,.18);
-      background:linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.05));
-    }
+    .cart-summary{ padding:14px; border-top:1px dashed rgba(255,255,255,.18);
+                   background:linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.05)); }
     .total{ display:flex; justify-content:space-between; font-weight:900; color:var(--brand-1) }
 
     /* image modal */
-    .modal{
-      position:fixed; inset:0; background:rgba(0,0,0,.7);
-      display:none; align-items:center; justify-content:center;
-      z-index:30;
-    }
+    .modal{ position:fixed; inset:0; background:rgba(0,0,0,.7); display:none; align-items:center; justify-content:center; z-index:30; }
     .modal.open{ display:flex }
-    .modal img{ max-width:92vw; max-height:92vh; border-radius:14px; box-shadow: var(--shadow) }
+    .modal img{ max-width:92vw; max-height:92vh; border-radius:14px; box-shadow: var(--shadow); background:#222 }
 
     /* responsive */
     @media (max-width: 900px){
@@ -340,7 +156,7 @@
     <div class="topbar">
       <div class="brand">
         <div class="brand-logo">CA</div>
-        <div class="brand-name">کافه آلبالو</div>
+        <div class="brand-name">کافه شما</div>
       </div>
 
       <div class="search-wrap">
@@ -401,206 +217,51 @@
   <div class="modal" id="modal"><img id="modalImg" alt=""/></div>
 
   <script>
-    // ====== Data (from your original, kept & slightly normalized) ======
-    const menuData = {
-      "شیک‌ها": {
-        english: "SHAKES",
-        items: [
-          {name:"نوتلا", price:"100 تومان", description:"بستنی وانیلی + شیر + نوتلا دستساز 30 درصد فندق", image:"1.jpg"},
-          {name:"بادام زمینی", price:"60 تومان", image:"2.jpg"},
-          {name:"قهوه", price:"70 تومان", image:"3.jpg"},
-          {name:"انبه", price:"130 تومان", image:"4.jpg"},
-          {name:"طالبی", price:"60 تومان", image:"5.jpg"},
-          {name:"موز شکلات", price:"100 تومان", image:"6.jpg"},
-          {name:"توت فرنگی", price:"100 تومان", image:"7.jpg"},
-          {name:"ماچا", price:"90 تومان", image:"8.jpg"},
-          {name:"معجون", price:"160 تومان", description:"بستنی سنتی + شیر + موز + پسته + گردو + پودر نارگیل + کنجد + آناناس", image:"9.jpg"},
-          {name:"پسته", price:"150 تومان", image:"10.jpg"},
-          {name:"موز توت فرنگی", price:"110 تومان", image:"11.jpg"},
-          {name:"برونی", price:"60 تومان", image:"12.jpg"},
-          {name:"لوتوس", price:"90 تومان", image:"13.jpg"}
-        ]
-      },
-      "نوشیدنی‌های گرم": {
-        english:"HOT DRINKS",
-        items:[
-          {name:"اسپرسو تک", price:"1 تومان", description:"قهوه 30-70", image:"14.jpg"},
-          {name:"اسپرسو دبل", price:"1 تومان", description:"قهوه 30-70", image:"15.jpg"},
-          {name:"لته کلاسیک", price:"1 تومان", description:"قهوه اسپرسو دبل + شیر + فوم شیر", image:"16.jpg"},
-          {name:"لته فندقی", price:"1 تومان", description:"قهوه اسپرسو دبل + شیر + فوم شیر + سیروپ فندق", image:"17.jpg"},
-          {name:"لته پسته", price:"1 تومان", description:"قهوه اسپرسو دبل + شیر + فوم شیر + کرم پسته", image:"18.jpg"},
-          {name:"لته لوتوس", price:"1 تومان", description:"قهوه اسپرسو دبل + شیر + فوم شیر + کره لوتوس", image:"19.jpg"},
-          {name:"کاپوچینو کلاسیک", price:"1 تومان", description:"قهوه اسپرسو تک + شیر + فوم شیر", image:"20.jpg"},
-          {name:"کاپوچینو کاراملی", price:"1 تومان", description:"قهوه اسپرسو تک + شیر + فوم شیر + سیروپ کارامل", image:"21.jpg"},
-          {name:"کورتادو", price:"1 تومان", description:"قهوه اسپرسو دبل + شیر + فوم شیر", image:"22.jpg"},
-          {name:"آمریکانو", price:"1 تومان", description:"قهوه اسپرسو تک + آب جوش", image:"23.jpg"},
-          {name:"نسکافه", price:"1 تومان", description:"قهوه اسپرسو تک + شیر + فوم شیر + شکر قهوه‌ای", image:"24.jpg"},
-          {name:"هات چاکلت", price:"1 تومان", description:"شکلات + پودر کاکائو + خامه صبحانه + شیر + فوم شیر", image:"25.jpg"},
-          {name:"موکاچینو", price:"1 تومان", description:"سیروپ شکلات + شیر + فوم شیر + قهوه اسپرسو تک", image:"26.jpg"},
-          {name:"کارامل ماکیاتو", price:"1 تومان", description:"سیروپ وانیل + شیر + فوم شیر + قهوه اسپرسو تک + سس کارامل", image:"27.jpg"}
-        ]
-      },
-      "آبمیوه‌ها": {
-        english:"JUICES",
-        items:[
-          {name:"شیرموز", price:"1 تومان", image:"28.jpg"},
-          {name:"شیرموز بستنی", price:"1 تومان", image:"29.jpg"},
-          {name:"آب طالبی", price:"1 تومان", image:"30.jpg"},
-          {name:"آب طالبی بستنی", price:"1 تومان", image:"31.jpg"},
-          {name:"آب هویج", price:"1 تومان", image:"32.jpg"},
-          {name:"آب هویج بستنی", price:"1 تومان", image:"33.jpg"},
-          {name:"آب انبه", price:"1 تومان", image:"34.jpg"},
-          {name:"آب انبه بستنی", price:"1 تومان", image:"35.jpg"},
-          {name:"آب پرتقال", price:"1 تومان", image:"36.jpg"},
-          {name:"آب انار", price:"1 تومان", image:"37.jpg"},
-          {name:"آب سیب", price:"1 تومان", image:"38.jpg"},
-          {name:"آب سیب پرتقال", price:"1 تومان", image:"39.jpg"},
-          {name:"آب هویج و کرفس", price:"1 تومان", image:"40.jpg"}
-        ]
-      },
-      "نوشیدنی‌های سرد": {
-        english:"COLD DRINKS",
-        items:[
-          {name:"آیس ماچا", price:"1 تومان", description:"ماچا اصل ژاپن + شیر + یخ", image:"41.jpg"},
-          {name:"آیس لته کلاسیک", price:"1 تومان", description:"قهوه اسپرسو دبل + شیر + یخ", image:"42.jpg"},
-          {name:"آیس لته فندقی", price:"1 تومان", description:"قهوه اسپرسو دبل + شیر + یخ + سیروپ فندق", image:"43.jpg"},
-          {name:"آیس لته توت فرنگی", price:"1 تومان", description:"قهوه اسپرسو دبل + شیر + یخ + سیروپ کارامل + توت فرنگی", image:"44.jpg"},
-          {name:"آیس اسپانیش", price:"1 تومان", description:"قهوه اسپرسو دبل + شیر + شیرعسل", image:"45.jpg"},
-          {name:"آیس موکا", price:"1 تومان", description:"قهوه اسپرسو دبل + شیر + یخ + سیروپ شکلات", image:"46.jpg"},
-          {name:"آیس کارامل", price:"1 تومان", description:"قهوه اسپرسو دبل + شیر + یخ + سیروپ کارامل", image:"47.jpg"},
-          {name:"آیس آمریکانو", price:"1 تومان", description:"قهوه اسپرسو دبل + یخ", image:"48.jpg"},
-          {name:"موهیتو", price:"1 تومان", description:"نعناء + لیمو تازه + نوشابه اسپیرایت + یخ", image:"49.jpg"},
-          {name:"موهیتو کهکشانی", price:"1 تومان", description:"نعناء + لیمو تازه + نوشابه اسپیرایت + یخ + پنیرک + شربت موهیتو", image:"50.jpg"},
-          {name:"رد موهیتو", price:"1 تومان", description:"نعناء + لیمو تازه + نوشابه اسپیرایت + یخ + توت فرنگی + شربت موهیتو", image:"51.jpg"},
-          {name:"لیموناد", price:"1 تومان", description:"لیمو تازه + نوشابه اسپیرایت + یخ + شربت لیمو", image:"52.jpg"},
-          {name:"لیموناد کهکشانی", price:"1 تومان", description:"لیمو تازه + نوشابه اسپیرایت + یخ + شربت لیمو + پنیرک", image:"53.jpg"}
-        ]
-      },
-      "آیتم‌های رژیمی": {
-        english:"DIET ITEMS",
-        items:[
-          {name:"کیک وانیل گردو", price:"1 تومان", description:"آرد نارگیل + آرد بادام + روغن نارگیل + روغن هسته انگور + سفیده تخم مرغ + آرد برنج + گردو", image:"54.jpg"},
-          {name:"کیک وانیل بادام", price:"1 تومان", description:"آرد نارگیل + آرد بادام + روغن نارگیل + روغن هسته انگور + سفیده تخم مرغ + آرد برنج + بادام", image:"55.jpg"},
-          {name:"بستنی موز و توت فرنگی", price:"1 تومان", description:"موز + توت فرنگی + عسل وحشی یا شربت بدون قند", image:"56.jpg"},
-          {name:"آیس آمریکانو", price:"1 تومان", description:"قهوه + یخ + آب تصفیه شده", image:"57.jpg"},
-          {name:"هات چاکلت رژیمی", price:"1 تومان", description:"شکلات بدون شکر + آب + شربت بدون قند", image:"58.jpg"},
-          {name:"آیس ماچا", price:"1 تومان", description:"ماچا اصل ژاپن + آب تصفیه شده + یخ + شربت بدون قند", image:"59.jpg"},
-          {name:"شیر پسته", price:"1 تومان", description:"کره پسته بدون شکر + آب + عسل وحشی یا شربت بدون قند", image:"60.jpg"},
-          {name:"شیر بادام", price:"1 تومان", description:"کره بادام بدون شکر + آب + عسل وحشی یا شربت بدون قند", image:"61.jpg"},
-          {name:"شیر گردو", price:"1 تومان", description:"کره گردو بدون شکر + آب + عسل وحشی یا شربت بدون قند", image:"62.jpg"}
-        ]
-      },
-      "بستنی و فالوده": {
-        english:"ICE CREAM & FALOODEH",
-        items:[
-          {name:"بستنی سنتی مخصوص", price:"1 تومان", description:"بستنی سنتی + خامه بدون شکر + خامه پولکی + مربای آلبالو", image:"63.jpg"},
-          {name:"فالوده", price:"1 تومان", description:"فالوده + شربت آلبالو + آبلیمو", image:"64.jpg"},
-          {name:"فالوده بستنی", price:"1 تومان", description:"بستنی سنتی + فالوده + شربت آلبالو + آبلیمو", image:"65.jpg"},
-          {name:"سان شاین", price:"1 تومان", description:"بستنی سنتی + خامه بدون شکر + توت فرنگی + موز + آناناس", image:"66.jpg"},
-          {name:"وافل بستنی", price:"1 تومان", description:"نان وافل + سس شکلات + موز + گردو + توت فرنگی + بستنی سنتی", image:"67.jpg"},
-          {name:"نوتلا بستنی", price:"1 تومان", description:"بستنی وانیلی + نوتلا اصل + پودر کیک شکلاتی", image:"68.jpg"},
-          {name:"آفوگاتو", price:"1 تومان", description:"بستنی سنتی + قهوه اسپرسو تک", image:"69.jpg"},
-          {name:"کروسان بستنی", price:"1 تومان", description:"نصف کروسان شکلاتی + بستنی پسته‌ای + بستنی وانیلی", image:"70.jpg"},
-          {name:"کنافه بستنی", price:"1 تومان", description:"کنافه کره‌ای بدون شربت + خامه بدون شکر + بستنی سنتی", image:"71.jpg"},
-          {name:"ژلاتو توت فرنگی", price:"1 تومان", image:"72.jpg"},
-          {name:"ژلاتو انبه", price:"1 تومان", image:"73.jpg"},
-          {name:"ژلاتو نوتلا", price:"1 تومان", image:"74.jpg"},
-          {name:"ژلاتو قهوه", price:"1 تومان", image:"75.jpg"},
-          {name:"ژلاتو بادام زمینی", price:"1 تومان", image:"76.jpg"},
-          {name:"ژلاتو موز شکلات", price:"1 تومان", image:"77.jpg"},
-          {name:"ژلاتو پسته", price:"1 تومان", image:"78.jpg"},
-          {name:"ژلاتو لوتوس", price:"1 تومان", image:"79.jpg"},
-          {name:"ژلاتو آناناس", price:"1 تومان", image:"80.jpg"},
-          {name:"ژلاتو ماچا پسته", price:"1 تومان", image:"81.jpg"},
-          {name:"کافه گلاسه", price:"1 تومان", description:"بستنی وانیلی و پسته + قهوه", image:"82.jpg"}
-        ]
-      },
-      "شیرینی و دسر": {
-        english:"DESSERTS",
-        items:[
-          {name:"کنافه سرشیر", price:"1 تومان", description:"باقلوا کنافه + سرشیر", image:"83.jpg"},
-          {name:"چاکلت بری", price:"1 تومان", description:"توت فرنگی + شکلات مایع", image:"84.jpg"},
-          {name:"چاکلت بری پسته", price:"1 تومان", description:"توت فرنگی + شکلات مایع + کره پسته", image:"85.jpg"},
-          {name:"وافل نوتلا و میوه", price:"1 تومان", description:"نون وافل + شکلات نوتلا دستساز + موز + توت فرنگی + گردو", image:"86.jpg"},
-          {name:"تیرامیسو", price:"1 تومان", image:"87.jpg"},
-          {name:"کروسان شکلاتی", price:"1 تومان", image:"88.jpg"},
-          {name:"نیویورک رول پسته", price:"1 تومان", image:"89.jpg"},
-          {name:"پن سوئیس", price:"1 تومان", image:"90.jpg"},
-          {name:"رول گردو و دارچین و کشمش", price:"1 تومان", image:"91.jpg"},
-          {name:"چیزکیک لوتوس", price:"1 تومان", image:"92.jpg"},
-          {name:"چیزکیک پسته", price:"1 تومان", image:"93.jpg"},
-          {name:"چیزکیک دبل چاکلت", price:"1 تومان", image:"94.jpg"},
-          {name:"چیزکیک نوتلا", price:"1 تومان", image:"95.jpg"},
-          {name:"چیزکیک سن سباستین", price:"1 تومان", image:"96.jpg"},
-          {name:"تارت پسته", price:"1 تومان", image:"97.jpg"},
-          {name:"تارت توت فرنگی", price:"1 تومان", image:"98.jpg"},
-          {name:"پاریس برست پسته", price:"1 تومان", image:"99.jpg"},
-          {name:"کیک هویج", price:"1 تومان", image:"100.jpg"},
-          {name:"کیک نوتلا", price:"1 تومان", image:"101.jpg"},
-          {name:"کیک شکلاتی", price:"1 تومان", image:"102.jpg"},
-          {name:"کیک موکا", price:"1 تومان", image:"103.jpg"},
-          {name:"کیک خیس شکلاتی", price:"1 تومان", image:"104.jpg"},
-          {name:"غول خامه‌ای", price:"1 تومان", image:"105.jpg"},
-          {name:"رولت ترک", price:"1 تومان", image:"106.jpg"},
-          {name:"رولت ساده بزرگ", price:"1 تومان", image:"107.jpg"},
-          {name:"ماکارون", price:"1 تومان", image:"108.jpg"},
-          {name:"موچی", price:"1 تومان", image:"109.jpg"}
-        ]
-      },
-      "دمنوش‌ها": {
-        english:"HERBAL TEAS",
-        items:[
-          {name:"چای", price:"1 تومان", description:"چای سیلان", image:"110.jpg"},
-          {name:"چای دارچین", price:"1 تومان", description:"چای سیلان + دارچین سیلان", image:"111.jpg"},
-          {name:"چای ماسالا", price:"1 تومان", description:"هل + دارچین + زنجفیل + شیر + شیره انگور", image:"112.jpg"},
-          {name:"دمنوش 1", price:"1 تومان", description:"گل گاوزبان + به لیمو", image:"113.jpg"},
-          {name:"دمنوش 2", price:"1 تومان", description:"هل + دارچین + زنجفیل", image:"114.jpg"},
-          {name:"دمنوش 3", price:"1 تومان", description:"آویشن + نعناء", image:"115.jpg"}
-        ]
+    // --- Safe DOM ready ---
+    (function(){ if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', boot); } else { boot(); } })();
+
+    function boot(){
+      try{
+        initUI();
+      }catch(err){
+        console.error('Init error:', err);
+        alert('خطایی رخ داد: '+ err.message);
       }
-    };
+    }
 
-    const categoryIcons = {
-      "شیک‌ها":"fa-glass-whiskey",
-      "نوشیدنی‌های گرم":"fa-mug-hot",
-      "آبمیوه‌ها":"fa-apple-whole",
-      "نوشیدنی‌های سرد":"fa-snowflake",
-      "آیتم‌های رژیمی":"fa-seedling",
-      "بستنی و فالوده":"fa-ice-cream",
-      "شیرینی و دسر":"fa-cookie-bite",
-      "دمنوش‌ها":"fa-leaf"
-    };
+    function initUI(){
+      const menuData = getMenuData();
+      const categoryIcons = getCategoryIcons();
 
-    const catsEl = document.getElementById('cats');
-    const gridEl = document.getElementById('grid');
-    const headingFa = document.getElementById('headingFa');
-    const headingEn = document.getElementById('headingEn');
-    const searchInput = document.getElementById('search');
+      const catsEl = document.getElementById('cats');
+      const gridEl = document.getElementById('grid');
+      const headingFa = document.getElementById('headingFa');
+      const headingEn = document.getElementById('headingEn');
+      const searchInput = document.getElementById('search');
 
-    const fabCart = document.getElementById('fabCart');
-    const badge = document.getElementById('badge');
-    const cart = document.getElementById('cart');
-    const cartClose = document.getElementById('cartClose');
-    const cartItems = document.getElementById('cartItems');
-    const cartTotal = document.getElementById('cartTotal');
+      const fabCart = document.getElementById('fabCart');
+      const badge = document.getElementById('badge');
+      const cart = document.getElementById('cart');
+      const cartClose = document.getElementById('cartClose');
+      const cartItems = document.getElementById('cartItems');
+      const cartTotal = document.getElementById('cartTotal');
 
-    const modal = document.getElementById('modal');
-    const modalImg = document.getElementById('modalImg');
+      const modal = document.getElementById('modal');
+      const modalImg = document.getElementById('modalImg');
 
-    const themeToggle = document.getElementById('themeToggle');
+      const themeToggle = document.getElementById('themeToggle');
 
-    // ===== theme contrast toggle =====
-    themeToggle.addEventListener('click', () => {
-      const isHigh = document.body.dataset.high === '1';
-      document.body.dataset.high = isHigh ? '0' : '1';
-      document.documentElement.style.setProperty('--glass', isHigh ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.12)');
-      document.documentElement.style.setProperty('--shadow', isHigh ? '0 10px 30px rgba(0,0,0,.45)' : '0 18px 46px rgba(0,0,0,.55)');
-      themeToggle.innerHTML = isHigh ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
-    });
+      // theme toggle
+      themeToggle.addEventListener('click', () => {
+        const isHigh = document.body.dataset.high === '1';
+        document.body.dataset.high = isHigh ? '0' : '1';
+        document.documentElement.style.setProperty('--glass', isHigh ? 'rgba(255,255,255,0.07)' : 'rgba(255,255,255,0.12)');
+        document.documentElement.style.setProperty('--shadow', isHigh ? '0 10px 30px rgba(0,0,0,.45)' : '0 18px 46px rgba(0,0,0,.55)');
+        themeToggle.innerHTML = isHigh ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+      });
 
-    // ===== build categories =====
-    const categories = Object.keys(menuData);
-    function buildCategories(){
+      // build categories
+      const categories = Object.keys(menuData);
       categories.forEach((cat, idx) => {
         const el = document.createElement('div');
         el.className = 'cat' + (idx === 0 ? ' active' : '');
@@ -609,157 +270,313 @@
         el.addEventListener('click', () => selectCategory(cat, el));
         catsEl.appendChild(el);
       });
-    }
 
-    // ===== render items =====
-    function clearGrid(){ gridEl.innerHTML = ''; }
-    function cardTemplate(item, delay){
-      const desc = item.description ? '<div class="item-desc">'+item.description+'</div>' : '';
-      return `
-      <article class="card" style="animation-delay:${delay}s">
-        <img src="${item.image}" alt="${item.name}" class="card-media" data-zoom="${item.image}" />
-        <button class="add" aria-label="افزودن به سبد" data-add='${JSON.stringify(item).replace(/"/g, '&quot;')}'>
-          <i class="fa-solid fa-plus"></i>
-        </button>
-        <div class="card-body">
-          <div class="item-name">${item.name}</div>
-          ${desc}
-          <div class="price">${item.price}</div>
-        </div>
-      </article>`;
-    }
-
-    function renderItems(cat, filterText = ''){
-      clearGrid();
-      const { english, items } = menuData[cat];
-      headingFa.textContent = cat;
-      headingEn.textContent = english;
-
-      const norm = s => s.toLowerCase();
-      const f = norm(filterText);
-
-      let shown = 0;
-      items.forEach((it, i) => {
-        const hay = norm(it.name + ' ' + (it.description||''));
-        if(!f || hay.includes(f)){
-          gridEl.insertAdjacentHTML('beforeend', cardTemplate(it, shown * 0.06));
-          shown++;
-        }
-      });
-
-      // attach handlers for new nodes
-      gridEl.querySelectorAll('[data-zoom]').forEach(img => {
-        img.addEventListener('click', () => {
-          modalImg.src = img.dataset.zoom;
-          modal.classList.add('open');
-        });
-      });
-
-      gridEl.querySelectorAll('[data-add]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const item = JSON.parse(btn.dataset.add.replace(/&quot;/g, '"'));
-          addToCart(item);
-        });
-      });
-    }
-
-    // ===== category selection =====
-    function selectCategory(cat, el){
-      catsEl.querySelectorAll('.cat').forEach(c => c.classList.remove('active'));
-      el.classList.add('active');
-      renderItems(cat, searchInput.value.trim());
-      localStorage.setItem('activeCat', cat);
-    }
-
-    // ===== search =====
-    searchInput.addEventListener('input', () => {
-      const active = localStorage.getItem('activeCat') || categories[0];
-      renderItems(active, searchInput.value.trim());
-    });
-
-    // ===== cart logic (persisted) =====
-    const state = {
-      items: JSON.parse(localStorage.getItem('cartItems') || '[]')
-    };
-
-    function parsePrice(p){
-      // expects like "130 تومان" -> 130
-      const m = (p||'').match(/\d+/);
-      return m ? parseInt(m[0], 10) : 0;
-    }
-
-    function formatToman(n){
-      // Persian digits + unit
-      const digits = n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-      return digits.replace(/[0-9]/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]) + ' تومان';
-    }
-
-    function saveCart(){
-      localStorage.setItem('cartItems', JSON.stringify(state.items));
-      badge.textContent = state.items.reduce((a,b)=>a+b.qty,0);
-      const total = state.items.reduce((a,b)=> a + parsePrice(b.price) * b.qty, 0);
-      cartTotal.textContent = formatToman(total);
-      renderCartRows();
-    }
-
-    function addToCart(item){
-      const idx = state.items.findIndex(x => x.name === item.name);
-      if(idx > -1) state.items[idx].qty += 1;
-      else state.items.push({name:item.name, price:item.price, image:item.image, qty:1});
-      saveCart();
-    }
-
-    function inc(i){ state.items[i].qty += 1; saveCart(); }
-    function dec(i){
-      state.items[i].qty -= 1;
-      if(state.items[i].qty <= 0) state.items.splice(i,1);
-      saveCart();
-    }
-
-    function renderCartRows(){
-      cartItems.innerHTML = '';
-      if(state.items.length === 0){
-        cartItems.innerHTML = '<div style="text-align:center;color:#c9c3b8; padding:24px">سبد خرید شما خالی است</div>';
-        return;
+      // render items
+      function clearGrid(){ gridEl.innerHTML = ''; }
+      function cardTemplate(item, delay){
+        const desc = item.description ? '<div class="item-desc">'+item.description+'</div>' : '';
+        return (
+          '<article class="card" style="animation-delay:'+delay+'s">'+
+            '<img src="'+item.image+'" alt="'+item.name+'" class="card-media" data-zoom="'+item.image+'" />'+
+            '<button class="add" aria-label="افزودن به سبد" data-name="'+escapeAttr(item.name)+'" data-price="'+escapeAttr(item.price)+'" data-image="'+escapeAttr(item.image)+'">'+
+              '<i class="fa-solid fa-plus"></i>'+
+            '</button>'+
+            '<div class="card-body">'+
+              '<div class="item-name">'+item.name+'</div>'+
+               desc +
+              '<div class="price">'+item.price+'</div>'+
+            '</div>'+
+          '</article>'
+        );
       }
-      state.items.forEach((it, i) => {
-        const row = document.createElement('div');
-        row.className = 'cart-row';
-        row.innerHTML = \`
-          <img class="cart-thumb" src="\${it.image}" alt="\${it.name}"/>
-          <div>
-            <div class="cart-name">\${it.name}</div>
-            <div class="cart-price">\${it.price}</div>
-          </div>
-          <div class="qty">
-            <button class="qty-btn" aria-label="کم کردن">-</button>
-            <div>\${it.qty}</div>
-            <button class="qty-btn" aria-label="زیاد کردن">+</button>
-          </div>
-        \`;
-        const [minus, plus] = row.querySelectorAll('.qty-btn');
-        minus.addEventListener('click', () => dec(i));
-        plus.addEventListener('click', () => inc(i));
-        cartItems.appendChild(row);
+
+      function escapeAttr(v){ return String(v).replace(/"/g, '&quot;'); }
+
+      function renderItems(cat, filterText){
+        clearGrid();
+        const { english, items } = menuData[cat];
+        headingFa.textContent = cat;
+        headingEn.textContent = english || '';
+
+        const f = (filterText||'').toLowerCase();
+        let shown = 0;
+        items.forEach((it) => {
+          const hay = (it.name + ' ' + (it.description||'')).toLowerCase();
+          if(!f || hay.includes(f)){
+            gridEl.insertAdjacentHTML('beforeend', cardTemplate(it, shown * 0.06));
+            shown++;
+          }
+        });
+
+        // handlers
+        gridEl.querySelectorAll('[data-zoom]').forEach(img => {
+          img.addEventListener('click', () => {
+            modalImg.src = img.getAttribute('data-zoom');
+            modal.classList.add('open');
+          });
+        });
+
+        gridEl.querySelectorAll('.add').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const item = {
+              name: btn.getAttribute('data-name'),
+              price: btn.getAttribute('data-price'),
+              image: btn.getAttribute('data-image')
+            };
+            addToCart(item);
+          });
+        });
+      }
+
+      function selectCategory(cat, el){
+        catsEl.querySelectorAll('.cat').forEach(c => c.classList.remove('active'));
+        el.classList.add('active');
+        renderItems(cat, searchInput.value.trim());
+        localStorage.setItem('activeCat', cat);
+      }
+
+      // search
+      searchInput.addEventListener('input', () => {
+        const active = localStorage.getItem('activeCat') || categories[0];
+        renderItems(active, searchInput.value.trim());
       });
+
+      // cart
+      const state = { items: JSON.parse(localStorage.getItem('cartItems') || '[]') };
+      function parsePrice(p){ const m = (p||'').match(/\d+/g); return m ? parseInt(m.join(''), 10) : 0; }
+      function formatToman(n){
+        const withSep = n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        const fa = withSep.replace(/[0-9]/g, d => '۰۱۲۳۴۵۶۷۸۹'[parseInt(d,10)]);
+        return fa + ' تومان';
+      }
+      function saveCart(){
+        localStorage.setItem('cartItems', JSON.stringify(state.items));
+        document.getElementById('badge').textContent = state.items.reduce((a,b)=>a+b.qty,0);
+        const total = state.items.reduce((a,b)=> a + parsePrice(b.price) * b.qty, 0);
+        cartTotal.textContent = formatToman(total);
+        renderCartRows();
+      }
+      function addToCart(item){
+        const idx = state.items.findIndex(x => x.name === item.name);
+        if(idx > -1) state.items[idx].qty += 1;
+        else state.items.push({name:item.name, price:item.price, image:item.image, qty:1});
+        saveCart();
+      }
+      function inc(i){ state.items[i].qty += 1; saveCart(); }
+      function dec(i){ state.items[i].qty -= 1; if(state.items[i].qty <= 0) state.items.splice(i,1); saveCart(); }
+      function renderCartRows(){
+        cartItems.innerHTML = '';
+        if(state.items.length === 0){
+          cartItems.innerHTML = '<div style="text-align:center;color:#c9c3b8; padding:24px">سبد خرید شما خالی است</div>';
+          return;
+        }
+        state.items.forEach((it, i) => {
+          const row = document.createElement('div');
+          row.className = 'cart-row';
+          row.innerHTML =
+            '<img class="cart-thumb" src="'+it.image+'" alt="'+it.name+'"/>'+
+            '<div><div class="cart-name">'+it.name+'</div><div class="cart-price">'+it.price+'</div></div>'+
+            '<div class="qty">'+
+              '<button class="qty-btn" aria-label="کم کردن">-</button>'+
+              '<div>'+it.qty+'</div>'+
+              '<button class="qty-btn" aria-label="زیاد کردن">+</button>'+
+            '</div>';
+          const btns = row.querySelectorAll('.qty-btn');
+          btns[0].addEventListener('click', () => dec(i));
+          btns[1].addEventListener('click', () => inc(i));
+          cartItems.appendChild(row);
+        });
+      }
+
+      // cart open/close
+      fabCart.addEventListener('click', () => cart.classList.add('open'));
+      cartClose.addEventListener('click', () => cart.classList.remove('open'));
+      cart.addEventListener('click', e => { if(e.target === cart) cart.classList.remove('open'); });
+
+      // modal close
+      modal.addEventListener('click', () => modal.classList.remove('open'));
+
+      // boot flow
+      const active = localStorage.getItem('activeCat');
+      const firstCat = categories[0];
+      const chosen = categories.includes(active) ? active : firstCat;
+      const chosenEl = Array.from(catsEl.querySelectorAll('.cat')).find(x => x.dataset.cat === chosen) || catsEl.querySelector('.cat');
+      if(chosenEl) selectCategory(chosen, chosenEl);
+      saveCart();
     }
 
-    // ===== cart open/close =====
-    fabCart.addEventListener('click', () => cart.classList.add('open'));
-    cartClose.addEventListener('click', () => cart.classList.remove('open'));
-    cart.addEventListener('click', e => { if(e.target === cart) cart.classList.remove('open'); });
+    function getCategoryIcons(){
+      return {
+        "شیک‌ها":"fa-glass-whiskey",
+        "نوشیدنی‌های گرم":"fa-mug-hot",
+        "آبمیوه‌ها":"fa-apple-whole",
+        "نوشیدنی‌های سرد":"fa-snowflake",
+        "آیتم‌های رژیمی":"fa-seedling",
+        "بستنی و فالوده":"fa-ice-cream",
+        "شیرینی و دسر":"fa-cookie-bite",
+        "دمنوش‌ها":"fa-leaf"
+      };
+    }
 
-    // ===== modal close =====
-    modal.addEventListener('click', () => modal.classList.remove('open'));
-
-    // ===== boot =====
-    (function init(){
-      buildCategories();
-      const active = localStorage.getItem('activeCat') || categories[0];
-      const el = [...catsEl.querySelectorAll('.cat')].find(x => x.dataset.cat === active) || catsEl.querySelector('.cat');
-      if(el) selectCategory(active, el);
-      saveCart();
-    })();
+    function getMenuData(){
+      return {
+        "شیک‌ها": {
+          english: "SHAKES",
+          items: [
+            {name:"نوتلا", price:"100 تومان", description:"بستنی وانیلی + شیر + نوتلا دستساز 30 درصد فندق", image:"1.jpg"},
+            {name:"بادام زمینی", price:"60 تومان", image:"2.jpg"},
+            {name:"قهوه", price:"70 تومان", image:"3.jpg"},
+            {name:"انبه", price:"130 تومان", image:"4.jpg"},
+            {name:"طالبی", price:"60 تومان", image:"5.jpg"},
+            {name:"موز شکلات", price:"100 تومان", image:"6.jpg"},
+            {name:"توت فرنگی", price:"100 تومان", image:"7.jpg"},
+            {name:"ماچا", price:"90 تومان", image:"8.jpg"},
+            {name:"معجون", price:"160 تومان", description:"بستنی سنتی + شیر + موز + پسته + گردو + پودر نارگیل + کنجد + آناناس", image:"9.jpg"},
+            {name:"پسته", price:"150 تومان", image:"10.jpg"},
+            {name:"موز توت فرنگی", price:"110 تومان", image:"11.jpg"},
+            {name:"برونی", price:"60 تومان", image:"12.jpg"},
+            {name:"لوتوس", price:"90 تومان", image:"13.jpg"}
+          ]
+        },
+        "نوشیدنی‌های گرم": {
+          english:"HOT DRINKS",
+          items:[
+            {name:"اسپرسو تک", price:"1 تومان", description:"قهوه 30-70", image:"14.jpg"},
+            {name:"اسپرسو دبل", price:"1 تومان", description:"قهوه 30-70", image:"15.jpg"},
+            {name:"لته کلاسیک", price:"1 تومان", description:"قهوه اسپرسو دبل + شیر + فوم شیر", image:"16.jpg"},
+            {name:"لته فندقی", price:"1 تومان", description:"قهوه اسپرسو دبل + شیر + فوم شیر + سیروپ فندق", image:"17.jpg"},
+            {name:"لته پسته", price:"1 تومان", description:"قهوه اسپرسو دبل + شیر + فوم شیر + کرم پسته", image:"18.jpg"},
+            {name:"لته لوتوس", price:"1 تومان", description:"قهوه اسپرسو دبل + شیر + فوم شیر + کره لوتوس", image:"19.jpg"},
+            {name:"کاپوچینو کلاسیک", price:"1 تومان", description:"قهوه اسپرسو تک + شیر + فوم شیر", image:"20.jpg"},
+            {name:"کاپوچینو کاراملی", price:"1 تومان", description:"قهوه اسپرسو تک + شیر + فوم شیر + سیروپ کارامل", image:"21.jpg"},
+            {name:"کورتادو", price:"1 تومان", description:"قهوه اسپرسو دبل + شیر + فوم شیر", image:"22.jpg"},
+            {name:"آمریکانو", price:"1 تومان", description:"قهوه اسپرسو تک + آب جوش", image:"23.jpg"},
+            {name:"نسکافه", price:"1 تومان", description:"قهوه اسپرسو تک + شیر + فوم شیر + شکر قهوه‌ای", image:"24.jpg"},
+            {name:"هات چاکلت", price:"1 تومان", description:"شکلات + پودر کاکائو + خامه صبحانه + شیر + فوم شیر", image:"25.jpg"},
+            {name:"موکاچینو", price:"1 تومان", description:"سیروپ شکلات + شیر + فوم شیر + قهوه اسپرسو تک", image:"26.jpg"},
+            {name:"کارامل ماکیاتو", price:"1 تومان", description:"سیروپ وانیل + شیر + فوم شیر + قهوه اسپرسو تک + سس کارامل", image:"27.jpg"}
+          ]
+        },
+        "آبمیوه‌ها": {
+          english:"JUICES",
+          items:[
+            {name:"شیرموز", price:"1 تومان", image:"28.jpg"},
+            {name:"شیرموز بستنی", price:"1 تومان", image:"29.jpg"},
+            {name:"آب طالبی", price:"1 تومان", image:"30.jpg"},
+            {name:"آب طالبی بستنی", price:"1 تومان", image:"31.jpg"},
+            {name:"آب هویج", price:"1 تومان", image:"32.jpg"},
+            {name:"آب هویج بستنی", price:"1 تومان", image:"33.jpg"},
+            {name:"آب انبه", price:"1 تومان", image:"34.jpg"},
+            {name:"آب انبه بستنی", price:"1 تومان", image:"35.jpg"},
+            {name:"آب پرتقال", price:"1 تومان", image:"36.jpg"},
+            {name:"آب انار", price:"1 تومان", image:"37.jpg"},
+            {name:"آب سیب", price:"1 تومان", image:"38.jpg"},
+            {name:"آب سیب پرتقال", price:"1 تومان", image:"39.jpg"},
+            {name:"آب هویج و کرفس", price:"1 تومان", image:"40.jpg"}
+          ]
+        },
+        "نوشیدنی‌های سرد": {
+          english:"COLD DRINKS",
+          items:[
+            {name:"آیس ماچا", price:"1 تومان", description:"ماچا اصل ژاپن + شیر + یخ", image:"41.jpg"},
+            {name:"آیس لته کلاسیک", price:"1 تومان", description:"قهوه اسپرسو دبل + شیر + یخ", image:"42.jpg"},
+            {name:"آیس لته فندقی", price:"1 تومان", description:"قهوه اسپرسو دبل + شیر + یخ + سیروپ فندق", image:"43.jpg"},
+            {name:"آیس لته توت فرنگی", price:"1 تومان", description:"قهوه اسپرسو دبل + شیر + یخ + سیروپ کارامل + توت فرنگی", image:"44.jpg"},
+            {name:"آیس اسپانیش", price:"1 تومان", description:"قهوه اسپرسو دبل + شیر + شیرعسل", image:"45.jpg"},
+            {name:"آیس موکا", price:"1 تومان", description:"قهوه اسپرسو دبل + شیر + یخ + سیروپ شکلات", image:"46.jpg"},
+            {name:"آیس کارامل", price:"1 تومان", description:"قهوه اسپرسو دبل + شیر + یخ + سیروپ کارامل", image:"47.jpg"},
+            {name:"آیس آمریکانو", price:"1 تومان", description:"قهوه اسپرسو دبل + یخ", image:"48.jpg"},
+            {name:"موهیتو", price:"1 تومان", description:"نعناء + لیمو تازه + نوشابه اسپیرایت + یخ", image:"49.jpg"},
+            {name:"موهیتو کهکشانی", price:"1 تومان", description:"نعناء + لیمو تازه + نوشابه اسپیرایت + یخ + پنیرک + شربت موهیتو", image:"50.jpg"},
+            {name:"رد موهیتو", price:"1 تومان", description:"نعناء + لیمو تازه + نوشابه اسپیرایت + یخ + توت فرنگی + شربت موهیتو", image:"51.jpg"},
+            {name:"لیموناد", price:"1 تومان", description:"لیمو تازه + نوشابه اسپیرایت + یخ + شربت لیمو", image:"52.jpg"},
+            {name:"لیموناد کهکشانی", price:"1 تومان", description:"لیمو تازه + نوشابه اسپیرایت + یخ + شربت لیمو + پنیرک", image:"53.jpg"}
+          ]
+        },
+        "آیتم‌های رژیمی": {
+          english:"DIET ITEMS",
+          items:[
+            {name:"کیک وانیل گردو", price:"1 تومان", description:"آرد نارگیل + آرد بادام + روغن نارگیل + روغن هسته انگور + سفیده تخم مرغ + آرد برنج + گردو", image:"54.jpg"},
+            {name:"کیک وانیل بادام", price:"1 تومان", description:"آرد نارگیل + آرد بادام + روغن نارگیل + روغن هسته انگور + سفیده تخم مرغ + آرد برنج + بادام", image:"55.jpg"},
+            {name:"بستنی موز و توت فرنگی", price:"1 تومان", description:"موز + توت فرنگی + عسل وحشی یا شربت بدون قند", image:"56.jpg"},
+            {name:"آیس آمریکانو", price:"1 تومان", description:"قهوه + یخ + آب تصفیه شده", image:"57.jpg"},
+            {name:"هات چاکلت رژیمی", price:"1 تومان", description:"شکلات بدون شکر + آب + شربت بدون قند", image:"58.jpg"},
+            {name:"آیس ماچا", price:"1 تومان", description:"ماچا اصل ژاپن + آب تصفیه شده + یخ + شربت بدون قند", image:"59.jpg"},
+            {name:"شیر پسته", price:"1 تومان", description:"کره پسته بدون شکر + آب + عسل وحشی یا شربت بدون قند", image:"60.jpg"},
+            {name:"شیر بادام", price:"1 تومان", description:"کره بادام بدون شکر + آب + عسل وحشی یا شربت بدون قند", image:"61.jpg"},
+            {name:"شیر گردو", price:"1 تومان", description:"کره گردو بدون شکر + آب + عسل وحشی یا شربت بدون قند", image:"62.jpg"}
+          ]
+        },
+        "بستنی و فالوده": {
+          english:"ICE CREAM & FALOODEH",
+          items:[
+            {name:"بستنی سنتی مخصوص", price:"1 تومان", description:"بستنی سنتی + خامه بدون شکر + خامه پولکی + مربای آلبالو", image:"63.jpg"},
+            {name:"فالوده", price:"1 تومان", description:"فالوده + شربت آلبالو + آبلیمو", image:"64.jpg"},
+            {name:"فالوده بستنی", price:"1 تومان", description:"بستنی سنتی + فالوده + شربت آلبالو + آبلیمو", image:"65.jpg"},
+            {name:"سان شاین", price:"1 تومان", description:"بستنی سنتی + خامه بدون شکر + توت فرنگی + موز + آناناس", image:"66.jpg"},
+            {name:"وافل بستنی", price:"1 تومان", description:"نان وافل + سس شکلات + موز + گردو + توت فرنگی + بستنی سنتی", image:"67.jpg"},
+            {name:"نوتلا بستنی", price:"1 تومان", description:"بستنی وانیلی + نوتلا اصل + پودر کیک شکلاتی", image:"68.jpg"},
+            {name:"آفوگاتو", price:"1 تومان", description:"بستنی سنتی + قهوه اسپرسو تک", image:"69.jpg"},
+            {name:"کروسان بستنی", price:"1 تومان", description:"نصف کروسان شکلاتی + بستنی پسته‌ای + بستنی وانیلی", image:"70.jpg"},
+            {name:"کنافه بستنی", price:"1 تومان", description:"کنافه کره‌ای بدون شربت + خامه بدون شکر + بستنی سنتی", image:"71.jpg"},
+            {name:"ژلاتو توت فرنگی", price:"1 تومان", image:"72.jpg"},
+            {name:"ژلاتو انبه", price:"1 تومان", image:"73.jpg"},
+            {name:"ژلاتو نوتلا", price:"1 تومان", image:"74.jpg"},
+            {name:"ژلاتو قهوه", price:"1 تومان", image:"75.jpg"},
+            {name:"ژلاتو بادام زمینی", price:"1 تومان", image:"76.jpg"},
+            {name:"ژلاتو موز شکلات", price:"1 تومان", image:"77.jpg"},
+            {name:"ژلاتو پسته", price:"1 تومان", image:"78.jpg"},
+            {name:"ژلاتو لوتوس", price:"1 تومان", image:"79.jpg"},
+            {name:"ژلاتو آناناس", price:"1 تومان", image:"80.jpg"},
+            {name:"ژلاتو ماچا پسته", price:"1 تومان", image:"81.jpg"},
+            {name:"کافه گلاسه", price:"1 تومان", description:"بستنی وانیلی و پسته + قهوه", image:"82.jpg"}
+          ]
+        },
+        "شیرینی و دسر": {
+          english:"DESSERTS",
+          items:[
+            {name:"کنافه سرشیر", price:"1 تومان", description:"باقلوا کنافه + سرشیر", image:"83.jpg"},
+            {name:"چاکلت بری", price:"1 تومان", description:"توت فرنگی + شکلات مایع", image:"84.jpg"},
+            {name:"چاکلت بری پسته", price:"1 تومان", description:"توت فرنگی + شکلات مایع + کره پسته", image:"85.jpg"},
+            {name:"وافل نوتلا و میوه", price:"1 تومان", description:"نون وافل + شکلات نوتلا دستساز + موز + توت فرنگی + گردو", image:"86.jpg"},
+            {name:"تیرامیسو", price:"1 تومان", image:"87.jpg"},
+            {name:"کروسان شکلاتی", price:"1 تومان", image:"88.jpg"},
+            {name:"نیویورک رول پسته", price:"1 تومان", image:"89.jpg"},
+            {name:"پن سوئیس", price:"1 تومان", image:"90.jpg"},
+            {name:"رول گردو و دارچین و کشمش", price:"1 تومان", image:"91.jpg"},
+            {name:"چیزکیک لوتوس", price:"1 تومان", image:"92.jpg"},
+            {name:"چیزکیک پسته", price:"1 تومان", image:"93.jpg"},
+            {name:"چیزکیک دبل چاکلت", price:"1 تومان", image:"94.jpg"},
+            {name:"چیزکیک نوتلا", price:"1 تومان", image:"95.jpg"},
+            {name:"چیزکیک سن سباستین", price:"1 تومان", image:"96.jpg"},
+            {name:"تارت پسته", price:"1 تومان", image:"97.jpg"},
+            {name:"تارت توت فرنگی", price:"1 تومان", image:"98.jpg"},
+            {name:"پاریس برست پسته", price:"1 تومان", image:"99.jpg"},
+            {name:"کیک هویج", price:"1 تومان", image:"100.jpg"},
+            {name:"کیک نوتلا", price:"1 تومان", image:"101.jpg"},
+            {name:"کیک شکلاتی", price:"1 تومان", image:"102.jpg"},
+            {name:"کیک موکا", price:"1 تومان", image:"103.jpg"},
+            {name:"کیک خیس شکلاتی", price:"1 تومان", image:"104.jpg"},
+            {name:"غول خامه‌ای", price:"1 تومان", image:"105.jpg"},
+            {name:"رولت ترک", price:"1 تومان", image:"106.jpg"},
+            {name:"رولت ساده بزرگ", price:"1 تومان", image:"107.jpg"},
+            {name:"ماکارون", price:"1 تومان", image:"108.jpg"},
+            {name:"موچی", price:"1 تومان", image:"109.jpg"}
+          ]
+        },
+        "دمنوش‌ها": {
+          english:"HERBAL TEAS",
+          items:[
+            {name:"چای", price:"1 تومان", description:"چای سیلان", image:"110.jpg"},
+            {name:"چای دارچین", price:"1 تومان", description:"چای سیلان + دارچین سیلان", image:"111.jpg"},
+            {name:"چای ماسالا", price:"1 تومان", description:"هل + دارچین + زنجفیل + شیر + شیره انگور", image:"112.jpg"},
+            {name:"دمنوش 1", price:"1 تومان", description:"گل گاوزبان + به لیمو", image:"113.jpg"},
+            {name:"دمنوش 2", price:"1 تومان", description:"هل + دارچین + زنجفیل", image:"114.jpg"},
+            {name:"دمنوش 3", price:"1 تومان", description:"آویشن + نعناء", image:"115.jpg"}
+          ]
+        }
+      };
+    }
   </script>
 </body>
 </html>
