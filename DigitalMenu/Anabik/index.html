@@ -1,471 +1,437 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>منوی آنلاین آنابیک</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>فست‌فود بمبی — منو</title>
 
-  <!-- فونت فارسی و Font Awesome -->
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <!-- Vazir Font -->
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 
   <style>
-    :root {
-      --primary: #E33F16;
-      --secondary: #2E2E2E;
-      --bg-light: #F5F5F5;
-      --item-bg: #EBEBEB;
-      --text-dark: #333;
-      --text-light: #fff;
-      --accent: #FFC107;
-      --header-height: 70px;
+    :root{
+      /* پالت برند جدید: قرمز/سفید/مشکی */
+      --brand-red: #d1101a;
+      --brand-dark: #0e0e0f;
+      --brand-black: #151515;
+      --ink: #ffffff;
+      --muted: #e6e6e6;
+      --chip: #1f1f1f;
+      --shadow: 0 10px 30px rgba(0,0,0,.45);
+      --radius: 16px;
+    }
+    *{ box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html, body { height:100%; }
+    body{
+      margin:0;
+      font-family: Vazir, Tahoma, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: linear-gradient(180deg, var(--brand-dark), #121212);
+      color: var(--ink);
     }
 
-    /* اسکرول نرم */
-    html { scroll-behavior: smooth; }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Vazirmatn', sans-serif;
-      background: var(--bg-light);
-      color: var(--text-dark);
-      line-height: 1.6;
-    }
-
-    /* هدر */
-    header {
-      position: sticky;
-      top: 0;
-      height: var(--header-height);
-      background: var(--secondary);
-      padding: 10px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      z-index: 1000;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-    }
-    header img { height: 50px; }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-    }
-    nav a {
-      color: var(--text-light);
-      text-decoration: none;
-      font-weight: 500;
-      transition: color .3s;
-    }
-    nav a:hover { color: var(--accent); }
-
-    /* کانتینر اصلی */
-    main {
-      max-width: 1200px;
-      margin: 20px auto;
-      padding: 0 20px;
-    }
-    .menu-section {
-      margin-bottom: 60px;
-      scroll-margin-top: calc(var(--header-height) + 10px);
-    }
-
-    /* هدر هر دسته‌بندی */
-    .section-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 16px;
-      justify-content: flex-start; /* در RTL شروع = سمت راست */
-    }
-    .cat-title {
-      background: var(--accent);
-      color: var(--secondary);
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 1.2rem;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .cat-img {
-      width: 60px;
-      height: 60px;
-      border-radius: 8px;
-      object-fit: cover;
-    }
-
-    /* گرید آیتم‌ها */
-    .menu-grid {
+    .app{
+      max-width: 520px;
+      margin: 0 auto;
+      min-height: 100dvh;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-      gap: 20px;
-    }
-    .menu-item {
-      background: var(--item-bg);
-      padding: 15px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      transition: transform .3s, box-shadow .3s;
-    }
-    .menu-item:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
-    .menu-item h3 {
-      font-size: 1.2rem;
-      margin-bottom: 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .price {
-      background: var(--secondary);
-      color: var(--text-light);
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 0.9rem;
-      font-weight: bold;
-    }
-    .menu-item p {
-      font-size: 0.9rem;
-      color: #555;
+      grid-template-rows: auto auto 1fr auto;
+      gap: 10px;
+      padding: 10px;
+      padding-right: 86px; /* ستون دسته‌ها سمت راست */
     }
 
-    /* فوتر */
-    footer {
-      background: var(--secondary);
-      color: var(--text-light);
-      text-align: center;
-      padding: 20px;
-      font-size: 0.9rem;
+    .header{ display:flex; align-items:center; gap:10px; }
+    .logo{
+      width:44px; height:44px; border-radius:12px;
+      display:grid; place-items:center; background: var(--brand-red);
+      box-shadow: var(--shadow); border: 1px solid rgba(255,255,255,.12);
+      color:#fff; font-weight:900;
     }
-    footer a {
-      color: var(--accent);
-      text-decoration: none;
+    .brand-block{ display:flex; flex-direction:column; line-height:1.2; }
+    .brand-name{ font-weight:900; font-size:18px; }
+    .brand-sub{ font-size:12px; color: var(--muted) }
+
+    .search{
+      display:flex; align-items:center; gap:8px;
+      background: var(--brand-black);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: 999px; padding:10px 12px; box-shadow: var(--shadow);
+    }
+    .search i{ color: var(--brand-red) }
+    .search input{ flex:1; border:none; outline:none; background:transparent; color:var(--ink); font-size:14px; }
+
+    .cats{
+      position: fixed; right: 8px; top: 110px; bottom: 86px; width: 68px;
+      display:flex; flex-direction: column; gap:8px; overflow:auto; z-index: 35;
+    }
+    .chip{
+      padding:8px 6px; background: var(--chip); border: 1px solid rgba(255,255,255,.12);
+      color: var(--ink); border-radius: 12px; display:flex; flex-direction: column; align-items:center; gap:6px; text-align:center;
+    }
+    .chip i{ color: var(--brand-red); width:18px; text-align:center; font-size:14px }
+    .chip span{ font-size:10px; line-height:1.2 }
+    .chip.active{
+      background: color-mix(in oklab, var(--brand-red) 28%, #1B1A19);
+      border-color: color-mix(in oklab, var(--brand-red) 60%, #ffffff 50%);
+      box-shadow: 0 0 0 2px rgba(209,16,26,.25) inset;
     }
 
-    /* واکنش‌گرا */
-    @media (max-width: 600px) {
-      .cat-title { font-size: 1rem; }
-      nav ul { gap: 8px; }
+    .grid{ display:grid; grid-template-columns: 1fr; gap:10px; }
+
+    .card{
+      background: var(--brand-black); border:1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius); overflow:hidden; box-shadow: var(--shadow);
+      transform: translateY(8px); opacity:.0; animation: up .45s ease forwards;
+    }
+    @keyframes up { to { transform:none; opacity:1; } }
+
+    .card-body{ padding:12px 14px; }
+    .item-name{ font-weight:900; font-size:15px; text-align:center }
+    .item-desc{ color:#e1e1e1; font-size:12px; line-height:1.7; margin-top:6px; text-align:center }
+    .buy-row{ margin-top:10px; display:flex; align-items:center; justify-content: center; gap:10px; }
+    .price{ color: var(--brand-red); font-weight:900; }
+    .add{
+      padding:8px 12px; border-radius: 12px; border:1px solid rgba(255,255,255,.18);
+      background: color-mix(in oklab, var(--brand-red) 18%, rgba(255,255,255,.08));
+      color:#fff; display:inline-flex; align-items:center; gap:6px; cursor:pointer;
+    }
+    .add i{ font-size:12px }
+
+    .fab{
+      position: fixed; left: 14px; bottom: 14px; width: 58px; height: 58px; border-radius: 16px;
+      background: radial-gradient(120px 120px at 30% 20%, #ff4d58, var(--brand-red));
+      color: #fff; display:grid; place-items:center; border:none; cursor:pointer; box-shadow: 0 12px 24px rgba(0,0,0,.45);
+      z-index: 40;
+    }
+    .badge{
+      position:absolute; top:-6px; right:-6px; width:22px; height:22px; border-radius:999px; background:#000; color:#fff;
+      display:grid; place-items:center; font-size:12px; font-weight:900; border:2px solid #2b2b2b;
+    }
+
+    .overlay{ position: fixed; inset: 0; background: rgba(0,0,0,.6); display: none; z-index: 50; align-items: flex-end; }
+    .overlay.open{ display:flex; }
+    .sheet{
+      width: 100%; background: #101010; border-top-left-radius: 18px; border-top-right-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12); box-shadow: 0 -12px 24px rgba(0,0,0,.45);
+      max-height: 82dvh; display:flex; flex-direction:column; animation: slideUp .25s ease;
+    }
+    @keyframes slideUp{ from { transform: translateY(20px); opacity:.0 } to { transform:none; opacity:1 } }
+    .sheet-head{ display:flex; align-items:center; justify-content:space-between; padding: 12px 14px; border-bottom:1px dashed rgba(255,255,255,.16) }
+    .sheet-title{ font-weight:900; color: var(--brand-red) }
+    .sheet-close{ background:none; border:none; color:#fff; font-size:20px; cursor:pointer }
+    .sheet-body{ padding: 10px 12px; overflow:auto; flex:1 }
+    .row{ display:flex; gap:10px; align-items:center; padding:10px 0; border-bottom:1px dashed rgba(255,255,255,.12) }
+    .rn{ font-size:14px; font-weight:800 }
+    .rp{ color:var(--brand-red); font-weight:900; font-size:12px }
+    .qty{ margin-inline-start:auto; display:flex; align-items:center; gap:8px }
+    .qbtn{ width:28px; height:28px; border-radius:10px; border:1px solid rgba(255,255,255,.16); background:rgba(255,255,255,.08); color:#fff; }
+    .sheet-foot{ padding: 12px 14px; border-top:1px dashed rgba(255,255,255,.16) }
+    .total{ display:flex; justify-content:space-between; font-weight:900; color: var(--brand-red) }
+
+    @media (min-width: 640px){
+      .app{ padding: 16px; gap: 12px; }
+      .grid{ grid-template-columns: repeat(2, 1fr); }
+      .sheet{ max-width: 520px; margin: 0 auto; }
+    }
+    @media (min-width: 900px){
+      .grid{ grid-template-columns: repeat(3, 1fr); }
     }
   </style>
 </head>
-
 <body>
-
-  <header>
-    <img src="./img/anabik-logo.png" alt="لوگو آنابیک"/>
-    <nav>
-      <ul>
-        <li><a href="#sandwiches"><i class="fas fa-hamburger"></i> ساندویچ‌ها</a></li>
-        <li><a href="#special"><i class="fas fa-star"></i> ویژه‌ها</a></li>
-        <li><a href="#plates"><i class="fas fa-drumstick-bite"></i> غذاهای پرسی</a></li>
-        <li><a href="#appetizers"><i class="fas fa-utensils"></i> پیش‌غذا</a></li>
-        <li><a href="#family-pizza"><i class="fas fa-pizza-slice"></i> پیتزا خانوادگی</a></li>
-        <li><a href="#single-pizza"><i class="fas fa-pizza-slice"></i> پیتزا تک‌نفره</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <main>
-
-    <!-- ساندویچ‌ها -->
-    <section id="sandwiches" class="menu-section">
-      <div class="section-header">
-        <div class="cat-title"><i class="fas fa-hamburger"></i> ساندویچ‌ها</div>
-        <img class="cat-img"
-             src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=80&h=80&q=60"
-             alt="ساندویچ‌ها"/>
+  <div class="app">
+    <header class="header">
+      <div class="logo">BM</div>
+      <div class="brand-block">
+        <div class="brand-name">فست‌فود بمبی</div>
+        <div class="brand-sub">منوی جدید</div>
       </div>
-      <div class="menu-grid">
-        <div class="menu-item">
-          <h3>فلافل مخصوص <span class="price">77,000 تومان</span></h3>
-          <p>فلافل سنتی با چاشنی ویژه آنابیک و سس مخصوص.</p>
-        </div>
-        <div class="menu-item">
-          <h3>فلافل (قارچ و پنیر) <span class="price">112,000 تومان</span></h3>
-          <p>فلافل با قارچ تازه و پنیر موزارلا ذوب شده.</p>
-        </div>
-        <div class="menu-item">
-          <h3>هات داگ ۹۰٪ <span class="price">91,000 تومان</span></h3>
-          <p>هات‌داگ با گوشت مرغ ۹۰٪ و سس مخصوص.</p>
-        </div>
-        <div class="menu-item">
-          <h3>هات داگ (قارچ و پنیر) <span class="price">127,000 تومان</span></h3>
-          <p>هات‌داگ مرغ با قارچ و پنیر چدار.</p>
-        </div>
-        <div class="menu-item">
-          <h3>همبرگر <span class="price">108,000 تومان</span></h3>
-          <p>همبرگر با گوشت ۱۰۰٪ گوساله و سس مخصوص آنابیک.</p>
-        </div>
-        <div class="menu-item">
-          <h3>همبرگر (قارچ و پنیر) <span class="price">138,000 تومان</span></h3>
-          <p>همبرگر با قارچ تفت‌داده و پنیر پیتزا.</p>
-        </div>
-        <div class="menu-item">
-          <h3>چیز برگر <span class="price">121,000 تومان</span></h3>
-          <p>همبرگر با پنیر چدار و مخلفات ویژه.</p>
-        </div>
-        <div class="menu-item">
-          <h3>دوبل برگر <span class="price">127,000 تومان</span></h3>
-          <p>دو عدد همبرگر با پنیر و سس اختصاصی.</p>
-        </div>
-        <div class="menu-item">
-          <h3>بندری <span class="price">95,000 تومان</span></h3>
-          <p>سوسیس مخصوص بندری با مخلفات و سس تند.</p>
-        </div>
-        <div class="menu-item">
-          <h3>بندری (قارچ و پنیر) <span class="price">129,000 تومان</span></h3>
-          <p>سوسیس بندری با قارچ و پنیر موزارلا.</p>
-        </div>
-        <div class="menu-item">
-          <h3>کوکتل <span class="price">96,000 تومان</span></h3>
-          <p>کوکتل با سس مخصوص و مخلفات تازه.</p>
-        </div>
-        <div class="menu-item">
-          <h3>کوکتل (قارچ و پنیر) <span class="price">133,000 تومان</span></h3>
-          <p>کوکتل با قارچ و پنیر.</p>
-        </div>
-        <div class="menu-item">
-          <h3>بلغاری <span class="price">97,000 تومان</span></h3>
-          <p>سوسیس بلغاری با سس کرمی و مخلفات ویژه.</p>
-        </div>
-        <div class="menu-item">
-          <h3>بلغاری (قارچ و پنیر) <span class="price">136,000 تومان</span></h3>
-          <p>بلغاری با قارچ و پنیر.</p>
-        </div>
-        <div class="menu-item">
-          <h3>ژامبون گوشت و مرغ ۹۰٪ <span class="price">106,000 تومان</span></h3>
-          <p>ژامبون مخلوط گوشت گوساله و مرغ ۹۰٪.</p>
-        </div>
-        <div class="menu-item">
-          <h3>فیله مرغ <span class="price">134,000 تومان</span></h3>
-          <p>فیله مرغ گریل‌شده با سس مخصوص.</p>
-        </div>
-        <div class="menu-item">
-          <h3>فیله مرغ (قارچ و پنیر) <span class="price">171,000 تومان</span></h3>
-          <p>فیله مرغ با قارچ و پنیر موزارلا.</p>
-        </div>
-        <div class="menu-item">
-          <h3>کراکت پنیری <span class="price">132,000 تومان</span></h3>
-          <p>کراکت سیب‌زمینی با پنیر داخل.</p>
-        </div>
-        <div class="menu-item">
-          <h3>کراکت پنیری (قارچ و پنیر) <span class="price">169,000 تومان</span></h3>
-          <p>کراکت پنیری با قارچ و پنیر اضافه.</p>
+    </header>
+
+    <div class="search">
+      <i class="fa fa-magnifying-glass"></i>
+      <input id="search" placeholder="جستجو در منو (مثلاً پپرونی، بمب برگر، موهیتو)" />
+    </div>
+
+    <nav class="cats" id="cats"></nav>
+    <main class="grid" id="grid"></main>
+  </div>
+
+  <button class="fab" id="fab" aria-label="سبد خرید">
+    <i class="fa-solid fa-bag-shopping"></i>
+    <span class="badge" id="badge">0</span>
+  </button>
+
+  <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <section class="sheet">
+      <div class="sheet-head">
+        <div id="sheetTitle" class="sheet-title">سبد خرید</div>
+        <button class="sheet-close" id="closeSheet" aria-label="بستن">&times;</button>
+      </div>
+      <div class="sheet-body" id="cartItems"></div>
+      <div class="sheet-foot">
+        <div class="total">
+          <span>جمع کل</span>
+          <span id="cartTotal">۰ تومان</span>
         </div>
       </div>
     </section>
+  </div>
 
-    <!-- ویژه‌ها -->
-    <section id="special" class="menu-section">
-      <div class="section-header">
-        <div class="cat-title"><i class="fas fa-star"></i> ساندویچ‌های ویژه</div>
-        <img class="cat-img"
-             src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=80&h=80&q=60"
-             alt="ساندویچ‌های ویژه"/>
-      </div>
-      <div class="menu-grid">
-        <div class="menu-item">
-          <h3>ویژه آنابیک <span class="price">193,000 تومان</span></h3>
-          <p>میکس فیله مرغ، همبرگر، ژامبون، قارچ و پنیر.</p>
-        </div>
-        <div class="menu-item">
-          <h3>ویژه زابیتا <span class="price">181,000 تومان</span></h3>
-          <p>فیله مرغ، هات‌داگ، ژامبون، قارچ و پنیر.</p>
-        </div>
-        <div class="menu-item">
-          <h3>رویال فیله مرغ <span class="price">188,000 تومان</span></h3>
-          <p>فیله مرغ خاص با ژامبون و پنیر.</p>
-        </div>
-        <div class="menu-item">
-          <h3>رویال برگر <span class="price">145,000 تومان</span></h3>
-          <p>همبرگر ویژه با ژامبون و پنیر دلخواه.</p>
-        </div>
-        <div class="menu-item">
-          <h3>رویال هات <span class="price">142,000 تومان</span></h3>
-          <p>هات‌داگ ویژه با ژامبون و پنیر.</p>
-        </div>
-        <div class="menu-item">
-          <h3>رویال کراکت <span class="price">177,000 تومان</span></h3>
-          <p>کراکت پنیری با ژامبون، قارچ و پنیر.</p>
-        </div>
-        <div class="menu-item">
-          <h3>رویال فلافل <span class="price">131,000 تومان</span></h3>
-          <p>فلافل ویژه با ژامبون و پنیر.</p>
-        </div>
-        <div class="menu-item">
-          <h3>ژامبون تنوری <span class="price">139,000 تومان</span></h3>
-          <p>ژامبون گوشت و مرغ تنوری با پنیر.</p>
-        </div>
-      </div>
-    </section>
+  <script>
+    (function(){ if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', boot); } else { boot(); } })();
 
-    <!-- غذاهای پرسی -->
-    <section id="plates" class="menu-section">
-      <div class="section-header">
-        <div class="cat-title"><i class="fas fa-drumstick-bite"></i> غذاهای پرسی</div>
-        <img class="cat-img"
-             src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=80&h=80&q=60"
-             alt="غذاهای پرسی"/>
-      </div>
-      <div class="menu-grid">
-        <div class="menu-item">
-          <h3>بندری پرسی <span class="price">129,000 تومان</span></h3>
-          <p>سوسیس بندری با کلمو، گوجه و خیارشور.</p>
-        </div>
-        <div class="menu-item">
-          <h3>فیله مرغ پرسی <span class="price">146,000 تومان</span></h3>
-          <p>فیله مرغ با کلمو، گوجه و خیارشور.</p>
-        </div>
-        <div class="menu-item">
-          <h3>کراکت پنیری پرسی <span class="price">144,000 تومان</span></h3>
-          <p>کراکت خردشده با سیب‌زمینی سرخ‌شده و پنیر فرانسوی.</p>
-        </div>
-      </div>
-    </section>
+    function boot(){
+      try{ init(); }catch(e){ console.error(e); alert('خطا در بارگذاری: '+e.message); }
+    }
 
-    <!-- پیش‌غذا -->
-    <section id="appetizers" class="menu-section">
-      <div class="section-header">
-        <div class="cat-title"><i class="fas fa-utensils"></i> پیش‌غذا</div>
-        <img class="cat-img"
-             src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=80&h=80&q=60"
-             alt="پیش‌غذا"/>
-      </div>
-      <div class="menu-grid">
-        <div class="menu-item">
-          <h3>سیب مزرعه ویژه <span class="price">323,000 تومان</span></h3>
-          <p>سیب‌زمینی تنوری با ادویه ویژه، قارچ، پنیر و ذرت.</p>
-        </div>
-        <div class="menu-item">
-          <h3>مزرعه سیب پنیری <span class="price">268,000 تومان</span></h3>
-          <p>سیب‌زمینی با ژامبون، قارچ و پنیر فرانسوی.</p>
-        </div>
-        <div class="menu-item">
-          <h3>سیب ویژه <span class="price">137,000 تومان</span></h3>
-          <p>سیب‌زمینی تنوری با ژامبون، قارچ، پنیر و فلفل دلمه.</p>
-        </div>
-        <div class="menu-item">
-          <h3>سیب ساده <span class="price">91,000 تومان</span></h3>
-          <p>سیب‌زمینی سرخ‌کرده تازه.</p>
-        </div>
-      </div>
-    </section>
+    function init(){
+      const data = getMenuData();
+      const cats = Object.keys(data);
 
-    <!-- پیتزا خانوادگی -->
-    <section id="family-pizza" class="menu-section">
-      <div class="section-header">
-        <div class="cat-title"><i class="fas fa-pizza-slice"></i> پیتزا خانوادگی</div>
-        <img class="cat-img"
-             src="https://images.unsplash.com/photo-1548365328-8ca2cb947e4a?auto=format&fit=crop&w=80&h=80&q=60"
-             alt="پیتزا خانوادگی"/>
-      </div>
-      <div class="menu-grid">
-        <div class="menu-item">
-          <h3>پیتزا بمب ترکیبی <span class="price">316,000 تومان</span></h3>
-          <p>سوسیس، ژامبون، قارچ، پنیر، ذرت و سس مخصوص.</p>
-        </div>
-        <div class="menu-item">
-          <h3>پیتزا بمب مخلوط <span class="price">303,000 تومان</span></h3>
-          <p>قارچ، پنیر، ژامبون، ذرت و سس ویژه.</p>
-        </div>
-        <div class="menu-item">
-          <h3>پیتزا بمب چیکن <span class="price">343,000 تومان</span></h3>
-          <p>مرغ، قارچ، پنیر، ذرت و سس مخصوص.</p>
-        </div>
-        <div class="menu-item">
-          <h3>پیتزا بمบ پپرونی <span class="price">305,000 تومان</span></h3>
-          <p>پپرونی، قارچ، پنیر، ذرت و سس مخصوص.</p>
-        </div>
-        <div class="menu-item">
-          <h3>پیتزا بمب گوشت <span class="price">327,000 تومان</span></h3>
-          <p>گوشت چرخ‌کرده، قارچ، پنیر، ذرت و سس مخصوص.</p>
-        </div>
-        <div class="menu-item">
-          <h3>پیتزا رست بیف <span class="price">547,000 تومان</span></h3>
-          <p>گوشت رست بیف، قارچ، پنیر، ذرت و سس مخصوص.</p>
-        </div>
-        <div class="menu-item">
-          <h3>پیتزا بمب گوشت و مرغ <span class="price">328,000 تومان</span></h3>
-          <p>مرغ، گوشت، قارچ، پنیر، ذرت و سس مخصوص.</p>
-        </div>
-        <div class="menu-item">
-          <h3>پیتزا بمب گوشت و مرغ ۹۰٪ <span class="price">351,000 تومان</span></h3>
-          <p>مرغ ۹۰٪ و گوشت، قارچ، پنیر، ذرت و سس مخصوص.</p>
-        </div>
-        <div class="menu-item">
-          <h3>ابر پیتزا <span class="price">417,000 تومان</span></h3>
-          <p>میکس ویژه از انواع تاپینگ و پنیر فراوان.</p>
-        </div>
-        <div class="menu-item">
-          <h3>پیتزا بمب میکس ترکیبی <span class="price">326,000 تومان</span></h3>
-          <p>مرغ، گوشت، هات‌داگ، قارچ، پنیر، ذرت و سس مخصوص.</p>
-        </div>
-      </div>
-    </section>
+      const catsEl = document.getElementById('cats');
+      const gridEl = document.getElementById('grid');
+      const searchEl = document.getElementById('search');
 
-    <!-- پیتزا تک‌نفره -->
-    <section id="single-pizza" class="menu-section">
-      <div class="section-header">
-        <div class="cat-title"><i class="fas fa-pizza-slice"></i> پیتزا تک‌نفره</div>
-        <img class="cat-img"
-             src="https://images.unsplash.com/photo-1594007658119-00d2b0908c9e?auto=format&fit=crop&w=80&h=80&q=60"
-             alt="پیتزا تک‌نفره"/>
-      </div>
-      <div class="menu-grid">
-        <div class="menu-item">
-          <h3>پیتزا مخصوص آنابیک <span class="price">186,000 تومان</span></h3>
-          <p>قارچ، سوسیس، ژامبون، پنیر، ذرت و سس مخصوص.</p>
-        </div>
-        <div class="menu-item">
-          <h3>پیتزا مخلوط <span class="price">177,000 تومان</span></h3>
-          <p>قارچ، سوسیس، پنیر، ذرت و سس مخصوص.</p>
-        </div>
-        <div class="menu-item">
-          <h3>پیتزا چیکن <span class="price">205,000 تومان</span></h3>
-          <p>مرغ، قارچ، پنیر، ذرت و سس مخصوص.</p>
-        </div>
-        <div class="menu-item">
-          <h3>پیتزا پپرونی <span class="price">183,000 تومان</span></h3>
-          <p>پپرونی، قارچ، پنیر، ذرت و سس مخصوص.</p>
-        </div>
-        <div class="menu-item">
-          <h3>پیتزا گوشت <span class="price">203,000 تومان</span></h3>
-          <p>گوشت چرخ‌کرده، قارچ، پنیر، ذرت و سس مخصوص.</p>
-        </div>
-        <div class="menu-item">
-          <h3>پیتزا گوشت و مرغ <span class="price">204,000 تومان</span></h3>
-          <p>مرغ، گوشت، قارچ، پنیر، ذرت و سس مخصوص.</p>
-        </div>
-        <div class="menu-item">
-          <h3>پیتزا گوشت و مرغ ۹۰٪ <span class="price">217,000 تومان</span></h3>
-          <p>مرغ ۹۰٪ و گوشت، قارچ، پنیر، ذرت و سس مخصوص.</p>
-        </div>
-        <div class="menu-item">
-          <h3>پیتزا رست بیف <span class="price">196,000 تومان</span></h3>
-          <p>گوشت رست بیف، قارچ، پنیر، ذرت و سس مخصوص.</p>
-        </div>
-        <div class="menu-item">
-          <h3>پیتزا میکس ترکیبی <span class="price">349,000 تومان</span></h3>
-          <p>مرغ، گوشت، هات‌داگ، قارچ، پنیر، ذرت و سس مخصوص.</p>
-        </div>
-      </div>
-    </section>
+      const fab = document.getElementById('fab');
+      const badge = document.getElementById('badge');
+      const overlay = document.getElementById('overlay');
+      const closeSheet = document.getElementById('closeSheet');
+      const cartItems = document.getElementById('cartItems');
+      const cartTotal = document.getElementById('cartTotal');
 
-  </main>
+      const icons = getIcons();
+      const defaultCat = cats[0];
+      cats.forEach((c) => {
+        const el = document.createElement('button');
+        el.className = 'chip' + (c===defaultCat ? ' active' : '');
+        el.dataset.cat = c;
+        el.innerHTML = '<i class="fa-solid '+(icons[c]||'fa-circle')+'"></i><span>'+c+'</span>';
+        el.addEventListener('click', () => selectCategory(c, el));
+        catsEl.appendChild(el);
+      });
 
-  <footer>
-    <p>برای سفارش و اطلاعات بیشتر:</p>
-    <p><i class="fab fa-instagram"></i>
-      <a href="https://instagram.com/anabik_fast_food" target="_blank">@anabik_fast_food</a>
-    </p>
-    <p><i class="fas fa-phone"></i> ۰۲۱-۶۶۲۵۴۰۳۶ – ۰۲۱-۶۶۲۷۰۷۵۱</p>
-  </footer>
+      function card(item, delay){
+        const desc = item.description ? '<div class="item-desc">'+item.description+'</div>' : '';
+        const price = item.price ? '<div class="price">'+item.price+'</div>' : '';
+        return (
+          '<article class="card" style="animation-delay:'+delay+'s">'+
+              '<div class="card-body">'+
+                '<div class="item-name">'+item.name+'</div>'+
+                 desc +
+                '<div class="buy-row">'+ price +
+                  '<button class="add" aria-label="افزودن" data-name="'+esc(item.name)+'" data-price="'+esc(item.price||'0')+'">'+
+                    '<i class="fa-solid fa-plus"></i><span>افزودن</span>'+
+                  '</button>'+
+                '</div>'+
+              '</div>'+
+          '</article>'
+        );
+      }
+      function esc(v){ return String(v).replace(/"/g,'&quot;'); }
 
+      function render(cat, filter=''){
+        gridEl.innerHTML = '';
+        const items = data[cat].items;
+        const q = filter.trim().toLowerCase();
+        let n=0;
+        items.forEach(it => {
+          const hay = (it.name + ' ' + (it.description||'')).toLowerCase();
+          if(!q || hay.includes(q)){
+            gridEl.insertAdjacentHTML('beforeend', card(it, n*0.06));
+            n++;
+          }
+        });
+        gridEl.querySelectorAll('.add').forEach(btn => {
+          btn.addEventListener('click', () => {
+            addToCart({ name: btn.getAttribute('data-name'), price: btn.getAttribute('data-price') });
+          });
+        });
+      }
+
+      function selectCategory(cat, el){
+        catsEl.querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
+        el.classList.add('active');
+        render(cat, searchEl.value);
+      }
+
+      searchEl.addEventListener('input', () => {
+        const activeBtn = catsEl.querySelector('.chip.active');
+        const active = activeBtn ? activeBtn.dataset.cat : defaultCat;
+        render(active, searchEl.value);
+      });
+
+      const loaded = JSON.parse(localStorage.getItem('cart') || '[]');
+      const state = { items: sanitizeCart(loaded) };
+      function sanitizeCart(list){
+        if(!Array.isArray(list)) return [];
+        const clean = list.filter(x => x && typeof x.name === 'string' && x.name.trim().length>0
+          && typeof x.price === 'string'
+          && Number.isFinite(parseInt(x.qty,10)) && parseInt(x.qty,10) > 0
+        ).map(x => ({ name: x.name.trim(), price: x.price, qty: Math.min(99, parseInt(x.qty,10)) }));
+        if(clean.length < list.length){ localStorage.setItem('cart', JSON.stringify(clean)); }
+        return clean;
+      }
+      function parsePrice(p){ const m = (p||'').match(/\d+/g); return m ? parseInt(m.join(''),10) : 0; }
+      function toFa(n){ return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',').replace(/[0-9]/g, d => '۰۱۲۳۴۵۶۷۸۹'[parseInt(d,10)]); }
+      function formatToman(n){ return toFa(n) + ' تومان'; }
+      function save(){
+        localStorage.setItem('cart', JSON.stringify(state.items));
+        badge.textContent = state.items.reduce((a,b)=>a+b.qty,0);
+        const total = state.items.reduce((a,b)=>a + parsePrice(b.price)*b.qty, 0);
+        cartTotal.textContent = formatToman(total);
+        renderCart();
+      }
+      function addToCart(item){
+        const i = state.items.findIndex(x => x.name===item.name);
+        if(i>-1) state.items[i].qty += 1;
+        else state.items.push({name:item.name, price:item.price, qty:1});
+        save();
+      }
+      function inc(i){ state.items[i].qty = Math.min(99, state.items[i].qty+1); save(); }
+      function dec(i){ state.items[i].qty -= 1; if(state.items[i].qty<=0) state.items.splice(i,1); save(); }
+      function renderLinePrice(it){ const p = parsePrice(it.price); return p?formatToman(p * it.qty):'—'; }
+      function renderCart(){
+        cartItems.innerHTML='';
+        if(state.items.length===0){
+          cartItems.innerHTML = '<div style="text-align:center;color:#d5d5d5;padding:18px">سبد خرید شما خالی است</div>';
+          return;
+        }
+        state.items.forEach((it, idx) => {
+          const row = document.createElement('div');
+          row.className='row';
+          row.innerHTML =
+            '<div><div class="rn">'+it.name+'</div><div class="rp">'+renderLinePrice(it)+'</div></div>'+
+            '<div class="qty">'+
+              '<button class="qbtn" aria-label="کم کردن">-</button>'+
+              '<div>'+toFa(it.qty)+'</div>'+
+              '<button class="qbtn" aria-label="زیاد کردن">+</button>'+
+            '</div>';
+          const [minus, plus] = row.querySelectorAll('.qbtn');
+          minus.addEventListener('click', () => dec(idx));
+          plus.addEventListener('click', () => inc(idx));
+          cartItems.appendChild(row);
+        });
+      }
+
+      fab.addEventListener('click', () => overlay.classList.add('open'));
+      closeSheet.addEventListener('click', () => overlay.classList.remove('open'));
+      overlay.addEventListener('click', e => { if(e.target === overlay) overlay.classList.remove('open'); });
+
+      render(defaultCat, '');
+      save();
+    }
+
+    function getIcons(){
+      return {
+        "پیتزاهای بمبی (۲ تا ۳ نفره)":"fa-pizza-slice",
+        "ساندویچ‌های بمبی (۲ تا ۳ نفره)":"fa-burger",
+        "پیتزا تک‌نفره":"fa-cheese",
+        "ساندویچ‌ها":"fa-bread-slice",
+        "ساندویچ‌های ویژه":"fa-crown",
+        "غذاهای پُرسی":"fa-bowl-food",
+        "پیش‌غذا":"fa-drumstick-bite"
+      };
+    }
+
+    /* داده‌ها + قیمت‌ها */
+    function getMenuData(){
+      return {
+        "پیتزاهای بمبی (۲ تا ۳ نفره)": {
+          items: [
+            {name:"پیتزا بمب ترکیبی", description:"ژامبون، هات‌داگ، پپرونی، قارچ و پنیر، فلفل‌دلمه، ذرت، سس مخصوص", price:"357,000 تومان"},
+            {name:"پیتزا بمب مخلوط", description:"ژامبونِ فراوان، قارچ و پنیر، فلفل‌دلمه، ذرت، سس مخصوص", price:"342,000 تومان"},
+            {name:"پیتزا بمب چیکن", description:"مرغ اسلایس/ریش‌شده، قارچ و پنیر، فلفل‌دلمه، ذرت، سس مخصوص", price:"387,000 تومان"},
+            {name:"پیتزا بمب پپرونی", description:"پپرونی، قارچ و پنیر، فلفل‌دلمه، ذرت، سس مخصوص", price:"346,000 تومان"},
+            {name:"پیتزا بمب گوشت", description:"گوشت چرخ‌کرده، قارچ و پنیر، فلفل‌دلمه، ذرت، سس مخصوص", price:"369,000 تومان"},
+            {name:"پیتزا رست بیف", description:"گوشت گوساله ریش‌ریش، قارچ و پنیر، فلفل‌دلمه، ذرت، سس مخصوص", price:"596,000 تومان"},
+            {name:"پیتزا بمب گوشت و مرغ", description:"مرغ اسلایس شده، گوشت چرخ کرده، قارچ و پنیر، فلفل دلمه، ذرت، سس مخصوص", price:"371,000 تومان"},
+            {name:"پیتزا بمب ژامبون گوشت و مرغ ۹۰٪", description:"ژامبون ۹۰٪ گوشت و مرغ، هات داگ، قارچ و پنیر، فلفل‌دلمه، ذرت، سس مخصوص", price:"396,000 تومان"},
+            {name:"ابر پیتزا", description:"ژامبون گوشت و مرغ 90%، کراکف پنیر، فیله مرغ، قارچ و پنیر، فلفل دلمه، ذرت، سس مخصوص", price:"471,000 تومان"},
+            {name:"پیتزا بمب میکس ترکیبی", description:"ژامبون مرغ ریش ریش شده، پپرونی، قارچ و پنیر، فلفل دلمه، ذرت، سس مخصوص", price:"368,000 تومان"}
+          ]
+        },
+        "ساندویچ‌های بمبی (۲ تا ۳ نفره)": {
+          items: [
+            {name:"ابر ساندویچ", description:"۳ عدد همبرگر + ۳ تکه فیله مرغ + 2 عدد هات‌داگ + ژامبون، قارچ و پنیر فراوان", price:"422,000 تومان"},
+            {name:"تانکویچ", description:"۳ عدد همبرگر + ۳ تکه فیله مرغ، ژامبون، قارچ و پنیر فراوان", price:"388,000 تومان"},
+            {name:"بالستیک گوشت و مرغ", description:"3 عدد همبرگر، 3 تکه فیله مرغ، قارچ و پنیر فراوان", price:"373,000 تومان"},
+            {name:"خمپاره غول هات‌داگ", description:"2 عدد هات داگ، ژامبون، قارچ و پنیر فراوان", price:"305,000 تومان"},
+            {name:"بمب ژامبون تنوری", description:"کلی ژامبون، قارچ و پنیر فراوان", price:"307,000 تومان"},
+            {name:"بندری توپولوف", description:"کلی بندری، قارچ و پنیر فراوان", price:"297,000 تومان"},
+            {name:"بمب برگر ویژه", description:"۳ عدد همبرگر، ژامبون، قارچ و پنیر فراوان", price:"332,000 تومان"}
+          ]
+        },
+        "پیتزا تک‌نفره": {
+          items: [
+            {name:"پیتزا مخصوص آناییک", description:"ژامبون، پپرونی، هات‌داگ، قارچ و پنیر، ذرت، فلفل‌دلمه، سس مخصوص", price:"210,000 تومان"},
+            {name:"پیتزا مخلوط", description:"ژامبون، قارچ و پنیر، ذرت، فلفل‌دلمه، سس مخصوص", price:"198,000 تومان"},
+            {name:"پیتزا چیکن", description:"مرغ ریش‌شده، قارچ و پنیر، ذرت، فلفل‌دلمه، سس مخصوص", price:"232,000 تومان"},
+            {name:"پیتزا پپرونی", description:"پپرونی، قارچ و پنیر، ذرت، فلفل‌دلمه، سس مخصوص", price:"207,000 تومان"},
+            {name:"پیتزا گوشت", description:"گوشت چرخ‌کرده، قارچ و پنیر، ذرت، فلفل‌دلمه، سس مخصوص", price:"229,000 تومان"},
+            {name:"پیتزا گوشت و مرغ", description:"مرغ ریش ریش شده، گوشت چرخ کرده، قارچ و پنیر، ذرت، فلفل‌دلمه، سس مخصوص", price:"231,000 تومان"},
+            {name:"پیتزا ژامبون گوشت و مرغ ۹۰٪", description:"ژامبون ۹۰٪ گوشت و مرغ، قارچ و پنیر، ذرت، فلفل‌دلمه، سس مخصوص", price:"245,000 تومان"},
+            {name:"پیتزا میکس ترکیبی", description:"مرغ ریش ریش شده، ژامبون گوشت، پپرونی، قارچ و پنیر، ذرت، فلفل دلمه، سس مخصوص", price:"223,000 تومان"},
+            {name:"پیتزا رست بیف (گوشت گوساله ریش‌ریش 150 گرم)", description:"گوشت گوساله ریش ریش شده، قارچ و پنیر، ذرت، فلفل‌دلمه، سس مخصوص", price:"394,000 تومان"}
+          ]
+        },
+"ساندویچ‌ها": {
+  items: [
+    {name:"فلافل مخصوص", price:"85,000 تومان"},
+    {name:"فلافل (قارچ و پنیر)", price:"124,000 تومان"},
+    {name:"هات‌داگ ۹۰٪", price:"103,000 تومان"},
+    {name:"هات‌داگ (قارچ و پنیر)", price:"143,000 تومان"},
+    {name:"همبرگر", price:"122,000 تومان"},
+    {name:"همبرگر (قارچ و پنیر)", price:"156,000 تومان"},
+    {name:"چیزبرگر", price:"136,000 تومان"},
+    {name:"دوبل برگر", price:"143,000 تومان"},
+    {name:"بندری", price:"107,000 تومان"},
+    {name:"بندری (قارچ و پنیر)", price:"145,000 تومان"},
+    {name:"کوکتل", price:"108,000 تومان"},
+    {name:"کوکتل (قارچ و پنیر)", price:"149,000 تومان"},
+    {name:"بلغاری", price:"109,000 تومان"},
+    {name:"بلغاری (قارچ و پنیر)", price:"153,000 تومان"},
+    {name:"ژامبون گوشت و مرغ (۹۰٪)", price:"118,000 تومان"},
+    {name:"فیله مرغ", price:"152,000 تومان"},
+    {name:"فیله مرغ (قارچ و پنیر)", price:"193,000 تومان"},
+    {name:"کراکت پنیری", price:"149,000 تومان"},
+    {name:"کراکت پنیری (قارچ و پنیر)", price:"191,000 تومان"}
+  ]
+},
+
+"ساندویچ‌های ویژه": {
+  items: [
+    {name:"ویژه آتاییک", description:"فیله مرغ، همبرگر، ژامبون، قارچ و پنیر", price:"218,000 تومان"},
+    {name:"ویژه زاپاتا", description:"فیله مرغ، هات‌داگ، ژامبون، قارچ و پنیر", price:"204,000 تومان"},
+    {name:"رویال فیله مرغ", description:"فیله مرغ، ژامبون، قارچ و پنیر", price:"212,000 تومان"},
+    {name:"رویال برگر", description:"همبرگر، ژامبون، قارچ و پنیر", price:"164,000 تومان"},
+    {name:"رویال هات", description:"هات‌داگ، ژامبون، قارچ و پنیر", price:"161,000 تومان"},
+    {name:"رویال کراکف", description:"کراکف پنیری، ژامبون، قارچ و پنیر", price:"202,000 تومان"},
+    {name:"رویال فلافل", description:"فلافل، ژامبون، قارچ و پنیر", price:"148,000 تومان"},
+    {name:"ژامبون تنوری", description:"ژامبون گوشت و مرغ، قارچ و پنیر", price:"157,000 تومان"}
+  ]
+},
+
+"غذاهای پُرسی": {
+  items: [
+    {name:"بندری پرسی (کاهو، گوجه، خیارشور)", description:"کاهو، گوجه، خیارشور", price:"146,000 تومان"},
+    {name:"فیله مرغ پرسی (کاهو، گوجه، خیارشور)", description:"کاهو، گوجه، خیارشور", price:"65,000 تومان"},
+    {name:"کراکف پنیری پرسی", description:"کراکف خرد شده، سیب‌زمینی سرخ‌کرده، گوجه + کاهو + خیارشور + نان فرانسوی", price:"162,000 تومان"}
+  ]
+},
+
+"پیش‌غذا": {
+  items: [
+    {name:"سیب مزرعه ویژه (۲ الی ۳ نفره)", description:"سیب‌زمینی، ژامبون گوشت و مرغ ۹۰٪، فیله مرغ، هات‌داگ، قارچ و پنیر، فلفل‌دلمه، ذرت", price:"365,000 تومان"},
+    {name:"مزرعه سیب‌زمینی", description:"سیب‌زمینی فراوان، کلی ژامبون، قارچ و پنیر، فلفل‌دلمه، ذرت", price:"303,000 تومان"},
+    {name:"سیب ویژه", description:"سیب‌زمینی، ژامبون، قارچ و پنیر، فلفل‌دلمه، ذرت", price:"152,000 تومان"},
+    {name:"سیب ساده", price:"102,000 تومان"}
+  ]
+        }
+      };
+    }
+  </script>
 </body>
 </html>
