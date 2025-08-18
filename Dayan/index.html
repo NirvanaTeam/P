@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <link rel="preload" as="image" href="./Snapchat-1621260684.jpg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پرتفولیو دایان | طراح گرافیک و توسعه دهنده وب</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <style>
+        /* CSS styles will be placed here */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background-color: #0f0f1a;
+            color: #fff;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        
+        /* بقیه استایل ها در فایل CSS جداگانه */
+    </style>
+</head>
+<body>
+    <canvas id="spaceCanvas" class="space-background"></canvas>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo-group">
+                    <div class="logo">دایان</div>
+                    <div class="logo-subtitle">طراح گرافیک و توسعه دهنده وب</div>
+                </div>
+
+                <div class="desktop-nav">
+                    <a href="#home" class="nav-link active">خانه</a>
+                    <a href="#skills" class="nav-link">مهارت‌ها</a>
+                    <a href="#portfolio" class="nav-link">نمونه‌کارها</a>
+                    <a href="#about" class="nav-link">درباره من</a>
+                    <a href="#contact" class="nav-link">تماس</a>
+                </div>
+
+                <div class="mobile-nav">
+                    <button class="mobile-contact-btn">
+                        <i class="fas fa-envelope"></i>
+                    </button>
+                    <button class="hamburger-menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <a href="#home" class="mobile-menu-link active">خانه</a>
+        <a href="#skills" class="mobile-menu-link">مهارت‌ها</a>
+        <a href="#portfolio" class="mobile-menu-link">نمونه‌کارها</a>
+        <a href="#about" class="mobile-menu-link">درباره من</a>
+        <a href="#contact" class="mobile-menu-link">تماس</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="hero-content glass animate-scale-in">
+                <div class="hero-avatar">
+                    <div class="avatar-frame">
+                        <img src="./Snapchat-1621260684.jpg" loading="eager" decoding="async" fetchpriority="high" alt="دایان - طراح گرافیک" class="avatar-img">
+                    </div>
+                </div>
+
+                <h1 class="hero-title">دایان حسین زاده</h1>
+                <p class="hero-subtitle">من دایانم؛ جایی که رنگ‌ها و کدها با هم می‌رقصن و ایده‌ها به جهان تازه‌ای قدم می‌ذارن.
+برای من هر پروژه یک داستانه؛ داستانی که با خلاقیت شروع می‌شه، با جزئیات ساخته می‌شه و با متفاوت بودن تموم.
+سبک من، ترکیب هنر و تکنولوژیه؛ ترکیبی که چیزی می‌آفرینه که شبیه هیچ‌کس دیگه نیست</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">تماس با من</a>
+                    <a href="#portfolio" class="btn btn-outline">
+                        <i class="fas fa-sparkles"></i>
+                        نمونه‌کارها
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills-section">
+        <div class="container">
+            <h2 class="section-title animate-fade-in-up">مهارت‌های تخصصی</h2>
+
+            <!-- Graphic Design Skills -->
+            <div class="skills-progress">
+                <h3 class="skills-subtitle">مهارت‌های طراحی گرافیک</h3>
+                <div class="progress-grid">
+                    <!-- Photoshop -->
+                    <div class="progress-item animate-fade-in-up" style="animation-delay: 0s">
+                        <div class="circular-progress" data-percent="95">
+                            <svg class="progress-circle" viewBox="0 0 100 100">
+                                <circle class="progress-bg" cx="50" cy="50" r="45"></circle>
+                                <circle class="progress-fill" cx="50" cy="50" r="45"></circle>
+                            </svg>
+                            <div class="progress-value">0%</div>
+                            <div class="progress-icon"><i class="fab fa-adobe"></i></div>
+                        </div>
+                        <span class="progress-label">Photoshop</span>
+                    </div>
+                    
+                    <!-- Illustrator -->
+                    <div class="progress-item animate-fade-in-up" style="animation-delay: 0.1s">
+                        <div class="circular-progress" data-percent="90">
+                            <svg class="progress-circle" viewBox="0 0 100 100">
+                                <circle class="progress-bg" cx="50" cy="50" r="45"></circle>
+                                <circle class="progress-fill" cx="50" cy="50" r="45"></circle>
+                            </svg>
+                            <div class="progress-value">0%</div>
+                            <div class="progress-icon"><i class="fas fa-pen-nib"></i></div>
+                        </div>
+                        <span class="progress-label">Illustrator</span>
+                    </div>
+                    
+                    <!-- InDesign -->
+                    <div class="progress-item animate-fade-in-up" style="animation-delay: 0.2s">
+                        <div class="circular-progress" data-percent="85">
+                            <svg class="progress-circle" viewBox="0 0 100 100">
+                                <circle class="progress-bg" cx="50" cy="50" r="45"></circle>
+                                <circle class="progress-fill" cx="50" cy="50" r="45"></circle>
+                            </svg>
+                            <div class="progress-value">0%</div>
+                            <div class="progress-icon"><i class="fas fa-book-open"></i></div>
+                        </div>
+                        <span class="progress-label">InDesign</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- UI/UX Skills -->
+            <div class="skills-progress" style="margin-top: 50px;">
+                <h3 class="skills-subtitle">مهارت‌های UI/UX</h3>
+                <div class="progress-grid">
+                    <!-- Adobe XD -->
+                    <div class="progress-item animate-fade-in-up" style="animation-delay: 0.3s">
+                        <div class="circular-progress" data-percent="88">
+                            <svg class="progress-circle" viewBox="0 0 100 100">
+                                <circle class="progress-bg" cx="50" cy="50" r="45"></circle>
+                                <circle class="progress-fill" cx="50" cy="50" r="45"></circle>
+                            </svg>
+                            <div class="progress-value">0%</div>
+                            <div class="progress-icon"><i class="fab fa-adobe"></i></div>
+                        </div>
+                        <span class="progress-label">Adobe XD</span>
+                    </div>
+                    
+                    <!-- Figma -->
+                    <div class="progress-item animate-fade-in-up" style="animation-delay: 0.4s">
+                        <div class="circular-progress" data-percent="92">
+                            <svg class="progress-circle" viewBox="0 0 100 100">
+                                <circle class="progress-bg" cx="50" cy="50" r="45"></circle>
+                                <circle class="progress-fill" cx="50" cy="50" r="45"></circle>
+                            </svg>
+                            <div class="progress-value">0%</div>
+                            <div class="progress-icon"><i class="fab fa-figma"></i></div>
+                        </div>
+                        <span class="progress-label">Figma</span>
+                    </div>
+                    
+                    <!-- UI/UX Design -->
+                    <div class="progress-item animate-fade-in-up" style="animation-delay: 0.5s">
+                        <div class="circular-progress" data-percent="94">
+                            <svg class="progress-circle" viewBox="0 0 100 100">
+                                <circle class="progress-bg" cx="50" cy="50" r="45"></circle>
+                                <circle class="progress-fill" cx="50" cy="50" r="45"></circle>
+                            </svg>
+                            <div class="progress-value">0%</div>
+                            <div class="progress-icon"><i class="fas fa-paint-brush"></i></div>
+                        </div>
+                        <span class="progress-label">UI/UX Design</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Frontend Skills -->
+            <div class="skills-progress" style="margin-top: 50px;">
+                <h3 class="skills-subtitle">مهارت‌های توسعه فرانت‌اند</h3>
+                <div class="progress-grid">
+                    <!-- HTML/CSS -->
+                    <div class="progress-item animate-fade-in-up" style="animation-delay: 0.6s">
+                        <div class="circular-progress" data-percent="89">
+                            <svg class="progress-circle" viewBox="0 0 100 100">
+                                <circle class="progress-bg" cx="50" cy="50" r="45"></circle>
+                                <circle class="progress-fill" cx="50" cy="50" r="45"></circle>
+                            </svg>
+                            <div class="progress-value">0%</div>
+                            <div class="progress-icon"><i class="fab fa-html5"></i></div>
+                        </div>
+                        <span class="progress-label">HTML/CSS</span>
+                    </div>
+                    
+                    <!-- JavaScript -->
+                    <div class="progress-item animate-fade-in-up" style="animation-delay: 0.7s">
+                        <div class="circular-progress" data-percent="78">
+                            <svg class="progress-circle" viewBox="0 0 100 100">
+                                <circle class="progress-bg" cx="50" cy="50" r="45"></circle>
+                                <circle class="progress-fill" cx="50" cy="50" r="45"></circle>
+                            </svg>
+                            <div class="progress-value">0%</div>
+                            <div class="progress-icon"><i class="fab fa-js"></i></div>
+                        </div>
+                        <span class="progress-label">JavaScript</span>
+                    </div>
+                    
+                    <!-- React -->
+                    <div class="progress-item animate-fade-in-up" style="animation-delay: 0.8s">
+                        <div class="circular-progress" data-percent="75">
+                            <svg class="progress-circle" viewBox="0 0 100 100">
+                                <circle class="progress-bg" cx="50" cy="50" r="45"></circle>
+                                <circle class="progress-fill" cx="50" cy="50" r="45"></circle>
+                            </svg>
+                            <div class="progress-value">0%</div>
+                            <div class="progress-icon"><i class="fab fa-react"></i></div>
+                        </div>
+                        <span class="progress-label">React</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- WordPress Skills -->
+            <div class="skills-progress" style="margin-top: 50px;">
+                <h3 class="skills-subtitle">مهارت‌های وردپرس</h3>
+                <div class="progress-grid">
+                    <!-- WordPress Development -->
+                    <div class="progress-item animate-fade-in-up" style="animation-delay: 0.9s">
+                        <div class="circular-progress" data-percent="85">
+                            <svg class="progress-circle" viewBox="0 0 100 100">
+                                <circle class="progress-bg" cx="50" cy="50" r="45"></circle>
+                                <circle class="progress-fill" cx="50" cy="50" r="45"></circle>
+                            </svg>
+                            <div class="progress-value">0%</div>
+                            <div class="progress-icon"><i class="fab fa-wordpress"></i></div>
+                        </div>
+                        <span class="progress-label">توسعه وردپرس</span>
+                    </div>
+                    
+                    <!-- Theme Development -->
+                    <div class="progress-item animate-fade-in-up" style="animation-delay: 1.0s">
+                        <div class="circular-progress" data-percent="90">
+                            <svg class="progress-circle" viewBox="0 0 100 100">
+                                <circle class="progress-bg" cx="50" cy="50" r="45"></circle>
+                                <circle class="progress-fill" cx="50" cy="50" r="45"></circle>
+                            </svg>
+                            <div class="progress-value">0%</div>
+                            <div class="progress-icon"><i class="fas fa-paint-brush"></i></div>
+                        </div>
+                        <span class="progress-label">طراحی قالب</span>
+                    </div>
+                    
+                    <!-- Plugin Development -->
+                    <div class="progress-item animate-fade-in-up" style="animation-delay: 1.1s">
+                        <div class="circular-progress" data-percent="80">
+                            <svg class="progress-circle" viewBox="0 0 100 100">
+                                <circle class="progress-bg" cx="50" cy="50" r="45"></circle>
+                                <circle class="progress-fill" cx="50" cy="50" r="45"></circle>
+                            </svg>
+                            <div class="progress-value">0%</div>
+                            <div class="progress-icon"><i class="fas fa-puzzle-piece"></i></div>
+                        </div>
+                        <span class="progress-label">توسعه پلاگین</span>
+                    </div>
+                    
+                    <!-- WooCommerce -->
+                    <div class="progress-item animate-fade-in-up" style="animation-delay: 1.2s">
+                        <div class="circular-progress" data-percent="83">
+                            <svg class="progress-circle" viewBox="0 0 100 100">
+                                <circle class="progress-bg" cx="50" cy="50" r="45"></circle>
+                                <circle class="progress-fill" cx="50" cy="50" r="45"></circle>
+                            </svg>
+                            <div class="progress-value">0%</div>
+                            <div class="progress-icon"><i class="fas fa-shopping-cart"></i></div>
+                        </div>
+                        <span class="progress-label">WooCommerce</span>
+                    </div>
+                    
+                    <!-- Elementor -->
+                    <div class="progress-item animate-fade-in-up" style="animation-delay: 1.3s">
+                        <div class="circular-progress" data-percent="88">
+                            <svg class="progress-circle" viewBox="0 0 100 100">
+                                <circle class="progress-bg" cx="50" cy="50" r="45"></circle>
+                                <circle class="progress-fill" cx="50" cy="50" r="45"></circle>
+                            </svg>
+                            <div class="progress-value">0%</div>
+                            <div class="progress-icon"><i class="fas fa-sliders-h"></i></div>
+                        </div>
+                        <span class="progress-label">Elementor</span>
+                    </div>
+                    
+                    <!-- Speed Optimization -->
+                    <div class="progress-item animate-fade-in-up" style="animation-delay: 1.4s">
+                        <div class="circular-progress" data-percent="87">
+                            <svg class="progress-circle" viewBox="0 0 100 100">
+                                <circle class="progress-bg" cx="50" cy="50" r="45"></circle>
+                                <circle class="progress-fill" cx="50" cy="50" r="45"></circle>
+                            </svg>
+                            <div class="progress-value">0%</div>
+                            <div class="progress-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        </div>
+                        <span class="progress-label">بهینه‌سازی سرعت</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skills Cards -->
+            <div class="skills-cards">
+                <!-- Graphic Design Card -->
+                <div class="skill-card glass animate-fade-in-up" style="animation-delay: 0.2s">
+                    <div class="skill-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3 class="skill-title">طراحی گرافیک</h3>
+                    <ul class="skill-list">
+                        <li><span class="skill-item-icon">🎨</span> Photoshop، Illustrator، InDesign</li>
+                        <li><span class="skill-item-icon">✏️</span> CorelDRAW، طراحی لوگو، برندینگ</li>
+                        <li><span class="skill-item-icon">📇</span> کارت ویزیت، پوستر، بروشور</li>
+                        <li><span class="skill-item-icon">🎁</span> بسته‌بندی، ست اداری، تایپوگرافی</li>
+                        <li><span class="skill-item-icon">🖼️</span> ویرایش عکس، موکاپ</li>
+                    </ul>
+                    <button class="skill-expand-btn">نمایش جزئیات بیشتر +</button>
+                    <div class="skill-details">
+                        <p>طراحی حرفه‌ای و تخصص هویت بصری و برندینگ برای کسب‌وکارهای مختلف از استارتاپ‌ها تا شرکت‌های بزرگ.</p>
+                        <ul>
+                            <li>طراحی لوگو و هویت بصری</li>
+                            <li>طراحی بسته‌بندی محصولات</li>
+                            <li>طراحی ست اداری و کارت ویزیت</li>
+                            <li>طراحی پوستر و بروشور</li>
+                            <li>ویرایش حرفه‌ای تصاویر</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- UI/UX Design Card -->
+                <div class="skill-card glass animate-fade-in-up" style="animation-delay: 0.4s">
+                    <div class="skill-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 class="skill-title">طراحی UI/UX</h3>
+                    <ul class="skill-list">
+                        <li><span class="skill-item-icon">🖥️</span> Adobe XD، Figma</li>
+                        <li><span class="skill-item-icon">📱</span> وایرفریم، پروتوتایپ</li>
+                        <li><span class="skill-item-icon">✨</span> طراحی UI/UX برای سایت و اپلیکیشن</li>
+                        <li><span class="skill-item-icon">🔍</span> طراحی واکنش‌گرا</li>
+                        <li><span class="skill-item-icon">🧪</span> تست کاربری</li>
+                    </ul>
+                    <button class="skill-expand-btn">نمایش جزئیات بیشتر +</button>
+                    <div class="skill-details">
+                        <p>طراحی تجربه کاربری بر اساس اصول UX Research و روانشناسی رنگ‌ها. تمرکز بر سادگی و کاربرپسندی رابط‌های کاربری.</p>
+                        <ul>
+                            <li>تحلیل نیازهای کاربران</li>
+                            <li>طراحی وایرفریم و معماری اطلاعات</li>
+                            <li>طراحی رابط کاربری حرفه‌ای</li>
+                            <li>ساخت پروتوتایپ تعاملی</li>
+                            <li>تست کاربری و بهبود تجربه</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Frontend Development Card -->
+                <div class="skill-card glass animate-fade-in-up" style="animation-delay: 0.6s">
+                    <div class="skill-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="skill-title">توسعه فرانت‌اند</h3>
+                    <ul class="skill-list">
+                        <li><span class="skill-item-icon">🛠️</span> HTML5، CSS3، Bootstrap 5</li>
+                        <li><span class="skill-item-icon">🧩</span> JavaScript، Flexbox/Grid</li>
+                        <li><span class="skill-item-icon">🎨</span> Sass، Git/GitHub</li>
+                        <li><span class="skill-item-icon">⚛️</span> آشنایی با React</li>
+                        <li><span class="skill-item-icon">📱</span> طراحی ریسپانسیو</li>
+                    </ul>
+                    <button class="skill-expand-btn">نمایش جزئیات بیشتر +</button>
+                    <div class="skill-details">
+                        <p>تبدیل دقیق طرح‌های UI به کدهای تمیز و بهینه. تمرکز بر عملکرد و سرعت بارگذاری.</p>
+                        <ul>
+                            <li>توسعه رابط‌های کاربری مدرن</li>
+                            <li>پیاده‌سازی طرح‌های PSD و Figma</li>
+                            <li>بهینه‌سازی برای موتورهای جستجو</li>
+                            <li>تضمین سازگاری با مرورگرها</li>
+                            <li>پیاده‌سازی انیمیشن‌های CSS</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- WordPress Development Card -->
+                <div class="skill-card glass animate-fade-in-up" style="animation-delay: 0.8s">
+                    <div class="skill-icon">
+                        <i class="fab fa-wordpress"></i>
+                    </div>
+                    <h3 class="skill-title">توسعه وردپرس</h3>
+                    <ul class="skill-list">
+                        <li><span class="skill-item-icon">📌</span> توسعه قالب‌های سفارشی</li>
+                        <li><span class="skill-item-icon">🧩</span> ساخت پلاگین‌های اختصاصی</li>
+                        <li><span class="skill-item-icon">🛒</span> فروشگاه اینترنتی با WooCommerce</li>
+                        <li><span class="skill-item-icon">⚡</span> بهینه‌سازی سرعت و سئو</li>
+                        <li><span class="skill-item-icon">🔧</span> کار با Elementor و ACF</li>
+                    </ul>
+                    <button class="skill-expand-btn">نمایش جزئیات بیشتر +</button>
+                    <div class="skill-details">
+                        <p>توسعه راه‌حل‌های وردپرسی متناسب با نیازهای خاص هر کسب‌وکار با تمرکز بر امنیت و عملکرد.</p>
+                        <ul>
+                            <li>طراحی و توسعه قالب‌های سفارشی</li>
+                            <li>ساخت پلاگین‌های اختصاصی</li>
+                            <li>پیاده‌سازی فروشگاه اینترنتی</li>
+                            <li>بهینه‌سازی سرعت و سئو</li>
+                            <li>مهاجرت و ارتقای سایت‌ها</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio-section">
+        <div class="container">
+            <h2 class="section-title animate-fade-in-up">نمونه‌کارهای منتخب</h2>
+
+            <!-- Websites -->
+            <div class="portfolio-websites">
+                <h3 class="portfolio-subtitle">پروژه‌های وب‌سایت</h3>
+                <div class="website-grid">
+                    <!-- Website 1 - WordPress -->
+                    <div class="portfolio-item glass animate-fade-in-up">
+                        <div class="laptop-mockup">
+                            <div class="laptop-screen">
+                                <video poster="https://via.placeholder.com/800x500/0b1020/ffffff?text=Loading+Preview" preload="none" class="lazy-video hover-play" loop muted playsinline class="portfolio-video">
+                                    <source data-src="./یارا اکولاژ - تجربه‌ای بی‌نظیر در دل طبیعت سه‌هزار - Brave 2025-08-18 02-44-08 - Trim.mp4" type="video/mp4">
+                                    <img src="https://via.placeholder.com/800x500" alt="وب‌سایت شرکتی مدرن">
+                                </video>
+                            </div>
+                            <div class="laptop-base"></div>
+                        </div>
+                        <h4 class="portfolio-item-title">وب‌سایت شرکتی مدرن</h4>
+                        <p class="portfolio-item-desc">طراحی و توسعه وب‌سایت شرکتی با وردپرس و Elementor</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">وردپرس</span>
+                            <span class="portfolio-tag">Elementor</span>
+                            <span class="portfolio-tag">واکنشگرا</span>
+                        </div>
+                        <div class="portfolio-item-actions">
+                        </div>
+                    </div>
+                    
+                    <!-- Website 2 - WooCommerce -->
+                    <div class="portfolio-item glass animate-fade-in-up" style="animation-delay: 0.2s">
+                        <div class="laptop-mockup">
+                            <div class="laptop-screen">
+                                <video poster="https://via.placeholder.com/800x500/0b1020/ffffff?text=Loading+Preview" preload="none" class="lazy-video hover-play" loop muted playsinline class="portfolio-video">
+                                    <source data-src="./اسپادانا وندینگ _ اولین شبکه وندینگ ایران - Brave 2025-08-18 04-02-25.mp4" type="video/mp4">
+                                    <img src="https://via.placeholder.com/800x500" alt="اسپادانا وندینگ ">
+                                </video>
+                            </div>
+                            <div class="laptop-base"></div>
+                        </div>
+                        <h4 class="portfolio-item-title">اسپادانا</h4>
+                        <p class="portfolio-item-desc">طراحی و توسعه  با WooCommerce وردپرس</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">وردپرس</span>
+                            <span class="portfolio-tag">WooCommerce</span>
+                            <span class="portfolio-tag">پرداخت آنلاین</span>
+                        </div>
+                        <div class="portfolio-item-actions">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Digital Menus -->
+            <div class="portfolio-menus">
+                <h3 class="portfolio-subtitle">منوهای دیجیتال</h3>
+                <div class="menu-grid">
+                    <!-- Menu 1 -->
+                    <div class="menu-item glass animate-fade-in-up" style="animation-delay: 0.1s">
+                        <div class="mobile-mockup">
+                            <div class="mobile-screen"><div class="hover-hint">برای تعامل، نشانگر را روی صفحه ببرید</div>
+                                <iframe loading="lazy" referrerpolicy="no-referrer" class="interactive-frame" src="https://nirvanateam.github.io/P/DigitalMenu/Yolo" title="منوی دیجیتال"></iframe>
+                            </div>
+                        </div>
+                        <h4 class="menu-item-title">منوی کافه یولو</h4>
+                        <div classp c="menu-color-indicator bg-gradient-yellow"></div>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">طراحی گرافیک</span>
+                            <span class="portfolio-tag">منوی دیجیتال</span>
+                        </div>
+                        <div class="portfolio-item-actions">
+                        </div>
+                    </div>
+                    
+                    <!-- Menu 2 -->
+                    <div class="menu-item glass animate-fade-in-up" style="animation-delay: 0.2s">
+                        <div class="mobile-mockup">
+                            <div class="mobile-screen"><div class="hover-hint">برای تعامل، نشانگر را روی صفحه ببرید</div>
+                                <iframe loading="lazy" referrerpolicy="no-referrer" class="interactive-frame" src="https://nirvanateam.github.io/P/DigitalMenu/Donereto" title="منوی دیجیتال"></iframe>
+                            </div>
+                        </div>
+                        <h4 class="menu-item-title">رستوران دونریتو</h4>
+                        <p class="menu-item-desc"> منوی رستوران با طراحی مینیمال و مدرن</p>
+                        <div class="menu-color-indicator bg-gradient-green"></div>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">طراحی گرافیک</span>
+                            <span class="portfolio-tag">منوی دیجیتال</span>
+                        </div>
+                        <div class="portfolio-item-actions">
+                        </div>
+                    </div>
+                    
+                    <!-- Menu 3 -->
+                    <div class="menu-item glass animate-fade-in-up" style="animation-delay: 0.3s">
+                        <div class="mobile-mockup">
+                            <div class="mobile-screen"><div class="hover-hint">برای تعامل، نشانگر را روی صفحه ببرید</div>
+                                <iframe loading="lazy" referrerpolicy="no-referrer" class="interactive-frame" src="https://nirvanateam.github.io/P/DigitalMenu/MrPasta" title="منوی دیجیتال"></iframe>
+                            </div>
+                        </div>
+                        <h4 class="menu-item-title">مسترپاستا</h4>
+                        <p class="menu-item-desc"></p>
+                        <div class="menu-color-indicator bg-gradient-red"></div>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">طراحی گرافیک</span>
+                            <span class="portfolio-tag">منوی دیجیتال</span>
+                        </div>
+                        <div class="portfolio-item-actions">
+                        </div>
+                    </div>
+                    
+                    <!-- Menu 4 -->
+                    <div class="menu-item glass animate-fade-in-up" style="animation-delay: 0.4s">
+                        <div class="mobile-mockup">
+                            <div class="mobile-screen"><div class="hover-hint">برای تعامل، نشانگر را روی صفحه ببرید</div>
+                                <iframe loading="lazy" referrerpolicy="no-referrer" class="interactive-frame" src="https://nirvanateam.github.io/P/DigitalMenu/Turkay" title="منوی دیجیتال"></iframe>
+                            </div>
+                        </div>
+                        <h4 class="menu-item-title">رستوران ترکای</h4>
+                        <p class="menu-item-desc"></p>
+                        <div class="menu-color-indicator bg-gradient-purple"></div>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">طراحی گرافیک</span>
+                            <span class="portfolio-tag">منوی دیجیتال</span>
+                        </div>
+                        <div class="portfolio-item-actions">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        
+    <!-- About Section -->
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title animate-fade-in-up">تماس با من</h2>
+            <div class="contact-grid">
+                <!-- Contact Links -->
+                <div class="contact-card glass animate-fade-in-left">
+                    <h3 class="contact-card-title">راه‌های ارتباطی</h3>
+                    <div class="contact-links">
+                        <a href="mailto:dayanhosseinzadeh4@gmail.com" class="contact-link"><i class="fa fa-envelope"></i><span>dayanhosseinzadeh4@gmail.com</span></a>
+                        <a href="#" class="contact-link">
+                            <i class="fab fa-instagram"></i>
+                            <span>اینستاگرام</span>
+                        </a>
+                        <a href="https://t.me/dayanhosseinzadeh" class="contact-link" target="_blank" rel="noopener"><i class="fab fa-telegram"></i><span>@dayanhosseinzadeh</span></a>
+                        <a href="mailto:dayan@example.com" class="contact-link">
+                            <i class="fas fa-envelope"></i>
+                            <span>ایمیل</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Contact -->
+                <div class="contact-card glass animate-fade-in-right">
+                    <h3 class="contact-card-title">تماس سریع</h3>
+                    <div class="quick-contact">
+                        <p class="quick-contact-desc">
+                            برای مشاوره رایگان و دریافت قیمت پروژه‌تان با من در ارتباط باشید.
+                        </p>
+                        <div class="quick-contact-buttons">
+                            <a href="tel:+989024449547" class="btn btn-primary btn-sm">
+                                <i class="fas fa-phone"></i>
+                                تماس تلفنی
+                            </a>
+                            <a href="https://wa.me/989024449547" class="btn btn-outline btn-sm">
+                                <i class="fab fa-whatsapp"></i>
+                                واتساپ
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">© ۲۰۲۳ پرتفولیو دایان. تمامی حقوق محفوظ است.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="./script.js"></script>
+</body>
+</html>
