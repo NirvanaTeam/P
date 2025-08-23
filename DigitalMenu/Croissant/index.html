@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>کافه کروسان — صفحه اصلی</title>
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --brand-1:#DB6D38; /* orange */
+      --brand-2:#F4A153; /* apricot */
+      --ink:#111;
+      --muted:#666;
+      --bg:#ffffff;
+      --border:#eee;
+      --shadow:0 10px 30px rgba(0,0,0,.08);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; min-height:100vh;
+      font-family:"Vazirmatn",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--ink); background:var(--bg);
+    }
+
+    /* Loading (1s) */
+    .loading{
+      position:fixed; inset:0; background:#fff; display:grid; place-items:center;
+      z-index:9999; transition:opacity .35s ease;
+    }
+    .loading .box{
+      text-align:center;
+    }
+    .loading .logo{ width:92px; height:92px; border-radius:50%; margin:0 auto 14px; overflow:hidden; box-shadow:var(--shadow) }
+    .loading .logo img{ width:100%; height:100%; object-fit:contain }
+    .bar{
+      width:220px; height:6px; border-radius:999px; background:#f3f3f3; overflow:hidden; margin:10px auto 0;
+      border:1px solid var(--border);
+    }
+    .bar > i{
+      display:block; height:100%; width:0%;
+      background:linear-gradient(90deg,var(--brand-1),var(--brand-2));
+      transition:width .2s linear;
+    }
+
+    /* Header */
+    header{
+      width:100%; position:sticky; top:0; background:#fff; border-bottom:1px solid var(--border);
+    }
+    .header-wrap{ max-width:900px; margin:auto; padding:12px 16px; display:flex; align-items:center; gap:12px; justify-content:center }
+    .header-wrap img{ height:60px; width:auto; display:block }
+
+    /* Main */
+    main{ min-height:calc(100vh - 85px); display:grid; place-items:center; padding:24px }
+    .card{
+      text-align:center; width:100%; max-width:520px; padding:30px 24px; background:#fff; border:1px solid var(--border);
+      border-radius:var(--radius); box-shadow:var(--shadow);
+    }
+    .title{ font-weight:800; font-size:22px; margin:0 0 14px }
+    .subtitle{ color:var(--muted); margin-bottom:24px }
+
+    .actions{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap }
+    .btn{
+      appearance:none; border:none; cursor:pointer; font-weight:700; font-size:16px;
+      padding:14px 18px; border-radius:14px; min-width:180px; box-shadow:var(--shadow);
+      transition:transform .12s ease, box-shadow .2s ease, opacity .2s ease;
+      color:#fff; background:linear-gradient(135deg,var(--brand-1),var(--brand-2));
+    }
+    .btn.secondary{
+      color:var(--ink); background:#fff; border:1px solid var(--brand-2);
+    }
+    .btn:hover{ transform:translateY(-2px) }
+    .btn i{ margin-left:8px }
+
+    /* Modal */
+    .modal{
+      position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:999;
+      background:rgba(0,0,0,.35);
+    }
+    .modal.open{ display:flex }
+    .modal-card{
+      width:min(92vw,520px); background:#fff; border-radius:16px; border:1px solid var(--border); box-shadow:var(--shadow);
+      padding:18px;
+    }
+    .modal-head{ display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:10px }
+    .modal-head h3{ margin:0; font-size:18px }
+    .x{
+      border:none; background:#fff; width:36px; height:36px; border-radius:10px; cursor:pointer;
+      display:grid; place-items:center; border:1px solid var(--border);
+    }
+    .info-list{ list-style:none; padding:0; margin:6px 0 0 }
+    .info-list li{ display:flex; align-items:center; gap:10px; padding:12px 10px; border-radius:12px; border:1px dashed #ffd9c2; margin-top:10px; }
+    .info-list i{ color:var(--brand-1) }
+    .placeholder{ color:#bbb }
+
+    footer{ text-align:center; color:#999; padding:24px 16px }
+  </style>
+</head>
+<body>
+
+  <!-- Loading -->
+  <div class="loading" id="loading">
+    <div class="box" role="status" aria-live="polite">
+      <div class="logo"><img src="logg.png" alt="Cafe Croissant"></div>
+      <div class="bar" aria-hidden="true"><i id="barFill"></i></div>
+    </div>
+  </div>
+
+  <!-- Header with logo -->
+  <header>
+    <div class="header-wrap">
+      <img src="logg.png" alt="لوگوی کافه کروسان">
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main>
+    <div class="card" role="main">
+      <h1 class="title">به کافه کروسان خوش آمدید</h1>
+      <p class="subtitle">انتخاب کنید:</p>
+      <div class="actions">
+        <button id="infoBtn" class="btn"><i class="fa-solid fa-circle-info"></i>اطلاعات کافه</button>
+        <a class="btn secondary" href="menu.html"><i class="fa-solid fa-clipboard-list"></i>مشاهده منو</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal: Cafe info -->
+  <div class="modal" id="infoModal" aria-hidden="true" aria-labelledby="infoTitle" role="dialog">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3 id="infoTitle">اطلاعات کافه</h3>
+        <button class="x" id="closeModal" aria-label="بستن"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <ul class="info-list">
+        <li><i class="fa-brands fa-instagram"></i> اینستاگرام: <span class="placeholder">@</span></li>
+        <li><i class="fa-solid fa-phone"></i> شماره تماس: <span class="placeholder">— — ——</span></li>
+        <li><i class="fa-solid fa-location-dot"></i> لوکیشن: <span class="placeholder">—</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <footer>© ۱۴۰۴ کافه کروسان</footer>
+
+  <script>
+    // Loading duration: 1 second
+    const loading = document.getElementById('loading');
+    const barFill = document.getElementById('barFill');
+    let start = Date.now();
+    const total = 1000; // 1s
+    const tick = setInterval(()=>{
+      const p = Math.min(1, (Date.now()-start)/total);
+      barFill.style.width = (p*100).toFixed(0)+'%';
+      if(p >= 1){
+        clearInterval(tick);
+        loading.style.opacity = '0';
+        setTimeout(()=> loading.remove(), 350);
+      }
+    }, 20);
+
+    // Modal
+    const infoBtn = document.getElementById('infoBtn');
+    const infoModal = document.getElementById('infoModal');
+    const closeModal = document.getElementById('closeModal');
+
+    function openModal(){
+      infoModal.classList.add('open');
+      infoModal.setAttribute('aria-hidden','false');
+    }
+    function hideModal(){
+      infoModal.classList.remove('open');
+      infoModal.setAttribute('aria-hidden','true');
+    }
+    infoBtn.addEventListener('click', openModal);
+    closeModal.addEventListener('click', hideModal);
+    infoModal.addEventListener('click', (e)=>{ if(e.target === infoModal) hideModal(); });
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') hideModal(); });
+  </script>
+</body>
+</html>
