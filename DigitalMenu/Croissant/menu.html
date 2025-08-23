@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>کافه کروسان - منوی دیجیتال</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Vazir, Tahoma, sans-serif;
+        }
+        
+        body {
+            background-color: #506551;
+            padding: 10px;
+            overflow-x: hidden;
+            color: #333;
+        }
+        
+        .menu-container {
+            display: flex;
+            height: 100vh;
+            gap: 10px;
+            position: relative;
+        }
+        
+        .cart-icon {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #4a5f4d;
+            color: #f9f9f4;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #f9f9f4;
+            color: #4a5f4d;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            left: -350px;
+            width: 350px;
+            height: 100%;
+            background-color: #4a5f4d;
+            color: #f9f9f4;
+            padding: 20px;
+            transition: all 0.3s ease;
+            z-index: 99;
+            overflow-y: auto;
+        }
+        
+        .cart-sidebar.open {
+            left: 0;
+        }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f9f9f4;
+        }
+        
+        .close-cart {
+            background: none;
+            border: none;
+            color: #f9f9f4;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .cart-items {
+            margin-bottom: 20px;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #f9f9f4;
+        }
+        
+        .cart-item-info {
+            flex: 1;
+        }
+        
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .cart-item-quantity {
+            background-color: #333;
+            color: #f9f9f4;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .cart-item-btn {
+            background-color: #333;
+            color: #f9f9f4;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .cart-item-btn:hover {
+            background-color: #444;
+        }
+        
+        .cart-total {
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .whatsapp-btn {
+            background-color: #25D366;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+        }
+        
+        .categories-sidebar {
+            width: 120px;
+            background-color: rgba(74, 95, 77, 0.5);
+            backdrop-filter: blur(2px);
+            border-radius: 20px 0 0 20px;
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+            overflow-y: auto;
+            border: 1px solid #f9f9f4;
+        }
+        
+        .category-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 10px 5px;
+            cursor: pointer;
+            border-radius: 15px;
+            transition: all 0.4s ease;
+            color: #f9f9f4;
+            text-align: center;
+        }
+        
+        .category-item:hover {
+            background-color: #333;
+            transform: translateY(-2px);
+        }
+        
+        .category-item.active {
+            background-color: #f9f9f4;
+            color: #4a5f4d;
+            box-shadow: 0 5px 15px rgba(249, 249, 244, 0.3);
+            border: 1px solid #f9f9f4;
+        }
+        
+        .category-icon {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .category-name {
+            font-size: 14px;
+            font-weight: 500;
+            white-space: pre-line;
+        }
+        
+        .items-container {
+            flex: 1;
+            background-color: rgba(249, 249, 244, 0.5);
+            backdrop-filter: blur(2px);
+            border-radius: 0 20px 20px 0;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            position: relative;
+            border: 1px solid #f9f9f4;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .items-content {
+            flex: 1;
+        }
+        
+        .items-title {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: #000;
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed #f9f9f4;
+            position: relative;
+            z-index: 1;
+            font-weight: 500;
+        }
+        
+        .items-english-title {
+            font-size: 16px;
+            color: #666;
+            text-align: center;
+            margin-top: -15px;
+            margin-bottom: 15px;
+        }
+        
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .menu-item {
+            background-color: #fff;
+            padding: 14px;
+            border-radius: 10px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(15px);
+            animation: fadeIn 0.8s forwards;
+            border-right: 3px solid #4a5f4d;
+            border: 1px solid #f9f9f4;
+            position: relative;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .item-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .item-name {
+            font-weight: 500;
+            font-size: 15px;
+            color: #000;
+            margin-bottom: 5px;
+        }
+        
+        .item-description {
+            color: #666;
+            font-size: 13px;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        
+        .item-price-container {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-top: 10px;
+        }
+        
+        .price-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .price-option:last-child {
+            border-bottom: none;
+        }
+        
+        .price-label {
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .price-value {
+            color: #000;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .add-to-cart-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        
+        .add-to-cart {
+            background-color: #4a5f4d;
+            color: #f9f9f4;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            flex: 1;
+            justify-content: center;
+        }
+        
+        .add-to-cart:hover {
+            background-color: #3a4f3d;
+        }
+        
+        .add-to-cart-half {
+            margin-left: 5px;
+            background-color: #6c757d;
+        }
+        
+        .add-to-cart-half:hover {
+            background-color: #5a6268;
+        }
+        
+        .add-to-cart i {
+            font-size: 16px;
+        }
+        
+        .cafe-logo {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 10px;
+            border: 1px solid #f9f9f4;
+        }
+        
+        .cafe-logo img {
+            max-width: 150px;
+            max-height: 80px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 15px;
+            margin-top: auto;
+            background-color: #fff;
+            border-radius: 10px;
+            border-top: 1px solid #f9f9f4;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .order-form {
+            display: none;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .order-form.active {
+            display: block;
+        }
+        
+        .order-form h3 {
+            color: #000;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .order-form input, .order-form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: Vazir, Tahoma, sans-serif;
+        }
+        
+        .order-form-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        
+        .order-form-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .order-form-submit {
+            background-color: #25D366;
+            color: white;
+        }
+        
+        .order-form-cancel {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        .map-container {
+            display: none;
+            height: 300px;
+            margin-top: 15px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .map-container.active {
+            display: block;
+        }
+        
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+        
+        .device-selection {
+            display: none;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .device-selection.active {
+            display: block;
+        }
+        
+        .device-selection h3 {
+            color: #000;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .device-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        
+        .device-btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        
+        .ios-btn {
+            background-color: #007AFF;
+            color: white;
+        }
+        
+        .android-btn {
+            background-color: #3DDC84;
+            color: white;
+        }
+        
+        .device-icon {
+            font-size: 24px;
+        }
+        
+        @media (max-width: 768px) {
+            .menu-container {
+                flex-direction: row;
+                height: 100vh;
+            }
+            
+            .categories-sidebar {
+                width: 100px;
+                flex-direction: column;
+                flex-wrap: nowrap;
+                border-radius: 20px 0 0 20px;
+                padding: 15px 8px;
+                gap: 15px;
+                justify-content: flex-start;
+                overflow-y: auto;
+            }
+            
+            .category-item {
+                width: 100%;
+                padding: 10px 5px;
+                min-height: auto;
+            }
+            
+            .category-name {
+                font-size: 12px;
+                line-height: 1.4;
+            }
+            
+            .items-container {
+                border-radius: 0 20px 20px 0;
+                padding: 15px;
+            }
+            
+            .cafe-logo img {
+                max-width: 120px;
+            }
+            
+            .menu-items {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .items-title {
+                font-size: 20px;
+            }
+            
+            .items-english-title {
+                font-size: 14px;
+            }
+            
+            .cart-sidebar {
+                width: 300px;
+            }
+            
+            .add-to-cart {
+                padding: 6px 8px;
+                font-size: 12px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .categories-sidebar {
+                width: 85px;
+                padding: 12px 5px;
+                gap: 12px;
+            }
+            
+            .category-name {
+                font-size: 11px;
+            }
+            
+            .menu-items {
+                grid-template-columns: 1fr;
+            }
+            
+            .device-buttons {
+                flex-direction: column;
+            }
+        }
+    
+/* ===== Cafe Croissant — Overrides ===== */
+:root{ --brand-1:#DB6D38; --brand-2:#F4A153; }
+body{ background:#fafafa !important; color:#111 !important; }
+.header, .footer{ background:#fff !important; color:#111 !important; }
+.menu-container{ background:transparent !important; }
+.categories-sidebar, .items-content, .cart{ background:#fff !important; }
+.category-item.active{ background: linear-gradient(135deg,var(--brand-1),var(--brand-2)) !important; color:#fff !important; border-color: transparent !important;}
+.category-item{ background:#fff !important; border:1px solid #eee !important; color:#111 !important; }
+.items-title{ border-bottom:2px dashed #ffd9c2 !important; color:#111 !important; }
+.item-name{ color:#111 !important; }
+.item-description{ color:#444 !important; }
+.item-image{ display:none !important; } /* remove item images */
+.add-to-cart-container, .add-to-cart, .cart-icon, .cart, #cartIcon, #cartSidebar, #whatsappBtn, #deviceSelection, #orderForm, #mapContainer { display:none !important; } /* remove shopping/cart & order flow */
+a, .btn, button{ border-radius:10px }
+.price-option .price-label{ display:none !important; } /* hide 'نیم پرس/یک پرس' labels */
+
+</style>
+</head>
+<body>
+    <!-- سبد خرید -->
+    <div class="cart-icon" id="cartIcon">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count" id="cartCount">0</span>
+    </div>
+    
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>سبد خرید شما</h3>
+            <button class="close-cart" id="closeCart">✕</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- آیتم‌های سبد خرید اینجا نمایش داده می‌شوند -->
+        </div>
+        <div class="cart-total" id="cartTotal">
+            مجموع: ۰ تومان
+        </div>
+        <button class="whatsapp-btn" id="whatsappBtn">
+            ارسال از طریق واتساپ
+        </button>
+        
+        <!-- انتخاب دستگاه -->
+        <div class="device-selection" id="deviceSelection">
+            <h3>لطفا نوع دستگاه خود را انتخاب کنید</h3>
+            <div class="device-buttons">
+                <button class="device-btn ios-btn" id="iosBtn">
+                    <i class="fab fa-apple device-icon"></i>
+                    آیفون
+                </button>
+                <button class="device-btn android-btn" id="androidBtn">
+                    <i class="fab fa-android device-icon"></i>
+                    اندروید
+                </button>
+            </div>
+        </div>
+        
+        <!-- فرم سفارش -->
+        <div class="order-form" id="orderForm">
+            <h3 id="orderFormTitle">لطفا اطلاعات سفارش را وارد کنید</h3>
+            <input type="text" id="customerName" placeholder="نام شما" required>
+            <input type="text" id="customerAddress" placeholder="پلاک و واحد" required>
+            <div id="mapContainer" class="map-container">
+                <div id="map"></div>
+            </div>
+            <div class="order-form-buttons">
+                <button class="order-form-btn order-form-cancel" id="orderCancel">انصراف</button>
+                <button class="order-form-btn order-form-submit" id="orderSubmit">ادامه</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu-container">
+        <div class="categories-sidebar" id="categoriesSidebar">
+            <!-- دسته‌بندی‌ها توسط جاوااسکریپت اضافه می‌شوند -->
+        </div>
+        <div class="items-container" id="itemsContainer">
+            <div class="items-content">
+                <h2 class="items-title" id="itemsTitle">کافه کروسان</h2>
+                <div class="items-english-title" id="itemsEnglishTitle">Cafe Croissant</div>
+                <div class="menu-items" id="menuItems">
+                    <!-- آیتم‌ها توسط جاوااسکریپت اضافه می‌شوند -->
+                </div>
+                
+                <!-- لوگوی رستوران -->
+                <div class="cafe-logo">
+                    <img src="logg.png" alt="لوگوی رستوران">
+                </div>
+            </div>
+            
+            <!-- فوتر -->
+            <div class="footer">
+                تمامی حقوق محفوظ است | کافه کروسان ۱۴۰۳ ©
+            </div>
+        </div>
+    </div>
+
+    <!-- اضافه کردن کتابخانه Leaflet برای نقشه -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    
+    <script>
+        // تابع برای تبدیل اعداد انگلیسی به فارسی
+        function toPersianNumbers(num) {
+            const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+            return num.toString().replace(/\d/g, function(match) {
+                return persianNumbers[parseInt(match)];
+            });
+        }
+
+        // تابع برای فرمت کردن قیمت با کاما
+        function formatPrice(price) {
+            return toPersianNumbers(price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        }
+
+        // داده‌های منو
+        const menuData = {
+  "قهوه و چای": {
+    "english": "COFFEE & TEA",
+    "icon": "fa-solid fa-mug-saucer",
+    "items": [
+{
+        "name": "اسپرسو",
+        "price": 70
+      },
+{
+        "name": "آمریکانو",
+        "price": 75
+      },
+{
+        "name": "کاپوچینو",
+        "price": 110
+      },
+{
+        "name": "لاته",
+        "price": 118
+      },
+{
+        "name": "موکا",
+        "price": 140
+      },
+{
+        "name": "کارامل ماکیاتو",
+        "price": 130
+      },
+{
+        "name": "اسپرسو ماکیاتو",
+        "price": 130
+      },
+{
+        "name": "ماسالا",
+        "price": 100
+      },
+{
+        "name": "آفوگاتو",
+        "price": 145
+      },
+{
+        "name": "ترک",
+        "price": 100
+      },
+{
+        "name": "بلک لته",
+        "price": 138
+      },
+{
+        "name": "هات چاکلت",
+        "price": 130
+      },
+{
+        "name": "کارامل پینات",
+        "price": 180,
+        "description": "نوشیدنی کاراملی با ته‌طعم بادام‌زمینی"
+      },
+{
+        "name": "وایت چاکلت",
+        "price": 130
+      },
+{
+        "name": "چای",
+        "price": 50
+      }
+    ]
+  },
+  "قهوه سرد": {
+    "english": "COLD COFFEE",
+    "icon": "fa-solid fa-snowflake",
+    "items": [
+{
+        "name": "آیس کارامل ماکیاتو",
+        "price": 130
+      },
+{
+        "name": "آیس لاته",
+        "price": 123
+      },
+{
+        "name": "آیس موکا",
+        "price": 145
+      },
+{
+        "name": "آیس آمریکانو",
+        "price": 80
+      },
+{
+        "name": "آیس چاکلت نات",
+        "price": 150
+      },
+{
+        "name": "کافئین بمب",
+        "price": 130
+      }
+    ]
+  },
+  "نوشیدنی‌های سرد": {
+    "english": "COLD MENU",
+    "icon": "fa-solid fa-martini-glass-citrus",
+    "items": [
+{
+        "name": "لیموناد",
+        "price": 160
+      },
+{
+        "name": "پیناکولادا",
+        "price": 195
+      },
+{
+        "name": "استرابری لیموناد",
+        "price": 175
+      },
+{
+        "name": "اوشن",
+        "price": 185
+      },
+{
+        "name": "اسپرسو لیموناد",
+        "price": 165
+      },
+{
+        "name": "کوئین",
+        "price": 190
+      },
+{
+        "name": "خیار سکنجبین",
+        "price": 165
+      },
+{
+        "name": "رینبو",
+        "price": 185
+      },
+{
+        "name": "پی پینک",
+        "price": 195
+      }
+    ]
+  },
+  "دمنوش‌های گیاهی": {
+    "english": "HERBAL TEA",
+    "icon": "fa-solid fa-seedling",
+    "items": [
+{
+        "name": "دمنوش آرامش",
+        "price": 65
+      },
+{
+        "name": "گل گاو زبان",
+        "price": 60
+      },
+{
+        "name": "دمنوش سرماخوردگی",
+        "price": 75
+      },
+{
+        "name": "دمنوش بهار نارنج",
+        "price": 60
+      },
+{
+        "name": "دمنوش شادی",
+        "price": 70
+      },
+{
+        "name": "دمنوش ویژه C_ROLL",
+        "price": 75
+      }
+    ]
+  },
+  "صبحانه": {
+    "english": "BREAKFAST",
+    "icon": "fa-solid fa-egg",
+    "items": [
+{
+        "name": "نیمرو",
+        "price": 80
+      },
+{
+        "name": "املت",
+        "price": 85
+      },
+{
+        "name": "سوسیس تخم‌مرغ",
+        "price": 90
+      },
+{
+        "name": "صبحانه ایرانی",
+        "price": 70
+      },
+{
+        "name": "تخم‌مرغ آب‌پز",
+        "price": 80
+      }
+    ]
+  },
+  "ساندویچ": {
+    "english": "SANDWICH",
+    "icon": "fa-solid fa-burger",
+    "items": [
+{
+        "name": "سینه بوقلمون",
+        "price": 95,
+        "description": "سینه بوقلمون اسلایس، گوجه، پنیر گودا."
+      },
+{
+        "name": "کلاب پنیر گردو",
+        "price": 66,
+        "description": "پنیر خامه‌ای میکس شده با گردو."
+      },
+{
+        "name": "سالامی",
+        "price": 85,
+        "description": "سالامی اسلایس، تخم‌مرغ، گوجه، سس مایونز."
+      },
+{
+        "name": "ژامبون مرغ",
+        "price": 93,
+        "description": "ژامبون مرغ، گوجه، پنیر گودا."
+      },
+{
+        "name": "دونر مرغ",
+        "price": 99,
+        "description": "سینه مرغ دودی، پیاز، فلفل دلمه، قارچ، گوجه."
+      }
+    ]
+  },
+  "کروسان": {
+    "english": "CROISSANT",
+    "icon": "fa-solid fa-croissant",
+    "items": [
+{
+        "name": "کروسان ساده",
+        "price": 45
+      },
+{
+        "name": "کروسان میوه‌ای",
+        "price": 55
+      },
+{
+        "name": "کروسان اِگ",
+        "price": 65
+      },
+{
+        "name": "کروسان شکلات",
+        "price": 65
+      },
+{
+        "name": "کروسان بادام زمینی",
+        "price": 65
+      },
+{
+        "name": "کروسان موز شکلات",
+        "price": 65
+      }
+    ]
+  }
+};;
+
+        // متغیرهای DOM
+        const categoriesSidebar = document.getElementById('categoriesSidebar');
+        const menuItems = document.getElementById('menuItems');
+        const itemsTitle = document.getElementById('itemsTitle');
+        const itemsEnglishTitle = document.getElementById('itemsEnglishTitle');
+        const cartIcon = document.getElementById('cartIcon');
+        const cartSidebar = document.getElementById('cartSidebar');
+        const closeCart = document.getElementById('closeCart');
+        const cartItems = document.getElementById('cartItems');
+        const cartCount = document.getElementById('cartCount');
+        const cartTotal = document.getElementById('cartTotal');
+        const whatsappBtn = document.getElementById('whatsappBtn');
+        const deviceSelection = document.getElementById('deviceSelection');
+        const iosBtn = document.getElementById('iosBtn');
+        const androidBtn = document.getElementById('androidBtn');
+        const orderForm = document.getElementById('orderForm');
+        const orderFormTitle = document.getElementById('orderFormTitle');
+        const customerName = document.getElementById('customerName');
+        const customerAddress = document.getElementById('customerAddress');
+        const mapContainer = document.getElementById('mapContainer');
+        const orderCancel = document.getElementById('orderCancel');
+        const orderSubmit = document.getElementById('orderSubmit');
+        
+        // متغیرهای نقشه
+        let map;
+        let marker;
+        let isIOS = false;
+
+        // سبد خرید
+        let cart = [];
+        let customerLocation = null;
+
+        // ایجاد دکمه‌های دسته‌بندی
+        Object.keys(menuData).forEach(category => {
+            const categoryItem = document.createElement('div');
+            categoryItem.className = 'category-item';
+            categoryItem.innerHTML = `
+                <i class="${menuData[category].icon} category-icon"></i>
+                <div class="category-name">${category}</div>
+            `;
+            
+            categoryItem.addEventListener('click', () => {
+                document.querySelectorAll('.category-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                categoryItem.classList.add('active');
+                updateItems(category);
+            });
+            
+            categoriesSidebar.appendChild(categoryItem);
+        });
+
+        // تنظیم اولین دسته‌بندی به عنوان فعال پیش‌فرض
+        document.querySelector('.category-item').classList.add('active');
+        updateItems(Object.keys(menuData)[0]);
+
+        // تابع برای به‌روزرسانی آیتم‌ها بر اساس دسته‌بندی انتخاب شده
+        
+
+
+function updateItems(category) {
+    menuItems.innerHTML = '';
+    itemsTitle.textContent = category;
+    itemsEnglishTitle.textContent = menuData[category].english;
+
+    const toFaDigits = (s) => String(s).replace(/[0-9]/g, d => "۰۱۲۳۴۵۶۷۸۹"[d]);
+    const formatK = (n) => toFaDigits(n) + ' هزار تومان';
+
+    menuData[category].items.forEach((item, index) => {
+        const el = document.createElement('div');
+        el.className = 'menu-item';
+        el.style.animationDelay = `${index * 0.1}s`;
+
+        const priceStr = (item.price !== undefined) ? formatK(item.price) 
+                        : (item.fullPrice !== undefined ? (formatPrice(item.fullPrice) + ' تومان') : '');
+
+        el.innerHTML = [
+            '<div class="item-name">' + item.name + '</div>',
+            item.description ? '<div class="item-description">' + item.description + '</div>' : '',
+            '<div class="item-price-container"><div class="price-option"><span class="price-value">' + priceStr + '</span></div></div>'
+        ].join('');
+
+        menuItems.appendChild(el);
+    });
+}
+
+// تابع برای اضافه کردن آیتم به سبد خرید
+        function addToCart(name, price, portionType) {
+            const existingItem = cart.find(item => item.name === name && item.portionType === portionType);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+                existingItem.totalPrice = existingItem.quantity * price;
+            } else {
+                cart.push({
+                    name,
+                    price,
+                    portionType,
+                    quantity: 1,
+                    totalPrice: price
+                });
+            }
+            
+            updateCart();
+            
+            // انیمیشن برای سبد خرید
+            cartIcon.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                cartIcon.style.transform = 'scale(1)';
+            }, 300);
+        }
+
+        // تابع برای به‌روزرسانی سبد خرید
+        function updateCart() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            cartItems.innerHTML = '';
+            let total = 0;
+            
+            cart.forEach((item, index) => {
+                total += item.totalPrice;
+                
+                const cartItemElement = document.createElement('div');
+                cartItemElement.className = 'cart-item';
+                cartItemElement.innerHTML = `
+                    <div class="cart-item-info">
+                        <div>${item.name} (${item.portionType})</div>
+                        <div>${formatPrice(item.totalPrice)} تومان</div>
+                    </div>
+                    <div class="cart-item-controls">
+                        <button class="cart-item-btn minus" data-index="${index}">-</button>
+                        <span class="cart-item-quantity">${toPersianNumbers(item.quantity)}</span>
+                        <button class="cart-item-btn plus" data-index="${index}">+</button>
+                    </div>
+                `;
+                cartItems.appendChild(cartItemElement);
+            });
+            
+            cartTotal.textContent = `مجموع: ${formatPrice(total)} تومان`;
+            
+            // اضافه کردن رویداد به دکمه‌های کم و زیاد کردن تعداد
+            document.querySelectorAll('.cart-item-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    const item = cart[index];
+                    const price = item.totalPrice / item.quantity;
+                    
+                    if (this.classList.contains('plus')) {
+                        item.quantity += 1;
+                        item.totalPrice = item.quantity * price;
+                    } else if (this.classList.contains('minus')) {
+                        if (item.quantity > 1) {
+                            item.quantity -= 1;
+                            item.totalPrice = item.quantity * price;
+                        } else {
+                            cart.splice(index, 1);
+                        }
+                    }
+                    
+                    updateCart();
+                });
+            });
+        }
+
+        // رویدادهای سبد خرید
+        // (disabled) // removed: cartIcon.addEventListener listener
+// (disabled) // removed: closeCart.addEventListener listener
+// تابع برای دریافت موقعیت مکانی
+        function getLocation() {
+            return new Promise((resolve, reject) => {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        position => {
+                            const lat = position.coords.latitude;
+                            const lng = position.coords.longitude;
+                            resolve({ lat, lng });
+                        },
+                        error => {
+                            reject(error);
+                        }
+                    );
+                } else {
+                    reject(new Error("مرورگر شما از موقعیت مکانی پشتیبانی نمی‌کند"));
+                }
+            });
+        }
+        
+        // رویداد کلیک روی دکمه واتساپ
+        whatsappBtn.addEventListener('click', () => {
+            if (cart.length === 0) {
+                alert('سبد خرید شما خالی است!');
+                return;
+            }
+            
+            whatsappBtn.style.display = 'none';
+            deviceSelection.classList.add('active');
+        });
+        
+        // رویدادهای انتخاب دستگاه
+        iosBtn.addEventListener('click', () => {
+            isIOS = true;
+            deviceSelection.classList.remove('active');
+            orderFormTitle.textContent = 'لطفا اطلاعات سفارش را وارد کنید (آیفون)';
+            orderForm.classList.add('active');
+            mapContainer.classList.add('active');
+            
+            if (!map) {
+                map = L.map('map').setView([35.6929931, 51.2527593], 16);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }).addTo(map);
+                
+                marker = L.marker([35.6929931, 51.2527593], {
+                    draggable: true
+                }).addTo(map);
+                
+                marker.on('dragend', function() {
+                    customerLocation = {
+                        lat: marker.getLatLng().lat,
+                        lng: marker.getLatLng().lng
+                    };
+                });
+            }
+        });
+        
+        androidBtn.addEventListener('click', () => {
+            isIOS = false;
+            deviceSelection.classList.remove('active');
+            orderFormTitle.textContent = 'لطفا اطلاعات سفارش را وارد کنید (اندروید)';
+            orderForm.classList.add('active');
+            mapContainer.classList.remove('active');
+        });
+        
+        // رویدادهای فرم سفارش
+        orderCancel.addEventListener('click', () => {
+            orderForm.classList.remove('active');
+            mapContainer.classList.remove('active');
+            deviceSelection.classList.add('active');
+        });
+        
+        orderSubmit.addEventListener('click', async () => {
+            const name = customerName.value.trim();
+            const address = customerAddress.value.trim();
+            
+            if (!name || !address) {
+                alert('لطفا تمام فیلدهای ضروری را پر کنید');
+                return;
+            }
+            
+            try {
+                if (!isIOS) {
+                    const location = await getLocation();
+                    customerLocation = location;
+                }
+                
+                let message = `سفارش از: ${name}\n`;
+                message += `آدرس: ${address}\n\n`;
+                message += 'سفارش من:\n\n';
+                let total = 0;
+                
+                cart.forEach(item => {
+                    message += `${item.name} (${item.portionType}) - ${toPersianNumbers(item.quantity)} عدد - ${formatPrice(item.totalPrice)} تومان\n`;
+                    total += item.totalPrice;
+                });
+                
+                message += `\nمجموع: ${formatPrice(total)} تومان\n\n`;
+                
+                if (customerLocation) {
+                    const mapUrl = `https://www.google.com/maps?q=${customerLocation.lat},${customerLocation.lng}`;
+                    message += `موقعیت مکانی:\n${mapUrl}`;
+                } else {
+                    message += 'موقعیت مکانی دریافت نشد';
+                }
+                
+                const phoneNumber = '09359790366';
+                const encodedMessage = encodeURIComponent(message);
+                window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
+                
+                // ریست فرم
+                customerName.value = '';
+                customerAddress.value = '';
+                orderForm.classList.remove('active');
+                mapContainer.classList.remove('active');
+                whatsappBtn.style.display = 'block';
+            } catch (error) {
+                console.error('خطا در ارسال سفارش:', error);
+                alert('خطا در ارسال سفارش. لطفا دوباره تلاش کنید.');
+            }
+        });
+    </script>
+</body>
+</html>
