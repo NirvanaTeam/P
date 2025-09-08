@@ -1,418 +1,343 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منوی کافه لوچه</title>
-        <link rel="stylesheet" href="https://cdn.fontcdn.ir/Font/Persian/Vazir/Vazir.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Vazir, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: #1F2F87;
-            padding: 10px;
-            overflow-x: hidden;
-            color: #F7EEDD;
-        }
-        
-        .menu-container {
-            display: flex;
-            height: 100vh;
-            gap: 10px;
-            position: relative;
-        }
-        
-        .categories-sidebar {
-            width: 120px;
-            background-color: #1A2672;
-            border-radius: 20px 0 0 20px;
-            padding: 20px 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 30px;
-            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3);
-            z-index: 2;
-            overflow-y: auto;
-            border: 1px solid #2A3AA3;
-        }
-        
-        .category-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            padding: 10px 5px;
-            cursor: pointer;
-            border-radius: 15px;
-            transition: all 0.4s ease;
-            color: #D9D1C7;
-            text-align: center;
-        }
-        
-        .category-item:hover {
-            background-color: #2A3AA3;
-            transform: translateY(-2px);
-        }
-        
-        .category-item.active {
-            background-color: #3A4AB3;
-            color: #F7EEDD;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-            border: 1px solid #4A5AC3;
-        }
-        
-        .category-icon {
-            font-size: 28px;
-            margin-bottom: 8px;
-        }
-        
-        .category-name {
-            font-size: 14px;
-            font-weight: 500;
-        }
-        
-        .items-container {
-            flex: 1;
-            background-color: #1A2672;
-            border-radius: 0 20px 20px 0;
-            padding: 20px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-            overflow-y: auto;
-            position: relative;
-            border: 1px solid #2A3AA3;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .items-content {
-            flex: 1;
-        }
-        
-        .items-title {
-            font-size: 22px;
-            margin-bottom: 20px;
-            color: #F7EEDD;
-            text-align: center;
-            padding-bottom: 10px;
-            border-bottom: 2px dashed #3A4AB3;
-            position: relative;
-            z-index: 1;
-            font-weight: 500;
-        }
-        
-        .menu-items {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-        
-        .menu-item {
-            background-color: #2A3AA3;
-            padding: 14px;
-            border-radius: 10px;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-            transition: all 0.4s ease;
-            opacity: 0;
-            transform: translateY(15px);
-            animation: fadeIn 0.8s forwards;
-            border-right: 3px solid #F7EEDD;
-        }
-        
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .item-name {
-            font-weight: 700;
-            font-size: 15px;
-            color: #F7EEDD;
-            margin-bottom: 5px;
-        }
-        
-        .item-description {
-            font-size: 13px;
-            color: #B8B0A5;
-            margin-bottom: 8px;
-            line-height: 1.4;
-        }
-        
-        .item-price {
-            color: #D9D1C7;
-            font-weight: 500;
-            font-size: 16px;
-        }
-        
-        .cafe-logo {
-            text-align: center;
-            margin: 20px 0;
-            padding: 15px;
-            background-color: #2A3AA3;
-            border-radius: 10px;
-            border: 1px solid #3A4AB3;
-        }
-        
-        .cafe-logo img {
-            max-width: 150px;
-            max-height: 80px;
-        }
-        
-        .footer {
-            text-align: center;
-            padding: 15px;
-            margin-top: auto;
-            background-color: #2A3AA3;
-            border-radius: 10px;
-            border-top: 1px solid #3A4AB3;
-            font-size: 14px;
-            color: #B8B0A5;
-        }
-        
-        .footer a {
-            color: #D9D1C7;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer a:hover {
-            color: #F7EEDD;
-            text-decoration: underline;
-        }
-        
-        @media (max-width: 768px) {
-            .menu-container {
-                flex-direction: row;
-                height: 100vh;
-            }
-            
-            .categories-sidebar {
-                width: 100px;
-                flex-direction: column;
-                flex-wrap: nowrap;
-                border-radius: 20px 0 0 20px;
-                padding: 15px 8px;
-                gap: 15px;
-                justify-content: flex-start;
-                overflow-y: auto;
-            }
-            
-            .category-item {
-                width: 100%;
-                padding: 10px 5px;
-                min-height: auto;
-            }
-            
-            .category-icon {
-                font-size: 22px;
-            }
-            
-            .category-name {
-                font-size: 12px;
-                line-height: 1.4;
-            }
-            
-            .items-container {
-                border-radius: 0 20px 20px 0;
-                padding: 15px;
-            }
-            
-            .cafe-logo img {
-                max-width: 120px;
-            }
-            
-            .menu-items {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            }
-            
-            .items-title {
-                font-size: 20px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .categories-sidebar {
-                width: 85px;
-                padding: 12px 5px;
-                gap: 12px;
-            }
-            
-            .category-icon {
-                font-size: 18px;
-            }
-            
-            .category-name {
-                font-size: 11px;
-            }
-            
-            .menu-items {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>کافه لوچه — منو</title>
+
+  <!-- Vazir Font (Persian) -->
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+  <style>
+    :root{
+      /* Brand palette — Cafe Lucche */
+      --blue-1: #1A2672;
+      --blue-2: #1F2F87;
+      --ink: #ffffff;
+      --muted: rgba(255,255,255,.75);
+      --card: rgba(255,255,255,.06);       /* translucent */
+      --stroke: rgba(255,255,255,.12);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --blur: blur(10px) saturate(140%);
+      --chip: rgba(255,255,255,.09);
+    }
+
+    *{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+    html, body { height:100%; }
+    body{
+      margin:0;
+      font-family: Vazir, Tahoma, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--ink);
+      /* layered gradients to avoid a flat look */
+      background:
+        radial-gradient(1200px 800px at 80% -10%, rgba(255,255,255,.14), transparent 55%),
+        radial-gradient(900px 700px at -10% 100%, rgba(255,255,255,.08), transparent 55%),
+        conic-gradient(from 140deg at 20% 10%, rgba(255,255,255,.06), transparent 20%),
+        linear-gradient(140deg, var(--blue-1), var(--blue-2));
+      min-height:100dvh;
+    }
+
+    /* Layout */
+    .app{
+      max-width: 520px;
+      margin: 0 auto;
+      min-height: 100dvh;
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+      gap: 12px;
+      padding: 12px;
+      padding-right: 92px; /* room for category chips */
+    }
+
+    /* Glass block helper */
+    .glass{
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      backdrop-filter: var(--blur);
+      -webkit-backdrop-filter: var(--blur);
+      box-shadow: var(--shadow);
+    }
+
+    /* Header */
+    .header{
+      display:flex; align-items:center; gap:12px;
+      padding:10px 12px;
+    }
+    .logo{
+      width:48px; height:48px; border-radius:14px; overflow:hidden;
+      display:grid; place-items:center;
+      background: radial-gradient(100px 100px at 30% 20%, #ffffff22, #00000033);
+      border: 1px solid var(--stroke);
+      backdrop-filter: var(--blur);
+      -webkit-backdrop-filter: var(--blur);
+    }
+    .brand{
+      display:flex; flex-direction:column; line-height:1.25;
+    }
+    .brand .name{ font-weight:900; font-size:18px; letter-spacing:.2px }
+    .brand .sub{ font-size:12px; color: var(--muted) }
+
+    /* Search */
+    .search{
+      display:flex; align-items:center; gap:10px;
+      padding:10px 12px; 
+    }
+    .search i{ opacity:.9 }
+    .search input{
+      flex:1; border:none; outline:none; background:transparent; color:var(--ink); font-size:14px;
+    }
+
+    /* Category chips column (RIGHT) */
+    .cats{
+      position: fixed;
+      right: 10px;
+      top: 110px;              /* below header/search */
+      bottom: 14px;
+      width: 72px;
+      display:flex; flex-direction: column; gap:10px; overflow:auto;
+      z-index: 50;
+    }
+    .chip{
+      padding:10px 8px;
+      display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center;
+      border-radius:14px; color:#fff;
+      background: linear-gradient(145deg, #ffffff11, #00000022);
+      border: 1px solid var(--stroke);
+      backdrop-filter: var(--blur);
+      -webkit-backdrop-filter: var(--blur);
+    }
+    .chip i{ font-size:16px; }
+    .chip span{ font-size:10px; line-height:1.1 }
+    .chip.active{
+      /* subtle blue glow */
+      box-shadow: 0 0 0 2px rgba(255,255,255,.12) inset, 0 0 0 6px rgba(26,38,114,.25);
+      background:
+        radial-gradient(90px 60px at 30% 10%, rgba(255,255,255,.18), transparent 60%),
+        linear-gradient(145deg, #ffffff18, #00000025);
+    }
+
+    /* Category title bar */
+    .cat-title{
+      margin: 6px 0 2px;
+      padding: 10px 12px;
+      font-weight:900; letter-spacing:.2px; font-size:14px;
+      background: linear-gradient(145deg, #ffffff10, #00000020);
+      position: sticky; top: 0; z-index: 10;
+    }
+
+    /* Menu items */
+    .grid{ display:grid; grid-template-columns: 1fr; gap:10px; }
+    .card{
+      padding: 10px 12px;
+    }
+    .row{
+      display:grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px dashed var(--stroke);
+    }
+    .row:last-child{ border-bottom: none; }
+    .name{ font-weight:800; font-size:15px; }
+    .desc{ color:var(--muted); font-size:12px; line-height:1.8; margin-top:6px }
+    .price{
+      align-self:center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border:1px solid var(--stroke);
+      font-weight:900; font-size:12px;
+      background:
+        radial-gradient(120px 80px at 10% 10%, rgba(255,255,255,.22), transparent 60%),
+        linear-gradient(145deg, #ffffff14, #00000020);
+      backdrop-filter: var(--blur);
+      -webkit-backdrop-filter: var(--blur);
+      white-space:nowrap;
+    }
+
+    /* Footer notice */
+    .footer{
+      text-align:center; font-size:11px; color:var(--muted); padding: 14px 10px 28px;
+    }
+
+    /* Larger screens */
+    @media (min-width: 640px){
+      .app{ padding: 16px; gap: 14px; }
+      .grid{ grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-    <div class="menu-container">
-        <div class="categories-sidebar" id="categoriesSidebar">
-            <!-- Categories will be added by JavaScript -->
-        </div>
-        <div class="items-container" id="itemsContainer">
-            <div class="items-content">
-                <h2 class="items-title">منوی کافه لوچه</h2>
-                <div class="menu-items" id="menuItems">
-                    <!-- Items will be added by JavaScript -->
-                </div>
-                
-                <!-- Cafe Logo Section -->
-                <div class="cafe-logo">
-                    <span style="font-size: 32px;">☕ لوچه</span>
-                </div>
-            </div>
-            
-            <!-- Footer -->
-            <div class="footer">
-                طراحی شده توسط تیم <a href="https://nirvanadev.ir" target="_blank">نیروانا</a>
-            </div>
-        </div>
+  <div class="app">
+    <!-- Header -->
+    <header class="header glass">
+      <div class="logo">
+        <i class="fa-solid fa-mug-hot"></i>
+      </div>
+      <div class="brand">
+        <div class="name">کافه لوچه</div>
+        <div class="sub">منوی نوشیدنی و صبحانه</div>
+      </div>
+    </header>
+
+    <!-- Search -->
+    <div class="search glass">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input id="search" placeholder="جستجو در منو (مثلاً موهیتو، لته، توت‌فرنگی)" />
     </div>
 
-    <script>
-        // Menu data
-        const menuData = {
-            "اسموتی‌ها": [
-                {name: "توت فرنگی", description: "آناناس، توت‌فرنگی، کلبیس", price: "97-109"},
-                {name: "دراگون فروت", description: "آناناس، دراگون فروت، کلبیس", price: "97-109"},
-                {name: "آلبالو", description: "آلبالو، آناناس، سیب، پرتقال", price: "93-105"},
-                {name: "هندوانه", description: "هندوانه، لیمو، نعنای تازه", price: "93-105"},
-                {name: "پرتقال", description: "پرتقال، لیمو، زنجبیل، آناناس", price: "93-105"},
-                {name: "موز توت‌فرنگی", description: "موز، توت‌فرنگی، نارگیل", price: "93-105"},
-                {name: "آب طالبی", description: "", price: "67-77"}
-            ],
-            "موهیتو": [
-                {name: "کلاسیک", description: "لیمو، نعناع، آب گازدار", price: "93-103"},
-                {name: "توت‌فرنگی", description: "لیمو، نعناع، توت‌فرنگی، آب گازدار", price: "93-103"},
-                {name: "دراگون فروت", description: "لیمو، نعناع، دراگون فروت، آب گازدار", price: "93-103"},
-                {name: "هندوانه", description: "لیمو، نعناع، آب گازدار، هندوانه", price: "95-105"}
-            ],
-            "اسپرسو بار گرم": [
-                {name: "اسپرسو", description: "", price: "45-55"},
-                {name: "لته", description: "", price: "95"},
-                {name: "هات چاکلت", description: "", price: "113"},
-                {name: "موکا", description: "", price: "113"},
-                {name: "آمریکانو", description: "", price: "67"}
-            ],
-            "اسپرسو بار سرد": [
-                {name: "آیس لته", description: "", price: "105"},
-                {name: "آیس کارامل ماکیاتو", description: "", price: "125"},
-                {name: "دارکولا میلک", description: "", price: "110"}
-            ],
-            "ویژه لوچه": [
-                {name: "توت فرنگی نوتلا", description: "توت‌فرنگی، شکلات، موز، کراستد", price: "94"},
-                {name: "لیمون سیکسونیدا", description: "لیمو، سیروپ", price: "79-89"},
-                {name: "آب‌دوغ خیار لوچه", description: "", price: "196"},
-                {name: "سبین مزه ایرانی", description: "خیار، نعناع، لیمو، آلبالو، بیدمشک، کلبیس، دراگون فروت، نوتلا", price: "210"},
-                {name: "آلبالو فرنچ", description: "", price: "76"},
-                {name: "چای زعفرانی نعناع", description: "", price: "قیمت درج نشده"}
-            ],
-            "صبحانه لوچه": [
-                {name: "پینک شکلات میوه", description: "", price: "143"},
-                {name: "مورد دوم", description: "", price: "67-87"}
-            ],
-            "میلک شیک فروتی": [
-                {name: "شیر موز", description: "", price: "97-113"},
-                {name: "شیر توت‌فرنگی", description: "", price: "97-113"},
-                {name: "شیر آلبالو", description: "", price: "97-113"}
-            ],
-            "کروسان و وافل": [
-                {name: "وافل", description: "", price: "127"},
-                {name: "کروسان بستنی", description: "", price: "107"},
-                {name: "کروسان توت‌فرنگی، شکلات", description: "", price: "139"},
-                {name: "وافل بستنی", description: "", price: "97"}
-            ]
-        };
+    <!-- Category chips (RIGHT / sticky) -->
+    <nav class="cats" id="cats"></nav>
 
-        // Category emojis
-        const categoryIcons = {
-            "اسموتی‌ها": "🍓",
-            "موهیتو": "🍃",
-            "اسپرسو بار گرم": "🔥",
-            "اسپرسو بار سرد": "❄️",
-            "ویژه لوچه": "🌟",
-            "صبحانه لوچه": "🍳",
-            "میلک شیک فروتی": "🥤",
-            "کروسان و وافل": "🥐"
-        };
+    <!-- Content -->
+    <main id="content"></main>
 
-        // DOM elements
-        const categoriesSidebar = document.getElementById('categoriesSidebar');
-        const menuItems = document.getElementById('menuItems');
-        const itemsTitle = document.querySelector('.items-title');
+    <div class="footer">© کافه لوچه — طراحی سبک گلس، گرادیانت و واکنش‌گرا</div>
+  </div>
 
-        // Create category buttons
-        Object.keys(menuData).forEach(category => {
-            const categoryItem = document.createElement('div');
-            categoryItem.className = 'category-item';
-            categoryItem.innerHTML = `
-                <div class="category-icon">${categoryIcons[category] || '☕'}</div>
-                <div class="category-name">${category}</div>
-            `;
-            
-            categoryItem.addEventListener('click', () => {
-                // Remove active class from all categories
-                document.querySelectorAll('.category-item').forEach(item => {
-                    item.classList.remove('active');
-                });
-                
-                // Add active class to clicked category
-                categoryItem.classList.add('active');
-                
-                // Update items
-                updateItems(category);
-            });
-            
-            categoriesSidebar.appendChild(categoryItem);
+  <script>
+    (function(){ if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', boot); } else { boot(); } })();
+
+    function boot(){
+      const data = getMenu();
+      const cats = Object.keys(data);
+      const defaultCat = cats[0];
+      const icons = getIcons();
+
+      const catsEl = document.getElementById('cats');
+      const content = document.getElementById('content');
+      const search = document.getElementById('search');
+
+      // Build chips
+      cats.forEach((c,idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'chip' + (idx===0 ? ' active':'');
+        btn.innerHTML = '<i class="fa-solid '+(icons[c]||'fa-circle')+'"></i><span>'+c+'</span>';
+        btn.addEventListener('click', () => {
+          catsEl.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
+          btn.classList.add('active');
+          render(c, search.value);
+        });
+        catsEl.appendChild(btn);
+      });
+
+      // Render area
+      function render(cat, q=''){
+        content.innerHTML = '';
+        const wrap = document.createElement('section');
+        wrap.className = 'glass card';
+        const title = document.createElement('div');
+        title.className = 'cat-title';
+        title.textContent = cat;
+        wrap.appendChild(title);
+
+        const grid = document.createElement('div');
+        grid.className = 'grid';
+        const items = data[cat];
+        const query = (q||'').trim().toLowerCase();
+
+        items.forEach(item => {
+          const hay = (item.name + ' ' + (item.description || '')).toLowerCase();
+          if(query && !hay.includes(query)) return;
+
+          const row = document.createElement('div');
+          row.className = 'row';
+          row.innerHTML = `
+            <div>
+              <div class="name">${item.name}</div>
+              ${item.description ? `<div class="desc">${item.description}</div>`:''}
+            </div>
+            <div class="price">${item.price}</div>
+          `;
+          grid.appendChild(row);
         });
 
-        // Set first category as active by default
-        document.querySelector('.category-item').classList.add('active');
-        updateItems(Object.keys(menuData)[0]);
+        wrap.appendChild(grid);
+        content.appendChild(wrap);
+      }
 
-        // Function to update items based on selected category
-        function updateItems(category) {
-            // Clear previous items
-            menuItems.innerHTML = '';
-            
-            // Update title
-            itemsTitle.textContent = category;
-            
-            // Add items with animation delay
-            menuData[category].forEach((item, index) => {
-                setTimeout(() => {
-                    const itemElement = document.createElement('div');
-                    itemElement.className = 'menu-item';
-                    itemElement.style.animationDelay = `${index * 0.1}s`;
-                    
-                    const descriptionHTML = item.description ? 
-                        `<div class="item-description">${item.description}</div>` : '';
-                    
-                    itemElement.innerHTML = `
-                        <div class="item-name">${item.name}</div>
-                        ${descriptionHTML}
-                        <div class="item-price">${item.price} تومان</div>
-                    `;
-                    menuItems.appendChild(itemElement);
-                }, 50);
-            });
-        }
-    </script>
+      // Hook search
+      search.addEventListener('input', () => {
+        const activeBtn = catsEl.querySelector('.chip.active');
+        const activeCat = activeBtn ? activeBtn.textContent.trim() : defaultCat;
+        render(activeCat, search.value);
+      });
+
+      // Initial render
+      render(defaultCat, '');
+    }
+
+    function getIcons(){
+      return {
+        "اسموتی‌ها":"fa-blender",
+        "موهیتو":"fa-lemon",
+        "اسپرسو بار گرم":"fa-mug-hot",
+        "اسپرسو بار سرد":"fa-snowflake",
+        "ویژه لوچه":"fa-star",
+        "صبحانه لوچه":"fa-utensils",
+        "میلک شیک فروتی":"fa-ice-cream",
+        "کروسان و وافل":"fa-bread-slice"
+      };
+    }
+
+    function getMenu(){
+      // Pure text menu: category -> array of {name, description?, price}
+      return {
+        "اسموتی‌ها":[
+          {name:"توت فرنگی", description:"آناناس، توت‌فرنگی، کلبیس", price:"97-109"},
+          {name:"دراگون فروت", description:"آناناس، دراگون فروت، کلبیس", price:"97-109"},
+          {name:"آلبالو", description:"آلبالو، آناناس، سیب، پرتقال", price:"93-105"},
+          {name:"هندوانه", description:"هندوانه، لیمو، نعنای تازه", price:"93-105"},
+          {name:"پرتقال", description:"پرتقال، لیمو، زنجبیل، آناناس", price:"93-105"},
+          {name:"موز توت‌فرنگی", description:"موز، توت‌فرنگی، نارگیل", price:"93-105"},
+          {name:"آب طالبی", description:"", price:"67-77"}
+        ],
+        "موهیتو":[
+          {name:"کلاسیک", description:"لیمو، نعناع، آب گازدار", price:"93-103"},
+          {name:"توت‌فرنگی", description:"لیمو، نعناع، توت‌فرنگی، آب گازدار", price:"93-103"},
+          {name:"دراگون فروت", description:"لیمو، نعناع، دراگون فروت، آب گازدار", price:"93-103"},
+          {name:"هندوانه", description:"لیمو، نعناع، آب گازدار، هندوانه", price:"95-105"}
+        ],
+        "اسپرسو بار گرم":[
+          {name:"اسپرسو", description:"", price:"45-55"},
+          {name:"لته", description:"", price:"95"},
+          {name:"هات چاکلت", description:"", price:"113"},
+          {name:"موکا", description:"", price:"113"},
+          {name:"آمریکانو", description:"", price:"67"}
+        ],
+        "اسپرسو بار سرد":[
+          {name:"آیس لته", description:"", price:"105"},
+          {name:"آیس کارامل ماکیاتو", description:"", price:"125"},
+          {name:"دارکولا میلک", description:"", price:"110"}
+        ],
+        "ویژه لوچه":[
+          {name:"توت فرنگی نوتلا", description:"توت‌فرنگی، شکلات، موز، کراستد", price:"94"},
+          {name:"لیمون سیکسونیدا", description:"لیمو، سیروپ", price:"79-89"},
+          {name:"آب‌دوغ خیار لوچه", description:"", price:"196"},
+          {name:"سبین مزه ایرانی", description:"خیار، نعناع، لیمو، آلبالو، بیدمشک، کلبیس، دراگون فروت، نوتلا", price:"210"},
+          {name:"آلبالو فرنچ", description:"", price:"76"},
+          {name:"چای زعفرانی نعناع", description:"", price:"قیمت درج نشده"}
+        ],
+        "صبحانه لوچه":[
+          {name:"پینک شکلات میوه", description:"", price:"143"},
+          {name:"مورد دوم", description:"", price:"67-87"}
+        ],
+        "میلک شیک فروتی":[
+          {name:"شیر موز", description:"", price:"97-113"},
+          {name:"شیر توت‌فرنگی", description:"", price:"97-113"},
+          {name:"شیر آلبالو", description:"", price:"97-113"}
+        ],
+        "کروسان و وافل":[
+          {name:"وافل", description:"", price:"127"},
+          {name:"کروسان بستنی", description:"", price:"107"},
+          {name:"کروسان توت‌فرنگی، شکلات", description:"", price:"139"},
+          {name:"وافل بستنی", description:"", price:"97"}
+        ]
+      };
+    }
+  </script>
 </body>
 </html>
