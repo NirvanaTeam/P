@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>لونا - منوی دیجیتال</title>
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Vazir, Tahoma, sans-serif;
+      background:#506551;
+      color:#0a0a0a;
+      padding:10px;
+      overflow-x:hidden;
+    }
+    .menu-container{
+      height:100vh;
+      display:flex;
+      gap:10px;
+    }
+    .categories-sidebar{
+      width:120px;
+      background:rgba(74,95,77,.5);
+      border:1px solid #f9f9f4;
+      border-radius:20px 0 0 20px;
+      padding:18px 10px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:18px;
+      overflow-y:auto;
+      backdrop-filter: blur(2px);
+      box-shadow:5px 0 15px rgba(0,0,0,.1);
+      color:#f9f9f4;
+    }
+    .category-item{
+      width:100%;
+      padding:10px 6px;
+      border-radius:14px;
+      cursor:pointer;
+      text-align:center;
+      transition:.25s;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:6px;
+      border:1px solid transparent;
+    }
+    .category-item:hover{transform:translateY(-2px); background:#2e3a30}
+    .category-item.active{
+      background:#f9f9f4;
+      color:#4a5f4d;
+      border-color:#f9f9f4;
+      box-shadow:0 6px 16px rgba(249,249,244,.25);
+    }
+    .category-icon{font-size:22px}
+    .category-name{font-size:13px; line-height:1.35; white-space:pre-line}
+    .items-container{
+      flex:1;
+      background:rgba(249,249,244,.6);
+      border:1px solid #f9f9f4;
+      border-radius:0 20px 20px 0;
+      padding:18px;
+      display:flex;
+      flex-direction:column;
+      overflow-y:auto;
+    }
+    .items-title{
+      font-size:22px;
+      text-align:center;
+      color:#000;
+      padding-bottom:10px;
+      border-bottom:2px dashed #eaeade;
+      margin:0 0 6px 0;
+      font-weight:600;
+    }
+    .items-english-title{
+      text-align:center;
+      color:#666;
+      margin:0 0 16px 0;
+      font-size:14px;
+    }
+    .menu-items{
+      display:grid;
+      grid-template-columns:repeat(auto-fill, minmax(240px,1fr));
+      gap:12px;
+    }
+    .menu-item{
+      background:#fff;
+      border:1px solid #ecece0;
+      border-right:3px solid #4a5f4d;
+      border-radius:10px;
+      padding:12px;
+      box-shadow:0 3px 6px rgba(0,0,0,.08);
+      opacity:0; transform:translateY(12px);
+      animation:fade .55s forwards;
+    }
+    @keyframes fade{to{opacity:1; transform:translateY(0)}}
+    .item-name{font-weight:700; font-size:15px; color:#000; margin-bottom:6px}
+    .item-description{font-size:13px; color:#666; line-height:1.5; margin-bottom:8px}
+    .item-price{display:flex; justify-content:space-between; align-items:center; padding-top:6px; border-top:1px dashed #eee}
+    .item-price .label{font-size:12px; color:#777}
+    .item-price .value{font-weight:700; color:#000; font-size:14px}
+    .cafe-logo{
+      text-align:center;
+      margin:16px 0;
+      background:#fff;
+      border:1px solid #f1f1e8;
+      padding:12px;
+      border-radius:10px;
+    }
+    .footer{
+      text-align:center;
+      padding:14px;
+      margin-top:auto;
+      background:#fff;
+      border-radius:10px;
+      border-top:1px solid #f1f1e8;
+      color:#666; font-size:14px;
+    }
+    @media (max-width:768px){
+      .categories-sidebar{width:95px; gap:12px; padding:12px 6px}
+      .category-name{font-size:11px}
+      .menu-items{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+    }
+    @media (max-width:480px){
+      .categories-sidebar{width:80px}
+      .menu-items{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="menu-container">
+    <div class="categories-sidebar" id="categoriesSidebar"></div>
+    <div class="items-container">
+      <h2 class="items-title" id="itemsTitle">لونا</h2>
+      <div class="items-english-title" id="itemsEnglishTitle">LUNA CAFE & BISTRO</div>
+      <div class="menu-items" id="menuItems"></div>
+      <div class="cafe-logo">لونا | منوی دیجیتال</div>
+      <div class="footer">تمامی حقوق محفوظ است | لونا ۱۴۰۳ ©</div>
+    </div>
+  </div>
+
+  <script>
+    // فارسی‌سازی اعداد
+    function toPersianNumbers(num) {
+      const p = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+      return (num+'').replace(/[0-9]/g, d => p[+d]);
+    }
+    function formatPrice(n){
+      if(n === undefined || n === null || n === '') return '—';
+      return toPersianNumbers((n+'').replace(/\\B(?=(\\d{3})+(?!\\d))/g, ',')) + ' تومان';
+    }
+
+    // داده‌های به‌روز لونا (نام - توضیح - قیمت)
+    const menuData = {
+      "بار گرم": {
+        english: "HOT BAR",
+        icon: "fa-solid fa-mug-saucer",
+        items: [
+          {name:"اسپرسو دبل", price: 50_000},
+          {name:"اسپرسو سینگل", price: 50_000},
+          {name:"لاته", price: 120_000},
+          {name:"کاپوچینو", price: 120_000},
+          {name:"کارامل ماکیاتو", price: 120_000},
+          {name:"چای سیاه", price: 40_000},
+          {name:"چای کرک", price: 120_000},
+          {name:"موکا", price: 120_000},
+          {name:"آمریکانو", price: 100_000},
+          {name:"هات چاکلت", price: 130_000},
+          {name:"وایت چاکلت", price: 130_000},
+          {name:"ماسالا", price: 130_000}
+        ]
+      },
+      "بار سرد": {
+        english: "COLD BAR",
+        icon: "fa-solid fa-glass-water",
+        items: [
+          {name:"آیس لاته", price: 120_000},
+          {name:"آیس آمریکانو", price: 100_000},
+          {name:"آیس موکا", price: 120_000},
+          {name:"موهیتو", price: 120_000},
+          {name:"لیموناد", price: 130_000},
+          {name:"بلوهاوایی", price: 140_000},
+          {name:"سودا لِمون", price: 70_000},
+          {name:"نوشابه قوطی", price: 35_000},
+          {name:"آب معدنی", price: 10_000}
+        ]
+      },
+      "میلک‌شیک": {
+        english: "MILKSHAKE",
+        icon: "fa-solid fa-ice-cream",
+        items: [
+          {name:"اسپرسو شیک", price:160_000},
+          {name:"شیک نوتلا", price:190_000},
+          {name:"شیک لوتوس", price:180_000},
+          {name:"چاکلت شیک", price:160_000},
+          {name:"شیک موز شکلات", price:180_000},
+          {name:"شیک پینات‌بری (کره بادام‌زمینی)", price:180_000},
+          {name:"کلاسیک شیک", price:180_000}
+        ]
+      },
+      "دمنوش": {
+        english: "HERBAL TEA",
+        icon: "fa-solid fa-seedling",
+        items: [
+          {name:"لیمو زنجبیل", price:80_000},
+          {name:"مرکبات", price:80_000},
+          {name:"رویال یاسمین", price:80_000},
+          {name:"مونا رز", price:80_000},
+          {name:"کالِندولا", price:80_000},
+          {name:"کوهین‌بری", price:80_000},
+          {name:"اَپل کرن‌بری", price:80_000},
+          {name:"مراکشی", price:80_000},
+          {name:"لیمون‌گِراس", price:80_000},
+          {name:"لاوندر دریم", price:80_000},
+          {name:"استرابری کیس", price:80_000},
+          {name:"چای سبز", price:80_000},
+          {name:"گل گاوزبان", price:80_000},
+          {name:"بابونه", price:80_000},
+          {name:"آویشن (عسل)", price:80_000},
+          {name:"چای ترش", price:80_000}
+        ]
+      },
+      "پاستا": {
+        english: "PASTA",
+        icon: "fa-solid fa-bowl-food",
+        items: [
+          {name:"پاستا چیکن آلفردو", description:"پنه، فیله مرغ، سس آلفردو، پنیر پارمسان، قارچ سوخاری", price:300_000},
+          {name:"پاستا بیف آلفردو", description:"پنه، گوشت گوساله، سس آلفردو، پنیر پارمسان، قارچ سوخاری", price:350_000}
+        ]
+      },
+      "سیب‌زمینی": {
+        english: "FRIES",
+        icon: "fa-solid fa-burger",
+        items: [
+          {name:"سیب‌زمینی ساده", price:150_000},
+          {name:"سیب‌زمینی با پنیر دیپ", price:200_000},
+          {name:"سیب‌زمینی بیکن آلفردو", price:250_000},
+          {name:"سیب‌زمینی پپرونی", price:250_000},
+          {name:"سیب‌زمینی با سس آلفردو", price:200_000}
+        ]
+      },
+      "سوخاری": {
+        english: "FRIED",
+        icon: "fa-solid fa-drumstick-bite",
+        items: [
+          {name:"بشقاب فیله سوخاری", price:350_000, description:"به‌همراه سالاد، نان تُست، سس و سیب‌زمینی"},
+          {name:"قارچ سوخاری", price:150_000}
+        ]
+      },
+      "غذای رژیمی": {
+        english: "FIT PLATE",
+        icon: "fa-solid fa-leaf",
+        items: [
+          {name:"بشقاب فیله گریل", price:350_000},
+          {name:"بشقاب سبزیجات", description:"—", price:undefined}
+        ]
+      },
+      "پیش‌غذا و سالاد": {
+        english: "SALAD & STARTER",
+        icon: "fa-solid fa-plate-wheat",
+        items: [
+          {name:"سالاد سزار سوخاری", price:250_000},
+          {name:"سالاد سزار گریل", price:250_000},
+          {name:"سوپ روز", price:100_000},
+          {name:"سوپ فصل", price:200_000}
+        ]
+      },
+      "صبحانه": {
+        english: "BREAKFAST",
+        icon: "fa-solid fa-egg",
+        items: [
+          {name:"صبحانه ایرانی", description:"نان سنگک، پنیر، کره، مربا، گردو، ریحان، نان تُست، خیار، گوجه، زیتون", price:250_000},
+          {name:"اُملت فرانسوی", description:"بیکن، قارچ، پنیر پارمسان و...", price:250_000},
+          {name:"اُملت ایتالیایی", description:"بیکن/پپرونی، پنیر پیتزا و...", price:250_000},
+          {name:"صبحانه انگلیسی", description:"تخم‌مرغ، سوسیس، بیکن، لوبیا و...", price:250_000},
+          {name:"اُملت کوچه فرنگی", price:170_000}
+        ]
+      },
+      "کیک": {
+        english: "CAKES",
+        icon: "fa-solid fa-cake-candles",
+        items: [
+          {name:"اسنیکرز", description:"شکلات، بادام‌زمینی، کارامل، خامه", price:85_000},
+          {name:"پالپ", price:85_000},
+          {name:"چیزکیک", description:"کارامل / وانیلی / توت‌فرنگی / موز", price:85_000},
+          {name:"سیب دارچین", price:85_000},
+          {name:"اورئو", price:85_000},
+          {name:"تیرامیسو", price:85_000},
+          {name:"چاک‌کیک", price:85_000},
+          {name:"کوکی", price:45_000}
+        ]
+      },
+      "پیتزا": {
+        english: "PIZZA",
+        icon: "fa-solid fa-pizza-slice",
+        items: [
+          {name:"پیتزا مخصوص لونا", description:"ژامبون گوشت و مرغ، سوسیس، سبزیجات، سس مخصوص", price:320_000},
+          {name:"سیر و استیک", description:"گوشت استیک، سیر، سس آلفردو/مخصوص", price:320_000},
+          {name:"چیکن", description:"مرغ، سبزیجات، سس مخصوص", price:320_000},
+          {name:"مخلوط", description:"ژامبون گوشت و مرغ، سبزیجات، سس مخصوص", price:320_000},
+          {name:"مارگاریتا", description:"پنیر موزارلا، سس مخصوص", price:320_000},
+          {name:"سبزیجات", description:"سبزیجات تازه، قارچ، فلفل دلمه و...", price:320_000},
+          {name:"آلفردو", description:"مرغ یا بیف با سس آلفردو", price:320_000},
+          {name:"پپرونی", description:"پپرونی، سس مخصوص", price:320_000}
+        ]
+      },
+      "ساندویچ": {
+        english: "SANDWICH",
+        icon: "fa-solid fa-burger",
+        items: [
+          {name:"برگر ویژه لونا", description:"برگر، پنیر موزارلا، بیکن، سس مخصوص + سیب‌زمینی + سالاد", price:270_000},
+          {name:"چیزبرگر", description:"برگر 200 گرمی، پنیر، سبزیجات، سس مخصوص", price:250_000}
+        ]
+      }
+    };
+
+    // رندر دسته‌بندی‌ها
+    const categoriesSidebar = document.getElementById('categoriesSidebar');
+    const menuItemsWrap = document.getElementById('menuItems');
+    const itemsTitle = document.getElementById('itemsTitle');
+    const itemsEnglishTitle = document.getElementById('itemsEnglishTitle');
+
+    Object.keys(menuData).forEach((cat, idx) => {
+      const btn = document.createElement('div');
+      btn.className = 'category-item' + (idx===0 ? ' active' : '');
+      btn.innerHTML = `<i class="${menuData[cat].icon} category-icon"></i><div class="category-name">${cat}</div>`;
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.category-item').forEach(el=>el.classList.remove('active'));
+        btn.classList.add('active');
+        renderItems(cat);
+      });
+      categoriesSidebar.appendChild(btn);
+    });
+
+    function renderItems(category){
+      const data = menuData[category];
+      itemsTitle.textContent = category;
+      itemsEnglishTitle.textContent = data.english || '';
+      menuItemsWrap.innerHTML = '';
+
+      data.items.forEach((it, i) => {
+        const card = document.createElement('div');
+        card.className = 'menu-item';
+        card.style.animationDelay = (i*0.06)+'s';
+        card.innerHTML = `
+          <div class="item-name">${it.name}</div>
+          ${it.description ? `<div class="item-description">${it.description}</div>` : ''}
+          <div class="item-price">
+            <span class="label">قیمت</span>
+            <span class="value">${formatPrice(it.price)}</span>
+          </div>
+        `;
+        menuItemsWrap.appendChild(card);
+      });
+    }
+
+    // شروع با اولین دسته‌بندی
+    renderItems(Object.keys(menuData)[0]);
+  </script>
+</body>
+</html>
