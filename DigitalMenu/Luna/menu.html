@@ -140,7 +140,20 @@
     @media (max-width:480px){
       .item-image img{height:180px}
     }
-    </style>
+    
+/* --- square image overrides --- */
+.item-image{position:relative; width:100%; aspect-ratio:1/1; margin:-4px -4px 10px -4px}
+.item-image img{position:absolute; inset:0; width:100%; height:100%; object-fit:contain; border-radius:8px; display:block}
+/* remove old fixed heights on small screens by overriding */
+@media (max-width:768px){
+  .item-image{aspect-ratio:1/1}
+  .item-image img{object-fit:contain}
+}
+@media (max-width:480px){
+  .item-image{aspect-ratio:1/1}
+  .item-image img{object-fit:contain}
+}
+</style>
 </head>
 <body>
 <div class="menu-container">
