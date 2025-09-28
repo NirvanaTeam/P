@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+
+<html dir="rtl" lang="fa">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>لونا - منوی دیجیتال</title>
-  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>لونا - منوی دیجیتال</title>
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+<style>
     *{box-sizing:border-box}
     body{
       margin:0;
@@ -130,21 +131,29 @@
       .categories-sidebar{width:80px}
       .menu-items{grid-template-columns:1fr}
     }
-  </style>
+  
+    .item-image{margin:-4px -4px 10px -4px}
+    .item-image img{width:100%; height:220px; object-fit:cover; border-radius:8px; display:block}
+    @media (max-width:768px){
+      .item-image img{height:200px}
+    }
+    @media (max-width:480px){
+      .item-image img{height:180px}
+    }
+    </style>
 </head>
 <body>
-  <div class="menu-container">
-    <div class="categories-sidebar" id="categoriesSidebar"></div>
-    <div class="items-container">
-      <h2 class="items-title" id="itemsTitle">لونا</h2>
-      <div class="items-english-title" id="itemsEnglishTitle">LUNA CAFE & BISTRO</div>
-      <div class="menu-items" id="menuItems"></div>
-      <div class="cafe-logo">لونا | منوی دیجیتال</div>
-      <div class="footer">تمامی حقوق محفوظ است | لونا ۱۴۰۳ ©</div>
-    </div>
-  </div>
-
-  <script>
+<div class="menu-container">
+<div class="categories-sidebar" id="categoriesSidebar"></div>
+<div class="items-container">
+<h2 class="items-title" id="itemsTitle">لونا</h2>
+<div class="items-english-title" id="itemsEnglishTitle">LUNA CAFE &amp; BISTRO</div>
+<div class="menu-items" id="menuItems"></div>
+<div class="cafe-logo">لونا | منوی دیجیتال</div>
+<div class="footer">تمامی حقوق محفوظ است | لونا ۱۴۰۳ ©</div>
+</div>
+</div>
+<script>
     // فارسی‌سازی اعداد
     function toPersianNumbers(num) {
       const p = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
@@ -348,6 +357,7 @@
         card.className = 'menu-item';
         card.style.animationDelay = (i*0.06)+'s';
         card.innerHTML = `
+          <div class="item-image"><img src="${(i % 3) + 1}.png" alt="${it.name}"></div>
           <div class="item-name">${it.name}</div>
           ${it.description ? `<div class="item-description">${it.description}</div>` : ''}
           <div class="item-price">
