@@ -19,7 +19,7 @@
   .category-name{font-size:13px;line-height:1.35;white-space:pre-line}
   .items-container{flex:1;background:rgba(249,249,244,.6);border:1px solid #f9f9f4;border-radius:0 20px 20px 0;padding:18px;display:flex;flex-direction:column;overflow-y:auto;}
   .items-title{font-size:22px;text-align:center;color:#000;padding-bottom:10px;border-bottom:2px dashed #eaeade;margin:0 0 6px 0;font-weight:600;}
-  .items-english-title{text-align:center;color:#666;margin:0 0 16px 0;font-size:14px;}
+  .items-english-title{topalign:center;color:#666;margin:0 0 16px 0;font-size:14px;}
   .menu-items{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;}
   .menu-item{background:#fff;border:1px solid #ecece0;border-right:3px solid #4a5f4d;border-radius:10px;padding:12px;box-shadow:0 3px 6px rgba(0,0,0,.08);}
   @media (max-width:768px){.categories-sidebar{width:95px;gap:12px;padding:12px 6px}.category-name{font-size:11px}.menu-items{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}}
@@ -97,16 +97,64 @@
   function showMsg(text){
     videoMsg.textContent = text;
     videoMsg.classList.add('show');
-    setTimeout(()=> videoMsg.classList.remove('show'), 3000);
+    setTimeout(()=> videoMsg.classList.remove('show'), 3500);
   }
-  function openVideo(src){
-    if(!src){ showMsg('ویدیو برای این آیتم تعریف نشده است.'); return; }
+
+  function setVideoSources(videoEl, candidates){
+    // Clear old <source> tags
+    while(videoEl.firstChild){ videoEl.removeChild(videoEl.firstChild); }
+    // Add <source> children for each candidate (let browser choose supported one)
+    candidates.forEach(c => {
+      const srcEl = document.createElement('source');
+      srcEl.src = c.src;
+      if(c.type) srcEl.type = c.type;
+      videoEl.appendChild(srcEl);
+    });
+    // As a fallback also set `src` to the first one
+    if(candidates[0]) videoEl.src = candidates[0].src;
+  }
+
+  function buildCandidates(imgPath, explicitVid){
+    // Compute dir of image and base name
+    try {
+      const url = new URL(imgPath, location.href);
+      const dir = url.pathname.replace(/[^\/]+$/, '');
+      const base = (imgPath.split('/').pop() || '').split('.').slice(0, -1).join('.') || '';
+      const pathJoin = (d, f) => (d.endsWith('/') ? d : d + '/') + f;
+      const list = [];
+      const names = [
+        explicitVid || (base + '.mp4'),
+        base + '.mp4',
+        base + '.MP4',
+        base + '.mov',
+        base + '.MOV',
+        base + '.webm'
+      ];
+      names.forEach(n => {
+        if(!n) return;
+        const sameDir = pathJoin(dir, n);
+        // Prefer same-folder path derived from the image
+        list.push({src: sameDir, type: n.endsWith('.mp4')||n.endsWith('.MP4') ? 'video/mp4' : (n.endsWith('.webm') ? 'video/webm' : '')});
+        // Also add page-relative as a backup
+        list.push({src: n, type: n.endsWith('.mp4')||n.endsWith('.MP4') ? 'video/mp4' : (n.endsWith('.webm') ? 'video/webm' : '')});
+      });
+      // De-duplicate by src
+      const seen = new Set();
+      return list.filter(c => { if(seen.has(c.src)) return false; seen.add(c.src); return true; });
+    } catch(e){
+      return [{src: explicitVid || (imgPath || '').replace(/\.[^/.]+$/, '.mp4'), type:'video/mp4'}];
+    }
+  }
+
+  function openVideoFor(imgPath, explicitVid){
+    const candidates = buildCandidates(imgPath, explicitVid);
     overlay.classList.add('active');
     overlayVideo.pause();
     overlayVideo.removeAttribute('src');
     overlayVideo.load();
-    overlayVideo.src = src; // user presses play
+    setVideoSources(overlayVideo, candidates);
   }
+
   function closeVideo(){
     overlayVideo.pause();
     overlayVideo.removeAttribute('src');
@@ -118,9 +166,11 @@
   document.addEventListener('keydown', e => { if(e.key === 'Escape') closeVideo(); });
 
   overlayVideo.addEventListener('error', () => {
-    const src = overlayVideo.currentSrc || overlayVideo.src || '';
+    // More informative error
+    const s = [];
+    overlayVideo.querySelectorAll('source').forEach(el => s.push(el.getAttribute('src')));
     closeVideo();
-    showMsg('ویدیو پیدا نشد: ' + (src.split('/').pop() || ''));
+    showMsg('ویدیو باز نشد. یا فایل پیدا نشد یا کُدک نامعتبر است. مسیرهای امتحان‌شده: ' + s.join(' | '));
   });
 
   function renderItems(category){
@@ -138,7 +188,7 @@
         const img = makeEl('img');
         img.src = it.img;
         img.alt = it.name || '';
-        img.addEventListener('click', () => openVideo(it.vid));
+        img.addEventListener('click', () => openVideoFor(it.img, it.vid));
         imgWrap.appendChild(img);
       }
       card.appendChild(imgWrap);
@@ -152,13 +202,13 @@
       priceRow.appendChild(makeEl('span', 'value', formatPrice(it.price)));
       card.appendChild(priceRow);
 
-      imgWrap.addEventListener('click', () => { if(it.img) openVideo(it.vid); });
+      imgWrap.addEventListener('click', () => { if(it.img) openVideoFor(it.img, it.vid); });
 
       menuItemsWrap.appendChild(card);
     });
   }
 
-  if(cats.length) renderItems(cats[0]);
+  renderItems(Object.keys(menuData)[0]);
 </script>
 </body>
 </html>
