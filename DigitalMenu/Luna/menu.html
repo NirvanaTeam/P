@@ -8,47 +8,36 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
 <style>
     *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: Vazir, Tahoma, sans-serif;
-      background:#506551;
-      color:#0a0a0a;
-      padding:10px;
-      overflow-x:hidden;
-    }
+    body{ margin:0; font-family: Vazir, Tahoma, sans-serif; background:#506551; color:#0a0a0a; padding:10px; overflow-x:hidden; }
     .menu-container{height:100vh; display:flex; gap:10px;}
-    .categories-sidebar{
-      width:120px; background:rgba(74,95,77,.5); border:1px solid #f9f9f4;
-      border-radius:20px 0 0 20px; padding:18px 10px; display:flex; flex-direction:column;
-      align-items:center; gap:18px; overflow-y:auto; backdrop-filter: blur(2px);
-      box-shadow:5px 0 15px rgba(0,0,0,.1); color:#f9f9f4;
-    }
-    .category-item{width:100%; padding:10px 6px; border-radius:14px; cursor:pointer; text-align:center; transition:.25s; display:flex; flex-direction:column; align-items:center; gap:6px; border:1px solid transparent;}
-    .category-item:hover{transform:translateY(-2px); background:#2e3a30}
-    .category-item.active{background:#f9f9f4; color:#4a5f4d; border-color:#f9f9f4; box-shadow:0 6px 16px rgba(249,249,244,.25);}
-    .category-icon{font-size:22px}
-    .category-name{font-size:13px; line-height:1.35; white-space:pre-line}
-    .items-container{flex:1; background:rgba(249,249,244,.6); border:1px solid #f9f9f4; border-radius:0 20px 20px 0; padding:18px; display:flex; flex-direction:column; overflow-y:auto;}
-    .items-title{font-size:22px; text-align:center; color:#000; padding-bottom:10px; border-bottom:2px dashed #eaeade; margin:0 0 6px 0; font-weight:600;}
-    .items-english-title{text-align:center; color:#666; margin:0 0 16px 0; font-size:14px;}
-    .menu-items{display:grid; grid-template-columns:repeat(auto-fill, minmax(240px,1fr)); gap:12px;}
-    .menu-item{background:#fff; border:1px solid #ecece0; border-right:3px solid #4a5f4d; border-radius:10px; padding:12px; box-shadow:0 3px 6px rgba(0,0,0,.08); opacity:0; transform:translateY(12px); animation:fade .55s forwards;}
-    @keyframes fade{to{opacity:1; transform:translateY(0)}}
-    .item-name{font-weight:700; font-size:15px; color:#000; margin-bottom:6px}
-    .item-description{font-size:13px; color:#666; line-height:1.5; margin-bottom:8px}
-    .item-price{display:flex; justify-content:space-between; align-items:center; padding-top:6px; border-top:1px dashed #eee}
-    .item-price .label{font-size:12px; color:#777}
-    .item-price .value{font-weight:700; color:#000; font-size:14px}
-    .cafe-logo{text-align:center; margin:16px 0; background:#fff; border:1px solid #f1f1e8; padding:12px; border-radius:10px;}
-    .footer{text-align:center; padding:14px; margin-top:auto; background:#fff; border-radius:10px; border-top:1px solid #f1f1e8; color:#666; font-size:14px;}
-    @media (max-width:768px){.categories-sidebar{width:95px; gap:12px; padding:12px 6px} .category-name{font-size:11px} .menu-items{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}}
-    @media (max-width:480px){.categories-sidebar{width:80px} .menu-items{grid-template-columns:1fr}}
-    .item-image{position:relative; width:100%; aspect-ratio:1/1; margin:-4px -4px 10px -4px}
-    .item-image img{position:absolute; inset:0; width:100%; height:100%; object-fit:contain; border-radius:8px; display:block; cursor:pointer}
-    /* --- video popup overlay --- */
-    .video-overlay{position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(80,101,81,.55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); z-index:9999;}
-    .video-overlay.active{display:flex}
-    .video-overlay video{max-width:min(92vw, 680px); max-height:92vh; border-radius:14px; box-shadow:0 20px 60px rgba(0,0,0,.35); background:transparent;}
+    .categories-sidebar{ width:120px; background:rgba(74,95,77,.5); border:1px solid #f9f9f4; border-radius:20px 0 0 20px; padding:18px 10px; display:flex; flex-direction:column; align-items:center; gap:18px; overflow-y:auto; backdrop-filter: blur(2px); box-shadow:5px 0 15px rgba(0,0,0,.1); color:#f9f9f4; }
+    .category-item{ width:100%; padding:10px 6px; border-radius:14px; cursor:pointer; text-align:center; transition:.25s; display:flex; flex-direction:column; align-items:center; gap:6px; border:1px solid transparent; }
+    .category-item:hover{ transform:translateY(-2px); background:#2e3a30 }
+    .category-item.active{ background:#f9f9f4; color:#4a5f4d; border-color:#f9f9f4; box-shadow:0 6px 16px rgba(249,249,244,.25); }
+    .category-icon{ font-size:22px }
+    .category-name{ font-size:13px; line-height:1.35; white-space:pre-line }
+    .items-container{ flex:1; background:rgba(249,249,244,.6); border:1px solid #f9f9f4; border-radius:0 20px 20px 0; padding:18px; display:flex; flex-direction:column; overflow-y:auto; }
+    .items-title{ font-size:22px; text-align:center; color:#000; padding-bottom:10px; border-bottom:2px dashed #eaeade; margin:0 0 6px 0; font-weight:600; }
+    .items-english-title{ text-align:center; color:#666; margin:0 0 16px 0; font-size:14px; }
+    .menu-items{ display:grid; grid-template-columns:repeat(auto-fill, minmax(240px,1fr)); gap:12px; }
+    .menu-item{ background:#fff; border:1px solid #ecece0; border-right:3px solid #4a5f4d; border-radius:10px; padding:12px; box-shadow:0 3px 6px rgba(0,0,0,.08); opacity:0; transform:translateY(12px); animation:fade .55s forwards; }
+    @keyframes fade{ to{ opacity:1; transform:translateY(0) } }
+    .item-name{ font-weight:700; font-size:15px; color:#000; margin-bottom:6px }
+    .item-description{ font-size:13px; color:#666; line-height:1.5; margin-bottom:8px }
+    .item-price{ display:flex; justify-content:space-between; align-items:center; padding-top:6px; border-top:1px dashed #eee }
+    .item-price .label{ font-size:12px; color:#777 }
+    .item-price .value{ font-weight:700; color:#000; font-size:14px }
+    .cafe-logo{ text-align:center; margin:16px 0; background:#fff; border:1px solid #f1f1e8; padding:12px; border-radius:10px; }
+    .footer{ text-align:center; padding:14px; margin-top:auto; background:#fff; border-radius:10px; border-top:1px solid #f1f1e8; color:#666; font-size:14px; }
+    @media (max-width:768px){ .categories-sidebar{width:95px; gap:12px; padding:12px 6px} .category-name{font-size:11px} .menu-items{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))} }
+    @media (max-width:480px){ .categories-sidebar{width:80px} .menu-items{grid-template-columns:1fr} }
+    .item-image{ position:relative; width:100%; aspect-ratio:1/1; margin:-4px -4px 10px -4px }
+    .item-image img{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; border-radius:8px; display:block; cursor:pointer }
+    .video-overlay{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(80,101,81,.55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); z-index:9999; }
+    .video-overlay.active{ display:flex }
+    .video-overlay video{ max-width:min(92vw, 680px); max-height:92vh; border-radius:14px; box-shadow:0 20px 60px rgba(0,0,0,.35); background:transparent; }
+    .video-msg{ position:fixed; bottom:16px; right:16px; left:16px; margin:auto; max-width:560px; background:#fff; color:#333; border-radius:12px; padding:10px 12px; box-shadow:0 8px 30px rgba(0,0,0,.15); font-size:13px; display:none; }
+    .video-msg.show{ display:block }
 </style>
 </head>
 <body>
@@ -63,191 +52,191 @@
   </div>
 </div>
 
-<div class="video-overlay" id="videoOverlay" title="برای بستن روی صفحه یا ویدیو کلیک کنید">
-  <video id="overlayVideo" playsinline webkit-playsinline muted autoplay loop preload="metadata"></video>
+<div class="video-overlay" id="videoOverlay" title="برای بستن روی صفحه کلیک کنید">
+  <video id="overlayVideo" playsinline webkit-playsinline controls preload="metadata"></video>
 </div>
+<div class="video-msg" id="videoMsg"></div>
 
 <script>
-  function toPersianNumbers(num) {
-    const p = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
-    return (num+'').replace(/[0-9]/g, d => p[+d]);
-  }
-  function formatPrice(n){
-    if(n === undefined || n === null || n === '') return '—';
-    return toPersianNumbers((n+'').replace(/\B(?=(\d{3})+(?!\d))/g, ',')) + ' تومان';
-  }
+const menuData = {
+  "بار گرم": {
+    english: "HOT BAR",
+    icon: "fa-solid fa-mug-saucer",
+    items: [
+      {name:"اسپرسو دبل", price: 50000, img: "1.png", vid: "1.mp4"}
+      {name:"اسپرسو سینگل", price: 50000, img: "2.png", vid: "2.mp4"}
+      {name:"لاته", price: 120000, img: "3.png", vid: "3.mp4"}
+      {name:"کاپوچینو", price: 120000, img: "4.png", vid: "4.mp4"}
+      {name:"کارامل ماکیاتو", price: 120000, img: "5.png", vid: "5.mp4"}
+      {name:"چای سیاه", price: 40000, img: "6.png", vid: "6.mp4"}
+      {name:"چای کرک", price: 120000, img: "7.png", vid: "7.mp4"}
+      {name:"موکا", price: 120000, img: "8.png", vid: "8.mp4"}
+      {name:"آمریکانو", price: 100000, img: "9.png", vid: "9.mp4"}
+      {name:"هات چاکلت", price: 130000, img: "10.png", vid: "10.mp4"}
+      {name:"وایت چاکلت", price: 130000, img: "11.png", vid: "11.mp4"}
+      {name:"ماسالا", price: 130000, img: "12.png", vid: "12.mp4"}
+    ]
+  },
+  "بار سرد": {
+    english: "COLD BAR",
+    icon: "fa-solid fa-glass-water",
+    items: [
+      {name:"آیس لاته", price: 120000, img: "13.png", vid: "13.mp4"}
+      {name:"آیس آمریکانو", price: 100000, img: "14.png", vid: "14.mp4"}
+      {name:"آیس موکا", price: 120000, img: "15.png", vid: "15.mp4"}
+      {name:"موهیتو", price: 120000, img: "16.png", vid: "16.mp4"}
+      {name:"لیموناد", price: 130000, img: "17.png", vid: "17.mp4"}
+      {name:"بلوهاوایی", price: 140000, img: "18.png", vid: "18.mp4"}
+      {name:"سودا لِمون", price: 70000, img: "19.png", vid: "19.mp4"}
+      {name:"نوشابه قوطی", price: 35000, img: "20.png", vid: "20.mp4"}
+      {name:"آب معدنی", price: 10000, img: "21.png", vid: "21.mp4"}
+    ]
+  },
+  "میلک‌شیک": {
+    english: "MILKSHAKE",
+    icon: "fa-solid fa-ice-cream",
+    items: [
+      {name:"اسپرسو شیک", price: 160000, img: "22.png", vid: "22.mp4"}
+      {name:"شیک نوتلا", price: 190000, img: "23.png", vid: "23.mp4"}
+      {name:"شیک لوتوس", price: 180000, img: "24.png", vid: "24.mp4"}
+      {name:"چاکلت شیک", price: 160000, img: "25.png", vid: "25.mp4"}
+      {name:"شیک موز شکلات", price: 180000, img: "26.png", vid: "26.mp4"}
+      {name:"شیک پینات‌بری (کره بادام‌زمینی)", price: 180000, img: "27.png", vid: "27.mp4"}
+      {name:"کلاسیک شیک", price: 180000, img: "28.png", vid: "28.mp4"}
+    ]
+  },
+  "دمنوش": {
+    english: "HERBAL TEA",
+    icon: "fa-solid fa-seedling",
+    items: [
+      {name:"لیمو زنجبیل", price: 80000, img: "29.png", vid: "29.mp4"}
+      {name:"مرکبات", price: 80000, img: "30.png", vid: "30.mp4"}
+      {name:"رویال یاسمین", price: 80000, img: "31.png", vid: "31.mp4"}
+      {name:"مونا رز", price: 80000, img: "32.png", vid: "32.mp4"}
+      {name:"کالِندولا", price: 80000, img: "33.png", vid: "33.mp4"}
+      {name:"کوهین‌بری", price: 80000, img: "34.png", vid: "34.mp4"}
+      {name:"اَپل کرن‌بری", price: 80000, img: "35.png", vid: "35.mp4"}
+      {name:"مراکشی", price: 80000, img: "36.png", vid: "36.mp4"}
+      {name:"لیمون‌گِراس", price: 80000, img: "37.png", vid: "37.mp4"}
+      {name:"لاوندر دریم", price: 80000, img: "38.png", vid: "38.mp4"}
+      {name:"استرابری کیس", price: 80000, img: "39.png", vid: "39.mp4"}
+      {name:"چای سبز", price: 80000, img: "40.png", vid: "40.mp4"}
+      {name:"گل گاوزبان", price: 80000, img: "41.png", vid: "41.mp4"}
+      {name:"بابونه", price: 80000, img: "42.png", vid: "42.mp4"}
+      {name:"آویشن (عسل)", price: 80000, img: "43.png", vid: "43.mp4"}
+      {name:"چای ترش", price: 80000, img: "44.png", vid: "44.mp4"}
+    ]
+  },
+  "پاستا": {
+    english: "PASTA",
+    icon: "fa-solid fa-bowl-food",
+    items: [
+      {name:"پاستا چیکن آلفردو", price: 300000, img: "45.png", vid: "45.mp4", description:"پنه، فیله مرغ، سس آلفردو، پنیر پارمسان، قارچ سوخاری"}
+      {name:"پاستا بیف آلفردو", price: 350000, img: "46.png", vid: "46.mp4", description:"پنه، گوشت گوساله، سس آلفردو، پنیر پارمسان، قارچ سوخاری"}
+    ]
+  },
+  "سیب‌زمینی": {
+    english: "FRIES",
+    icon: "fa-solid fa-burger",
+    items: [
+      {name:"سیب‌زمینی ساده", price: 150000, img: "47.png", vid: "47.mp4"}
+      {name:"سیب‌زمینی با پنیر دیپ", price: 200000, img: "48.png", vid: "48.mp4"}
+      {name:"سیب‌زمینی بیکن آلفردو", price: 250000, img: "49.png", vid: "49.mp4"}
+      {name:"سیب‌زمینی پیتزایی", price: 250000, img: "50.png", vid: "50.mp4"}
+      {name:"سیب‌زمینی با سس آلفردو", price: 200000, img: "51.png", vid: "51.mp4"}
+    ]
+  },
+  "سوخاری": {
+    english: "FRIED",
+    icon: "fa-solid fa-drumstick-bite",
+    items: [
+      {name:"بشقاب فیله سوخاری", price: 350000, img: "52.png", vid: "52.mp4", description:"به‌همراه سالاد، نان تُست، سس و سیب‌زمینی"}
+      {name:"قارچ سوخاری", price: 150000, img: "53.png", vid: "53.mp4"}
+    ]
+  },
+  "غذای رژیمی": {
+    english: "FIT PLATE",
+    icon: "fa-solid fa-leaf",
+    items: [
+      {name:"بشقاب فیله گریل", price: 350000, img: "54.png", vid: "54.mp4"}
+      {name:"بشقاب سبزیجات", price: 300000, img: "55.png", vid: "55.mp4", description:"—"}
+    ]
+  },
+  "پیش‌غذا و سالاد": {
+    english: "SALAD & STARTER",
+    icon: "fa-solid fa-plate-wheat",
+    items: [
+      {name:"سالاد سزار سوخاری", price: 250000, img: "56.png", vid: "56.mp4"}
+      {name:"سالاد سزار گریل", price: 250000, img: "57.png", vid: "57.mp4"}
+      {name:"سوپ روز", price: 100000, img: "58.png", vid: "58.mp4"}
+      {name:"سوپ فصل", price: 200000, img: "59.png", vid: "59.mp4"}
+    ]
+  },
+  "صبحانه": {
+    english: "BREAKFAST",
+    icon: "fa-solid fa-egg",
+    items: [
+      {name:"صبحانه ایرانی", price: 250000, img: "60.png", vid: "60.mp4", description:"نان سنگک، پنیر، کره، مربا، گردو، ریحان، نان تُست، خیار، گوجه، زیتون"}
+      {name:"اُملت فرانسوی", price: 250000, img: "61.png", vid: "61.mp4", description:"بیکن، قارچ، پنیر پارمسان و..."}
+      {name:"اُملت ایتالیایی", price: 250000, img: "62.png", vid: "62.mp4", description:"بیکن/پپرونی، پنیر پیتزا و..."}
+      {name:"صبحانه انگلیسی", price: 250000, img: "63.png", vid: "63.mp4", description:"تخم‌مرغ، سوسیس، بیکن، لوبیا و..."}
+      {name:"اُملت کوچه فرنگی", price: 170000, img: "64.png", vid: "64.mp4"}
+    ]
+  },
+  "کیک": {
+    english: "CAKES",
+    icon: "fa-solid fa-cake-candles",
+    items: [
+      {name:"اسنیکرز", price: 85000, img: "65.png", vid: "65.mp4", description:"شکلات، بادام‌زمینی، کارامل، خامه"}
+      {name:"پالپ", price: 85000, img: "66.png", vid: "66.mp4"}
+      {name:"چیزکیک", price: 85000, img: "67.png", vid: "67.mp4", description:"کارامل / وانیلی / توت‌فرنگی / موز"}
+      {name:"سیب دارچین", price: 85000, img: "68.png", vid: "68.mp4"}
+      {name:"اورئو", price: 85000, img: "69.png", vid: "69.mp4"}
+      {name:"تیرامیسو", price: 85000, img: "70.png", vid: "70.mp4"}
+      {name:"چاک‌کیک", price: 85000, img: "71.png", vid: "71.mp4"}
+      {name:"کوکی", price: 45000, img: "72.png", vid: "72.mp4"}
+    ]
+  },
+  "پیتزا": {
+    english: "PIZZA",
+    icon: "fa-solid fa-pizza-slice",
+    items: [
+      {name:"پیتزا مخصوص لونا", price: 320000, img: "73.png", vid: "73.mp4", description:"ژامبون گوشت و مرغ، سوسیس، سبزیجات، سس مخصوص"}
+      {name:"سیر و استیک", price: 320000, img: "74.png", vid: "74.mp4", description:"گوشت استیک، سیر، سس آلفردو/مخصوص"}
+      {name:"چیکن", price: 320000, img: "75.png", vid: "75.mp4", description:"مرغ، سبزیجات، سس مخصوص"}
+      {name:"مخلوط", price: 280000, img: "76.png", vid: "76.mp4", description:"ژامبون گوشت و مرغ، سبزیجات، سس مخصوص"}
+      {name:"مارگاریتا", price: 250000, img: "77.png", vid: "77.mp4", description:"پنیر موزارلا، سس مخصوص"}
+      {name:"سبزیجات", price: 250000, img: "78.png", vid: "78.mp4", description:"سبزیجات تازه، قارچ، فلفل دلمه و..."}
+      {name:"آلفردو", price: 350000, img: "79.png", vid: "79.mp4", description:"مرغ یا بیف با سس آلفردو"}
+      {name:"پپرونی", price: 320000, img: "80.png", vid: "80.mp4", description:"پپرونی، سس مخصوص"}
+    ]
+  },
+  "ساندویچ": {
+    english: "SANDWICH",
+    icon: "fa-solid fa-burger",
+    items: [
+      {name:"برگر ویژه لونا", price: 350000, img: "81.png", vid: "81.mp4", description:"برگر 200 گرم، پنیر موتزارلا، پنیر گودا، سس مخصوص + سیب‌زمینی + سالاد"}
+      {name:"چیز برگر", price: 270000, img: "82.png", vid: "82.mp4", description:"برگر 200 گرم، سبزیجات، سالاد قارچ سوخاری، سس مخصوص لنا"}
+      {name:"برگر ساده", price: 250000, img: "83.png", vid: "83.mp4", description:"برگر 200 گرم، سبزیجات، سالاد قارچ سوخاری، سس مخصوص لنا"}
+      {name:"ژامبون تنوری", price: 320000, img: "84.png", vid: "84.mp4", description:"ژامبون گوشت، پنیر موتزارلا، پنیر گودا، سبزیجات، سالاد، قارچ سوخاری، سس مخصوص"}
+    ]
+  },
+};
 
-  const menuData = {
-    "بار گرم": {
-      english: "HOT BAR",
-      icon: "fa-solid fa-mug-saucer",
-      items: [
-        {name:"اسپرسو دبل", price: 50_000, img: "1.png"},
-        {name:"اسپرسو سینگل", price: 50_000, img: "2.png"},
-        {name:"لاته", price: 120_000, img: "3.png"},
-        {name:"کاپوچینو", price: 120_000, img: "4.png"},
-        {name:"کارامل ماکیاتو", price: 120_000, img: "5.png"},
-        {name:"چای سیاه", price: 40_000, img: "6.png"},
-        {name:"چای کرک", price: 120_000, img: "7.png"},
-        {name:"موکا", price: 120_000, img: "8.png"},
-        {name:"آمریکانو", price: 100_000, img: "9.png"},
-        {name:"هات چاکلت", price: 130_000, img: "10.png"},
-        {name:"وایت چاکلت", price: 130_000, img: "11.png"},
-        {name:"ماسالا", price: 130_000, img: "12.png"}
-      ]
-    },
-    "بار سرد": {
-      english: "COLD BAR",
-      icon: "fa-solid fa-glass-water",
-      items: [
-        {name:"آیس لاته", price: 120_000, img: "13.png"},
-        {name:"آیس آمریکانو", price: 100_000, img: "14.png"},
-        {name:"آیس موکا", price: 120_000, img: "15.png"},
-        {name:"موهیتو", price: 120_000, img: "16.png"},
-        {name:"لیموناد", price: 130_000, img: "17.png"},
-        {name:"بلوهاوایی", price: 140_000, img: "18.png"},
-        {name:"سودا لِمون", price: 70_000, img: "19.png"},
-        {name:"نوشابه قوطی", price: 35_000, img: "20.png"},
-        {name:"آب معدنی", price: 10_000, img: "21.png"}
-      ]
-    },
-    "میلک‌شیک": {
-      english: "MILKSHAKE",
-      icon: "fa-solid fa-ice-cream",
-      items: [
-        {name:"اسپرسو شیک", price:160_000, img: "22.png"},
-        {name:"شیک نوتلا", price:190_000, img: "23.png"},
-        {name:"شیک لوتوس", price:180_000, img: "24.png"},
-        {name:"چاکلت شیک", price:160_000, img: "25.png"},
-        {name:"شیک موز شکلات", price:180_000, img: "26.png"},
-        {name:"شیک پینات‌بری (کره بادام‌زمینی)", price:180_000, img: "27.png"},
-        {name:"کلاسیک شیک", price:180_000, img: "28.png"}
-      ]
-    },
-    "دمنوش": {
-      english: "HERBAL TEA",
-      icon: "fa-solid fa-seedling",
-      items: [
-        {name:"لیمو زنجبیل", price:80_000, img: "29.png"},
-        {name:"مرکبات", price:80_000, img: "30.png"},
-        {name:"رویال یاسمین", price:80_000, img: "31.png"},
-        {name:"مونا رز", price:80_000, img: "32.png"},
-        {name:"کالِندولا", price:80_000, img: "33.png"},
-        {name:"کوهین‌بری", price:80_000, img: "34.png"},
-        {name:"اَپل کرن‌بری", price:80_000, img: "35.png"},
-        {name:"مراکشی", price:80_000, img: "36.png"},
-        {name:"لیمون‌گِراس", price:80_000, img: "37.png"},
-        {name:"لاوندر دریم", price:80_000, img: "38.png"},
-        {name:"استرابری کیس", price:80_000, img: "39.png"},
-        {name:"چای سبز", price:80_000, img: "40.png"},
-        {name:"گل گاوزبان", price:80_000, img: "41.png"},
-        {name:"بابونه", price:80_000, img: "42.png"},
-        {name:"آویشن (عسل)", price:80_000, img: "43.png"},
-        {name:"چای ترش", price:80_000, img: "44.png"}
-      ]
-    },
-    "پاستا": {
-      english: "PASTA",
-      icon: "fa-solid fa-bowl-food",
-      items: [
-        {name:"پاستا چیکن آلفردو", description:"پنه، فیله مرغ، سس آلفردو، پنیر پارمسان، قارچ سوخاری", price:300_000, img: "45.png"},
-        {name:"پاستا بیف آلفردو", description:"پنه، گوشت گوساله، سس آلفردو، پنیر پارمسان، قارچ سوخاری", price:350_000, img: "46.png"}
-      ]
-    },
-    "سیب‌زمینی": {
-      english: "FRIES",
-      icon: "fa-solid fa-burger",
-      items: [
-        {name:"سیب‌زمینی ساده", price:150_000, img: "47.png"},
-        {name:"سیب‌زمینی با پنیر دیپ", price:200_000, img: "48.png"},
-        {name:"سیب‌زمینی بیکن آلفردو", price:250_000, img: "49.png"},
-        {name:"سیب‌زمینی پیتزایی", price:250_000, img: "50.png"},
-        {name:"سیب‌زمینی با سس آلفردو", price:200_000, img: "51.png"}
-      ]
-    },
-    "سوخاری": {
-      english: "FRIED",
-      icon: "fa-solid fa-drumstick-bite",
-      items: [
-        {name:"بشقاب فیله سوخاری", price:350_000, description:"به‌همراه سالاد، نان تُست، سس و سیب‌زمینی", img: "52.png"},
-        {name:"قارچ سوخاری", price:150_000, img: "53.png"}
-      ]
-    },
-    "غذای رژیمی": {
-      english: "FIT PLATE",
-      icon: "fa-solid fa-leaf",
-      items: [
-        {name:"بشقاب فیله گریل", price:350_000, img: "54.png"},
-        {name:"بشقاب سبزیجات", description:"—", price:300_000, img: "55.png"}
-      ]
-    },
-    "پیش‌غذا و سالاد": {
-      english: "SALAD & STARTER",
-      icon: "fa-solid fa-plate-wheat",
-      items: [
-        {name:"سالاد سزار سوخاری", price:250_000, img: "56.png"},
-        {name:"سالاد سزار گریل", price:250_000, img: "57.png"},
-        {name:"سوپ روز", price:100_000, img: "58.png"},
-        {name:"سوپ فصل", price:200_000, img: "59.png"}
-      ]
-    },
-    "صبحانه": {
-      english: "BREAKFAST",
-      icon: "fa-solid fa-egg",
-      items: [
-        {name:"صبحانه ایرانی", description:"نان سنگک، پنیر، کره، مربا، گردو، ریحان، نان تُست، خیار، گوجه، زیتون", price:250_000, img: "60.png"},
-        {name:"اُملت فرانسوی", description:"بیکن، قارچ، پنیر پارمسان و...", price:250_000, img: "61.png"},
-        {name:"اُملت ایتالیایی", description:"بیکن/پپرونی، پنیر پیتزا و...", price:250_000, img: "62.png"},
-        {name:"صبحانه انگلیسی", description:"تخم‌مرغ، سوسیس، بیکن، لوبیا و...", price:250_000, img: "63.png"},
-        {name:"اُملت کوچه فرنگی", price:170_000, img: "64.png"}
-      ]
-    },
-    "کیک": {
-      english: "CAKES",
-      icon: "fa-solid fa-cake-candles",
-      items: [
-        {name:"اسنیکرز", description:"شکلات، بادام‌زمینی، کارامل، خامه", price:85_000, img: "65.png"},
-        {name:"پالپ", price:85_000, img: "66.png"},
-        {name:"چیزکیک", description:"کارامل / وانیلی / توت‌فرنگی / موز", price:85_000, img: "67.png"},
-        {name:"سیب دارچین", price:85_000, img: "68.png"},
-        {name:"اورئو", price:85_000, img: "69.png"},
-        {name:"تیرامیسو", price:85_000, img: "70.png"},
-        {name:"چاک‌کیک", price:85_000, img: "71.png"},
-        {name:"کوکی", price:45_000, img: "72.png"}
-      ]
-    },
-    "پیتزا": {
-      english: "PIZZA",
-      icon: "fa-solid fa-pizza-slice",
-      items: [
-        {name:"پیتزا مخصوص لونا", description:"ژامبون گوشت و مرغ، سوسیس، سبزیجات، سس مخصوص", price:320_000, img: "73.png"},
-        {name:"سیر و استیک", description:"گوشت استیک، سیر، سس آلفردو/مخصوص", price:320_000, img: "74.png"},
-        {name:"چیکن", description:"مرغ، سبزیجات، سس مخصوص", price:320_000, img: "75.png"},
-        {name:"مخلوط", description:"ژامبون گوشت و مرغ، سبزیجات، سس مخصوص", price:280_000, img: "76.png"},
-        {name:"مارگاریتا", description:"پنیر موزارلا، سس مخصوص", price:250_000, img: "77.png"},
-        {name:"سبزیجات", description:"سبزیجات تازه، قارچ، فلفل دلمه و...", price:250_000, img: "78.png"},
-        {name:"آلفردو", description:"مرغ یا بیف با سس آلفردو", price:350_000, img: "79.png"},
-        {name:"پپرونی", description:"پپرونی، سس مخصوص", price:320_000, img: "80.png"}
-      ]
-    },
-    "ساندویچ": {
-      english: "SANDWICH",
-      icon: "fa-solid fa-burger",
-      items: [
-        {name:"برگر ویژه لونا", description:"برگر 200 گرم، پنیر موتزارلا، پنیر گودا، سس مخصوص + سیب‌زمینی + سالاد", price:350_000, img: "81.png"},
-        {name:"چیز برگر", description:"برگر 200 گرم، سبزیجات، سالاد قارچ سوخاری، سس مخصوص لنا", price:270_000, img: "82.png"},
-        {name:"برگر ساده", description:"برگر 200 گرم، سبزیجات، سالاد قارچ سوخاری، سس مخصوص لنا", price:250_000, img: "83.png"},
-        {name:"ژامبون تنوری", description:"ژامبون گوشت، پنیر موتزارلا، پنیر گودا، سبزیجات، سالاد، قارچ سوخاری، سس مخصوص", price:320_000, img: "84.png"}
-      ]
-    }
-  };
+  // helpers
+  function toPersianNumbers(num) { const p = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹']; return (num+'').replace(/[0-9]/g, d => p[+d]); }
+  function formatPrice(n){ if(n === undefined || n === null || n === '') return '—'; return toPersianNumbers((n+'').replace(/\B(?=(\d{3})+(?!\d))/g, ',')) + ' تومان'; }
+  function toVideoPath(imgPath){ return (imgPath || '').replace(/\.[^/.]+$/, '.mp4'); }
+
+  // hydrate vid if missing (safety)
+  Object.keys(menuData).forEach(cat => menuData[cat].items.forEach(it => { if(!it.vid && it.img) it.vid = toVideoPath(it.img); }));
 
   const categoriesSidebar = document.getElementById('categoriesSidebar');
   const menuItemsWrap = document.getElementById('menuItems');
   const itemsTitle = document.getElementById('itemsTitle');
   const itemsEnglishTitle = document.getElementById('itemsEnglishTitle');
 
-  Object.keys(menuData).forEach((cat, idx) => {
+  Object.keys(menuData).forEach((cat, idx) => { 
     const btn = document.createElement('div');
     btn.className = 'category-item' + (idx===0 ? ' active' : '');
     btn.innerHTML = `<i class="${menuData[cat].icon} category-icon"></i><div class="category-name">${cat}</div>`;
@@ -259,19 +248,24 @@
     categoriesSidebar.appendChild(btn);
   });
 
+  // overlay
   const overlay = document.getElementById('videoOverlay');
   const overlayVideo = document.getElementById('overlayVideo');
+  const videoMsg = document.getElementById('videoMsg');
 
-  function toVideoPath(imgPath){
-    // 1.png -> 1.mp4  |  product.photo.JPG -> product.photo.mp4
-    return (imgPath || '').replace(/\.[^/.]+$/, '.mp4');
+  function showMsg(text){
+    videoMsg.textContent = text;
+    videoMsg.classList.add('show');
+    setTimeout(()=> videoMsg.classList.remove('show'), 3500);
   }
+
   function openVideo(src){
-    if(!src) return;
-    overlayVideo.src = src;
+    if(!src){ showMsg('ویدیو برای این آیتم تعریف نشده است.'); return; }
+    overlayVideo.removeAttribute('src');
+    overlayVideo.load();
     overlay.classList.add('active');
-    const p = overlayVideo.play();
-    if(p && typeof p.catch === 'function'){ p.catch(()=>{}); }
+    overlayVideo.src = src;
+    // "Normal" playback: user presses play; no autoplay, not muted.
   }
   function closeVideo(){
     overlayVideo.pause();
@@ -279,8 +273,16 @@
     overlayVideo.load();
     overlay.classList.remove('active');
   }
+  // prevent closing when interacting with controls
+  overlayVideo.addEventListener('click', (e)=> e.stopPropagation());
   overlay.addEventListener('click', closeVideo);
   document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeVideo(); });
+
+  overlayVideo.addEventListener('error', function(){
+    const src = overlayVideo.currentSrc || overlayVideo.src;
+    closeVideo();
+    showMsg('ویدیو پیدا نشد: ' + (src ? src.split('/').pop() : ''));
+  });
 
   function renderItems(category){
     const data = menuData[category];
@@ -306,7 +308,7 @@
 
       if(hasImage){
         const imgEl = card.querySelector('.item-image img');
-        const vidSrc = toVideoPath(it.img);
+        const vidSrc = it.vid;
         const open = () => openVideo(vidSrc);
         imgEl.addEventListener('click', open);
         card.querySelector('.item-image').addEventListener('click', open);
