@@ -16,163 +16,39 @@
       padding:10px;
       overflow-x:hidden;
     }
-    .menu-container{
-      height:100vh;
-      display:flex;
-      gap:10px;
-    }
+    .menu-container{height:100vh; display:flex; gap:10px;}
     .categories-sidebar{
-      width:120px;
-      background:rgba(74,95,77,.5);
-      border:1px solid #f9f9f4;
-      border-radius:20px 0 0 20px;
-      padding:18px 10px;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:18px;
-      overflow-y:auto;
-      backdrop-filter: blur(2px);
-      box-shadow:5px 0 15px rgba(0,0,0,.1);
-      color:#f9f9f4;
+      width:120px; background:rgba(74,95,77,.5); border:1px solid #f9f9f4;
+      border-radius:20px 0 0 20px; padding:18px 10px; display:flex; flex-direction:column;
+      align-items:center; gap:18px; overflow-y:auto; backdrop-filter: blur(2px);
+      box-shadow:5px 0 15px rgba(0,0,0,.1); color:#f9f9f4;
     }
-    .category-item{
-      width:100%;
-      padding:10px 6px;
-      border-radius:14px;
-      cursor:pointer;
-      text-align:center;
-      transition:.25s;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:6px;
-      border:1px solid transparent;
-    }
+    .category-item{width:100%; padding:10px 6px; border-radius:14px; cursor:pointer; text-align:center; transition:.25s; display:flex; flex-direction:column; align-items:center; gap:6px; border:1px solid transparent;}
     .category-item:hover{transform:translateY(-2px); background:#2e3a30}
-    .category-item.active{
-      background:#f9f9f4;
-      color:#4a5f4d;
-      border-color:#f9f9f4;
-      box-shadow:0 6px 16px rgba(249,249,244,.25);
-    }
+    .category-item.active{background:#f9f9f4; color:#4a5f4d; border-color:#f9f9f4; box-shadow:0 6px 16px rgba(249,249,244,.25);}
     .category-icon{font-size:22px}
     .category-name{font-size:13px; line-height:1.35; white-space:pre-line}
-    .items-container{
-      flex:1;
-      background:rgba(249,249,244,.6);
-      border:1px solid #f9f9f4;
-      border-radius:0 20px 20px 0;
-      padding:18px;
-      display:flex;
-      flex-direction:column;
-      overflow-y:auto;
-    }
-    .items-title{
-      font-size:22px;
-      text-align:center;
-      color:#000;
-      padding-bottom:10px;
-      border-bottom:2px dashed #eaeade;
-      margin:0 0 6px 0;
-      font-weight:600;
-    }
-    .items-english-title{
-      text-align:center;
-      color:#666;
-      margin:0 0 16px 0;
-      font-size:14px;
-    }
-    .menu-items{
-      display:grid;
-      grid-template-columns:repeat(auto-fill, minmax(240px,1fr));
-      gap:12px;
-    }
-    .menu-item{
-      background:#fff;
-      border:1px solid #ecece0;
-      border-right:3px solid #4a5f4d;
-      border-radius:10px;
-      padding:12px;
-      box-shadow:0 3px 6px rgba(0,0,0,.08);
-      opacity:0; transform:translateY(12px);
-      animation:fade .55s forwards;
-    }
+    .items-container{flex:1; background:rgba(249,249,244,.6); border:1px solid #f9f9f4; border-radius:0 20px 20px 0; padding:18px; display:flex; flex-direction:column; overflow-y:auto;}
+    .items-title{font-size:22px; text-align:center; color:#000; padding-bottom:10px; border-bottom:2px dashed #eaeade; margin:0 0 6px 0; font-weight:600;}
+    .items-english-title{text-align:center; color:#666; margin:0 0 16px 0; font-size:14px;}
+    .menu-items{display:grid; grid-template-columns:repeat(auto-fill, minmax(240px,1fr)); gap:12px;}
+    .menu-item{background:#fff; border:1px solid #ecece0; border-right:3px solid #4a5f4d; border-radius:10px; padding:12px; box-shadow:0 3px 6px rgba(0,0,0,.08); opacity:0; transform:translateY(12px); animation:fade .55s forwards;}
     @keyframes fade{to{opacity:1; transform:translateY(0)}}
     .item-name{font-weight:700; font-size:15px; color:#000; margin-bottom:6px}
     .item-description{font-size:13px; color:#666; line-height:1.5; margin-bottom:8px}
     .item-price{display:flex; justify-content:space-between; align-items:center; padding-top:6px; border-top:1px dashed #eee}
     .item-price .label{font-size:12px; color:#777}
     .item-price .value{font-weight:700; color:#000; font-size:14px}
-    .cafe-logo{
-      text-align:center;
-      margin:16px 0;
-      background:#fff;
-      border:1px solid #f1f1e8;
-      padding:12px;
-      border-radius:10px;
-    }
-    .footer{
-      text-align:center;
-      padding:14px;
-      margin-top:auto;
-      background:#fff;
-      border-radius:10px;
-      border-top:1px solid #f1f1e8;
-      color:#666; font-size:14px;
-    }
-    @media (max-width:768px){
-      .categories-sidebar{width:95px; gap:12px; padding:12px 6px}
-      .category-name{font-size:11px}
-      .menu-items{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
-    }
-    @media (max-width:480px){
-      .categories-sidebar{width:80px}
-      .menu-items{grid-template-columns:1fr}
-    }
-  
-    .item-image{margin:-4px -4px 10px -4px}
-    .item-image img{width:100%; height:220px; object-fit:cover; border-radius:8px; display:block}
-    @media (max-width:768px){
-      .item-image img{height:200px}
-    }
-    @media (max-width:480px){
-      .item-image img{height:180px}
-    }
-    
-/* --- square image overrides --- */
-.item-image{position:relative; width:100%; aspect-ratio:1/1; margin:-4px -4px 10px -4px}
-.item-image img{position:absolute; inset:0; width:100%; height:100%; object-fit:contain; border-radius:8px; display:block; cursor:pointer}
-/* remove old fixed heights on small screens by overriding */
-@media (max-width:768px){
-  .item-image{aspect-ratio:1/1}
-  .item-image img{object-fit:contain}
-}
-@media (max-width:480px){
-  .item-image{aspect-ratio:1/1}
-  .item-image img{object-fit:contain}
-}
-
-/* --- video popup overlay --- */
-.video-overlay{
-  position:fixed;
-  inset:0;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  background:rgba(80,101,81,.55); /* brand-tinted dim layer */
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  z-index:9999;
-}
-.video-overlay.active{display:flex}
-.video-overlay video{
-  max-width:min(92vw, 680px);
-  max-height:92vh;
-  border-radius:14px;
-  box-shadow:0 20px 60px rgba(0,0,0,.35);
-  background:transparent;
-}
+    .cafe-logo{text-align:center; margin:16px 0; background:#fff; border:1px solid #f1f1e8; padding:12px; border-radius:10px;}
+    .footer{text-align:center; padding:14px; margin-top:auto; background:#fff; border-radius:10px; border-top:1px solid #f1f1e8; color:#666; font-size:14px;}
+    @media (max-width:768px){.categories-sidebar{width:95px; gap:12px; padding:12px 6px} .category-name{font-size:11px} .menu-items{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}}
+    @media (max-width:480px){.categories-sidebar{width:80px} .menu-items{grid-template-columns:1fr}}
+    .item-image{position:relative; width:100%; aspect-ratio:1/1; margin:-4px -4px 10px -4px}
+    .item-image img{position:absolute; inset:0; width:100%; height:100%; object-fit:contain; border-radius:8px; display:block; cursor:pointer}
+    /* --- video popup overlay --- */
+    .video-overlay{position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(80,101,81,.55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); z-index:9999;}
+    .video-overlay.active{display:flex}
+    .video-overlay video{max-width:min(92vw, 680px); max-height:92vh; border-radius:14px; box-shadow:0 20px 60px rgba(0,0,0,.35); background:transparent;}
 </style>
 </head>
 <body>
@@ -187,23 +63,20 @@
   </div>
 </div>
 
-<!-- Video popup overlay (created once) -->
 <div class="video-overlay" id="videoOverlay" title="برای بستن روی صفحه یا ویدیو کلیک کنید">
-  <video id="overlayVideo" playsinline muted autoplay loop></video>
+  <video id="overlayVideo" playsinline webkit-playsinline muted autoplay loop preload="metadata"></video>
 </div>
 
 <script>
-  // فارسی‌سازی اعداد
   function toPersianNumbers(num) {
     const p = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
     return (num+'').replace(/[0-9]/g, d => p[+d]);
   }
   function formatPrice(n){
     if(n === undefined || n === null || n === '') return '—';
-    return toPersianNumbers((n+'').replace(/\\B(?=(\\d{3})+(?!\\d))/g, ',')) + ' تومان';
+    return toPersianNumbers((n+'').replace(/\B(?=(\d{3})+(?!\d))/g, ',')) + ' تومان';
   }
 
-  // داده‌های به‌روز لونا (نام - توضیح - قیمت)
   const menuData = {
     "بار گرم": {
       english: "HOT BAR",
@@ -369,7 +242,6 @@
     }
   };
 
-  // رندر دسته‌بندی‌ها
   const categoriesSidebar = document.getElementById('categoriesSidebar');
   const menuItemsWrap = document.getElementById('menuItems');
   const itemsTitle = document.getElementById('itemsTitle');
@@ -387,18 +259,17 @@
     categoriesSidebar.appendChild(btn);
   });
 
-  // ویدیو پاپ‌آپ
   const overlay = document.getElementById('videoOverlay');
   const overlayVideo = document.getElementById('overlayVideo');
+
   function toVideoPath(imgPath){
-    // تبدیل هر پسوندی به mp4 (مثلاً 1.png -> 1.mp4)
-    return (imgPath || '').replace(/\\.[^/.]+$/, '.mp4');
+    // 1.png -> 1.mp4  |  product.photo.JPG -> product.photo.mp4
+    return (imgPath || '').replace(/\.[^/.]+$/, '.mp4');
   }
   function openVideo(src){
     if(!src) return;
     overlayVideo.src = src;
     overlay.classList.add('active');
-    // شروع پخش (ممکن است توسط مرورگر نادیده گرفته شود اما تلاش می‌کنیم)
     const p = overlayVideo.play();
     if(p && typeof p.catch === 'function'){ p.catch(()=>{}); }
   }
@@ -442,8 +313,6 @@
       }
     });
   }
-
-  // شروع با اولین دسته‌بندی
   renderItems(Object.keys(menuData)[0]);
 </script>
 </body>
