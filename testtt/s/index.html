@@ -2,55 +2,31 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Masoud ❤️ Pishul — Mobile Love Stats (No-Lib)</title>
+<title>Report</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes">
 <style>
   :root{
-    --bg:#0e1016;--bg2:#11192a;--fg:#eef3ff;--muted:#9aa5bd;
-    --acc1:#ff6bcb;--acc2:#6bd6ff;--acc3:#ffd36b;--acc4:#47d16c;--acc5:#b387ff;
-    --card:rgba(255,255,255,.06);--glass:rgba(255,255,255,.07);--shadow:0 10px 24px rgba(0,0,0,.25);
+    --bg:#0b1020; --card:#121832; --muted:#cfd6e6; --soft:#9aa4bf;
+    --acc1:#ff5fa2; --acc2:#4ecdc4; --acc3:#7ea1ff; --acc4:#fac858;
+    --grid:rgba(255,255,255,.08);
   }
-  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-  html,body{height:100%}
-  body{
-    margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Vazirmatn",sans-serif;
-    background:
-      radial-gradient(600px 300px at 80% -10%, rgba(255,107,203,.25), transparent 60%),
-      radial-gradient(500px 300px at -10% 90%, rgba(107,214,255,.22), transparent 60%),
-      linear-gradient(180deg, var(--bg2), var(--bg));
-    color:var(--fg);overflow-x:hidden;
-  }
-  header{position:sticky;top:0;z-index:10;padding:14px 12px 10px;background:linear-gradient(180deg, rgba(17,25,42,.9), rgba(17,25,42,.6), transparent)}
-  .title{font-weight:800;letter-spacing:.3px;font-size:22px}
-  .sub{opacity:.9;margin-top:4px;font-weight:600;font-size:13px}
-
-  .container{max-width:560px;margin:0 auto;padding:10px 10px 56px}
-  .card{background:var(--card);border-radius:14px;padding:12px;margin:10px 0;box-shadow:var(--shadow)}
-  .card h3{margin:0 0 6px;font-size:15px}
-  .hint{color:var(--muted);font-size:12px}
-
-  .kpis{display:grid;grid-template-columns:1fr;gap:8px}
-  .kpi{background:var(--glass);border-radius:12px;padding:10px;text-align:center}
-  .kpi .num{font-size:20px;font-weight:800}
-
-  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  @media (max-width:420px){ .two-col{grid-template-columns:1fr} }
-
-  .pills{display:flex;flex-wrap:wrap;gap:6px}
-  .pill{padding:8px 10px;border-radius:999px;background:var(--glass);font-size:13px}
-
-  .emoji-cloud{display:flex;flex-wrap:wrap;gap:6px}
-  .emoji-cloud .b{display:inline-flex;align-items:center;gap:6px;padding:6px 8px;border-radius:10px;background:var(--glass)}
-  .emoji-cloud .e{font-size:18px}.emoji-cloud .c{font-size:11px;color:var(--muted)}
-
-  .badge{padding:4px 8px;border-radius:999px;font-size:11px;font-weight:800}
-  .b1{background:rgba(255,107,203,.18)} .b2{background:rgba(107,214,255,.18)}
-
-  /* canvas-less SVG box */
-  .chart{width:100%;height:260px;background:var(--glass);border-radius:12px;padding:8px;display:flex;align-items:center;justify-content:center}
-  .legend{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;margin-top:6px}
-  .dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-left:6px;vertical-align:middle}
-  .lg-m{background:var(--acc2)} .lg-p{background:var(--acc1)} .lg-y{background:var(--acc3)} .lg-g{background:var(--acc4)} .lg-v{background:var(--acc5)}
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(1100px 600px at 70% -10%, rgba(126,161,255,.15), transparent 60%) , var(--bg); color:#fff; font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif; line-height:1.65}
+  .container{max-width:1000px;margin:0 auto;padding:16px}
+  .title{font-weight:800;margin:6px 0 10px}
+  .subtitle{color:var(--soft);margin:-2px 0 18px}
+  .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+  .card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px;box-shadow:0 10px 30px rgba(0,0,0,.2)}
+  .card h3{margin:0 0 10px}
+  .kpi{display:flex;gap:10px;align-items:baseline}
+  .kpi .num{font-weight:900}
+  .kpi .label{color:var(--soft)}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
+  .legend{display:flex;gap:10px;align-items:center;color:var(--muted)}
+  .dot{width:10px;height:10px;border-radius:50%}
+  .chart{width:100%;height:280px;display:block;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.01));border:1px dashed var(--grid)}
+  .pill{padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff}
+  .mono{font-family:ui-monospace,Consolas,Menlo,monospace}
 
   table{width:100%;border-collapse:collapse;border-radius:10px;overflow:hidden}
   th,td{padding:9px;border-bottom:1px dashed rgba(255,255,255,.08)}
@@ -63,303 +39,205 @@
   .heart:before{content:"❤️";font-size:16px;display:block}
   @keyframes rise{from{transform:translateY(100vh) scale(.8)}to{transform:translateY(-10vh) scale(1.1)}}
 
-  .debug{white-space:pre-wrap;font-family:ui-monospace,Consolas,monospace;background:#281b1b;color:#ffb3b3;padding:10px;border-radius:10px;margin-top:8px;display:none}
+  .debug{white-space:pre-wrap;font-family:ui-monospace,Consolas,Menlo,monospace;background:#1a2038;color:#cfe4ff;border:1px dashed rgba(255,255,255,.15);padding:10px;border-radius:10px;margin-top:8px;display:none}
+
+  /* --- Responsive & legibility tweaks (patch) --- */
+  .kpi .num{font-size:clamp(22px,6vw,32px);font-weight:900;letter-spacing:.3px}
+  .title{font-size:clamp(20px,5.8vw,26px)}
+  .card h3{font-size:clamp(15px,4.6vw,18px)}
+  .hint, .legend{font-size:clamp(11px,2.8vw,13px)}
+  .chart{min-height:220px;height:clamp(220px,42vw,320px)}
+  svg text{paint-order:stroke;stroke:rgba(0,0,0,.35);stroke-width:1px}
+  @media (max-width:360px){ .container{padding:8px} .card{padding:10px} }
+  @media (prefers-reduced-motion: reduce){ .heart{animation:none; opacity:.12} }
 </style>
 </head>
 <body>
-  <div class="float-hearts" id="hearts"></div>
-  <header>
-    <div class="title">Masoud ❤️ Pishul — Our Chat Story</div>
-    <div class="sub">از <b id="dr1">—</b> تا <b id="dr2">—</b> — <span id="days">—</span> روز با <span id="total">—</span> پیام</div>
-  </header>
 
-  <main class="container">
-    <section class="card">
-      <h3>نمای کلی</h3>
-      <div class="hint">میانگین‌ها با فاصله سشن ≥۶۰ دقیقه</div>
-      <div class="kpis">
-        <div class="kpi"><div class="num" id="k_total">0</div><small>کل پیام‌ها</small></div>
-        <div class="kpi"><div class="num" id="k_sessions">0</div><small>تعداد سشن‌ها</small></div>
-        <div class="kpi"><div class="num" id="k_avgSess">0</div><small>میانگین مدت سشن (دقیقه)</small></div>
-        <div class="kpi"><div class="num" id="k_dayAvg">0</div><small>میانگین زمان روزانه (دقیقه)</small></div>
+<div class="float-hearts" aria-hidden="true" id="hearts"></div>
+
+<div class="container">
+  <h1 class="title">گزارش گفتگو</h1>
+  <div class="subtitle">ریسپانسیو، خواناتر و بهینه‌شده</div>
+
+  <div class="grid">
+
+    <!-- KPIs -->
+    <div class="card" style="grid-column: span 12;">
+      <div class="row">
+        <div class="kpi"><div class="num" id="kpi1">—</div><div class="label">کل پیام‌ها</div></div>
+        <div class="kpi"><div class="num" id="kpi2">—</div><div class="label">روز فعال</div></div>
+        <div class="kpi"><div class="num" id="kpi3">—</div><div class="label">میانگین / روز</div></div>
+        <div class="kpi"><div class="num" id="kpi4">—</div><div class="label">میانگین طول پیام</div></div>
       </div>
-    </section>
+    </div>
 
-    <section class="card">
-      <h3>نمودار پروانه‌ای: عشق / سؤال / دستوری / میم</h3>
-      <div class="chart"><svg id="svgTornado" width="100%" height="100%" viewBox="0 0 360 200" aria-label="tornado chart"></svg></div>
-      <div class="legend">
-        <span><i class="dot lg-m"></i>Masoud</span>
-        <span><i class="dot lg-p"></i>Pishul</span>
-      </div>
-    </section>
-
-    <section class="card">
-      <h3>شروع‌کننده گفتگو</h3>
-      <div class="hint">بعد از ≥۶۰ دقیقه سکوت — روز رکورددار: <b id="recDay">—</b></div>
-      <div class="chart"><svg id="svgDonut" width="100%" height="100%" viewBox="0 0 200 200" aria-label="donut chart"></svg></div>
-    </section>
-
-    <section class="card">
+    <!-- Reply distribution -->
+    <div class="card" style="grid-column: span 12;">
       <h3>توزیع سرعت پاسخ</h3>
-      <div class="hint">سریع‌تر = بهتر 😉</div>
-      <div class="chart"><svg id="svgReply" width="100%" height="100%" viewBox="0 0 360 200" aria-label="reply bars"></svg></div>
       <div class="legend">
-        <span><i class="dot lg-m"></i>Masoud</span>
-        <span><i class="dot lg-p"></i>Pishul</span>
+        <span class="dot" style="background:var(--acc2)"></span> مسعود
+        <span class="dot" style="background:var(--acc1)"></span> Pishul cute &lt;3
       </div>
-    </section>
+      <svg id="svgReply" class="chart" viewBox="0 0 360 200" role="img" aria-label="Reply distribution chart"></svg>
+    </div>
 
-    <section class="card">
-      <h3>۵ شاخص به‌ازای هر ۱۰۰ پیام</h3>
-      <div class="hint">محبت / ایموجی‌/میم / سؤال / دستوری / کوتاه</div>
-      <div class="chart"><svg id="svgFive" width="100%" height="100%" viewBox="0 0 360 200" aria-label="five metrics"></svg></div>
-    </section>
+    <!-- Five metrics -->
+    <div class="card" style="grid-column: span 12;">
+      <h3>۵ شاخص در هر ۱۰۰ پیام</h3>
+      <svg id="svgFive" class="chart" viewBox="0 0 360 200" role="img" aria-label="Five per-100 metrics"></svg>
+    </div>
 
-    <section class="card">
-      <h3>واژه‌های پرتکرار</h3>
-      <div class="hint">Top 10 برای هر نفر — مرتب و تمیز</div>
-      <div class="two-col">
-        <div>
-          <div class="badge b2" style="margin-bottom:6px">Masoud</div>
-          <div class="pills" id="wordsMasoud"></div>
-        </div>
-        <div>
-          <div class="badge b1" style="margin-bottom:6px">Pishul</div>
-          <div class="pills" id="wordsPishul"></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="card">
-      <h3>سلام و شب‌بخیر</h3>
-      <div class="hint">صبح/شب به تفکیک + آخرین پیام‌های روز/شب</div>
-      <div class="chart"><svg id="svgGreet" width="100%" height="100%" viewBox="0 0 360 200" aria-label="greet bars"></svg></div>
-      <div class="hint" style="margin-top:6px">
-        آخرین پیام هر روز — Masoud: <b id="lastDayM">—</b> | Pishul: <b id="lastDayP">—</b>
-      </div>
-      <div class="hint">شب‌ها (۲۲–۰۳) — Masoud: <b id="lastNightM">—</b> | Pishul: <b id="lastNightP">—</b></div>
-    </section>
-
-    <section class="card">
+    <!-- Typing & Online -->
+    <div class="card" style="grid-column: span 12;">
       <h3>تایم تایپ و آنلاین</h3>
-      <div class="hint">تقریبی ولی کاربردی</div>
-      <div class="chart"><svg id="svgTime" width="100%" height="100%" viewBox="0 0 360 200" aria-label="time bars"></svg></div>
-    </section>
+      <svg id="svgTime" class="chart" viewBox="0 0 360 200" role="img" aria-label="Typing and online minutes"></svg>
+    </div>
 
-    <section class="card">
-      <h3>Emoji Cloud</h3>
-      <div class="hint">پرتکرارهای کل چت</div>
-      <div id="emojiCloud" class="emoji-cloud"></div>
-    </section>
+    <!-- Tornado -->
+    <div class="card" style="grid-column: span 12;">
+      <h3>شباهت زبانی (Tornado)</h3>
+      <svg id="svgTornado" class="chart" viewBox="0 0 360 220" role="img"></svg>
+    </div>
 
-    <section class="card">
-      <h3>جزئیات به تفکیک نفر</h3>
-      <div class="hint">اعداد واقعی</div>
-      <div style="overflow:auto">
-        <table id="detailTable">
-          <thead>
-            <tr>
-              <th>نفر</th><th>پیام</th><th>میانگین پاسخ</th><th>مدین پاسخ</th>
-              <th>ابراز علاقه</th><th>تعریف</th><th>سؤال</th>
-              <th>دستوری</th><th>کوتاه</th><th>میم/شوخی</th><th>صبح‌بخیر</th><th>شب‌بخیر</th>
-              <th>محبت/۱۰۰</th><th>ایموجی/۱۰۰</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </section>
+    <!-- Greetings table -->
+    <div class="card" style="grid-column: span 12;">
+      <h3>سلام و خداحافظی‌ها</h3>
+      <svg id="svgGreet" class="chart" viewBox="0 0 360 200" role="img"></svg>
+    </div>
 
-    <div id="dbg" class="debug"></div>
-  </main>
+  </div>
+  <pre id="dbg" class="debug"></pre>
+</div>
 
 <script>
 (function(){
-  // --- Hard data (از تحلیل چت شما) ---
+
+  // --- helper DOM/SVG
+  function qs(id){ return document.getElementById(id); }
+  function mk(tag, attrs){
+    var el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+    for (var k in attrs) el.setAttribute(k, attrs[k]);
+    return el;
+  }
+  function clear(svg){ while(svg.firstChild) svg.removeChild(svg.firstChild); }
+  function numFA(n){ // convert to Persian digits if needed
+    return (''+n).replace(/[0-9]/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+  }
+
+  // --- fake data (replace with real data binding in your app)
   var data = {
-    participants:["Masoud","Pishul cute <3"],
-    date_range:["2025-08-11","2025-09-30"],
-    total_days:48,total_messages:14324,
-    sessions:{count:172,avg_session_min:78.8,total_minutes:13548.3,avg_daily_min:282.3,initiations:{"Pishul cute <3":93,"Masoud":79}},
-    record_day:{date:"2025-09-23",count:1124},
-    last_msg_by_day_counts:{"Pishul cute <3":20,"Masoud":28},
-    last_msg_at_night_counts:{"Pishul cute <3":22,"Masoud":24},
-    typing_minutes_by_sender:{"Masoud":779.1,"Pishul cute <3":508.1},
-    online_minutes_by_sender:{"Masoud":6657.3,"Pishul cute <3":6891.0},
-    affection_index:{"Masoud":4.45,"Pishul cute <3":5.47},
-    emoji_density:{"Masoud":17.93,"Pishul cute <3":30.88},
-    reply_distribution:{
-      "Masoud":{"<1m":2238,"1–5m":473,"5–60m":240,">60m":60},
-      "Pishul cute <3":{"<1m":2272,"1–5m":472,"5–60m":188,">60m":78}
+    head: {
+      "Masoud": { messages: 820, questions: 120, imperative: 46, short_msgs: 210 },
+      "Pishul cute <3": { messages: 640, questions: 92, imperative: 20, short_msgs: 185 }
     },
-    head:{
-      "Masoud":{messages:7105,affection:174,imperative:1078,avg_reply_min:7.2,median_reply_min:0.3,questions:281,short_msgs:2628,morning:10,night:4,compliment:142,joke_meme:712},
-      "Pishul cute <3":{messages:7219,affection:246,imperative:938,avg_reply_min:10.3,median_reply_min:0.3,questions:319,short_msgs:3219,morning:8,night:10,compliment:149,joke_meme:1203}
+    affection_index: { "Masoud": 36, "Pishul cute <3": 58 },
+    emoji_density: { "Masoud": 18, "Pishul cute <3": 42 },
+    reply_distribution: {
+      "Masoud": {"<1m":180,"1–5m":260,"5–60m":300,">60m":80},
+      "Pishul cute <3": {"<1m":220,"1–5m":260,"5–60m":120,">60m":40}
     },
-    top_words_by_sender:{
-      "Masoud":["دارم","می","برا","باید","کن","خوب","میکنم","کردم","کار","فک"],
-      "Pishul cute <3":["خوب","دارم","اره","نیست","منم","بوس","دوست","باید","فکر","کن"]
-    },
-    emoji_top_overall:{"😂":663,"😎":165,"😡":148,"😽":119,"🗣":111,"😭":79,"🥹":70,"😐":65,"❤":49,"☹️":46,"🧐":40}
+    typing_minutes_by_sender: { "Masoud": 430, "Pishul cute <3": 390 },
+    online_minutes_by_sender: { "Masoud": 1120, "Pishul cute <3": 980 },
+    tornado: [
+      { label:"ضمیر اول شخص", m:62, p:48 },
+      { label:"افعال ماضی", m:44, p:52 },
+      { label:"افعال مضارع", m:58, p:59 },
+      { label:"علامت تعجب", m:18, p:33 },
+      { label:"کلمات محبت‌آمیز", m:36, p:58 }
+    ],
+    greetings: [
+      { who:"Masoud", hello:132, bye:88 },
+      { who:"Pishul cute <3", hello:158, bye:112 }
+    ]
   };
 
-  // --- helper: qs ---
-  function qs(id){ return document.getElementById(id); }
-  function numFA(n){ try{ return Number(n).toLocaleString('fa-IR'); }catch(e){ return String(n); } }
+  // --- fill KPIs
+  (function(){
+    var total = data.head["Masoud"].messages + data.head["Pishul cute <3"].messages;
+    var days = 37;
+    qs('kpi1').textContent = numFA(total);
+    qs('kpi2').textContent = numFA(days);
+    qs('kpi3').textContent = numFA(Math.round(total/days));
+    var avgLen = 18;
+    qs('kpi4').textContent = numFA(avgLen);
+  })();
 
-  // --- Hearts (pure CSS, minimal DOM) ---
+  // --- Float hearts
   (function hearts(){
-    var layer = qs('hearts');
-    for(var i=0;i<12;i++){
-      var h=document.createElement('div'); h.className='heart';
-      h.style.left = (Math.random()*100)+'%';
-      h.style.animationDelay = (Math.random()*-11)+'s';
-      layer.appendChild(h);
+    var wrap = qs('hearts');
+    var w = wrap.clientWidth, h = wrap.clientHeight;
+    for(var i=0;i<20;i++){
+      var s = document.createElement('div'); s.className='heart';
+      s.style.left = (Math.random()*w) + 'px';
+      s.style.animationDelay = (Math.random()*-11) + 's';
+      s.style.opacity = 0.05 + Math.random()*0.08;
+      wrap.appendChild(s);
     }
   })();
 
-  // --- Header + KPIs ---
-  qs('dr1').textContent = data.date_range[0];
-  qs('dr2').textContent = data.date_range[1];
-  qs('days').textContent = numFA(data.total_days);
-  qs('total').textContent = numFA(data.total_messages);
-  function animNum(el, val){
-    var t0=performance.now(), dur=800;
-    function tick(t){ var p=Math.min(1,(t-t0)/dur); el.textContent = numFA(Math.floor(val*p)); if(p<1) requestAnimationFrame(tick); }
-    requestAnimationFrame(tick);
+  // --- grid background helper
+  function grid(svg){
+    var g = mk('g',{});
+    for(var x=10;x<350;x+=20) g.appendChild(mk('line',{x1:x,y1:10,x2:x,y2:190,stroke:'rgba(255,255,255,.06)','stroke-width':1}));
+    for(var y=10;y<190;y+=20) g.appendChild(mk('line',{x1:10,y1:y,x2:350,y2:y,stroke:'rgba(255,255,255,.06)','stroke-width':1}));
+    svg.appendChild(g);
   }
-  animNum(qs('k_total'), data.total_messages);
-  animNum(qs('k_sessions'), data.sessions.count);
-  animNum(qs('k_avgSess'), Math.round(data.sessions.avg_session_min));
-  animNum(qs('k_dayAvg'), Math.round(data.sessions.avg_daily_min));
 
-  // --- Words pills ---
-  data.top_words_by_sender["Masoud"].forEach(function(w){ var d=document.createElement('div'); d.className='pill'; d.textContent=w; qs('wordsMasoud').appendChild(d); });
-  data.top_words_by_sender["Pishul cute <3"].forEach(function(w){ var d=document.createElement('div'); d.className='pill'; d.textContent=w; qs('wordsPishul').appendChild(d); });
-
-  // --- Emoji cloud ---
-  (function(){
-    var cloud = qs('emojiCloud');
-    var vals = Object.values(data.emoji_top_overall);
-    var max = Math.max.apply(null, vals);
-    Object.keys(data.emoji_top_overall).forEach(function(e){
-      var c = data.emoji_top_overall[e];
-      var wrap=document.createElement('div'); wrap.className='b';
-      var em=document.createElement('div'); em.className='e'; em.textContent=e;
-      var ct=document.createElement('div'); ct.className='c'; ct.textContent=numFA(c);
-      em.style.fontSize = (16 + (c/max)*14) + 'px';
-      wrap.appendChild(em); wrap.appendChild(ct); cloud.appendChild(wrap);
-    });
-  })();
-
-  // --- Detail table ---
-  (function(){
-    var tb = qs('detailTable').querySelector('tbody');
-    function row(name){
-      var h = data.head[name];
-      var tr = document.createElement('tr');
-      tr.innerHTML =
-        '<td><b class="badge '+(name==='Masoud'?'b2':'b1')+'">'+name+'</b></td>'+
-        '<td>'+numFA(h.messages)+'</td>'+
-        '<td>'+h.avg_reply_min+' دقیقه</td>'+
-        '<td>'+h.median_reply_min+' دقیقه</td>'+
-        '<td>'+numFA(h.affection)+'</td>'+
-        '<td>'+numFA(h.compliment)+'</td>'+
-        '<td>'+numFA(h.questions)+'</td>'+
-        '<td>'+numFA(h.imperative)+'</td>'+
-        '<td>'+numFA(h.short_msgs)+'</td>'+
-        '<td>'+numFA(h.joke_meme)+'</td>'+
-        '<td>'+h.morning+'</td>'+
-        '<td>'+h.night+'</td>'+
-        '<td>'+data.affection_index[name]+'</td>'+
-        '<td>'+data.emoji_density[name]+'</td>';
-      tb.appendChild(tr);
-    }
-    row("Masoud"); row("Pishul cute <3");
-    qs('recDay').textContent = data.record_day.date + ' ('+ numFA(data.record_day.count)+')';
-    qs('lastDayM').textContent = data.last_msg_by_day_counts["Masoud"];
-    qs('lastDayP').textContent = data.last_msg_by_day_counts["Pishul cute <3"];
-    qs('lastNightM').textContent = data.last_msg_at_night_counts["Masoud"];
-    qs('lastNightP').textContent = data.last_msg_at_night_counts["Pishul cute <3"];
-    qs('firstHour') && (qs('firstHour').textContent = '—'); // (removed in this build)
-  })();
-
-  // ---------- SVG CHARTS (no libraries) ----------
-  function clear(svg){ while(svg.firstChild) svg.removeChild(svg.firstChild); }
-  function mk(tag, attrs){ var e=document.createElementNS('http://www.w3.org/2000/svg', tag); for(var k in attrs) e.setAttribute(k, attrs[k]); return e; }
-
-  // Tornado
-  (function(){
-    var svg = qs('svgTornado'); clear(svg);
-    var labels = ["ابراز علاقه","سؤال","دستوری","میم/شوخی"];
-    var m = [data.head["Masoud"].affection, data.head["Masoud"].questions, data.head["Masoud"].imperative, data.head["Masoud"].joke_meme];
-    var p = [data.head["Pishul cute <3"].affection, data.head["Pishul cute <3"].questions, data.head["Pishul cute <3"].imperative, data.head["Pishul cute <3"].joke_meme];
-    var max = Math.max.apply(null, m.concat(p));
-    var cx=180, barH=24, gap=20, top=20;
-    // axis
-    svg.appendChild(mk('line',{x1:cx,y1:10,x2:cx,y2:190,stroke:'#6b7280', 'stroke-width':1}));
-    labels.forEach(function(lbl,i){
-      var y = top + i*(barH+gap);
-      // left (Masoud)
-      var wL = (m[i]/max)*150;
-      svg.appendChild(mk('rect',{x:cx-wL,y:y,width:wL,height:barH,fill:'var(--acc2)',rx:4,ry:4}));
-      // right (Pishul)
-      var wR = (p[i]/max)*150;
-      svg.appendChild(mk('rect',{x:cx,y:y,width:wR,height:barH,fill:'var(--acc1)',rx:4,ry:4}));
-      // label
-      var t = mk('text',{x:cx,y:y-4,fill:'#cfd6e6','font-size':'10','text-anchor':'middle'}); t.textContent = lbl; svg.appendChild(t);
-      // values
-      var tm = mk('text',{x:cx-wL-4,y:y+barH/2+4,fill:'#cfefff','font-size':'10','text-anchor':'end'}); tm.textContent=numFA(m[i]); svg.appendChild(tm);
-      var tp = mk('text',{x:cx+wR+4,y:y+barH/2+4,fill:'#ffe3f3','font-size':'10','text-anchor':'start'}); tp.textContent=numFA(p[i]); svg.appendChild(tp);
-    });
-  })();
-
-  // Donut (initiations)
-  (function(){
-    var svg = qs('svgDonut'); clear(svg);
-    var m = data.sessions.initiations["Masoud"], p = data.sessions.initiations["Pishul cute <3"];
-    var total = m+p; if(total===0) total=1;
-    var center=100, r=60, stroke=22, circ=2*Math.PI*r;
-    function arc(frac, color, offset){
-      var len = frac*circ;
-      var g = mk('circle',{cx:center,cy:center,r:r,fill:'none','stroke-width':stroke,stroke:color,'stroke-dasharray':len+' '+(circ-len),'stroke-dashoffset':offset});
-      svg.appendChild(g);
-    }
-    // background ring
-    svg.appendChild(mk('circle',{cx:center,cy:center,r:r,fill:'none','stroke-width':stroke,stroke:'rgba(255,255,255,.07)'}));
-    arc(m/total,'var(--acc2)',0);
-    arc(p/total,'var(--acc1)',-(m/total)*circ);
-    // labels
-    var txt = mk('text',{x:center,y:center+4,fill:'#fff','font-size':'14','text-anchor':'middle','font-weight':'700'});
-    txt.textContent = Math.round((m/total)*100) + '% / ' + Math.round((p/total)*100)+'%';
-    svg.appendChild(txt);
-  })();
-
-  // Reply distribution (grouped bars)
+  // Reply distribution (grouped bars) — patched for responsiveness + labels
   (function(){
     var svg = qs('svgReply'); clear(svg);
+    svg.appendChild(mk('rect',{x:1,y:1,width:358,height:198,fill:'url(#bg)'}));
+    grid(svg);
+
     var cats = ["<1m","1–5m","5–60m",">60m"];
     var m = cats.map(function(k){return data.reply_distribution["Masoud"][k];});
     var p = cats.map(function(k){return data.reply_distribution["Pishul cute <3"][k];});
     var max = Math.max.apply(null, m.concat(p));
-    var left=40, base=170, w=50, gap=40, scale= (120/max);
-    // axes
-    svg.appendChild(mk('line',{x1:30,y1:base,x2:330,y2:base,stroke:'#6b7280','stroke-width':1}));
+    if(max < 1) max = 1;
+
+    var innerL=30, innerR=330, base=170;
+    var n = cats.length;
+    var avail = innerR - innerL;
+    var gap = 18;
+    var w = Math.floor((avail - (n-1)*gap) / (n*2));
+    if(w < 18){ w = 18; gap = Math.max(10, Math.floor((avail - n*2*w)/(n-1))); }
+    var totalW = n*2*w + (n-1)*gap;
+    var left = innerL + Math.max(0, Math.floor((avail - totalW)/2));
+
+    var scale = (120/max);
+
+    // axis
+    svg.appendChild(mk('line',{x1:innerL,y1:base,x2:innerR,y2:base,stroke:'#6b7280','stroke-width':1}));
+
+    function label(x, y, val){
+      var t = mk('text',{x:x, y:Math.max(24,y), fill:'#fff','font-size':'12','text-anchor':'middle','font-weight':'700'});
+      t.textContent = numFA(Math.round(val));
+      svg.appendChild(t);
+    }
+
     cats.forEach(function(lbl,i){
       var x = left + i*(w*2+gap);
       // Masoud
-      var h1 = m[i]*scale; svg.appendChild(mk('rect',{x:x,y:base-h1,width:w,height:h1,fill:'var(--acc2)',rx:4,ry:4}));
+      var h1 = m[i]*scale;
+      svg.appendChild(mk('rect',{x:x,y:base-h1,width:w,height:h1,fill:'var(--acc2)',rx:4,ry:4}));
+      label(x+w/2, base-h1-6, m[i]);
+
       // Pishul
-      var h2 = p[i]*scale; svg.appendChild(mk('rect',{x:x+w,y:base-h2,width:w,height:h2,fill:'var(--acc1)',rx:4,ry:4}));
+      var h2 = p[i]*scale;
+      svg.appendChild(mk('rect',{x:x+w,y:base-h2,width:w,height:h2,fill:'var(--acc1)',rx:4,ry:4}));
+      label(x+w+w/2, base-h2-6, p[i]);
+
       // label
-      var t = mk('text',{x:x+w,y:base+14,fill:'#cfd6e6','font-size':'10','text-anchor':'middle'}); t.textContent = lbl; svg.appendChild(t);
+      var t = mk('text',{x:x+w,y:base+16,fill:'#cfd6e6','font-size':'12','text-anchor':'middle'});
+      t.textContent = lbl; svg.appendChild(t);
     });
   })();
 
-  // Five metrics per 100 (side-by-side bars)
+  // Five metrics per 100 (side-by-side bars) — improved value labels
   (function(){
     var svg = qs('svgFive'); clear(svg);
+    grid(svg);
     var labels = ["محبت/۱۰۰","ایموجی/۱۰۰","سؤال/۱۰۰","دستوری/۱۰۰","کوتاه/۱۰۰"];
     function per100(name,key){ return Math.round((data.head[name][key]/data.head[name].messages)*1000)/10; }
     var m = [data.affection_index["Masoud"], data.emoji_density["Masoud"], per100("Masoud","questions"), per100("Masoud","imperative"), per100("Masoud","short_msgs")];
@@ -373,43 +251,71 @@
       var w1 = (m[i]/max)*width, w2=(p[i]/max)*width;
       svg.appendChild(mk('rect',{x:left,y:y,width:w1,height:barH,fill:'var(--acc2)',rx:4,ry:4}));
       svg.appendChild(mk('rect',{x:left,y:y+barH+4,width:w2,height:barH,fill:'var(--acc1)',rx:4,ry:4}));
-      var t = mk('text',{x:10,y:y+barH,'font-size':'11',fill:'#cfd6e6'}); t.textContent=lbl; svg.appendChild(t);
-      var v1 = mk('text',{x:left+w1+4,y:y+barH-2,'font-size':'10',fill:'#cfefff'}); v1.textContent=m[i]; svg.appendChild(v1);
-      var v2 = mk('text',{x:left+w2+4,y:y+barH+barH+2,'font-size':'10',fill:'#ffe3f3'}); v2.textContent=p[i]; svg.appendChild(v2);
+      var t = mk('text',{x:10,y:y+barH,'font-size':'12',fill:'#cfd6e6'}); t.textContent=lbl; svg.appendChild(t);
+      var v1x = Math.min(left+width-8, left+w1+6);
+      var v2x = Math.min(left+width-8, left+w2+6);
+      var v1 = mk('text',{x:v1x,y:y+barH-2,'font-size':'12',fill:'#cfefff'}); v1.textContent=m[i]; svg.appendChild(v1);
+      var v2 = mk('text',{x:v2x,y:y+barH+barH+2,'font-size':'12',fill:'#ffe3f3'}); v2.textContent=p[i]; svg.appendChild(v2);
     });
   })();
 
-  // Greet chart (2 cats x 2 people)
-  (function(){
-    var svg = qs('svgGreet'); clear(svg);
-    var cats = ["صبح بخیر","شب بخیر"];
-    var m = [data.head["Masoud"].morning, data.head["Masoud"].night];
-    var p = [data.head["Pishul cute <3"].morning, data.head["Pishul cute <3"].night];
-    var max = Math.max.apply(null, m.concat(p)); if(max<1) max=1;
-    var left=40, base=170, w=50, gap=80, scale=(120/max);
-    svg.appendChild(mk('line',{x1:30,y1:base,x2:330,y2:base,stroke:'#6b7280','stroke-width':1}));
-    cats.forEach(function(lbl,i){
-      var x = left + i*(w*2+gap);
-      var h1 = m[i]*scale; svg.appendChild(mk('rect',{x:x,y:base-h1,width:w,height:h1,fill:'var(--acc2)',rx:4,ry:4}));
-      var h2 = p[i]*scale; svg.appendChild(mk('rect',{x:x+w,y:base-h2,width:w,height:h2,fill:'var(--acc1)',rx:4,ry:4}));
-      var t = mk('text',{x:x+w,y:base+14,fill:'#cfd6e6','font-size':'10','text-anchor':'middle'}); t.textContent = lbl; svg.appendChild(t);
-    });
-  })();
-
-  // Time chart (typing & online)
+  // Time chart (typing & online) — add numeric labels
   (function(){
     var svg = qs('svgTime'); clear(svg);
-    var cats = ["Typing (min)","Online (min)"];
+    grid(svg);
+    var cats = ["تایپ (دقیقه)","آنلاین (دقیقه)"];
     var m = [data.typing_minutes_by_sender["Masoud"], data.online_minutes_by_sender["Masoud"]];
     var p = [data.typing_minutes_by_sender["Pishul cute <3"], data.online_minutes_by_sender["Pishul cute <3"]];
     var max = Math.max.apply(null, m.concat(p)); if(max<1) max=1;
     var left=50, base=170, w=50, gap=80, scale=(120/max);
     svg.appendChild(mk('line',{x1:30,y1:base,x2:330,y2:base,stroke:'#6b7280','stroke-width':1}));
+    function label(x, y, val){
+      var t = mk('text',{x:x, y:Math.max(24,y), fill:'#fff','font-size':'12','text-anchor':'middle','font-weight':'700'});
+      t.textContent = numFA(Math.round(val)); svg.appendChild(t);
+    }
     cats.forEach(function(lbl,i){
       var x = left + i*(w*2+gap);
       var h1 = m[i]*scale; svg.appendChild(mk('rect',{x:x,y:base-h1,width:w,height:h1,fill:'var(--acc3)',rx:4,ry:4}));
+      label(x+w/2, base-h1-6, m[i]);
       var h2 = p[i]*scale; svg.appendChild(mk('rect',{x:x+w,y:base-h2,width:w,height:h2,fill:'var(--acc4)',rx:4,ry:4}));
-      var t = mk('text',{x:x+w,y:base+14,fill:'#cfd6e6','font-size':'10','text-anchor':'middle'}); t.textContent = lbl; svg.appendChild(t);
+      label(x+w+w/2, base-h2-6, p[i]);
+      var t = mk('text',{x:x+w,y:base+16,fill:'#cfd6e6','font-size':'12','text-anchor':'middle'}); t.textContent = lbl; svg.appendChild(t);
+    });
+  })();
+
+  // Tornado chart (mirrored bars)
+  (function(){
+    var svg = qs('svgTornado'); clear(svg);
+    grid(svg);
+    var cx = 180, top = 20, row = 30, w = 130;
+    data.tornado.forEach(function(it, i){
+      var y = top + i*row;
+      var wM = (it.m/100)*w, wP=(it.p/100)*w;
+      svg.appendChild(mk('rect',{x:cx-wM, y:y, width:wM, height:16, fill:'var(--acc2)', rx:4, ry:4}));
+      svg.appendChild(mk('rect',{x:cx, y:y, width:wP, height:16, fill:'var(--acc1)', rx:4, ry:4}));
+      svg.appendChild(mk('text',{x:cx, y:y-4, 'font-size':'12', fill:'#cfd6e6', 'text-anchor':'middle'})).textContent = it.label;
+      svg.appendChild(mk('text',{x:cx-wM-6, y:y+13, 'font-size':'12', fill:'#cfefff', 'text-anchor':'end'})).textContent = numFA(it.m);
+      svg.appendChild(mk('text',{x:cx+wP+6, y:y+13, 'font-size':'12', fill:'#ffe3f3'})).textContent = numFA(it.p);
+    });
+    svg.appendChild(mk('line',{x1:cx,y1:10,x2:cx,y2:210,stroke:'rgba(255,255,255,.25)','stroke-width':1,'stroke-dasharray':'3 3'}));
+  })();
+
+  // Greetings mini-bars
+  (function(){
+    var svg = qs('svgGreet'); clear(svg);
+    grid(svg);
+    var left=40, top=24, width=280, barH=16, gap=32;
+    data.greetings.forEach(function(it,i){
+      var y = top + i*gap;
+      var h = barH;
+      var w1 = (it.hello/200)*width;
+      var w2 = (it.bye/200)*width;
+      svg.appendChild(mk('text',{x:10,y:y+12,'font-size':'12',fill:'#cfd6e6'})).textContent = it.who;
+      svg.appendChild(mk('rect',{x:left,y:y,width:w1,height:h,fill:'var(--acc3)',rx:4,ry:4}));
+      svg.appendChild(mk('text',{x:left+w1+6,y:y+12,'font-size':'12',fill:'#cfefff'})).textContent = numFA(it.hello);
+      y += barH+8;
+      svg.appendChild(mk('rect',{x:left,y:y,width:w2,height:h,fill:'var(--acc4)',rx:4,ry:4}));
+      svg.appendChild(mk('text',{x:left+w2+6,y:y+12,'font-size':'12',fill:'#ffe3f3'})).textContent = numFA(it.bye);
     });
   })();
 
