@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<title>Relash — تحلیل «باحال» چت تلگرام</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;800&display=swap" rel="stylesheet">
+<!-- Chart.js (optional, auto-fallback if blocked) -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{
+  --bg:#0b0f1a; --card:#101728cc; --txt:#f3f6ff; --muted:#a8b2d1; --acc:#7c5cff;
+  --acc2:#12d6df; --ok:#20c997; --warn:#ffba08; --bad:#ff4d6d;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; font-family:"Vazirmatn",system-ui,-apple-system,Segoe UI,Roboto; color:var(--txt);
+  background: radial-gradient(1200px 600px at 100% -10%,#1a1037 0%,transparent 60%),
+              radial-gradient(1200px 600px at -20% 110%,#003049 0%,transparent 60%),
+              var(--bg);
+}
+.header{
+  padding:20px 16px 6px; position:sticky; top:0; z-index:10; backdrop-filter: blur(10px);
+  background:linear-gradient(180deg, #0b0f1ad9 20%, #0b0f1a00 100%); border-bottom:1px solid #1e2744;
+}
+.h-title{display:flex;align-items:center;gap:10px}
+.logo{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--acc),var(--acc2));display:grid;place-items:center;font-weight:800}
+.sub{color:var(--muted);font-size:12px}
+.container{padding:16px;max-width:1100px;margin:0 auto}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:840px){.grid{grid-template-columns:1fr}}
+.card{
+  background: linear-gradient(145deg, #0b1224 0%, #0d1328 100%);
+  border:1px solid #1f2a44; border-radius:16px; padding:14px; position:relative;
+  box-shadow:0 10px 30px #00000055; overflow:hidden;
+}
+.card h3{margin:0 0 8px 0; font-size:16px}
+small.muted{color:var(--muted)}
+.kpi{
+  display:flex;gap:10px;flex-wrap:wrap
+}
+.kpi .pill{
+  flex:1 1 140px; min-height:74px; padding:10px; border-radius:12px;
+  background:linear-gradient(135deg,#0e1630,#0f1a37);
+  border:1px solid #1f2a44;
+  display:flex;flex-direction:column;gap:6px;
+  transition:transform .3s ease, box-shadow .3s ease;
+}
+.kpi .pill:hover{transform:translateY(-3px); box-shadow:0 14px 28px #0007}
+.num{font-size:20px;font-weight:800}
+.tag{display:inline-block;padding:3px 8px;border-radius:999px;font-size:12px;background:#212b4a;color:#c4d0ff}
+canvas{width:100%;height:260px}
+.table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid #202a45;border-radius:12px;overflow:hidden}
+.table th, .table td{padding:10px;border-bottom:1px solid #1f2845}
+.table tr:last-child td{border-bottom:none}
+.badge{padding:3px 8px;border-radius:999px;background:#1d2746;color:#cde}
+.ok{background:#153d34;color:#b6f1df}
+.warn{background:#3c3214;color:#ffe98a}
+.bad{background:#48212c;color:#ffc1cc}
+.flex{display:flex;gap:10px;flex-wrap:wrap}
+.token{padding:6px 10px;border:1px solid #243156;border-radius:10px;background:#0f1830}
+footer{color:#7d88a8;padding:40px 10px;text-align:center}
+.drop{
+  border:2px dashed #2a3863;border-radius:16px;padding:16px;text-align:center;cursor:pointer;
+  transition:background .2s ease,border-color .2s ease; margin:10px 0 18px;
+}
+.drop:hover{background:#0d1430;border-color:#3c4e84}
+.btn{
+  background: linear-gradient(135deg, var(--acc), var(--acc2));
+  color:#0b0f1a; font-weight:800; border:none; padding:10px 14px; border-radius:10px; cursor:pointer
+}
+.section-title{display:flex;align-items:center;justify-content:space-between;margin:14px 2px 10px}
+.section-title .left{display:flex;align-items:center;gap:8px}
+.hrule{height:1px;background:#1b2340;margin:8px 0 14px;opacity:.7}
+
+.fade-up{opacity:0;transform:translateY(14px);transition:all .6s ease}
+.fade-up.show{opacity:1;transform:none}
+.spin{animation: spin 1.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes floaty{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
+.floaty{animation:floaty 4s ease-in-out infinite}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="h-title">
+    <div class="logo">R</div>
+    <div>
+      <div style="font-weight:800">Relash — تحلیلگر «بی‌رحمِ» چت</div>
+      <div class="sub">فایل <b>result.json</b> تلگرام رو بکش/رها کن؛ بقیه‌ش با من 🎛️</div>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div id="loader" class="card fade-up show" style="display:none;align-items:center;gap:10px">
+    <div class="spin" style="width:18px;height:18px;border:3px solid #24345f;border-top-color:#7c5cff;border-radius:999px"></div>
+    <div>درحال پردازش…</div>
+  </div>
+
+  <label class="drop fade-up show" id="dropzone">
+    <input id="file" type="file" accept=".json" style="display:none">
+    <div>📦 فایل <b>result.json</b> را انتخاب کنید یا اینجا رها کنید</div>
+    <div class="sub">متن پیام‌ها فقط داخل مرورگر شما تحلیل می‌شود (هیچ آپلودی نداریم)</div>
+    <button class="btn" style="margin-top:10px">انتخاب فایل</button>
+  </label>
+
+  <section class="fade-up" id="overview" style="display:none">
+    <div class="section-title">
+      <div class="left">
+        <h2 style="margin:0">نمای کلی</h2>
+        <span class="tag" id="rangeTag"></span>
+      </div>
+      <div class="tag" id="participants"></div>
+    </div>
+
+    <div class="kpi">
+      <div class="pill"><div class="sub">تعداد پیام</div><div class="num" id="k_total">—</div></div>
+      <div class="pill"><div class="sub">واکنش متوسط من</div><div class="num" id="k_me_rt">—</div></div>
+      <div class="pill"><div class="sub">واکنش متوسط او</div><div class="num" id="k_you_rt">—</div></div>
+      <div class="pill"><div class="sub">زمان آنلاین (تخمینی)</div><div class="num" id="k_online">—</div><small class="muted">جمع جلسات ≤۵ دقیقه فاصله</small></div>
+      <div class="pill"><div class="sub">دلتنگی‌ها</div><div class="num" id="k_miss">—</div></div>
+      <div class="pill"><div class="sub">محبت/❤️ شاخص</div><div class="num" id="k_love">—</div></div>
+    </div>
+  </section>
+
+  <div class="grid fade-up" id="charts1" style="display:none">
+    <div class="card">
+      <h3>📈 حجم روزانه</h3>
+      <canvas id="dailyChart"></canvas>
+    </div>
+    <div class="card">
+      <h3>🕘 الگوی ساعتی (هر نفر)</h3>
+      <canvas id="hourChart"></canvas>
+    </div>
+  </div>
+
+  <div class="grid fade-up" id="charts2" style="display:none">
+    <div class="card">
+      <h3>⏱️ تأخیر پاسخ (میانگین/میانه)</h3>
+      <canvas id="respChart"></canvas>
+      <div class="hrule"></div>
+      <small class="muted">پاسخ = تغییر نفر. تأخیر = فاصله تا پیام قبلی + تخمین زمان خواندن.</small>
+    </div>
+    <div class="card">
+      <h3>⌨️ زمان تایپ تخمینی</h3>
+      <canvas id="typeChart"></canvas>
+      <div class="hrule"></div>
+      <small class="muted">typing ≈ Δt پاسخ − زمان خواندن پیام قبلی (۱۵ کاراکتر/ثانیه)</small>
+    </div>
+  </div>
+
+  <div class="grid fade-up" id="charts3" style="display:none">
+    <div class="card">
+      <h3>💬 شروع‌کننده گفتگو</h3>
+      <canvas id="starterChart"></canvas>
+      <div class="hrule"></div>
+      <small class="muted">شروع گفتگو = پیام بعد از سکوت &gt; ۶۰ دقیقه</small>
+    </div>
+    <div class="card">
+      <h3>📣 دستوری‌نما / ❔سؤالات / 😶‍🌫️ کوتاه‌ها</h3>
+      <canvas id="speechChart"></canvas>
+    </div>
+  </div>
+
+  <div class="grid fade-up" id="sec4" style="display:none">
+    <div class="card">
+      <h3>😅 اموجی‌های پرتکرار</h3>
+      <div class="flex" id="emojiCloud"></div>
+    </div>
+    <div class="card">
+      <h3>🔗 لینک‌ها، برنامه‌ریزی و عذرخواهی</h3>
+      <table class="table" id="nlpTable">
+        <thead><tr><th>نفر</th><th>لینک‌ها</th><th>عذرخواهی‌ها</th><th>قول/تعهد</th><th>محبت/Love</th><th>برنامه/قرار</th><th>بحث/تنش</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid fade-up" id="words" style="display:none">
+    <div class="card">
+      <h3>🧠 کلمات پرتکرار تو</h3>
+      <div id="topMine" class="flex"></div>
+    </div>
+    <div class="card">
+      <h3>🧠 کلمات پرتکرار او</h3>
+      <div id="topTheirs" class="flex"></div>
+    </div>
+  </div>
+
+  <div class="grid fade-up" id="examples" style="display:none">
+    <div class="card">
+      <h3>⚡️ نمونه پیام‌های پرانرژی (!)</h3>
+      <div id="highEnergy"></div>
+    </div>
+    <div class="card">
+      <h3>🧨 جملات دستوری‌نما</h3>
+      <div id="imperatives"></div>
+    </div>
+  </div>
+
+  <footer class="fade-up" id="footer" style="display:none">
+    ساخته‌ی شما + Relash ⚡ — همه‌چیز لوکال. هر آمار دیگه‌ای خواستی، اضافه می‌کنم.
+  </footer>
+
+</div>
+
+<script>
+/* ===== Utilities ===== */
+const $$ = (sel,el=document)=>el.querySelector(sel);
+const $$$ = (sel,el=document)=>[...el.querySelectorAll(sel)];
+const fmtNum = n => n.toLocaleString("fa-IR");
+const fmtSec = s=>{
+  if(!isFinite(s)||s<1) return "۰s";
+  const m=Math.floor(s/60), sec=Math.round(s%60), h=Math.floor(m/60), mm=m%60;
+  if(h) return `${h}h ${mm}m`;
+  if(m) return `${m}m ${sec}s`;
+  return `${sec}s`;
+};
+const stopFa = new Set("و به در که از با این آن یا هم را را؟ ؟ . , ، ! !؟ من تو او ما شما آنها های همون همین خیلی دیگه چون ولی اما اگر برای ازش ازت بهم بهت رو را نه هست نیست بود بودند باشه باشیم هستند اینه اون اونم اینم یه یک توی داخل روی رو".split(" "));
+// crude English stopwords
+"the a an and or to of in on at for with you me i is are be was were it this that those these as if then so not do did does your my our their from by about just".split(" ").forEach(w=>stopFa.add(w));
+
+/* ===== File handling ===== */
+const dz = $("#dropzone"), fInput = $("#file"), loader=$("#loader");
+dz.addEventListener("click", ()=>fInput.click());
+dz.addEventListener("dragover", e=>{e.preventDefault(); dz.style.background="#0d1430"});
+dz.addEventListener("dragleave", e=>{dz.style.background=""});
+dz.addEventListener("drop", e=>{
+  e.preventDefault();
+  dz.style.background="";
+  const file = e.dataTransfer.files[0];
+  if(file) handleFile(file);
+});
+fInput.addEventListener("change", e=>{
+  const file = e.target.files[0];
+  if(file) handleFile(file);
+});
+
+function flattenText(t){
+  if(typeof t === "string") return t;
+  if(Array.isArray(t)) return t.map(p => (typeof p==="string") ? p : (p?.text ?? "")).join("");
+  return "";
+}
+
+async function handleFile(file){
+  loader.style.display="flex";
+  const text = await file.text();
+  let json;
+  try{ json = JSON.parse(text); }catch(e){ alert("فایل JSON معتبر نیست."); loader.style.display="none"; return; }
+  const msgs = (json.messages||[]).filter(m=>m.type==="message").map(m=>{
+    const date = new Date(m.date);
+    return {
+      id: m.id, sender: m.from || m.actor || m.from_id || "Unknown",
+      date, text: flattenText(m.text)
+    };
+  }).filter(m=>m.date && m.text!==undefined).sort((a,b)=>a.date-b.date);
+  if(!msgs.length){ alert("پیامی پیدا نشد."); loader.style.display="none"; return; }
+  runAll(msgs);
+  loader.style.display="none";
+}
+
+/* ===== Core Metrics ===== */
+const EMOJI_RE = /[\u{1F300}-\u{1FAFF}\u{2700}-\u{27BF}]/u;
+const IMP = ["پاشو","بفرست","زنگ بزن","جواب بده","بیا","بده","بکن","بذار","راه بنداز","ذخیره کن","شروع کن","گوش بده","بخر","حرکت کن","بپر","send","call","answer"];
+const missRe = /(دلتنگ(?:م|ی)?|دلم\s+(?:برات|براتون)\s+تنگ(?:\s+شده)?|miss\s*(?:you|u))/gi;
+const loveRe = /(دوستت\s?دارم|❤️|♥️|😍|🥰|love\s?you|عشقم|عاشق|love)/gi;
+const sorryRe= /(ببخش(?:ید|م)?|معذرت|sorry|متأسف|غلط کردم)/gi;
+const planRe = /(برنامه|قرار|پلن|می‌بینیم|میبینمت|ریمایند|رزرو|بیا\s+(?:شنبه|یکشنبه|دوشنبه|سه‌شنبه|سه شنبه|چهارشنبه|پنجشنبه|جمعه))/gi;
+const fightRe= /(بحث|دعوا|قهر|عصبانی|ناراحت|رنجیده|😠|😡|🤬)/gi;
+const linkRe = /(https?:\/\/|www\.)/i;
+const questionRe = /[\?؟]/;
+
+function topParticipants(messages, n=2){
+  const map = new Map();
+  messages.forEach(m=>map.set(m.sender,(map.get(m.sender)||0)+1));
+  return [...map.entries()].sort((a,b)=>b[1]-a[1]).slice(0,n).map(([s])=>s);
+}
+function groupDaily(msgs){
+  const map = new Map();
+  msgs.forEach(m=>{
+    const d = m.date.toISOString().slice(0,10);
+    map.set(d,(map.get(d)||0)+1);
+  });
+  return [...map.entries()].sort((a,b)=>a[0].localeCompare(b[0]));
+}
+function hourDist(msgs, senders){
+  const res = {};
+  senders.forEach(s=>res[s]=Array(24).fill(0));
+  msgs.forEach(m=>{
+    if(!res[m.sender]) return;
+    res[m.sender][m.date.getHours()]++;
+  });
+  return res;
+}
+function responseAndTyping(msgs, senders){
+  // reply when sender != prev; reading speed ~15 chars/sec
+  const readCps = 15;
+  const rt = {}; const ty = {};
+  senders.forEach(s=>{rt[s]=[]; ty[s]=[]});
+  for(let i=1;i<msgs.length;i++){
+    const cur = msgs[i], prev = msgs[i-1];
+    const delta = (cur.date - prev.date)/1000;
+    if(cur.sender!==prev.sender){
+      const read = Math.min(delta, Math.max(0, (prev.text||"").length / readCps));
+      const typeTime = Math.max(0, delta - read);
+      rt[cur.sender].push(delta);
+      ty[cur.sender].push(typeTime);
+    }
+  }
+  const agg = obj=>{
+    const out={};
+    for(const [s,arr] of Object.entries(obj)){
+      out[s] = {
+        count: arr.length,
+        mean: arr.length? arr.reduce((a,b)=>a+b,0)/arr.length : 0,
+        median: arr.length? arr.slice().sort((a,b)=>a-b)[Math.floor(arr.length/2)] : 0
+      };
+    }
+    return out;
+  };
+  return {resp: agg(rt), typing: agg(ty)};
+}
+function starters(msgs, senders){
+  // start after >60 min silence
+  const res={}; senders.forEach(s=>res[s]=0);
+  for(let i=0;i<msgs.length;i++){
+    const prev = msgs[i-1];
+    if(!prev){ res[msgs[i].sender]++; continue; }
+    const gap = (msgs[i].date - prev.date)/1000;
+    if(gap > 3600) res[msgs[i].sender]++;
+  }
+  return res;
+}
+function countFlags(msgs, senders){
+  const init = ()=>({links:0,sorry:0,promise:0,love:0,plan:0,fight:0,questions:0,shorts:0,imperatives:0,miss:0});
+  const res={}; senders.forEach(s=>res[s]=init());
+  msgs.forEach(m=>{
+    if(!res[m.sender]) return;
+    const t = (m.text||"");
+    res[m.sender].links += linkRe.test(t)?1:0;
+    res[m.sender].sorry += (t.match(sorryRe)||[]).length;
+    res[m.sender].promise+= /(قول|حتماً|قول\s?می‌دم|می\s?کنم|حتما)/gi.test(t)?1:0;
+    res[m.sender].love += (t.match(loveRe)||[]).length;
+    res[m.sender].plan += (t.match(planRe)||[]).length;
+    res[m.sender].fight+= (t.match(fightRe)||[]).length;
+    res[m.sender].questions += questionRe.test(t)?1:0;
+    res[m.sender].shorts += ((t.trim().split(/\s+/).length)<=2)?1:0;
+    res[m.sender].imperatives += IMP.some(v=>t.trim().startsWith(v))?1:0;
+    res[m.sender].miss += (t.match(missRe)||[]).length;
+  });
+  return res;
+}
+function onlineTime(msgs, senders){
+  // per-sender session when same sender keeps messaging with <=5min gap, or when sender switches within 1min (conversation). Approximate.
+  const maxGapSame = 300, maxGapSwitch = 60;
+  const online={}; senders.forEach(s=>online[s]=0);
+  let sessStart = msgs[0].date, sessLast = msgs[0].date, sessOwner = msgs[0].sender;
+  for(let i=1;i<msgs.length;i++){
+    const m = msgs[i]; const gap = (m.date - sessLast)/1000;
+    const same = m.sender===sessOwner;
+    if( (same && gap<=maxGapSame) || (!same && gap<=maxGapSwitch) ){
+      sessLast = m.date;
+    }else{
+      // close session
+      online[sessOwner] += Math.max(0,(sessLast - sessStart)/1000);
+      // new
+      sessStart = m.date; sessLast = m.date; sessOwner = m.sender;
+    }
+  }
+  online[sessOwner] += Math.max(0,(sessLast - sessStart)/1000);
+  return online;
+}
+function tokenTop(msgs, sender, n=20){
+  const freq = new Map();
+  msgs.filter(m=>m.sender===sender).forEach(m=>{
+    (m.text||"").toLowerCase().replace(/[^\p{L}\p{N}\s]+/gu," ").split(/\s+/).forEach(w=>{
+      if(!w || stopFa.has(w) || w.length<2) return;
+      freq.set(w,(freq.get(w)||0)+1);
+    });
+  });
+  return [...freq.entries()].sort((a,b)=>b[1]-a[1]).slice(0,n);
+}
+function sampleRows(msgs, pred, limit=6){
+  return msgs.filter(pred).slice(0,limit).map(m=>`<div class="muted">${m.date.toLocaleString()}</div><div><b>${m.sender}:</b> ${escapeHtml(m.text).slice(0,220)}</div><div class="hrule"></div>`).join("");
+}
+function escapeHtml(s){return (s||"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");}
+
+/* ===== Charts (with fallback) ===== */
+function simpleBar(canvas, labels, series, colors){
+  const ctx = canvas.getContext("2d"); const W = canvas.width = canvas.clientWidth; const H = canvas.height = 260;
+  const max = Math.max(1, ...series.flat());
+  const barW = (W / (labels.length * series.length + (labels.length+1))) * 1.0;
+  ctx.clearRect(0,0,W,H);
+  labels.forEach((lab,i)=>{
+    series.forEach((arr,j)=>{
+      const v = arr[i]||0; const h = (v/max)*(H-40);
+      const x = (i+1)*barW + (i*series.length+j)*barW;
+      const y = H - h - 20;
+      ctx.fillStyle = colors[j]||"#7c5cff"; ctx.fillRect(x,y,barW-4,h);
+    });
+  });
+  ctx.fillStyle="#8fa3ff"; ctx.font="12px sans-serif";
+  labels.forEach((lab,i)=>{ ctx.fillText(lab, (i+1)*barW + (i*series.length)*barW, H-6); });
+}
+function drawChart(id, cfg){
+  const el = document.getElementById(id);
+  if(window.Chart){
+    new Chart(el.getContext('2d'), cfg);
+  }else{
+    // Fallback to simpleBar for bar charts, or a simple line for daily
+    if(cfg.type==="line"){
+      const ctx = el.getContext("2d"); const W = el.width = el.clientWidth; const H = el.height = 260;
+      const vals = cfg.data.datasets[0].data, max=Math.max(...vals,1);
+      ctx.strokeStyle="#7c5cff"; ctx.beginPath();
+      vals.forEach((v,i)=>{
+        const x = (i/(vals.length-1||1))*(W-20)+10;
+        const y = H-20 - (v/max)*(H-40);
+        if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+      });
+      ctx.stroke();
+      ctx.fillStyle="#8fa3ff"; ctx.font="12px sans-serif";
+      cfg.data.labels.forEach((l,i)=>{ if(i%Math.ceil(cfg.data.labels.length/6)===0) ctx.fillText(l,x= (i/(vals.length-1||1))*(W-20)+10, H-4); });
+    }else if(cfg.type==="bar"){
+      const labels = cfg.data.labels;
+      const series = cfg.data.datasets.map(d=>d.data);
+      const colors = cfg.data.datasets.map(d=>d.backgroundColor||"#7c5cff");
+      simpleBar(el, labels, series, colors);
+    }
+  }
+}
+
+/* ===== Animate on scroll ===== */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add("show"); });
+},{threshold:.08});
+$$$(".fade-up").forEach(el=>observer.observe(el));
+
+/* ===== Confetti (mini) ===== */
+function confetti(){
+  const c=document.createElement("canvas"); c.style.cssText="position:fixed;inset:0;pointer-events:none;z-index:9999"; document.body.appendChild(c);
+  const ctx=c.getContext("2d"); c.width=innerWidth; c.height=innerHeight;
+  const parts = Array.from({length:120},()=>({
+    x: Math.random()*c.width, y: -20, s: 6+Math.random()*8, vy: 2+Math.random()*3,
+    vx: (Math.random()-.5)*2, a: Math.random()*Math.PI, va: .05+Math.random()*.08,
+    color: `hsl(${Math.random()*360},90%,60%)`
+  }));
+  let t=0; const tick=()=>{ t++; ctx.clearRect(0,0,c.width,c.height);
+    parts.forEach(p=>{ p.y+=p.vy; p.x+=p.vx; p.a+=p.va; ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.a); ctx.fillStyle=p.color; ctx.fillRect(-p.s/2,-p.s/2,p.s,p.s); ctx.restore(); });
+    if(t<160) requestAnimationFrame(tick); else c.remove();
+  }; tick();
+}
+
+/* ===== Main ===== */
+function runAll(messages){
+  // participants
+  const senders = topParticipants(messages,2);
+  const mine = senders[0], theirs = senders[1]||"نفر دوم";
+  $("#participants").textContent = `${mine} × ${theirs}`;
+  $("#overview").style.display="";
+  $("#charts1").style.display="";
+  $("#charts2").style.display="";
+  $("#charts3").style.display="";
+  $("#sec4").style.display="";
+  $("#words").style.display="";
+  $("#examples").style.display="";
+  $("#footer").style.display="";
+
+  // date range
+  const start = messages[0].date, end = messages[messages.length-1].date;
+  $("#rangeTag").textContent = `${start.toLocaleDateString()} تا ${end.toLocaleDateString()}`;
+
+  // stats
+  $("#k_total").textContent = fmtNum(messages.length);
+
+  const daily = groupDaily(messages);
+  drawChart("dailyChart", {
+    type:"line",
+    data:{ labels: daily.map(d=>d[0].slice(5)), datasets:[{label:"msgs", data: daily.map(d=>d[1]), borderColor:"#7c5cff", backgroundColor:"#7c5cff33", tension:.25, fill:true}]},
+    options:{plugins:{legend:{display:false}}, scales:{x:{ticks:{autoSkip:true,maxTicksLimit:6}}, y:{beginAtZero:true}}}
+  });
+
+  const hours = hourDist(messages, senders);
+  drawChart("hourChart", {
+    type:"bar",
+    data:{ labels:[...Array(24)].map((_,i)=>i.toString().padStart(2,"0")),
+      datasets:[
+        {label: mine, data: hours[mine], backgroundColor:"#7c5cff"},
+        {label: theirs, data: hours[theirs]||[], backgroundColor:"#12d6df"}
+      ]},
+    options:{responsive:true, plugins:{legend:{labels:{boxWidth:12}}}, scales:{y:{beginAtZero:true}}}
+  });
+
+  const {resp, typing} = responseAndTyping(messages, senders);
+  $("#k_me_rt").textContent = resp[mine]?.mean ? fmtSec(resp[mine].mean) : "—";
+  $("#k_you_rt").textContent = resp[theirs]?.mean ? fmtSec(resp[theirs].mean) : "—";
+  drawChart("respChart", {
+    type:"bar",
+    data:{ labels:["میانگین","میانه"],
+      datasets:[
+        {label: mine, data:[resp[mine]?.mean||0, resp[mine]?.median||0], backgroundColor:"#7c5cff"},
+        {label: theirs, data:[resp[theirs]?.mean||0, resp[theirs]?.median||0], backgroundColor:"#12d6df"}
+      ]},
+    options:{plugins:{legend:{labels:{boxWidth:12}}}, scales:{y:{beginAtZero:true,ticks:{callback:(v)=>fmtSec(v)}}}}
+  });
+  drawChart("typeChart", {
+    type:"bar",
+    data:{ labels:["میانگین تایپ","میانه تایپ"],
+      datasets:[
+        {label: mine, data:[typing[mine]?.mean||0, typing[mine]?.median||0], backgroundColor:"#7c5cff"},
+        {label: theirs, data:[typing[theirs]?.mean||0, typing[theirs]?.median||0], backgroundColor:"#12d6df"}
+      ]},
+    options:{plugins:{legend:{labels:{boxWidth:12}}}, scales:{y:{beginAtZero:true,ticks:{callback:(v)=>fmtSec(v)}}}}
+  });
+
+  // starters after 60m silence
+  const st = starters(messages, senders);
+  drawChart("starterChart", {
+    type:"bar",
+    data:{ labels:[mine, theirs], datasets:[{label:"شروع گفتگو", data:[st[mine]||0, st[theirs]||0], backgroundColor:["#7c5cff","#12d6df"]}]},
+    options:{plugins:{legend:{display:false}}, scales:{y:{beginAtZero:true}}}
+  });
+
+  // flags
+  const flags = countFlags(messages, senders);
+  $("#k_miss").textContent = `${fmtNum(flags[mine]?.miss||0)} / ${fmtNum(flags[theirs]?.miss||0)}`;
+  $("#k_love").textContent = `${fmtNum(flags[mine]?.love||0)} / ${fmtNum(flags[theirs]?.love||0)}`;
+
+  // speech styles
+  drawChart("speechChart", {
+    type:"bar",
+    data:{
+      labels:["دستوری‌نما","سؤال‌ها","پاسخ کوتاه ≤۲ واژه"],
+      datasets:[
+        {label: mine, backgroundColor:"#7c5cff", data:[flags[mine]?.imperatives||0, flags[mine]?.questions||0, flags[mine]?.shorts||0]},
+        {label: theirs, backgroundColor:"#12d6df", data:[flags[theirs]?.imperatives||0, flags[theirs]?.questions||0, flags[theirs]?.shorts||0]}
+      ]
+    },
+    options:{plugins:{legend:{labels:{boxWidth:12}}}, scales:{y:{beginAtZero:true}}}
+  });
+
+  // online time estimation
+  const online = onlineTime(messages, senders);
+  const onlineH = Math.round(((online[mine]||0)+(online[theirs]||0))/3600);
+  $("#k_online").textContent = `${fmtNum(Math.round((online[mine]||0)/3600))}h / ${fmtNum(Math.round((online[theirs]||0)/3600))}h`;
+
+  // Emoji cloud
+  const ecount = new Map(), eBy = {[mine]:new Map(), [theirs]:new Map()};
+  messages.forEach(m=>{
+    [...(m.text||"")].forEach(ch=>{
+      if(EMOJI_RE.test(ch)){ ecount.set(ch,(ecount.get(ch)||0)+1); eBy[m.sender].set(ch,(eBy[m.sender].get(ch)||0)+1); }
+    });
+  });
+  const cloud = [...ecount.entries()].sort((a,b)=>b[1]-a[1]).slice(0,30)
+    .map(([e,c])=>`<span class="token" style="font-size:${12+Math.min(22,c*1.2)}px">${e} ×${c}</span>`).join("");
+  $("#emojiCloud").innerHTML = cloud || `<span class="muted">اموجی شاخصی نیست.</span>`;
+
+  // NLP-ish table
+  const tbody = $("#nlpTable tbody");
+  const row = (s)=>`<tr><td>${s}</td><td>${fmtNum(flags[s]?.links||0)}</td><td>${fmtNum(flags[s]?.sorry||0)}</td><td>${fmtNum(flags[s]?.promise||0)}</td><td>${fmtNum(flags[s]?.love||0)}</td><td>${fmtNum(flags[s]?.plan||0)}</td><td>${fmtNum(flags[s]?.fight||0)}</td></tr>`;
+  tbody.innerHTML = row(mine) + row(theirs);
+
+  // top words
+  const mineTop = tokenTop(messages, mine, 18).map(([w,c])=>`<span class="token">${escapeHtml(w)} ×${c}</span>`).join("");
+  const theirTop = tokenTop(messages, theirs,18).map(([w,c])=>`<span class="token">${escapeHtml(w)} ×${c}</span>`).join("");
+  $("#topMine").innerHTML = mineTop || `<span class="muted">کلمه شاخصی نیست.</span>`;
+  $("#topTheirs").innerHTML = theirTop || `<span class="muted">کلمه شاخصی نیست.</span>`;
+
+  // examples
+  const hi = sampleRows(messages, m=>m.text.includes("!") && (m.text||"").length>20, 8);
+  const imps = sampleRows(messages, m=>IMP.some(v=>m.text.trim().startsWith(v)), 8);
+  $("#highEnergy").innerHTML = hi || `<div class="muted">موردی یافت نشد.</div>`;
+  $("#imperatives").innerHTML = imps || `<div class="muted">موردی یافت نشد.</div>`;
+
+  // party 🎉
+  confetti();
+}
+</script>
+</body>
+</html>
