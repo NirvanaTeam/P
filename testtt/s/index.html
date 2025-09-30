@@ -1,73 +1,76 @@
 <!doctype html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
-  <title>Masoud ❤️ Pishul — Mobile Love Stats</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;800&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
-  <style>
-    :root{
-      --bg:#0e1016;--bg2:#11192a;--fg:#eef3ff;--muted:#9aa5bd;
-      --acc1:#ff6bcb;--acc2:#6bd6ff;--acc3:#ffd36b;
-      --card:rgba(255,255,255,.06);--glass:rgba(255,255,255,.07);--shadow:0 10px 24px rgba(0,0,0,.25);
-      --ok:#47d16c;--warn:#ffbd59;--bad:#ff5d73
-    }
-    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-    html,body{height:100%}
-    body{
-      margin:0; font-family:"Vazirmatn",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-      background:
-        radial-gradient(600px 300px at 80% -10%, rgba(255,107,203,.25), transparent 60%),
-        radial-gradient(500px 300px at -10% 90%, rgba(107,214,255,.22), transparent 60%),
-        linear-gradient(180deg, var(--bg2), var(--bg));
-      color:var(--fg); overflow-x:hidden;
-    }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Masoud ❤️ Pishul — Mobile Love Stats (No-Lib)</title>
+<style>
+  :root{
+    --bg:#0e1016;--bg2:#11192a;--fg:#eef3ff;--muted:#9aa5bd;
+    --acc1:#ff6bcb;--acc2:#6bd6ff;--acc3:#ffd36b;--acc4:#47d16c;--acc5:#b387ff;
+    --card:rgba(255,255,255,.06);--glass:rgba(255,255,255,.07);--shadow:0 10px 24px rgba(0,0,0,.25);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%}
+  body{
+    margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Vazirmatn",sans-serif;
+    background:
+      radial-gradient(600px 300px at 80% -10%, rgba(255,107,203,.25), transparent 60%),
+      radial-gradient(500px 300px at -10% 90%, rgba(107,214,255,.22), transparent 60%),
+      linear-gradient(180deg, var(--bg2), var(--bg));
+    color:var(--fg);overflow-x:hidden;
+  }
+  header{position:sticky;top:0;z-index:10;padding:14px 12px 10px;background:linear-gradient(180deg, rgba(17,25,42,.9), rgba(17,25,42,.6), transparent)}
+  .title{font-weight:800;letter-spacing:.3px;font-size:22px}
+  .sub{opacity:.9;margin-top:4px;font-weight:600;font-size:13px}
 
-    header{position:sticky;top:0;z-index:10;padding:14px 12px 10px;background:linear-gradient(180deg, rgba(17,25,42,.9), rgba(17,25,42,.6), transparent)}
-    .title{font-weight:800;letter-spacing:.3px;font-size:22px}
-    .sub{opacity:.9;margin-top:4px;font-weight:600;font-size:13px}
+  .container{max-width:560px;margin:0 auto;padding:10px 10px 56px}
+  .card{background:var(--card);border-radius:14px;padding:12px;margin:10px 0;box-shadow:var(--shadow)}
+  .card h3{margin:0 0 6px;font-size:15px}
+  .hint{color:var(--muted);font-size:12px}
 
-    .container{max-width:560px;margin:0 auto;padding:10px 10px 56px}
-    .card{background:var(--card);border-radius:14px;padding:12px;margin:10px 0;box-shadow:var(--shadow)}
-    .card h3{margin:0 0 6px 0;font-size:15px}
-    .hint{color:var(--muted);font-size:12px}
+  .kpis{display:grid;grid-template-columns:1fr;gap:8px}
+  .kpi{background:var(--glass);border-radius:12px;padding:10px;text-align:center}
+  .kpi .num{font-size:20px;font-weight:800}
 
-    .kpis{display:grid;grid-template-columns:1fr;gap:8px}
-    .kpi{background:var(--glass);border-radius:12px;padding:10px;text-align:center}
-    .kpi .num{font-size:20px;font-weight:800}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  @media (max-width:420px){ .two-col{grid-template-columns:1fr} }
 
-    .pills{display:flex;flex-wrap:wrap;gap:6px}
-    .pill{padding:8px 10px;border-radius:999px;background:var(--glass);font-size:13px}
+  .pills{display:flex;flex-wrap:wrap;gap:6px}
+  .pill{padding:8px 10px;border-radius:999px;background:var(--glass);font-size:13px}
 
-    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    @media (max-width:420px){ .two-col{grid-template-columns:1fr} }
+  .emoji-cloud{display:flex;flex-wrap:wrap;gap:6px}
+  .emoji-cloud .b{display:inline-flex;align-items:center;gap:6px;padding:6px 8px;border-radius:10px;background:var(--glass)}
+  .emoji-cloud .e{font-size:18px}.emoji-cloud .c{font-size:11px;color:var(--muted)}
 
-    .emoji-cloud{display:flex;flex-wrap:wrap;gap:6px}
-    .emoji-cloud .b{display:inline-flex;align-items:center;gap:6px;padding:6px 8px;border-radius:10px;background:var(--glass)}
-    .emoji-cloud .e{font-size:18px}.emoji-cloud .c{font-size:11px;color:var(--muted)}
+  .badge{padding:4px 8px;border-radius:999px;font-size:11px;font-weight:800}
+  .b1{background:rgba(255,107,203,.18)} .b2{background:rgba(107,214,255,.18)}
 
-    table{width:100%;border-collapse:collapse;border-radius:10px;overflow:hidden}
-    th,td{padding:9px;border-bottom:1px dashed rgba(255,255,255,.08)}
-    th{text-align:right;color:var(--muted);font-weight:700;font-size:12px}
-    tbody tr:hover{background:rgba(255,255,255,.05)}
+  /* canvas-less SVG box */
+  .chart{width:100%;height:260px;background:var(--glass);border-radius:12px;padding:8px;display:flex;align-items:center;justify-content:center}
+  .legend{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;margin-top:6px}
+  .dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-left:6px;vertical-align:middle}
+  .lg-m{background:var(--acc2)} .lg-p{background:var(--acc1)} .lg-y{background:var(--acc3)} .lg-g{background:var(--acc4)} .lg-v{background:var(--acc5)}
 
-    canvas{display:block;width:100%;height:260px;max-height:260px}
+  table{width:100%;border-collapse:collapse;border-radius:10px;overflow:hidden}
+  th,td{padding:9px;border-bottom:1px dashed rgba(255,255,255,.08)}
+  th{text-align:right;color:var(--muted);font-weight:700;font-size:12px}
+  tbody tr:hover{background:rgba(255,255,255,.05)}
 
-    /* tiny hearts */
-    .float-hearts{pointer-events:none;position:fixed;inset:0;overflow:hidden}
-    .heart{position:absolute;opacity:.12;animation:rise 11s linear infinite}
-    .heart:before{content:"❤️";font-size:16px;display:block}
-    @keyframes rise{from{transform:translateY(100vh) scale(.8)}to{transform:translateY(-10vh) scale(1.1)}}
-  </style>
+  /* tiny hearts */
+  .float-hearts{pointer-events:none;position:fixed;inset:0;overflow:hidden}
+  .heart{position:absolute;opacity:.10;animation:rise 11s linear infinite}
+  .heart:before{content:"❤️";font-size:16px;display:block}
+  @keyframes rise{from{transform:translateY(100vh) scale(.8)}to{transform:translateY(-10vh) scale(1.1)}}
+
+  .debug{white-space:pre-wrap;font-family:ui-monospace,Consolas,monospace;background:#281b1b;color:#ffb3b3;padding:10px;border-radius:10px;margin-top:8px;display:none}
+</style>
 </head>
 <body>
   <div class="float-hearts" id="hearts"></div>
-
   <header>
     <div class="title">Masoud ❤️ Pishul — Our Chat Story</div>
-    <div class="sub">از <b id="dr1"></b> تا <b id="dr2"></b> — <span id="days"></span> روز با <span id="total"></span> پیام</div>
+    <div class="sub">از <b id="dr1">—</b> تا <b id="dr2">—</b> — <span id="days">—</span> روز با <span id="total">—</span> پیام</div>
   </header>
 
   <main class="container">
@@ -84,30 +87,33 @@
 
     <section class="card">
       <h3>نمودار پروانه‌ای: عشق / سؤال / دستوری / میم</h3>
-      <div class="hint">Masoud (چپ) vs Pishul (راست)</div>
-      <canvas id="tornadoChart"></canvas>
-      <div id="tornadoFallback" class="hint" style="display:none"></div>
+      <div class="chart"><svg id="svgTornado" width="100%" height="100%" viewBox="0 0 360 200" aria-label="tornado chart"></svg></div>
+      <div class="legend">
+        <span><i class="dot lg-m"></i>Masoud</span>
+        <span><i class="dot lg-p"></i>Pishul</span>
+      </div>
     </section>
 
     <section class="card">
       <h3>شروع‌کننده گفتگو</h3>
-      <div class="hint">بعد از ≥۶۰ دقیقه سکوت — روز رکورددار: <b id="recDay"></b></div>
-      <canvas id="initDonut"></canvas>
-      <div id="initFallback" class="hint" style="display:none"></div>
+      <div class="hint">بعد از ≥۶۰ دقیقه سکوت — روز رکورددار: <b id="recDay">—</b></div>
+      <div class="chart"><svg id="svgDonut" width="100%" height="100%" viewBox="0 0 200 200" aria-label="donut chart"></svg></div>
     </section>
 
     <section class="card">
       <h3>توزیع سرعت پاسخ</h3>
       <div class="hint">سریع‌تر = بهتر 😉</div>
-      <canvas id="replyChart"></canvas>
-      <div id="replyFallback" class="hint" style="display:none"></div>
+      <div class="chart"><svg id="svgReply" width="100%" height="100%" viewBox="0 0 360 200" aria-label="reply bars"></svg></div>
+      <div class="legend">
+        <span><i class="dot lg-m"></i>Masoud</span>
+        <span><i class="dot lg-p"></i>Pishul</span>
+      </div>
     </section>
 
     <section class="card">
-      <h3>Radar: استایل گفتگو (به‌ازای هر ۱۰۰ پیام)</h3>
-      <div class="hint">محبت/ایموجی/سؤال/دستوری/کوتاه</div>
-      <canvas id="radarChart"></canvas>
-      <div id="radarFallback" class="hint" style="display:none"></div>
+      <h3>۵ شاخص به‌ازای هر ۱۰۰ پیام</h3>
+      <div class="hint">محبت / ایموجی‌/میم / سؤال / دستوری / کوتاه</div>
+      <div class="chart"><svg id="svgFive" width="100%" height="100%" viewBox="0 0 360 200" aria-label="five metrics"></svg></div>
     </section>
 
     <section class="card">
@@ -128,19 +134,17 @@
     <section class="card">
       <h3>سلام و شب‌بخیر</h3>
       <div class="hint">صبح/شب به تفکیک + آخرین پیام‌های روز/شب</div>
-      <canvas id="greetChart"></canvas>
-      <div id="greetFallback" class="hint" style="display:none"></div>
+      <div class="chart"><svg id="svgGreet" width="100%" height="100%" viewBox="0 0 360 200" aria-label="greet bars"></svg></div>
       <div class="hint" style="margin-top:6px">
-        آخرین پیام هر روز — Masoud: <b id="lastDayM"></b> | Pishul: <b id="lastDayP"></b>
+        آخرین پیام هر روز — Masoud: <b id="lastDayM">—</b> | Pishul: <b id="lastDayP">—</b>
       </div>
-      <div class="hint">شب‌ها (۲۲–۰۳) — Masoud: <b id="lastNightM"></b> | Pishul: <b id="lastNightP"></b></div>
+      <div class="hint">شب‌ها (۲۲–۰۳) — Masoud: <b id="lastNightM">—</b> | Pishul: <b id="lastNightP">—</b></div>
     </section>
 
     <section class="card">
       <h3>تایم تایپ و آنلاین</h3>
       <div class="hint">تقریبی ولی کاربردی</div>
-      <canvas id="timeChart"></canvas>
-      <div id="timeFallback" class="hint" style="display:none"></div>
+      <div class="chart"><svg id="svgTime" width="100%" height="100%" viewBox="0 0 360 200" aria-label="time bars"></svg></div>
     </section>
 
     <section class="card">
@@ -165,221 +169,257 @@
           <tbody></tbody>
         </table>
       </div>
-      <div class="hint" style="margin-top:6px">
-        بزرگ‌ترین وقفه: <b id="gapLen"></b> — از <b id="gapStart"></b> تا <b id="gapEnd"></b> | میانگین ساعت اولین پیام روز: <b id="firstHour"></b>
-      </div>
     </section>
+
+    <div id="dbg" class="debug"></div>
   </main>
 
-  <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      // --------- DATA (این‌ها همون مقادیر تحلیل‌شده هستن) ----------
-      const data = {
-        participants:["Masoud","Pishul cute <3"],
-        date_range:["2025-08-11","2025-09-30"],
-        total_days:48,total_messages:14324,
-        sessions:{count:172,avg_session_min:78.8,total_minutes:13548.3,avg_daily_min:282.3,initiations:{"Pishul cute <3":93,"Masoud":79}},
-        record_day:{date:"2025-09-23",count:1124},
-        last_msg_by_day_counts:{"Pishul cute <3":20,"Masoud":28},
-        last_msg_at_night_counts:{"Pishul cute <3":22,"Masoud":24},
-        typing_minutes_by_sender:{"Masoud":779.1,"Pishul cute <3":508.1},
-        online_minutes_by_sender:{"Masoud":6657.3,"Pishul cute <3":6891.0},
-        affection_index:{"Masoud":4.45,"Pishul cute <3":5.47},
-        emoji_density:{"Masoud":17.93,"Pishul cute <3":30.88},
-        reply_distribution:{
-          "Masoud":{"<1m":2238,"1–5m":473,"5–60m":240,">60m":60},
-          "Pishul cute <3":{"<1m":2272,"1–5m":472,"5–60m":188,">60m":78}
-        },
-        head:{
-          "Masoud":{messages:7105,affection:174,imperative:1078,avg_reply_min:7.2,median_reply_min:0.3,questions:281,short_msgs:2628,morning:10,night:4,compliment:142,joke_meme:712},
-          "Pishul cute <3":{messages:7219,affection:246,imperative:938,avg_reply_min:10.3,median_reply_min:0.3,questions:319,short_msgs:3219,morning:8,night:10,compliment:149,joke_meme:1203}
-        },
-        top_words_by_sender:{
-          "Masoud":["دارم","می","برا","باید","کن","خوب","میکنم","کردم","کار","فک"],
-          "Pishul cute <3":["خوب","دارم","اره","نیست","منم","بوس","دوست","باید","فکر","کن"]
-        },
-        emoji_top_overall:{"😂":663,"😎":165,"😡":148,"😽":119,"🗣":111,"😭":79,"🥹":70,"😐":65,"❤":49,"☹️":46,"🧐":40},
-        top_emojis_by_sender:{
-          "Masoud":{"😎":165,"😂":129,"💋":29,"🫡":25,"❤":19,"😞":13,"✨":8,"😐":7,"👍":6,"🙏":6,"❤️":5},
-          "Pishul cute <3":{"😂":534,"😡":148,"😽":119,"🗣":111,"😭":76,"🥹":70,"😐":58,"☹️":45,"🧐":40,"❤":30,"🙏":14}
-        },
-        longest_gap:{length:"3 days 07:44:53",start:"2025-08-23 09:58:59",end:"2025-08-26 17:43:52"},
-        avg_first_hour:2.15
-      };
+<script>
+(function(){
+  // --- Hard data (از تحلیل چت شما) ---
+  var data = {
+    participants:["Masoud","Pishul cute <3"],
+    date_range:["2025-08-11","2025-09-30"],
+    total_days:48,total_messages:14324,
+    sessions:{count:172,avg_session_min:78.8,total_minutes:13548.3,avg_daily_min:282.3,initiations:{"Pishul cute <3":93,"Masoud":79}},
+    record_day:{date:"2025-09-23",count:1124},
+    last_msg_by_day_counts:{"Pishul cute <3":20,"Masoud":28},
+    last_msg_at_night_counts:{"Pishul cute <3":22,"Masoud":24},
+    typing_minutes_by_sender:{"Masoud":779.1,"Pishul cute <3":508.1},
+    online_minutes_by_sender:{"Masoud":6657.3,"Pishul cute <3":6891.0},
+    affection_index:{"Masoud":4.45,"Pishul cute <3":5.47},
+    emoji_density:{"Masoud":17.93,"Pishul cute <3":30.88},
+    reply_distribution:{
+      "Masoud":{"<1m":2238,"1–5m":473,"5–60m":240,">60m":60},
+      "Pishul cute <3":{"<1m":2272,"1–5m":472,"5–60m":188,">60m":78}
+    },
+    head:{
+      "Masoud":{messages:7105,affection:174,imperative:1078,avg_reply_min:7.2,median_reply_min:0.3,questions:281,short_msgs:2628,morning:10,night:4,compliment:142,joke_meme:712},
+      "Pishul cute <3":{messages:7219,affection:246,imperative:938,avg_reply_min:10.3,median_reply_min:0.3,questions:319,short_msgs:3219,morning:8,night:10,compliment:149,joke_meme:1203}
+    },
+    top_words_by_sender:{
+      "Masoud":["دارم","می","برا","باید","کن","خوب","میکنم","کردم","کار","فک"],
+      "Pishul cute <3":["خوب","دارم","اره","نیست","منم","بوس","دوست","باید","فکر","کن"]
+    },
+    emoji_top_overall:{"😂":663,"😎":165,"😡":148,"😽":119,"🗣":111,"😭":79,"🥹":70,"😐":65,"❤":49,"☹️":46,"🧐":40}
+  };
 
-      // --------- Quick UI fill (Gregorian strings) ----------
-      const [d1,d2] = data.date_range;
-      document.getElementById('dr1').textContent = d1;
-      document.getElementById('dr2').textContent = d2;
-      document.getElementById('days').textContent = data.total_days.toLocaleString('fa-IR');
-      document.getElementById('total').textContent = data.total_messages.toLocaleString('fa-IR');
+  // --- helper: qs ---
+  function qs(id){ return document.getElementById(id); }
+  function numFA(n){ try{ return Number(n).toLocaleString('fa-IR'); }catch(e){ return String(n); } }
 
-      const animTo = (id,val)=>{ const el=document.getElementById(id); const dur=800,t0=performance.now();
-        const tick=(t)=>{const p=Math.min(1,(t-t0)/dur); el.textContent = Math.floor(val*p).toLocaleString('fa-IR'); if(p<1) requestAnimationFrame(tick);};
-        requestAnimationFrame(tick);
-      };
-      animTo('k_total', data.total_messages);
-      animTo('k_sessions', data.sessions.count);
-      animTo('k_avgSess', Math.round(data.sessions.avg_session_min));
-      animTo('k_dayAvg', Math.round(data.sessions.avg_daily_min));
-      document.getElementById('recDay').textContent = `${data.record_day.date} (${data.record_day.count.toLocaleString('fa-IR')})`;
-      document.getElementById('lastDayM').textContent = data.last_msg_by_day_counts["Masoud"];
-      document.getElementById('lastDayP').textContent = data.last_msg_by_day_counts["Pishul cute <3"];
-      document.getElementById('lastNightM').textContent = data.last_msg_at_night_counts["Masoud"];
-      document.getElementById('lastNightP').textContent = data.last_msg_at_night_counts["Pishul cute <3"];
-      document.getElementById('gapLen').textContent = data.longest_gap.length;
-      document.getElementById('gapStart').textContent = data.longest_gap.start;
-      document.getElementById('gapEnd').textContent = data.longest_gap.end;
-      const fh = data.avg_first_hour;
-      const pad = n=>String(n).padStart(2,'0');
-      document.getElementById('firstHour').textContent = `${pad(Math.floor(fh))}:${pad(Math.round((fh%1)*60))}`;
+  // --- Hearts (pure CSS, minimal DOM) ---
+  (function hearts(){
+    var layer = qs('hearts');
+    for(var i=0;i<12;i++){
+      var h=document.createElement('div'); h.className='heart';
+      h.style.left = (Math.random()*100)+'%';
+      h.style.animationDelay = (Math.random()*-11)+'s';
+      layer.appendChild(h);
+    }
+  })();
 
-      // Words pills
-      const wM = document.getElementById('wordsMasoud');
-      const wP = document.getElementById('wordsPishul');
-      data.top_words_by_sender["Masoud"].forEach(w=>{const el=document.createElement('div');el.className='pill';el.textContent=w;wM.appendChild(el);});
-      data.top_words_by_sender["Pishul cute <3"].forEach(w=>{const el=document.createElement('div');el.className='pill';el.textContent=w;wP.appendChild(el);});
+  // --- Header + KPIs ---
+  qs('dr1').textContent = data.date_range[0];
+  qs('dr2').textContent = data.date_range[1];
+  qs('days').textContent = numFA(data.total_days);
+  qs('total').textContent = numFA(data.total_messages);
+  function animNum(el, val){
+    var t0=performance.now(), dur=800;
+    function tick(t){ var p=Math.min(1,(t-t0)/dur); el.textContent = numFA(Math.floor(val*p)); if(p<1) requestAnimationFrame(tick); }
+    requestAnimationFrame(tick);
+  }
+  animNum(qs('k_total'), data.total_messages);
+  animNum(qs('k_sessions'), data.sessions.count);
+  animNum(qs('k_avgSess'), Math.round(data.sessions.avg_session_min));
+  animNum(qs('k_dayAvg'), Math.round(data.sessions.avg_daily_min));
 
-      // Emoji cloud
-      const cloud = document.getElementById('emojiCloud');
-      const maxEmoji = Math.max(...Object.values(data.emoji_top_overall));
-      Object.entries(data.emoji_top_overall).forEach(([e,c])=>{
-        const wrap=document.createElement('div'); wrap.className='b';
-        const em=document.createElement('div'); em.className='e'; em.textContent=e;
-        const ct=document.createElement('div'); ct.className='c'; ct.textContent=c.toLocaleString('fa-IR');
-        em.style.fontSize = (16 + (c/maxEmoji)*14)+'px';
-        wrap.appendChild(em); wrap.appendChild(ct); cloud.appendChild(wrap);
-      });
+  // --- Words pills ---
+  data.top_words_by_sender["Masoud"].forEach(function(w){ var d=document.createElement('div'); d.className='pill'; d.textContent=w; qs('wordsMasoud').appendChild(d); });
+  data.top_words_by_sender["Pishul cute <3"].forEach(function(w){ var d=document.createElement('div'); d.className='pill'; d.textContent=w; qs('wordsPishul').appendChild(d); });
 
-      // Detail table
-      const tbody=document.querySelector('#detailTable tbody');
-      function rowFor(name){
-        const h=data.head[name];
-        const tr=document.createElement('tr');
-        tr.innerHTML=`
-          <td><b class="badge ${name==='Masoud'?'b2':'b1'}">${name}</b></td>
-          <td>${h.messages.toLocaleString('fa-IR')}</td>
-          <td>${h.avg_reply_min} دقیقه</td>
-          <td>${h.median_reply_min} دقیقه</td>
-          <td>${h.affection.toLocaleString('fa-IR')}</td>
-          <td>${h.compliment.toLocaleString('fa-IR')}</td>
-          <td>${h.questions.toLocaleString('fa-IR')}</td>
-          <td>${h.imperative.toLocaleString('fa-IR')}</td>
-          <td>${h.short_msgs.toLocaleString('fa-IR')}</td>
-          <td>${h.joke_meme.toLocaleString('fa-IR')}</td>
-          <td>${h.morning}</td>
-          <td>${h.night}</td>
-          <td>${data.affection_index[name]}</td>
-          <td>${data.emoji_density[name]}</td>`;
-        tbody.appendChild(tr);
-      }
-      rowFor("Masoud"); rowFor("Pishul cute <3");
-
-      // Hearts
-      (function hearts(){
-        const layer = document.getElementById('hearts');
-        for(let i=0;i<12;i++){
-          const h=document.createElement('div'); h.className='heart';
-          h.style.left = Math.random()*100+'%';
-          h.style.animationDelay = (Math.random()*-11)+'s';
-          layer.appendChild(h);
-        }
-      })();
-
-      // ---------- Charts (with safe fallbacks) ----------
-      const COLORS={m:{a:"#6bd6ff",b:"#3fa9d8"}, p:{a:"#ff6bcb",b:"#e84da9"}, y:"#ffd36b", g:"#47d16c"};
-
-      function safeChart(make, fallbackEl, fallbackLines){
-        try{
-          if(typeof Chart==='undefined') throw new Error('ChartJS not available');
-          make();
-        }catch(e){
-          const el = document.getElementById(fallbackEl);
-          if(el){ el.style.display='block'; el.innerHTML = fallbackLines.join('<br>'); }
-        }
-      }
-
-      // Tornado
-      safeChart(()=>{
-        const ctx=document.getElementById('tornadoChart');
-        const labels=["ابراز علاقه","سؤال","دستوری","میم/شوخی"];
-        const m=[data.head["Masoud"].affection,data.head["Masoud"].questions,data.head["Masoud"].imperative,data.head["Masoud"].joke_meme];
-        const p=[data.head["Pishul cute <3"].affection,data.head["Pishul cute <3"].questions,data.head["Pishul cute <3"].imperative,data.head["Pishul cute <3"].joke_meme];
-        new Chart(ctx,{type:'bar',data:{labels,datasets:[
-          {label:'Masoud',data:m.map(v=>-v),backgroundColor:COLORS.m.a},
-          {label:'Pishul',data:p,backgroundColor:COLORS.p.a}
-        ]},options:{
-          indexAxis:'y',responsive:true,maintainAspectRatio:false,
-          plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:(c)=>`${c.dataset.label}: ${Math.abs(c.raw).toLocaleString('fa-IR')}`}}},
-          scales:{x:{ticks:{callback:(v)=>Math.abs(v).toLocaleString('fa-IR')}}, y:{}}
-        }});
-      }, 'tornadoFallback', [
-        'Masoud: عشق '+data.head["Masoud"].affection.toLocaleString('fa-IR')+' | سؤال '+data.head["Masoud"].questions.toLocaleString('fa-IR')+' | دستوری '+data.head["Masoud"].imperative.toLocaleString('fa-IR')+' | میم '+data.head["Masoud"].joke_meme.toLocaleString('fa-IR'),
-        'Pishul: عشق '+data.head["Pishul cute <3"].affection.toLocaleString('fa-IR')+' | سؤال '+data.head["Pishul cute <3"].questions.toLocaleString('fa-IR')+' | دستوری '+data.head["Pishul cute <3"].imperative.toLocaleString('fa-IR')+' | میم '+data.head["Pishul cute <3"].joke_meme.toLocaleString('fa-IR')
-      ]);
-
-      // Initiations donut
-      safeChart(()=>{
-        const ctx=document.getElementById('initDonut');
-        new Chart(ctx,{type:'doughnut',data:{
-          labels:["Masoud","Pishul"],
-          datasets:[{data:[data.sessions.initiations["Masoud"],data.sessions.initiations["Pishul cute <3"]],
-            backgroundColor:[COLORS.m.a,COLORS.p.a]}]
-        },options:{plugins:{legend:{position:'bottom'}},cutout:'55%'}});
-      }, 'initFallback', [
-        'Masoud شروع کرده: '+data.sessions.initiations["Masoud"].toLocaleString('fa-IR'),
-        'Pishul شروع کرده: '+data.sessions.initiations["Pishul cute <3"].toLocaleString('fa-IR')
-      ]);
-
-      // Reply distribution
-      safeChart(()=>{
-        const ctx=document.getElementById('replyChart');
-        const L=["<1m","1–5m","5–60m",">60m"];
-        const m=L.map(k=>data.reply_distribution["Masoud"][k]);
-        const p=L.map(k=>data.reply_distribution["Pishul cute <3"][k]);
-        new Chart(ctx,{type:'bar',data:{labels:L,datasets:[
-          {label:"Masoud",data:m,backgroundColor:COLORS.m.a},
-          {label:"Pishul",data:p,backgroundColor:COLORS.p.a}
-        ]},options:{plugins:{legend:{position:'bottom'}},scales:{y:{ticks:{callback:(v)=>v.toLocaleString('fa-IR')}}}}});
-      }, 'replyFallback', [
-        'Masoud پاسخ‌ها: '+JSON.stringify(data.reply_distribution["Masoud"]),
-        'Pishul پاسخ‌ها: '+JSON.stringify(data.reply_distribution["Pishul cute <3"])
-      ]);
-
-      // Radar per 100
-      safeChart(()=>{
-        const per100=(n,k)=>Math.round((data.head[n][k]/data.head[n].messages)*1000)/10;
-        const ctx=document.getElementById('radarChart');
-        new Chart(ctx,{type:'radar',data:{
-          labels:["محبت","ایموجی/میم","سؤال/۱۰۰","دستوری/۱۰۰","کوتاه/۱۰۰"],
-          datasets:[
-            {label:"Masoud",data:[data.affection_index["Masoud"],data.emoji_density["Masoud"],per100("Masoud","questions"),per100("Masoud","imperative"),per100("Masoud","short_msgs")],
-             backgroundColor:"rgba(107,214,255,.22)",borderColor:COLORS.m.a,pointBackgroundColor:COLORS.m.b},
-            {label:"Pishul",data:[data.affection_index["Pishul cute <3"],data.emoji_density["Pishul cute <3"],per100("Pishul cute <3","questions"),per100("Pishul cute <3","imperative"),per100("Pishul cute <3","short_msgs")],
-             backgroundColor:"rgba(255,107,203,.22)",borderColor:COLORS.p.a,pointBackgroundColor:COLORS.p.b}
-          ]
-        },options:{plugins:{legend:{position:'bottom'}},scales:{r:{angleLines:{color:"rgba(255,255,255,.15)"}}}});
-      }, 'radarFallback', [
-        'Masoud — محبت/۱۰۰: '+data.affection_index["Masoud"]+' | ایموجی/۱۰۰: '+data.emoji_density["Masoud"],
-        'Pishul — محبت/۱۰۰: '+data.affection_index["Pishul cute <3"]+' | ایموجی/۱۰۰: '+data.emoji_density["Pishul cute <3"]
-      ]);
-
-      // Time bars
-      safeChart(()=>{
-        const ctx=document.getElementById('timeChart');
-        new Chart(ctx,{type:'bar',data:{
-          labels:["Masoud","Pishul"],
-          datasets:[
-            {label:"Typing (min)",data:[data.typing_minutes_by_sender["Masoud"],data.typing_minutes_by_sender["Pishul cute <3"]],backgroundColor:COLORS.y},
-            {label:"Online (min)",data:[data.online_minutes_by_sender["Masoud"],data.online_minutes_by_sender["Pishul cute <3"]],backgroundColor:COLORS.g}
-          ]
-        },options:{plugins:{legend:{position:'bottom'}},scales:{y:{ticks:{callback:(v)=>v.toLocaleString('fa-IR')}}}}});
-      }, 'timeFallback', [
-        'Masoud تایپ: '+data.typing_minutes_by_sender["Masoud"].toLocaleString('fa-IR')+' | آنلاین: '+data.online_minutes_by_sender["Masoud"].toLocaleString('fa-IR'),
-        'Pishul تایپ: '+data.typing_minutes_by_sender["Pishul cute <3"].toLocaleString('fa-IR')+' | آنلاین: '+data.online_minutes_by_sender["Pishul cute <3"].toLocaleString('fa-IR')
-      ]);
-
+  // --- Emoji cloud ---
+  (function(){
+    var cloud = qs('emojiCloud');
+    var vals = Object.values(data.emoji_top_overall);
+    var max = Math.max.apply(null, vals);
+    Object.keys(data.emoji_top_overall).forEach(function(e){
+      var c = data.emoji_top_overall[e];
+      var wrap=document.createElement('div'); wrap.className='b';
+      var em=document.createElement('div'); em.className='e'; em.textContent=e;
+      var ct=document.createElement('div'); ct.className='c'; ct.textContent=numFA(c);
+      em.style.fontSize = (16 + (c/max)*14) + 'px';
+      wrap.appendChild(em); wrap.appendChild(ct); cloud.appendChild(wrap);
     });
-  </script>
+  })();
+
+  // --- Detail table ---
+  (function(){
+    var tb = qs('detailTable').querySelector('tbody');
+    function row(name){
+      var h = data.head[name];
+      var tr = document.createElement('tr');
+      tr.innerHTML =
+        '<td><b class="badge '+(name==='Masoud'?'b2':'b1')+'">'+name+'</b></td>'+
+        '<td>'+numFA(h.messages)+'</td>'+
+        '<td>'+h.avg_reply_min+' دقیقه</td>'+
+        '<td>'+h.median_reply_min+' دقیقه</td>'+
+        '<td>'+numFA(h.affection)+'</td>'+
+        '<td>'+numFA(h.compliment)+'</td>'+
+        '<td>'+numFA(h.questions)+'</td>'+
+        '<td>'+numFA(h.imperative)+'</td>'+
+        '<td>'+numFA(h.short_msgs)+'</td>'+
+        '<td>'+numFA(h.joke_meme)+'</td>'+
+        '<td>'+h.morning+'</td>'+
+        '<td>'+h.night+'</td>'+
+        '<td>'+data.affection_index[name]+'</td>'+
+        '<td>'+data.emoji_density[name]+'</td>';
+      tb.appendChild(tr);
+    }
+    row("Masoud"); row("Pishul cute <3");
+    qs('recDay').textContent = data.record_day.date + ' ('+ numFA(data.record_day.count)+')';
+    qs('lastDayM').textContent = data.last_msg_by_day_counts["Masoud"];
+    qs('lastDayP').textContent = data.last_msg_by_day_counts["Pishul cute <3"];
+    qs('lastNightM').textContent = data.last_msg_at_night_counts["Masoud"];
+    qs('lastNightP').textContent = data.last_msg_at_night_counts["Pishul cute <3"];
+    qs('firstHour') && (qs('firstHour').textContent = '—'); // (removed in this build)
+  })();
+
+  // ---------- SVG CHARTS (no libraries) ----------
+  function clear(svg){ while(svg.firstChild) svg.removeChild(svg.firstChild); }
+  function mk(tag, attrs){ var e=document.createElementNS('http://www.w3.org/2000/svg', tag); for(var k in attrs) e.setAttribute(k, attrs[k]); return e; }
+
+  // Tornado
+  (function(){
+    var svg = qs('svgTornado'); clear(svg);
+    var labels = ["ابراز علاقه","سؤال","دستوری","میم/شوخی"];
+    var m = [data.head["Masoud"].affection, data.head["Masoud"].questions, data.head["Masoud"].imperative, data.head["Masoud"].joke_meme];
+    var p = [data.head["Pishul cute <3"].affection, data.head["Pishul cute <3"].questions, data.head["Pishul cute <3"].imperative, data.head["Pishul cute <3"].joke_meme];
+    var max = Math.max.apply(null, m.concat(p));
+    var cx=180, barH=24, gap=20, top=20;
+    // axis
+    svg.appendChild(mk('line',{x1:cx,y1:10,x2:cx,y2:190,stroke:'#6b7280', 'stroke-width':1}));
+    labels.forEach(function(lbl,i){
+      var y = top + i*(barH+gap);
+      // left (Masoud)
+      var wL = (m[i]/max)*150;
+      svg.appendChild(mk('rect',{x:cx-wL,y:y,width:wL,height:barH,fill:'var(--acc2)',rx:4,ry:4}));
+      // right (Pishul)
+      var wR = (p[i]/max)*150;
+      svg.appendChild(mk('rect',{x:cx,y:y,width:wR,height:barH,fill:'var(--acc1)',rx:4,ry:4}));
+      // label
+      var t = mk('text',{x:cx,y:y-4,fill:'#cfd6e6','font-size':'10','text-anchor':'middle'}); t.textContent = lbl; svg.appendChild(t);
+      // values
+      var tm = mk('text',{x:cx-wL-4,y:y+barH/2+4,fill:'#cfefff','font-size':'10','text-anchor':'end'}); tm.textContent=numFA(m[i]); svg.appendChild(tm);
+      var tp = mk('text',{x:cx+wR+4,y:y+barH/2+4,fill:'#ffe3f3','font-size':'10','text-anchor':'start'}); tp.textContent=numFA(p[i]); svg.appendChild(tp);
+    });
+  })();
+
+  // Donut (initiations)
+  (function(){
+    var svg = qs('svgDonut'); clear(svg);
+    var m = data.sessions.initiations["Masoud"], p = data.sessions.initiations["Pishul cute <3"];
+    var total = m+p; if(total===0) total=1;
+    var center=100, r=60, stroke=22, circ=2*Math.PI*r;
+    function arc(frac, color, offset){
+      var len = frac*circ;
+      var g = mk('circle',{cx:center,cy:center,r:r,fill:'none','stroke-width':stroke,stroke:color,'stroke-dasharray':len+' '+(circ-len),'stroke-dashoffset':offset});
+      svg.appendChild(g);
+    }
+    // background ring
+    svg.appendChild(mk('circle',{cx:center,cy:center,r:r,fill:'none','stroke-width':stroke,stroke:'rgba(255,255,255,.07)'}));
+    arc(m/total,'var(--acc2)',0);
+    arc(p/total,'var(--acc1)',-(m/total)*circ);
+    // labels
+    var txt = mk('text',{x:center,y:center+4,fill:'#fff','font-size':'14','text-anchor':'middle','font-weight':'700'});
+    txt.textContent = Math.round((m/total)*100) + '% / ' + Math.round((p/total)*100)+'%';
+    svg.appendChild(txt);
+  })();
+
+  // Reply distribution (grouped bars)
+  (function(){
+    var svg = qs('svgReply'); clear(svg);
+    var cats = ["<1m","1–5m","5–60m",">60m"];
+    var m = cats.map(function(k){return data.reply_distribution["Masoud"][k];});
+    var p = cats.map(function(k){return data.reply_distribution["Pishul cute <3"][k];});
+    var max = Math.max.apply(null, m.concat(p));
+    var left=40, base=170, w=50, gap=40, scale= (120/max);
+    // axes
+    svg.appendChild(mk('line',{x1:30,y1:base,x2:330,y2:base,stroke:'#6b7280','stroke-width':1}));
+    cats.forEach(function(lbl,i){
+      var x = left + i*(w*2+gap);
+      // Masoud
+      var h1 = m[i]*scale; svg.appendChild(mk('rect',{x:x,y:base-h1,width:w,height:h1,fill:'var(--acc2)',rx:4,ry:4}));
+      // Pishul
+      var h2 = p[i]*scale; svg.appendChild(mk('rect',{x:x+w,y:base-h2,width:w,height:h2,fill:'var(--acc1)',rx:4,ry:4}));
+      // label
+      var t = mk('text',{x:x+w,y:base+14,fill:'#cfd6e6','font-size':'10','text-anchor':'middle'}); t.textContent = lbl; svg.appendChild(t);
+    });
+  })();
+
+  // Five metrics per 100 (side-by-side bars)
+  (function(){
+    var svg = qs('svgFive'); clear(svg);
+    var labels = ["محبت/۱۰۰","ایموجی/۱۰۰","سؤال/۱۰۰","دستوری/۱۰۰","کوتاه/۱۰۰"];
+    function per100(name,key){ return Math.round((data.head[name][key]/data.head[name].messages)*1000)/10; }
+    var m = [data.affection_index["Masoud"], data.emoji_density["Masoud"], per100("Masoud","questions"), per100("Masoud","imperative"), per100("Masoud","short_msgs")];
+    var p = [data.affection_index["Pishul cute <3"], data.emoji_density["Pishul cute <3"], per100("Pishul cute <3","questions"), per100("Pishul cute <3","imperative"), per100("Pishul cute <3","short_msgs")];
+    var max = Math.max.apply(null, m.concat(p)); if(max<1) max=1;
+    var left=80, top=20, barH=16, gap=18, width=240;
+    // axis
+    svg.appendChild(mk('line',{x1:left,y1:top-10,x2:left+width,y2:top-10,stroke:'rgba(255,255,255,.15)','stroke-width':1}));
+    labels.forEach(function(lbl,i){
+      var y = top + i*(barH+gap);
+      var w1 = (m[i]/max)*width, w2=(p[i]/max)*width;
+      svg.appendChild(mk('rect',{x:left,y:y,width:w1,height:barH,fill:'var(--acc2)',rx:4,ry:4}));
+      svg.appendChild(mk('rect',{x:left,y:y+barH+4,width:w2,height:barH,fill:'var(--acc1)',rx:4,ry:4}));
+      var t = mk('text',{x:10,y:y+barH,'font-size':'11',fill:'#cfd6e6'}); t.textContent=lbl; svg.appendChild(t);
+      var v1 = mk('text',{x:left+w1+4,y:y+barH-2,'font-size':'10',fill:'#cfefff'}); v1.textContent=m[i]; svg.appendChild(v1);
+      var v2 = mk('text',{x:left+w2+4,y:y+barH+barH+2,'font-size':'10',fill:'#ffe3f3'}); v2.textContent=p[i]; svg.appendChild(v2);
+    });
+  })();
+
+  // Greet chart (2 cats x 2 people)
+  (function(){
+    var svg = qs('svgGreet'); clear(svg);
+    var cats = ["صبح بخیر","شب بخیر"];
+    var m = [data.head["Masoud"].morning, data.head["Masoud"].night];
+    var p = [data.head["Pishul cute <3"].morning, data.head["Pishul cute <3"].night];
+    var max = Math.max.apply(null, m.concat(p)); if(max<1) max=1;
+    var left=40, base=170, w=50, gap=80, scale=(120/max);
+    svg.appendChild(mk('line',{x1:30,y1:base,x2:330,y2:base,stroke:'#6b7280','stroke-width':1}));
+    cats.forEach(function(lbl,i){
+      var x = left + i*(w*2+gap);
+      var h1 = m[i]*scale; svg.appendChild(mk('rect',{x:x,y:base-h1,width:w,height:h1,fill:'var(--acc2)',rx:4,ry:4}));
+      var h2 = p[i]*scale; svg.appendChild(mk('rect',{x:x+w,y:base-h2,width:w,height:h2,fill:'var(--acc1)',rx:4,ry:4}));
+      var t = mk('text',{x:x+w,y:base+14,fill:'#cfd6e6','font-size':'10','text-anchor':'middle'}); t.textContent = lbl; svg.appendChild(t);
+    });
+  })();
+
+  // Time chart (typing & online)
+  (function(){
+    var svg = qs('svgTime'); clear(svg);
+    var cats = ["Typing (min)","Online (min)"];
+    var m = [data.typing_minutes_by_sender["Masoud"], data.online_minutes_by_sender["Masoud"]];
+    var p = [data.typing_minutes_by_sender["Pishul cute <3"], data.online_minutes_by_sender["Pishul cute <3"]];
+    var max = Math.max.apply(null, m.concat(p)); if(max<1) max=1;
+    var left=50, base=170, w=50, gap=80, scale=(120/max);
+    svg.appendChild(mk('line',{x1:30,y1:base,x2:330,y2:base,stroke:'#6b7280','stroke-width':1}));
+    cats.forEach(function(lbl,i){
+      var x = left + i*(w*2+gap);
+      var h1 = m[i]*scale; svg.appendChild(mk('rect',{x:x,y:base-h1,width:w,height:h1,fill:'var(--acc3)',rx:4,ry:4}));
+      var h2 = p[i]*scale; svg.appendChild(mk('rect',{x:x+w,y:base-h2,width:w,height:h2,fill:'var(--acc4)',rx:4,ry:4}));
+      var t = mk('text',{x:x+w,y:base+14,fill:'#cfd6e6','font-size':'10','text-anchor':'middle'}); t.textContent = lbl; svg.appendChild(t);
+    });
+  })();
+
+  // --- Global error catcher to show any issue on page ---
+  window.addEventListener('error', function(ev){
+    var d = qs('dbg'); d.style.display='block';
+    d.textContent += 'JS Error: '+ (ev.message||'') + '\n';
+  });
+
+})(); // end IIFE
+</script>
 </body>
 </html>
