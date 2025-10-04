@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <radialGradient id="g" cx="50%" cy="40%" r="70%">
+      <stop offset="0%" stop-color="#ffb347"/>
+      <stop offset="60%" stop-color="#ff7b00"/>
+      <stop offset="100%" stop-color="#1b1b24"/>
+    </radialGradient>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="10" stdDeviation="20" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+  <rect width="400" height="400" rx="40" fill="url(#g)"/>
+  <g filter="url(#shadow)">
+    <text x="50%" y="54%" text-anchor="middle" font-family="Inter, system-ui, -apple-system" font-size="180" font-weight="800" fill="#ffffff" letter-spacing="2">MB</text>
+  </g>
+</svg>
