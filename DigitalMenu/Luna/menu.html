@@ -45,10 +45,10 @@
     @media (max-width:480px){.categories-sidebar{width:80px} .menu-items{grid-template-columns:1fr}}
     .item-image{position:relative; width:100%; aspect-ratio:1/1; margin:-4px -4px 10px -4px}
     .item-image img{position:absolute; inset:0; width:100%; height:100%; object-fit:contain; border-radius:8px; display:block; cursor:pointer}
-    /* --- video popup overlay --- */
-    .video-overlay{position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(80,101,81,.55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); z-index:9999;}
-    .video-overlay.active{display:flex}
-    .video-overlay video{max-width:min(92vw, 680px); max-height:92vh; border-radius:14px; box-shadow:0 20px 60px rgba(0,0,0,.35); background:transparent;}
+    /* --- image popup overlay --- */
+    .media-overlay{position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(80,101,81,.65); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); z-index:9999; padding:20px;}
+    .media-overlay.active{display:flex}
+    .media-overlay img{max-width:min(92vw, 920px); max-height:92vh; border-radius:14px; box-shadow:0 20px 60px rgba(0,0,0,.35); object-fit:contain; cursor:pointer;}
 </style>
 </head>
 <body>
@@ -63,8 +63,9 @@
   </div>
 </div>
 
-<div class="video-overlay" id="videoOverlay" title="برای بستن روی صفحه یا ویدیو کلیک کنید">
-  <video id="overlayVideo" playsinline webkit-playsinline muted autoplay loop preload="metadata"></video>
+<!-- اوورلی برای نمایش تصویر -->
+<div class="media-overlay" id="mediaOverlay" title="برای بستن روی صفحه یا تصویر کلیک کنید">
+  <img id="overlayImg" alt="تصویر آیتم" />
 </div>
 
 <script>
@@ -259,28 +260,42 @@
     categoriesSidebar.appendChild(btn);
   });
 
-  const overlay = document.getElementById('videoOverlay');
-  const overlayVideo = document.getElementById('overlayVideo');
+  const overlay = document.getElementById('mediaOverlay');
+  const overlayImg = document.getElementById('overlayImg');
 
-  function toVideoPath(imgPath){
-    // 1.png -> 1.mp4  |  product.photo.JPG -> product.photo.mp4
-    return (imgPath || '').replace(/\.[^/.]+$/, '.mp4');
-  }
-  function openVideo(src){
+  function openImage(src){
     if(!src) return;
-    overlayVideo.src = src;
+    // toggle: اگر اوورلی فعال و همان تصویر باز است -> ببند
+    if(overlay.classList.contains('active') && overlayImg.getAttribute('data-src') === src){
+      closeOverlay();
+      return;
+    }
+    overlayImg.src = src;
+    overlayImg.setAttribute('data-src', src);
     overlay.classList.add('active');
-    const p = overlayVideo.play();
-    if(p && typeof p.catch === 'function'){ p.catch(()=>{}); }
+    // مرورگرها ممکن است اندازه تصویر دیر لود کنند؛ با max-width/max-height در CSS پوشش داده شده
   }
-  function closeVideo(){
-    overlayVideo.pause();
-    overlayVideo.removeAttribute('src');
-    overlayVideo.load();
+
+  function closeOverlay(){
     overlay.classList.remove('active');
+    // پاک کردن src حفاظت در برابر حافظه
+    overlayImg.removeAttribute('src');
+    overlayImg.removeAttribute('data-src');
   }
-  overlay.addEventListener('click', closeVideo);
-  document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeVideo(); });
+
+  // بستن با کلیک روی اوورلی (نه روی عکس) و یا کلیک روی عکس هم اوورلی بسته می‌شود (مطابق درخواست)
+  overlay.addEventListener('click', (e) => {
+    // اگر کلیک دقیقاً روی تصویر بود، همان رفتار toggle: ببند
+    closeOverlay();
+  });
+  // جلوگیری از انتشار رویداد کلیک از تصویر به اوورلی تا در صورت نیاز جداگانه رفتار شود
+  overlayImg.addEventListener('click', (e) => {
+    e.stopPropagation();
+    // با کلیک مستقیم روی تصویر هم می‌خواهیم آن را ببندیم (مطابق خواسته)
+    closeOverlay();
+  });
+
+  document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeOverlay(); });
 
   function renderItems(category){
     const data = menuData[category];
@@ -306,10 +321,14 @@
 
       if(hasImage){
         const imgEl = card.querySelector('.item-image img');
-        const vidSrc = toVideoPath(it.img);
-        const open = () => openVideo(vidSrc);
+        // به جای پخش ویدیو، تصویر را اوپن/تگل می‌کنیم
+        const open = (e) => {
+          e.stopPropagation();
+          openImage(it.img);
+        };
         imgEl.addEventListener('click', open);
-        card.querySelector('.item-image').addEventListener('click', open);
+        // در صورتی که خواستید کل کارت هم کلیک‌پذیر باشد، این خط فعال است:
+        // card.querySelector('.item-image').addEventListener('click', open);
       }
     });
   }
