@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>برنامه 30 روزه دیجیتال مارکتینگ - مبلمان اریکا</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+        
+        :root {
+            --primary: #8B4513;
+            --primary-light: #A0522D;
+            --secondary: #D2691E;
+            --accent: #F4A460;
+            --light: #FAEBD7;
+            --dark: #5D4037;
+            --text: #333333;
+            --background: #fefaf5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', sans-serif;
+        }
+        
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+            font-size: 14px;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* هدر */
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 30px 15px;
+            text-align: center;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            box-shadow: 0 5px 15px rgba(139, 69, 19, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.1"><path d="M20,20 L80,20 L80,80 L20,80 Z" fill="none" stroke="white" stroke-width="2"/></svg>');
+            background-size: 60px;
+        }
+        
+        .header h1 {
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+            font-weight: 800;
+            position: relative;
+            z-index: 1;
+            line-height: 1.3;
+        }
+        
+        .header p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            max-width: 100%;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            line-height: 1.5;
+        }
+        
+        /* ناوبری */
+        .nav {
+            background: white;
+            padding: 10px 0;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .nav-item {
+            padding: 12px 15px;
+            background: var(--light);
+            border-radius: 10px;
+            font-weight: 600;
+            color: var(--dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            text-align: center;
+            justify-content: center;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* بخش‌ها */
+        .section {
+            padding: 30px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 25px;
+            position: relative;
+            color: var(--primary);
+        }
+        
+        .section-title h2 {
+            font-size: 1.4rem;
+            display: inline-block;
+            padding-bottom: 8px;
+            position: relative;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to left, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+        
+        /* کارت‌ها */
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 4px solid var(--primary);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .card h3 i {
+            color: var(--secondary);
+        }
+        
+        /* فازها */
+        .phases {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .phase {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--secondary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .phase:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        .phase::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to left, var(--primary), var(--secondary));
+        }
+        
+        .phase-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .phase-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 12px;
+            font-size: 1.3rem;
+            color: var(--primary);
+        }
+        
+        .phase-title {
+            font-size: 1.1rem;
+            color: var(--primary);
+        }
+        
+        .phase-days {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            margin-top: 3px;
+        }
+        
+        .phase-content ul {
+            list-style: none;
+        }
+        
+        .phase-content li {
+            margin-bottom: 8px;
+            padding-right: 20px;
+            position: relative;
+            font-size: 0.9rem;
+        }
+        
+        .phase-content li::before {
+            content: '✓';
+            position: absolute;
+            right: 0;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+        
+        /* جدول محتوا */
+        .content-tabs {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .tab-headers {
+            display: flex;
+            background: var(--light);
+            overflow-x: auto;
+            padding: 5px;
+        }
+        
+        .tab-header {
+            padding: 12px 15px;
+            cursor: pointer;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+            font-size: 0.85rem;
+        }
+        
+        .tab-header.active {
+            background: white;
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        .tab-content {
+            padding: 20px;
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            width: 100%;
+        }
+        
+        .content-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            min-width: 600px;
+        }
+        
+        .content-table th {
+            background: var(--primary);
+            color: white;
+            padding: 12px 8px;
+            text-align: right;
+            font-size: 0.85rem;
+        }
+        
+        .content-table td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+        
+        .content-table tr:hover {
+            background: var(--light);
+        }
+        
+        .content-table ol {
+            padding-right: 15px;
+            margin: 0;
+        }
+        
+        .content-table li {
+            margin-bottom: 5px;
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+        
+        .furniture-tag {
+            display: inline-block;
+            background: var(--light);
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            margin: 2px;
+            color: var(--dark);
+        }
+        
+        /* تایم‌لاین */
+        .timeline {
+            position: relative;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: var(--accent);
+            top: 0;
+            bottom: 0;
+            right: 20px;
+            border-radius: 2px;
+        }
+        
+        .timeline-item {
+            padding: 10px 10px 10px 40px;
+            position: relative;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: white;
+            border: 3px solid var(--primary);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+            right: 14px;
+        }
+        
+        .timeline-content {
+            padding: 15px;
+            background: white;
+            position: relative;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .timeline-content h3 {
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .timeline-content ul {
+            padding-right: 15px;
+        }
+        
+        .timeline-content li {
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        
+        /* نتایج */
+        .results {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 40px 0;
+            border-radius: 20px;
+            margin-top: 30px;
+        }
+        
+        .results-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .result-card {
+            text-align: center;
+            padding: 20px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .result-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+        
+        .result-text {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+        
+        /* فوتر */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            margin-top: 40px;
+            font-size: 0.9rem;
+        }
+        
+        /* استایل برای دسکتاپ */
+        @media (min-width: 768px) {
+            body {
+                font-size: 16px;
+            }
+            
+            .container {
+                max-width: 1200px;
+                padding: 0 20px;
+            }
+            
+            .header {
+                padding: 60px 20px;
+                border-bottom-left-radius: 30px;
+                border-bottom-right-radius: 30px;
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .header p {
+                font-size: 1.2rem;
+            }
+            
+            .nav-container {
+                flex-direction: row;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .nav-item {
+                padding: 10px 20px;
+                border-radius: 50px;
+                font-size: 1rem;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .card {
+                padding: 30px;
+                border-radius: 20px;
+                margin-bottom: 30px;
+            }
+            
+            .card h3 {
+                font-size: 1.5rem;
+            }
+            
+            .phases {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                display: grid;
+                gap: 25px;
+            }
+            
+            .phase {
+                padding: 25px;
+                border-radius: 20px;
+            }
+            
+            .phase-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+            
+            .phase-title {
+                font-size: 1.3rem;
+            }
+            
+            .tab-content {
+                padding: 30px;
+            }
+            
+            .content-table {
+                font-size: 0.95rem;
+            }
+            
+            .content-table th, .content-table td {
+                padding: 15px;
+            }
+            
+            .content-table li {
+                font-size: 0.9rem;
+            }
+            
+            .timeline::after {
+                right: 50%;
+                margin-right: -2px;
+            }
+            
+            .timeline-item {
+                width: 50%;
+                padding: 10px 40px;
+            }
+            
+            .left {
+                right: 0;
+            }
+            
+            .right {
+                right: 50%;
+            }
+            
+            .left::after {
+                left: -10px;
+            }
+            
+            .right::after {
+                left: -10px;
+            }
+            
+            .timeline-item::after {
+                right: auto;
+            }
+            
+            .results-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                display: grid;
+                gap: 30px;
+            }
+            
+            .result-card {
+                padding: 30px 20px;
+            }
+            
+            .result-icon {
+                font-size: 2.5rem;
+            }
+            
+            .result-text {
+                font-size: 1.1rem;
+            }
+            
+            .footer {
+                padding: 40px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- هدر -->
+    <header class="header">
+        <div class="container">
+            <h1>برنامه 30 روزه دیجیتال مارکتینگ</h1>
+            <p>یه نقشه راه کامل و عملی برای مبلمان اریکا تا برندتون رو تقویت کنیم و فروش رو بالا ببریم</p>
+        </div>
+    </header>
+
+    <!-- ناوبری -->
+    <nav class="nav">
+        <div class="container nav-container">
+            <div class="nav-item active" data-target="overview">
+                <i class="fas fa-home"></i>
+                <span>خلاصه برنامه</span>
+            </div>
+            <div class="nav-item" data-target="phases">
+                <i class="fas fa-tasks"></i>
+                <span>فازهای اجرایی</span>
+            </div>
+            <div class="nav-item" data-target="content">
+                <i class="fas fa-calendar-alt"></i>
+                <span>برنامه محتوایی</span>
+            </div>
+            <div class="nav-item" data-target="timeline">
+                <i class="fas fa-chart-line"></i>
+                <span>زمان‌بندی</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- محتوای اصلی -->
+    <div class="container">
+        <!-- بخش خلاصه -->
+        <section id="overview" class="section">
+            <div class="section-title">
+                <h2>خلاصه برنامه 30 روزه</h2>
+            </div>
+            <div class="card">
+                <h3><i class="fas fa-lightbulb"></i> هدف کلی پروژه</h3>
+                <p>این برنامه 30 روزه رو طراحی کردم که بتونیم با هم هویت برند اریکا رو تقویت کنیم، حضور آنلاینتون رو گسترش بدیم و فروش رو افزایش بدیم. تمرکز اصلیمون روی تولید محتوای حرفه‌ای برای اینستاگرامه که شامل 150 استوری، 12 ریلز و 4 پست اسلایدی میشه.</p>
+                
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 25px;">
+                    <div style="text-align: center; padding: 15px; background: var(--light); border-radius: 12px;">
+                        <div style="font-size: 1.8rem; font-weight: 800; color: var(--primary);">30</div>
+                        <div style="font-size: 0.9rem;">روز فعالیت مستمر</div>
+                    </div>
+                    <div style="text-align: center; padding: 15px; background: var(--light); border-radius: 12px;">
+                        <div style="font-size: 1.8rem; font-weight: 800; color: var(--primary);">150</div>
+                        <div style="font-size: 0.9rem;">استوری طراحی شده</div>
+                    </div>
+                    <div style="text-align: center; padding: 15px; background: var(--light); border-radius: 12px;">
+                        <div style="font-size: 1.8rem; font-weight: 800; color: var(--primary);">12</div>
+                        <div style="font-size: 0.9rem;">ریلز حرفه‌ای</div>
+                    </div>
+                    <div style="text-align: center; padding: 15px; background: var(--light); border-radius: 12px;">
+                        <div style="font-size: 1.8rem; font-weight: 800; color: var(--primary);">4</div>
+                        <div style="font-size: 0.9rem;">پلتفرم فروش آنلاین</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- بخش فازهای اجرایی -->
+        <section id="phases" class="section" style="display: none;">
+            <div class="section-title">
+                <h2>فازهای اجرایی برنامه</h2>
+            </div>
+            <div class="phases">
+                <div class="phase">
+                    <div class="phase-header">
+                        <div class="phase-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <div>
+                            <div class="phase-title">فاز اول: آماده‌سازی و زیرساخت</div>
+                            <div class="phase-days">(روز ۱ تا ۷)</div>
+                        </div>
+                    </div>
+                    <div class="phase-content">
+                        <ul>
+                            <li>تحلیل برند، رقبا و مشتریان هدف</li>
+                            <li>راه‌اندازی وبسایت و بهینه‌سازی پنل‌های فروش</li>
+                            <li>طراحی کارت ویزیت و کاتالوگ</li>
+                            <li>بهینه‌سازی هویت بصری پیج اینستاگرام</li>
+                            <li>فعال‌سازی پاسخگویی خودکار دایرکت و کامنت</li>
+                            <li>ساخت اپلیکیشن حضور و غیاب</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="phase">
+                    <div class="phase-header">
+                        <div class="phase-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <div>
+                            <div class="phase-title">فاز دوم: محتوا و برندینگ</div>
+                            <div class="phase-days">(روز ۸ تا ۳۰)</div>
+                        </div>
+                    </div>
+                    <div class="phase-content">
+                        <ul>
+                            <li>تولید و انتشار ۱۲ ریلز + ۴ پست اسلایدی + ۱۵۰ استوری</li>
+                            <li>ترکیب محتوای برندینگ، معرفی محصول و تعامل</li>
+                            <li>استفاده از ترندهای روز اینستاگرام</li>
+                            <li>به کارگیری بازیگر محلی برای ایجاد ارتباط واقعی</li>
+                            <li>استراتژی محتوای مناسبتی و تخفیف‌های ویژه</li>
+                            <li>بررسی عملکرد و اصلاح استراتژی</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- بخش برنامه محتوایی -->
+        <section id="content" class="section" style="display: none;">
+            <div class="section-title">
+                <h2>برنامه محتوایی 30 روزه</h2>
+            </div>
+            
+            <div class="content-tabs">
+                <div class="tab-headers">
+                    <div class="tab-header active" data-tab="week1">هفته اول</div>
+                    <div class="tab-header" data-tab="week2">هفته دوم</div>
+                    <div class="tab-header" data-tab="week3">هفته سوم</div>
+                    <div class="tab-header" data-tab="week4">هفته چهارم</div>
+                </div>
+                
+                <div class="tab-content active" id="week1">
+                    <div class="table-container">
+                        <table class="content-table">
+                            <thead>
+                                <tr>
+                                    <th width="20%">تاریخ</th>
+                                    <th width="25%">مناسبت</th>
+                                    <th width="55%">استوری‌های روزانه</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>۱ آبان</td>
+                                    <td>روز آمار و برنامه‌ریزی</td>
+                                    <td>
+                                        <ol>
+                                            <li>سلام و معرفی شروع همکاری جدیدمون</li>
+                                            <li>نظرسنجی: "کدوم سبک مبلمان بیشتر دوس دارین؟"</li>
+                                            <li>معرفی اجمالی برند اریکا و فلسفه کاریمون</li>
+                                        </ol>
+                                        <div style="margin-top: 8px;">
+                                            <span class="furniture-tag">ناربن</span>
+                                            <span class="furniture-tag">فابیکو</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>۲ آبان</td>
+                                    <td>-</td>
+                                    <td>
+                                        <ol>
+                                            <li>عکس پشت صحنه از کارگاه</li>
+                                            <li>کوئیز: "اسم کدوم یکی از مبل‌هامون رو می‌دونستین؟"</li>
+                                            <li>معرفی کوتاه <strong>مبل رویال</strong></li>
+                                        </ol>
+                                        <div style="margin-top: 8px;">
+                                            <span class="furniture-tag">رویال</span>
+                                            <span class="furniture-tag">لورنزو</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>۵ آبان</td>
+                                    <td>روز پرستار و بهورز</td>
+                                    <td>
+                                        <ol>
+                                            <li>تبریک روز پرستار</li>
+                                            <li>اعلام <strong>تخفیف ویژه پرستاران و بهورزان</strong></li>
+                                            <li>نمایش <strong>مبل راحتی کلوین</strong></li>
+                                        </ol>
+                                        <div style="margin-top: 8px;">
+                                            <span class="furniture-tag">کلوین</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="week2">
+                    <div class="table-container">
+                        <table class="content-table">
+                            <thead>
+                                <tr>
+                                    <th width="20%">تاریخ</th>
+                                    <th width="25%">مناسبت</th>
+                                    <th width="55%">استوری‌های روزانه</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>۱۰ آبان</td>
+                                    <td>جشن آبانگان</td>
+                                    <td>
+                                        <ol>
+                                            <li>تبریک جشن آبانگان</li>
+                                            <li>اهمیت محیط زیست در تولید اریکا</li>
+                                            <li>معرفی <strong>مبل ال مایا</strong></li>
+                                        </ol>
+                                        <div style="margin-top: 8px;">
+                                            <span class="furniture-tag">ال مایا</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>۱۳ آبان</td>
+                                    <td>روز دانش‌آموز</td>
+                                    <td>
+                                        <ol>
+                                            <li>تبریک روز دانش‌آموز</li>
+                                            <li>معرفی <strong>مبل راحتی نیلپر</strong></li>
+                                            <li>کارشناسی: "ویژگی‌های یه محیط مطالعه عالی"</li>
+                                        </ol>
+                                        <div style="margin-top: 8px;">
+                                            <span class="furniture-tag">نیلپر</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="week3">
+                    <div class="table-container">
+                        <table class="content-table">
+                            <thead>
+                                <tr>
+                                    <th width="20%">تاریخ</th>
+                                    <th width="25%">مناسبت</th>
+                                    <th width="55%">استوری‌های روزانه</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>۱۸ آبان</td>
+                                    <td>روز ملی کیفیت</td>
+                                    <td>
+                                        <ol>
+                                            <li>تبریک روز کیفیت</li>
+                                            <li>نمایش مراحل کنترل کیفیت</li>
+                                            <li>معرفی بازرس کیفیت مجموعه</li>
+                                        </ol>
+                                        <div style="margin-top: 8px;">
+                                            <span class="furniture-tag">دیانا</span>
+                                            <span class="furniture-tag">ال مایا</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>۲۰ آبان</td>
+                                    <td>-</td>
+                                    <td>
+                                        <ol>
+                                            <li>نظرات مثبت مشتریان از دیوار</li>
+                                            <li>معرفی مبل خاص هفته (مدل دیانا)</li>
+                                            <li>آموزش تمیزکاری مبلمان</li>
+                                        </ol>
+                                        <div style="margin-top: 8px;">
+                                            <span class="furniture-tag">دیانا</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="week4">
+                    <div class="table-container">
+                        <table class="content-table">
+                            <thead>
+                                <tr>
+                                    <th width="20%">تاریخ</th>
+                                    <th width="25%">مناسبت</th>
+                                    <th width="55%">استوری‌های روزانه</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>۲۴ آبان</td>
+                                    <td>روز کتاب و کتابخوانی</td>
+                                    <td>
+                                        <ol>
+                                            <li>تبریک روز کتاب</li>
+                                            <li>معرفی گوشه مطالعه با مبل نیلپر</li>
+                                            <li>ریلز "کتاب + مبل"</li>
+                                        </ol>
+                                        <div style="margin-top: 8px;">
+                                            <span class="furniture-tag">نیلپر</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>۲۸ آبان</td>
+                                    <td>روز جهانی آقایان</td>
+                                    <td>
+                                        <ol>
+                                            <li>تبریک روز آقایان</li>
+                                            <li>معرفی مدل‌های مردانه (کلوین، لورنزو)</li>
+                                            <li>تخفیف خاص برای آقایان</li>
+                                        </ol>
+                                        <div style="margin-top: 8px;">
+                                            <span class="furniture-tag">کلوین</span>
+                                            <span class="furniture-tag">لورنزو</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>۲۹ آبان</td>
+                                    <td>روز جهانی کودک</td>
+                                    <td>
+                                        <ol>
+                                            <li>تبریک روز کودک</li>
+                                            <li>معرفی مدل‌های ایمن برای کودکان</li>
+                                            <li>تعامل با فالوورها</li>
+                                        </ol>
+                                        <div style="margin-top: 8px;">
+                                            <span class="furniture-tag">نیلپر</span>
+                                            <span class="furniture-tag">فابیکو</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-top: 25px;">
+                <h3><i class="fas fa-video"></i> برنامه ریلزها و پست‌ها</h3>
+                <p>توی این 30 روز، 12 تا ریلز و 4 تا پست اسلایدی منتشر می‌کنیم:</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 15px;">
+                    <div style="padding: 15px; background: var(--light); border-radius: 12px;">
+                        <h4 style="color: var(--primary); margin-bottom: 8px; font-size: 1rem;">ریلزهای هفته اول</h4>
+                        <ul style="padding-right: 15px;">
+                            <li>"از چوب تا مبل نهایی" - پشت صحنه تولید</li>
+                            <li>"معرفی برند اریکا" - تاریخچه و ارزش‌ها</li>
+                            <li>"چطور مبل مناسب انتخاب کنیم؟" - راهنمای خرید</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="padding: 15px; background: var(--light); border-radius: 12px;">
+                        <h4 style="color: var(--primary); margin-bottom: 8px; font-size: 1rem;">پست اسلایدی هفته اول</h4>
+                        <p style="font-size: 0.9rem;">"داستان اریکا؛ از ایده تا خانه شما" - معرفی کارگاه و فلسفه برند</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- بخش زمان‌بندی -->
+        <section id="timeline" class="section" style="display: none;">
+            <div class="section-title">
+                <h2>زمان‌بندی اجرای پروژه</h2>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>هفته اول</h3>
+                        <p>فاز زیرسازی و آماده‌سازی</p>
+                        <ul>
+                            <li>تحلیل و بررسی برند و رقبا</li>
+                            <li>راه‌اندازی وبسایت</li>
+                            <li>طراحی هویت بصری</li>
+                            <li>آماده‌سازی پنل‌های فروش</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>هفته دوم</h3>
+                        <p>شروع کمپین محتوایی</p>
+                        <ul>
+                            <li>آغاز انتشار استوری‌های روزانه</li>
+                            <li>تولید و انتشار ریلزهای اولیه</li>
+                            <li>بهینه‌سازی کامل پنل‌های فروش</li>
+                            <li>فعال‌سازی پاسخگویی خودکار</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>هفته سوم</h3>
+                        <p>تکمیل و بهینه‌سازی</p>
+                        <ul>
+                            <li>بررسی نتایج اولیه کمپین</li>
+                            <li>اصلاح استراتژی بر اساس داده‌ها</li>
+                            <li>تکمیل پنل‌های فروش در پلتفرم‌ها</li>
+                            <li>تولید محتوای ویدیویی بیشتر</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>هفته چهارم</h3>
+                        <p>جمع‌بندی و گزارش</p>
+                        <ul>
+                            <li>تهیه گزارش عملکرد کامل</li>
+                            <li>برنامه‌ریزی برای ماه بعد</li>
+                            <li>تحویل کلیه خروجی‌ها</li>
+                            <li>جلسه نهایی با مدیریت</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- بخش نتایج -->
+        <section class="results">
+            <div class="container">
+                <div class="section-title" style="color: white;">
+                    <h2>نتایج مورد انتظار</h2>
+                </div>
+                
+                <div class="results-grid">
+                    <div class="result-card">
+                        <div class="result-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <div class="result-text">افزایش تعامل مخاطبان با محتوای تولید شده</div>
+                    </div>
+                    
+                    <div class="result-card">
+                        <div class="result-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="result-text">رشد فالوورهای واقعی و علاقه‌مند به برند</div>
+                    </div>
+                    
+                    <div class="result-card">
+                        <div class="result-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="result-text">افزایش فروش از طریق کانال‌های آنلاین</div>
+                    </div>
+                    
+                    <div class="result-card">
+                        <div class="result-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <div class="result-text">ایجاد حضور مؤثر در پلتفرم‌های فروش مختلف</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- فوتر -->
+    <footer class="footer">
+        <div class="container">
+            <p>برنامه 30 روزه دیجیتال مارکتینگ - تولیدی مبلمان اریکا</p>
+            <p>طراحی و برنامه‌ریزی توسط تیم متخصص</p>
+        </div>
+    </footer>
+
+    <script>
+        // مدیریت ناوبری
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // حذف کلاس active از همه
+                document.querySelectorAll('.nav-item').forEach(i => {
+                    i.classList.remove('active');
+                });
+                
+                // اضافه کردن کلاس active به آیتم کلیک شده
+                this.classList.add('active');
+                
+                // مخفی کردن همه بخش‌ها
+                document.querySelectorAll('.section').forEach(section => {
+                    section.style.display = 'none';
+                });
+                
+                // نمایش بخش مربوطه
+                const targetId = this.getAttribute('data-target');
+                document.getElementById(targetId).style.display = 'block';
+                
+                // اسکرول به بخش مورد نظر
+                document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+        
+        // مدیریت تب‌های محتوا
+        document.querySelectorAll('.tab-header').forEach(header => {
+            header.addEventListener('click', function() {
+                // حذف کلاس active از همه
+                document.querySelectorAll('.tab-header').forEach(h => {
+                    h.classList.remove('active');
+                });
+                
+                // اضافه کردن کلاس active به هدر کلیک شده
+                this.classList.add('active');
+                
+                // مخفی کردن همه محتواها
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // نمایش محتوای مربوطه
+                const tabId = this.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // انیمیشن برای کارت‌ها
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.card, .phase').forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.5s, transform 0.5s';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
