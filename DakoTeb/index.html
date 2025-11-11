@@ -8,179 +8,85 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet" integrity="sha384-tb" crossorigin="anonymous">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Crect width='64' height='64' rx='12' fill='%231F3A4A'/%3E%3Cpath d='M18 34c6-10 22-10 28 0' stroke='%23F59E0B' stroke-width='4' fill='none'/%3E%3Ccircle cx='26' cy='24' r='4' fill='%236BAA8E'/%3E%3Ccircle cx='38' cy='24' r='4' fill='%236BAA8E'/%3E%3C/svg%3E">
 <meta name="theme-color" content="#1F3A4A">
 <style>
-/* ====== Design Tokens ====== */
 :root{
-  --c-oil:#1F3A4A;        /* آبی نفتی */
-  --c-oil-600:#15313E;
-  --c-green:#6BAA8E;      /* سبز ملایم */
-  --c-amber:#F59E0B;      /* کهربایی برای CTA */
-  --c-gray-25:#FAFCFE;
-  --c-gray-50:#F5F8FA;
-  --c-gray-100:#E9EEF2;
-  --c-gray-300:#CBD5E1;
-  --c-gray-500:#6B7280;
-  --c-white:#fff;
-  --radius:16px;
-  --radius-sm:12px;
-  --shadow:0 10px 24px rgba(0,0,0,.07);
-  --shadow-sm:0 4px 12px rgba(0,0,0,.06);
+  --c-oil:#1F3A4A;--c-oil-600:#15313E;--c-green:#6BAA8E;--c-amber:#F59E0B;
+  --c-gray-50:#F8FAFC;--c-gray-100:#E9EEF2;--c-gray-300:#CBD5E1;--c-gray-500:#6B7280;--c-white:#fff;--radius:16px;--shadow:0 8px 24px rgba(0,0,0,.06);
 }
-
-/* ====== Base ====== */
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{
-  font-family:"Vazirmatn",system-ui,-apple-system,Segoe UI,Arial,"Noto Sans Arabic";
-  background:var(--c-gray-50);
-  color:#0f172a;
-  line-height:1.8;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-}
-.container-narrow{max-width:1080px}
-a{color:var(--c-oil);text-decoration:none}
-a:hover{color:#0f2b39}
-a:focus,button:focus,input:focus,select:focus,textarea:focus{
-  outline:3px solid #a7e0d0; outline-offset:2px
-}
-img{max-width:100%; height:auto; display:block}
-
-/* ====== Buttons ====== */
-.btn-main{
-  background:var(--c-amber); color:#111; border:0;
-  border-radius:var(--radius-sm); padding:.85rem 1.15rem; font-weight:800
-}
-.btn-main:hover{filter:saturate(1.05); box-shadow:var(--shadow-sm)}
-.btn-ghost{
-  background:var(--c-white); color:#111;
-  border:1px solid var(--c-gray-300); border-radius:var(--radius-sm)
-}
-.btn-ghost:hover{background:#fff; box-shadow:var(--shadow-sm)}
-.btn-call{
-  position:fixed; inset-inline-end:16px; inset-block-end:16px; z-index:1045;
-  border-radius:999px; background:var(--c-green); color:#073; padding:.9rem 1.1rem;
-  display:flex; gap:.6rem; align-items:center; box-shadow:var(--shadow)
-}
-
-/* ====== Navbar fixes (Bootstrap toggler icon) ====== */
-.navbar{
-  --bs-navbar-padding-y:.6rem;
-  background:var(--c-white)!important;
-  box-shadow:0 2px 14px rgba(0,0,0,.05);
-  /* ensure toggler icon appears in RTL too */
-  --bs-navbar-toggler-icon-bg:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(31,58,74, .9)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-}
+body{font-family:"Vazirmatn",system-ui,Segoe UI,Arial; background:var(--c-gray-50); color:#111; line-height:1.7}
+a{color:var(--c-oil); text-decoration:none}
+a:focus,button:focus,input:focus,select:focus,textarea:focus{outline:3px solid #94d3c4; outline-offset:2px}
+.container-narrow{max-width:1050px}
+.btn-main{background:var(--c-amber);color:#111;border:0;border-radius:12px;padding:.8rem 1.2rem;font-weight:700}
+.btn-main:hover{filter:saturate(1.1)}
+.btn-ghost{background:var(--c-white);border:1px solid var(--c-gray-300);border-radius:12px;color:#111}
+.btn-call{position:fixed; inset-inline-end:16px; inset-block-end:16px; z-index:1040; border-radius:999px; background:var(--c-green); color:#093; padding:.9rem 1.1rem; display:flex; gap:.6rem; align-items:center; box-shadow:var(--shadow)}
+.badge-soft{background:rgba(31,58,74,.08); color:var(--c-oil); border:1px solid rgba(31,58,74,.15); padding:.35rem .6rem; border-radius:999px}
+.navbar{box-shadow:0 2px 12px rgba(0,0,0,.05); background:var(--c-white)!important}
 .navbar .btn-main{padding:.6rem .9rem}
-.nav-link{font-weight:500}
-.nav-link:focus, .nav-link:hover{color:var(--c-oil-600)}
-
-/* ====== Hero ====== */
-.hero{background:linear-gradient(180deg, var(--c-white) 0%, #F2F7FA 100%)}
-.hero h1{font-weight:800; color:var(--c-oil); line-height:1.4}
-.hero .lead{color:#2a3a45}
-
-/* ====== Cards / Surfaces ====== */
-.card{
-  border:0; border-radius:var(--radius); background:var(--c-white);
-  box-shadow:var(--shadow); overflow:hidden;
-  background-clip:border-box
-}
-.icon-xxl{
-  width:56px;height:56px; display:inline-grid; place-items:center;
-  border-radius:14px; background:var(--c-gray-100); font-size:26px
-}
-
-/* ====== Section Title ====== */
-.section-title h2{font-weight:900; color:var(--c-oil); margin-bottom:.35rem}
-.section-title p{color:var(--c-gray-500); margin-bottom:0}
-
-/* ====== KPI grid bugfix: auto-fit to prevent overflow ====== */
-.kpis{
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(140px,1fr));
-  gap:12px
-}
-.kpi{border-radius:12px; background:var(--c-white); padding:14px; text-align:center; box-shadow:var(--shadow-sm)}
-.kpi strong{display:block; font-size:1.35rem}
-
-/* ====== Grids with auto-fit for responsiveness ====== */
-.team-grid, .gallery{
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(150px,1fr));
-  gap:12px
-}
-.team-card img{aspect-ratio:4/3; object-fit:cover; border-top-left-radius:var(--radius); border-top-right-radius:var(--radius)}
-.gallery img, .gallery picture{border-radius:12px}
-
-/* ====== Why / Steps ====== */
+.hero{background:linear-gradient(180deg, var(--c-white) 0%, #F5F9FB 100%)}
+.hero h1{font-weight:800; color:var(--c-oil)}
+.hero .lead{color:#26343e}
+.card{border:0; border-radius:var(--radius); box-shadow:var(--shadow); background:var(--c-white)}
+.icon-xxl{width:56px; height:56px; display:inline-grid; place-items:center; border-radius:14px; background:var(--c-gray-100)}
+.section-title h2{font-weight:800; color:var(--c-oil)}
+.section-title p{color:var(--c-gray-500)}
+.kpis{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px}
+.kpi{border-radius:12px; background:var(--c-white); padding:14px; text-align:center}
+.kpi strong{display:block; font-size:1.4rem}
 .list-check{list-style:none; padding:0; margin:0}
 .list-check li{padding:.35rem 0; display:flex; align-items:flex-start; gap:.5rem}
-.list-check li::before{content:"✓"; color:#0a7; font-weight:800}
-.step{display:flex; gap:14px; align-items:flex-start}
-.step-num{width:38px;height:38px; border-radius:10px; background:var(--c-oil); color:#fff; display:inline-grid; place-items:center; font-weight:800}
-
-/* ====== Plans ====== */
+.list-check li::before{content:"✓"; color:#0a7; font-weight:700}
+.step{display:flex; gap:14px}
+.step-num{width:38px;height:38px; border-radius:10px; background:var(--c-oil); color:#fff; display:inline-grid; place-items:center; font-weight:700}
+.team-grid{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px}
+.team-card img{border-top-left-radius:var(--radius); border-top-right-radius:var(--radius)}
 .plan{border:1px solid var(--c-gray-300)}
-.plan .price{font-size:1.8rem; font-weight:900}
-
-/* ====== Testimonials slider ====== */
+.plan .price{font-size:1.8rem; font-weight:800}
 .testi{position:relative; overflow:hidden}
-.testi-track{display:flex; transition:transform .45s ease; will-change:transform}
+.testi-track{display:flex; transition:transform .5s ease}
 .testi-card{min-width:100%; padding:1rem}
 .testi-dots{display:flex; gap:6px; justify-content:center; margin-top:.5rem}
 .testi-dots button{width:10px;height:10px;border-radius:50%; border:0; background:var(--c-gray-300)}
 .testi-dots button[aria-current="true"]{background:var(--c-amber)}
-
-/* ====== Map chips ====== */
+.faq .accordion-button{font-weight:700}
 .map-wrap{position:relative; border-radius:var(--radius); overflow:hidden}
 .map-overlay{position:absolute; inset:0; display:flex; align-items:flex-end; justify-content:flex-end; padding:12px}
 .chips{display:flex; flex-wrap:wrap; gap:8px}
-.chip{border-radius:999px; padding:.35rem .7rem; background:rgba(107,170,142,.15); color:#0a5; border:1px solid rgba(107,170,142,.35)}
-
-/* ====== Forms ====== */
+.chip{border-radius:999px; padding:.35rem .7rem; background:rgba(107,170,142,.15); color:#0a5}
+.gallery{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px}
+.gallery picture, .gallery img{border-radius:12px}
 .form-hint{font-size:.85rem; color:var(--c-gray-500)}
 input[type="tel"]::placeholder{font-family:monospace}
-.was-validated :invalid ~ .invalid-feedback,
-.was-validated :invalid ~ .form-text{display:block}
-
-/* floating and back-to-top */
-#backToTop{
-  position:fixed; inset-inline-start:16px; inset-block-end:18px;
-  opacity:0; pointer-events:none; transition:.3s;
-  border-radius:999px
-}
+.toast{z-index:1090}
+#backToTop{position:fixed; inset-inline-start:16px; inset-block-end:18px; opacity:0; pointer-events:none; transition:.3s}
 #backToTop.show{opacity:1; pointer-events:auto}
-
-/* ====== Reduced motion ====== */
+.visually-hidden-focusable:active, .visually-hidden-focusable:focus{position:static;width:auto;height:auto;margin:0;overflow:visible;clip:auto}
+@media(min-width:992px){
+  .hero .form-card{position:sticky; top:84px}
+  .team-grid{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .gallery{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .kpis{grid-template-columns:repeat(6,minmax(0,1fr))}
+}
 @media(prefers-reduced-motion:reduce){
   *{scroll-behavior:auto}
   .testi-track{transition:none}
-}
-
-/* ====== Sticky form safety on large only ====== */
-@media(min-width:992px){
-  .hero .form-card{position:sticky; top:88px}
-}
-
-/* ====== Print safe ====== */
-@media print{
-  .btn-call, #backToTop{display:none!important}
 }
 </style>
 </head>
 <body>
 <a href="#main" class="visually-hidden-focusable">پرش به محتوای اصلی</a>
 
-<!-- ====== Header ====== -->
 <nav class="navbar navbar-expand-lg sticky-top" aria-label="ناوبری اصلی">
   <div class="container container-narrow">
     <a class="navbar-brand d-flex align-items-center gap-2" href="#" aria-label="خانه">
-      <span class="badge rounded-pill text-bg-light border fw-bold" style="border-color:#cbd5e1!important">لوگو</span>
+      <span class="badge-soft fw-bold">لوگو</span>
       <span class="fw-bold">خدمات پرستاری در منزل</span>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain" aria-controls="navMain" aria-expanded="false" aria-label="باز/بستن منو">
@@ -207,14 +113,12 @@ input[type="tel"]::placeholder{font-family:monospace}
 </nav>
 
 <main id="main">
-<!-- ====== Hero ====== -->
 <section class="hero py-5">
   <div class="container container-narrow">
     <div class="row g-4 align-items-stretch">
       <div class="col-lg-7">
-        <h1 class="mb-3">اعزام پرستار مجرب به منزل، <span style="color:var(--c-amber)">رزرو ۶۰ ثانیه‌ای</span> و قیمت شفاف</h1>
+        <h1 class="mb-3">اعزام پرستار مجرب به منزل، <span class="text-warning">رزرو ۶۰ ثانیه‌ای</span> و قیمت شفاف</h1>
         <p class="lead mb-4">مراقبت از سالمند و بیمار، تزریقات و پانسمان، همراه بیمار، و نظافت مراقبتی با پوشش بیمه. همه‌چیز شفاف، امن و انسانی.</p>
-
         <div class="kpis mb-4">
           <div class="kpi"><strong aria-label="میانگین امتیاز">۴٫۸/۵</strong><span>رضایت مشتری</span></div>
           <div class="kpi"><strong>۲۴/۷</strong><span>پشتیبانی</span></div>
@@ -223,14 +127,12 @@ input[type="tel"]::placeholder{font-family:monospace}
           <div class="kpi"><strong>٪۱۰۰</strong><span>احراز هویت</span></div>
           <div class="kpi"><strong>بیمه</strong><span>مسئولیت حرفه‌ای</span></div>
         </div>
-
         <div class="d-flex gap-2 flex-wrap">
           <a class="btn btn-main" href="#booking">رزرو آنلاین</a>
           <a class="btn btn-ghost" href="tel:+982100000000">تماس تلفنی</a>
           <a class="btn btn-ghost" href="https://wa.me/989000000000" target="_blank" rel="noopener">واتساپ</a>
         </div>
       </div>
-
       <div class="col-lg-5">
         <div class="card form-card p-3" aria-labelledby="bookTitle">
           <h2 id="bookTitle" class="h5 mb-3">درخواست فوری</h2>
@@ -248,13 +150,11 @@ input[type="tel"]::placeholder{font-family:monospace}
               </select>
               <div class="invalid-feedback">نوع خدمت را انتخاب کنید.</div>
             </div>
-
             <div class="mb-2">
               <label for="city" class="form-label">شهر/منطقه</label>
               <input id="city" class="form-control" required placeholder="مثلاً تهران، ونک">
               <div class="invalid-feedback">منطقه خدمت را بنویسید.</div>
             </div>
-
             <div class="row g-2">
               <div class="col-6">
                 <label for="dateFa" class="form-label">تاریخ (شمسی)</label>
@@ -268,7 +168,6 @@ input[type="tel"]::placeholder{font-family:monospace}
                 <div class="invalid-feedback">ساعت را انتخاب کنید.</div>
               </div>
             </div>
-
             <div class="row g-2 mt-1">
               <div class="col-6">
                 <label for="duration" class="form-label">مدت</label>
@@ -293,43 +192,35 @@ input[type="tel"]::placeholder{font-family:monospace}
                 <div class="invalid-feedback">شیفت را انتخاب کنید.</div>
               </div>
             </div>
-
             <div class="mb-2 mt-2">
               <label for="phone" class="form-label">موبایل</label>
               <input id="phone" class="form-control" placeholder="09xx xxx xxxx" inputmode="tel" maxlength="13" required aria-describedby="phoneHint">
               <div id="phoneHint" class="form-hint">فقط برای هماهنگی؛ پیامک تأیید ارسال می‌شود.</div>
               <div class="invalid-feedback">شماره موبایل معتبر وارد کنید.</div>
             </div>
-
             <div class="mb-2">
               <label for="note" class="form-label">توضیح وضعیت</label>
               <textarea id="note" class="form-control" rows="3" placeholder="سن، بیماری زمینه‌ای، نیازهای خاص…"></textarea>
             </div>
-
             <div class="d-flex align-items-center justify-content-between mb-2">
               <div>
-                <span class="badge text-bg-light border" style="border-color:#d1d5db!important">هزینه حدودی:</span>
+                <span class="badge-soft">هزینه حدودی:</span>
                 <strong id="estCost" class="ms-1">—</strong>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="agree" required>
+                <input class="form-check-input" type="checkbox" value="" id="agree" required>
                 <label class="form-check-label" for="agree">شرایط را می‌پذیرم</label>
               </div>
             </div>
-
             <button id="submitBtn" class="btn btn-main w-100" type="submit" disabled>ثبت درخواست</button>
-            <div id="formAlert" class="alert alert-success mt-2 d-none" role="alert" aria-live="polite">
-              درخواست شما ثبت شد. کارشناس تا ۱۵ دقیقه آینده تماس می‌گیرد.
-            </div>
+            <div id="formAlert" class="alert alert-success mt-2 d-none" role="alert" aria-live="polite">درخواست شما ثبت شد. کارشناس تا ۱۵ دقیقه آینده تماس می‌گیرد.</div>
           </form>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- ====== Services ====== -->
 <section class="py-5" id="services" aria-labelledby="servicesTitle">
   <div class="container container-narrow">
     <div class="section-title mb-4"><h2 id="servicesTitle">خدمات ما</h2><p>برای هر خانواده‌ای یک راه‌حل انسانی و امن.</p></div>
@@ -345,7 +236,6 @@ input[type="tel"]::placeholder{font-family:monospace}
           <div class="mt-auto d-flex gap-2"><a class="btn btn-ghost" href="#pricing">مشاهده پلن</a><a class="btn btn-main" href="#booking">درخواست</a></div>
         </div>
       </div>
-
       <div class="col-md-6 col-lg-4">
         <div class="card p-3 h-100">
           <div class="icon-xxl mb-2">🩺</div>
@@ -357,7 +247,6 @@ input[type="tel"]::placeholder{font-family:monospace}
           <div class="mt-auto d-flex gap-2"><a class="btn btn-ghost" href="#pricing">مشاهده پلن</a><a class="btn btn-main" href="#booking">درخواست</a></div>
         </div>
       </div>
-
       <div class="col-md-6 col-lg-4">
         <div class="card p-3 h-100">
           <div class="icon-xxl mb-2">🏥</div>
@@ -369,7 +258,6 @@ input[type="tel"]::placeholder{font-family:monospace}
           <div class="mt-auto d-flex gap-2"><a class="btn btn-ghost" href="#pricing">مشاهده پلن</a><a class="btn btn-main" href="#booking">درخواست</a></div>
         </div>
       </div>
-
       <div class="col-md-6 col-lg-4">
         <div class="card p-3 h-100">
           <div class="icon-xxl mb-2">🧼</div>
@@ -381,7 +269,6 @@ input[type="tel"]::placeholder{font-family:monospace}
           <div class="mt-auto d-flex gap-2"><a class="btn btn-ghost" href="#pricing">مشاهده پلن</a><a class="btn btn-main" href="#booking">درخواست</a></div>
         </div>
       </div>
-
       <div class="col-md-6 col-lg-4">
         <div class="card p-3 h-100">
           <div class="icon-xxl mb-2">🤝</div>
@@ -393,7 +280,6 @@ input[type="tel"]::placeholder{font-family:monospace}
           <div class="mt-auto d-flex gap-2"><a class="btn btn-ghost" href="#pricing">مشاهده پلن</a><a class="btn btn-main" href="#booking">درخواست</a></div>
         </div>
       </div>
-
       <div class="col-md-6 col-lg-4">
         <div class="card p-3 h-100">
           <div class="icon-xxl mb-2">🧪</div>
@@ -405,12 +291,10 @@ input[type="tel"]::placeholder{font-family:monospace}
           <div class="mt-auto d-flex gap-2"><a class="btn btn-ghost" href="#pricing">مشاهده پلن</a><a class="btn btn-main" href="#booking">درخواست</a></div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- ====== Why Us ====== -->
 <section class="py-5" id="whyus" aria-labelledby="whyTitle">
   <div class="container container-narrow">
     <div class="section-title mb-3"><h2 id="whyTitle">چرا ما</h2></div>
@@ -439,10 +323,435 @@ input[type="tel"]::placeholder{font-family:monospace}
   </div>
 </section>
 
-<!-- ====== Flow ====== -->
 <section class="py-5" id="flow" aria-labelledby="flowTitle">
   <div class="container container-narrow">
     <div class="section-title mb-3"><h2 id="flowTitle">روند کار</h2></div>
     <div class="row g-3">
       <div class="col-md-6 col-lg-4"><div class="card p-3 h-100 step"><div class="step-num">۱</div><div>فرم کوتاه را پر کنید یا تماس بگیرید.</div></div></div>
-      <div class="col-md-6 col-lg-4"><div c
+      <div class="col-md-6 col-lg-4"><div class="card p-3 h-100 step"><div class="step-num">۲</div><div>تخمین هزینه و تطبیق پرستار مناسب.</div></div></div>
+      <div class="col-md-6 col-lg-4"><div class="card p-3 h-100 step"><div class="step-num">۳</div><div>اعزام، قرارداد و شروع مراقبت ایمن.</div></div></div>
+      <div class="col-md-6 col-lg-4"><div class="card p-3 h-100 step"><div class="step-num">۴</div><div>گزارش‌دهی منظم به خانواده.</div></div></div>
+      <div class="col-md-6 col-lg-4"><div class="card p-3 h-100 step"><div class="step-num">۵</div><div>بازخورد و بهبود یا جایگزینی نیرو.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5" id="team" aria-labelledby="teamTitle">
+  <div class="container container-narrow">
+    <div class="section-title mb-3"><h2 id="teamTitle">تیم و شبکه پرستاران</h2><p>پرستاران گزینش‌شده با تخصص‌های متنوع.</p></div>
+    <div class="team-grid">
+      <div class="team-card card">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1583912086096-5f0b91abcf8a?q=80&w=800&auto=format&fit=crop" alt="پرستار سالمند">
+        <div class="p-3">
+          <strong>زهرا ح.</strong><div class="text-muted">سالمندی | آلزایمر</div><span class="badge-soft mt-1">۵ سال سابقه</span>
+        </div>
+      </div>
+      <div class="team-card card">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=800&auto=format&fit=crop" alt="پرستار عمومی">
+        <div class="p-3">
+          <strong>الهام د.</strong><div class="text-muted">پرستاری عمومی | بانوان</div><span class="badge-soft mt-1">۳ سال سابقه</span>
+        </div>
+      </div>
+      <div class="team-card card">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=800&auto=format&fit=crop" alt="پرستار بیمار">
+        <div class="p-3">
+          <strong>محمد ر.</strong><div class="text-muted">پس از عمل | تزریقات</div><span class="badge-soft mt-1">۶ سال سابقه</span>
+        </div>
+      </div>
+      <div class="team-card card">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1583912086096-5f0b91abcf8a?q=80&w=800&auto=format&fit=crop" alt="پرستار بیمارستان">
+        <div class="p-3">
+          <strong>سارا ک.</strong><div class="text-muted">همراه بیمار | بیمارستان</div><span class="badge-soft mt-1">۴ سال سابقه</span>
+        </div>
+      </div>
+      <div class="team-card card">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?q=80&w=800&auto=format&fit=crop" alt="پرستار تخصصی">
+        <div class="p-3">
+          <strong>عاطفه ن.</strong><div class="text-muted">پانسمان زخم | دیابت</div><span class="badge-soft mt-1">۸ سال سابقه</span>
+        </div>
+      </div>
+      <div class="team-card card">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1584467735871-2e8f2c1fbc2d?q=80&w=800&auto=format&fit=crop" alt="کارشناس">
+        <div class="p-3">
+          <strong>آرمین ی.</strong><div class="text-muted">کنترل عفونت | آموزش</div><span class="badge-soft mt-1">۷ سال سابقه</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5" id="licenses" aria-labelledby="licTitle">
+  <div class="container container-narrow">
+    <div class="section-title mb-3"><h2 id="licTitle">مجوزها، استانداردها و بیمه</h2></div>
+    <div class="row g-3">
+      <div class="col-lg-6"><div class="card p-3 h-100">
+        <ul class="list-check">
+          <li>مجوز رسمی از مراجع ذی‌ربط</li>
+          <li>قرارداد و فاکتور رسمی</li>
+          <li>بیمه مسئولیت حرفه‌ای</li>
+          <li>پروتکل کنترل عفونت و آموزش دوره‌ای</li>
+        </ul>
+      </div></div>
+      <div class="col-lg-6"><div class="card p-3 h-100">
+        <h3 class="h6">پوشش بیمه</h3>
+        <p class="mb-1">در خدمات واجد شرایط، امکان استفاده از بیمه پایه/تکمیلی فراهم است.</p>
+        <span class="badge-soft">استعلام آنلاین هنگام رزرو</span>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5" id="coverage" aria-labelledby="covTitle">
+  <div class="container container-narrow">
+    <div class="section-title mb-3"><h2 id="covTitle">مناطق تحت پوشش و زمان‌بندی</h2><p>تهران و شهرهای اطراف؛ همه روزه ۷ تا ۲۳، شیفت شب طبق درخواست.</p></div>
+    <div class="map-wrap">
+      <picture>
+        <source type="image/avif" srcset="https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?auto=format&fit=crop&w=1200&q=60&fm=avif">
+        <img src="https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?auto=format&fit=crop&w=1200&q=60" alt="نقشه پوشش خدمت" class="w-100">
+      </picture>
+      <div class="map-overlay">
+        <div class="chips" role="list">
+          <button class="chip" data-area="north" role="listitem" aria-pressed="false">شمال</button>
+          <button class="chip" data-area="center" role="listitem" aria-pressed="true">مرکز</button>
+          <button class="chip" data-area="west" role="listitem" aria-pressed="false">غرب</button>
+          <button class="chip" data-area="east" role="listitem" aria-pressed="false">شرق</button>
+          <button class="chip" data-area="south" role="listitem" aria-pressed="false">جنوب</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5" id="pricing" aria-labelledby="priceTitle">
+  <div class="container container-narrow">
+    <div class="section-title mb-3"><h2 id="priceTitle">پلن‌های پیشنهادی</h2><p>قیمت‌نمای شفاف با امکان برآورد قبل از تماس.</p></div>
+    <div class="row g-3">
+      <div class="col-lg-4">
+        <div class="plan card p-3 h-100">
+          <div class="d-flex justify-content-between">
+            <h3 class="h5">اقتصادی</h3><span class="badge-soft">پرتقاضا</span>
+          </div>
+          <div class="price my-2"><span class="text-muted small">از</span> ۱۸۰٫۰۰۰ <span class="small">تومان/ساعت</span></div>
+          <ul class="list-check">
+            <li>مراقبت عمومی سالمند/بیمار</li>
+            <li>گزارش‌ ساده پایان شیفت</li>
+          </ul>
+          <a href="#booking" class="btn btn-main mt-auto">شروع</a>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="plan card p-3 h-100">
+          <div class="d-flex justify-content-between">
+            <h3 class="h5">متعادل</h3><span class="badge-soft">پیشنهادی</span>
+          </div>
+          <div class="price my-2">۲۴۰٫۰۰۰ <span class="small">تومان/ساعت</span></div>
+          <ul class="list-check">
+            <li>پرستار باتجربه‌تر</li>
+            <li>گزارش ساختاریافته</li>
+            <li>اولویت اعزام</li>
+          </ul>
+          <a href="#booking" class="btn btn-main mt-auto">رزرو</a>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="plan card p-3 h-100">
+          <div class="d-flex justify-content-between">
+            <h3 class="h5">تخصصی</h3><span class="badge-soft">برای موارد حساس</span>
+          </div>
+          <div class="price my-2">۳۲۰٫۰۰۰ <span class="small">تومان/ساعت</span></div>
+          <ul class="list-check">
+            <li>تزریقات/پانسمان/سرم‌تراپی</li>
+            <li>هماهنگی با پزشک/پرونده</li>
+          </ul>
+          <a href="#booking" class="btn btn-main mt-auto">درخواست</a>
+        </div>
+      </div>
+    </div>
+    <p class="form-hint mt-2">هزینه نهایی با توجه به مدت، شیفت شب/تعطیل، مهارت و فاصله متغیر است.</p>
+  </div>
+</section>
+
+<section class="py-5" id="gallery" aria-labelledby="galTitle">
+  <div class="container container-narrow">
+    <div class="section-title mb-3"><h2 id="galTitle">گالری</h2><p>چند نمای واقعی از کار و تیم</p></div>
+    <div class="gallery">
+      <picture><source type="image/avif" srcset="https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&w=800&q=60&fm=avif"><img loading="lazy" src="https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&w=800&q=60" alt="مراقبت در منزل" width="400" height="260"></picture>
+      <picture><source type="image/avif" srcset="https://images.unsplash.com/photo-1594824476967-48c8b9642731?auto=format&fit=crop&w=800&q=60&fm=avif"><img loading="lazy" src="https://images.unsplash.com/photo-1594824476967-48c8b9642731?auto=format&fit=crop&w=800&q=60" alt="پرستار و سالمند" width="400" height="260"></picture>
+      <picture><source type="image/avif" srcset="https://images.unsplash.com/photo-1582562124811-c09040d0fb62?auto=format&fit=crop&w=800&q=60&fm=avif"><img loading="lazy" src="https://images.unsplash.com/photo-1582562124811-c09040d0fb62?auto=format&fit=crop&w=800&q=60" alt="تزریقات در منزل" width="400" height="260"></picture>
+      <picture><source type="image/avif" srcset="https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?auto=format&fit=crop&w=800&q=60&fm=avif"><img loading="lazy" src="https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?auto=format&fit=crop&w=800&q=60" alt="همراه بیمار" width="400" height="260"></picture>
+      <picture><source type="image/avif" srcset="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=800&q=60&fm=avif"><img loading="lazy" src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=800&q=60" alt="تیم پرستاری" width="400" height="260"></picture>
+      <picture><source type="image/avif" srcset="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=800&q=60&fm=avif"><img loading="lazy" src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=800&q=60" alt="مشاوره با خانواده" width="400" height="260"></picture>
+    </div>
+  </div>
+</section>
+
+<section class="py-5" id="testimonials" aria-labelledby="testiTitle">
+  <div class="container container-narrow">
+    <div class="section-title mb-3"><h2 id="testiTitle">نظرات مشتریان</h2></div>
+    <div class="card p-3 testi" aria-roledescription="carousel">
+      <div class="testi-track" id="testiTrack">
+        <div class="testi-card">
+          <blockquote class="mb-1">«از روز اول خیالم راحت شد. مادرم هم‌صحبت و رسیدگی عالی داره.»</blockquote>
+          <div class="text-muted">مریم الف. | تهران</div>
+        </div>
+        <div class="testi-card">
+          <blockquote class="mb-1">«پانسمان تخصصی در منزل واقعاً نجات‌بخش شد. گزارش‌ دهی دقیق.»</blockquote>
+          <div class="text-muted">آقای س. | تهران</div>
+        </div>
+        <div class="testi-card">
+          <blockquote class="mb-1">«شیفت شب بیمارستان رو پوشش دادن و همه‌چیز مرتب بود.»</blockquote>
+          <div class="text-muted">نسیم ک. | کرج</div>
+        </div>
+      </div>
+      <div class="testi-dots" id="testiDots" role="tablist" aria-label="اسلایدها"></div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5" id="faq" aria-labelledby="faqTitle">
+  <div class="container container-narrow">
+    <div class="section-title mb-3"><h2 id="faqTitle">سوالات متداول</h2></div>
+    <div class="accordion faq" id="faqAcc">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="q1"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#a1" aria-expanded="true" aria-controls="a1">هزینه دقیق چطور محاسبه می‌شود؟</button></h2>
+        <div id="a1" class="accordion-collapse collapse show" aria-labelledby="q1" data-bs-parent="#faqAcc"><div class="accordion-body">بر اساس نوع خدمت، مدت، شیفت شب/تعطیل، مهارت پرستار و فاصله. قبل از اعزام برآورد کتبی ارسال می‌شود.</div></div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="q2"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a2" aria-controls="a2">اگر از نیرو راضی نبودیم چه می‌شود؟</button></h2>
+        <div id="a2" class="accordion-collapse collapse" aria-labelledby="q2" data-bs-parent="#faqAcc"><div class="accordion-body">امکان جایگزینی سریع طبق SLA وجود دارد. بازخورد شما مبنای بهبود است.</div></div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="q3"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a3" aria-controls="a3">پوشش بیمه چگونه است؟</button></h2>
+        <div id="a3" class="accordion-collapse collapse" aria-labelledby="q3" data-bs-parent="#faqAcc"><div class="accordion-body">در خدمات واجد شرایط، امکان استفاده از بیمه پایه/تکمیلی وجود دارد. در رزرو استعلام می‌شود.</div></div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="q4"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a4" aria-controls="a4">پرستاران چگونه انتخاب می‌شوند؟</button></h2>
+        <div id="a4" class="accordion-collapse collapse" aria-labelledby="q4" data-bs-parent="#faqAcc"><div class="accordion-body">ارزیابی مدارک، مصاحبه رفتاری، آموزش و راستی‌آزمایی سوابق انجام می‌شود. احراز هویت الزامی است.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5" id="contact" aria-labelledby="contactTitle">
+  <div class="container container-narrow">
+    <div class="section-title mb-3"><h2 id="contactTitle">تماس و راه‌های ارتباطی</h2></div>
+    <div class="row g-3">
+      <div class="col-lg-6"><div class="card p-3 h-100">
+        <ul class="list-unstyled">
+          <li><strong>تلفن:</strong> <a href="tel:+982100000000">02100000000</a></li>
+          <li><strong>واتساپ:</strong> <a href="https://wa.me/989000000000" target="_blank" rel="noopener">پیام مستقیم</a></li>
+          <li><strong>تلگرام:</strong> <a href="https://t.me/yourhandle" target="_blank" rel="noopener">@yourhandle</a></li>
+          <li><strong>ایمیل:</strong> <a href="mailto:care@example.com">care@example.com</a></li>
+          <li><strong>اینستاگرام:</strong> <a href="#" target="_blank" rel="noopener">@carebrand</a></li>
+        </ul>
+        <a class="btn btn-main" href="#booking">رزرو نوبت</a>
+      </div></div>
+      <div class="col-lg-6"><div class="card p-3 h-100">
+        <h3 class="h6">پیام سریع</h3>
+        <form id="quickForm" novalidate>
+          <div class="mb-2"><label class="form-label" for="qName">نام</label><input id="qName" class="form-control" required><div class="invalid-feedback">نام را وارد کنید.</div></div>
+          <div class="mb-2"><label class="form-label" for="qPhone">موبایل</label><input id="qPhone" class="form-control" required placeholder="09xx xxx xxxx" maxlength="13"><div class="invalid-feedback">شماره معتبر وارد کنید.</div></div>
+          <div class="mb-2"><label class="form-label" for="qMsg">پیام</label><textarea id="qMsg" class="form-control" rows="3" required></textarea><div class="invalid-feedback">متن پیام را بنویسید.</div></div>
+          <button id="quickBtn" class="btn btn-main" type="submit" disabled>ارسال پیام</button>
+          <div id="quickAlert" class="alert alert-success mt-2 d-none" aria-live="polite">پیام شما دریافت شد.</div>
+        </form>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<button id="backToTop" class="btn btn-ghost">بازگشت به بالا</button>
+<a href="tel:+982100000000" class="btn btn-call" aria-label="تماس فوری">
+  <span>📞</span><span>تماس فوری</span>
+</a>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ab" crossorigin="anonymous"></script>
+<script>
+/* اعداد فارسی */
+function toFaDigits(s){return s.replace(/[0-9]/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d])}
+function onlyDigitsFa(s){return s.replace(/[^\d]/g,"")}
+
+/* ماسک موبایل ایران */
+function formatPhone(v){
+  v=v.replace(/\D/g,"")
+  if(v.startsWith("98")) v="0"+v.slice(2)
+  if(!v.startsWith("0")) v="0"+v
+  if(v.length>11) v=v.slice(0,11)
+  return v.replace(/^(\d{4})(\d{3})(\d{4})$/,"$1 $2 $3")
+}
+
+/* اعتبارسنجی ساده موبایل */
+function isValidMobile(v){v=v.replace(/\s/g,""); return /^09\d{9}$/.test(v)}
+
+/* تقویم شمسی سبک */
+const jp={months:["فروردین","اردیبهشت","خرداد","تیر","مرداد","شهریور","مهر","آبان","آذر","دی","بهمن","اسفند"]}
+function g2j(gy,gm,gd){var g_d_m=[0,31,59,90,120,151,181,212,243,273,304,334], jy=(gy<=1600)?0:979, gy2=(gy<=1600)?gy-621:gy-1600, gy3=(gm>2)?gy2+1:gy2, days=365*gy2+parseInt((gy3+3)/4)-parseInt((gy3+99)/100)+parseInt((gy3+399)/400)-80+gd+g_d_m[gm-1]; jy+=33*parseInt(days/12053); days%=12053; jy+=4*parseInt(days/1461); days%=1461; if(days>365){jy+=parseInt((days-1)/365); days=(days-1)%365} var jm=(days<186)?1+parseInt(days/31):7+parseInt((days-186)/30), jd=1+((days<186)?(days%31):((days-186)%30)); return [jy+1,jm,jd]}
+function j2g(jy,jm,jd){jy-=979; var days=365*jy+parseInt(jy/33)*8+parseInt(((jy%33)+3)/4)+78+jd+((jm<7)?(jm-1)*31:((jm-7)*30+186)); var gy=1600+400*parseInt(days/146097); days%=146097; if(days>36524){gy+=100*parseInt(--days/36524); days%=36524; if(days>=365)days++} gy+=4*parseInt(days/1461); days%=1461; if(days>365){gy+=parseInt((days-1)/365); days=(days-1)%365} var gd=days+1, sal_a=[0,31,((gy%4==0&&gy%100!=0)||gy%400==0)?29:28,31,30,31,30,31,31,30,31,30,31], gm; for(gm=1;gm<=12&&gd>sal_a[gm];gm++) gd-=sal_a[gm]; return [gy,gm,gd]}
+
+/* پاپ‌آپ انتخاب تاریخ */
+;(function(){
+  const input=document.getElementById("dateFa")
+  const pop=document.createElement("div")
+  pop.style.position="absolute"; pop.style.zIndex=1050; pop.className="card p-2"
+  let cur=new Date()
+  function render(y,m){
+    pop.innerHTML=""
+    const head=document.createElement("div")
+    head.className="d-flex justify-content-between align-items-center mb-2"
+    const [jy,jm]=g2j(y,m,1)
+    const t=document.createElement("strong"); t.textContent=jp.months[jm-1]+" "+toFaDigits(String(jy))
+    const nav=document.createElement("div")
+    const prev=document.createElement("button"); prev.className="btn btn-sm btn-ghost"; prev.textContent="‹"
+    const next=document.createElement("button"); next.className="btn btn-sm btn-ghost"; next.textContent="›"
+    prev.onclick=()=>{let d=new Date(y,m-2,1); y=d.getFullYear(); m=d.getMonth()+1; render(y,m)}
+    next.onclick=()=>{let d=new Date(y,m,1); y=d.getFullYear(); m=d.getMonth()+1; render(y,m)}
+    nav.append(prev,next); head.append(t,nav); pop.append(head)
+    const grid=document.createElement("div"); grid.className="d-grid"; grid.style.gridTemplateColumns="repeat(7,1fr)"; grid.style.gap="4px"
+    ;["ش","ی","د","س","چ","پ","ج"].forEach(d=>{const e=document.createElement("div"); e.className="text-center text-muted"; e.textContent=d; grid.append(e)})
+    // روزهای ماه جاری شمسی
+    // ساده‌سازی: نگاشت هفته‌ای با برگشت به میلادی برای کلیک
+    for(let d=1; d<=31; d++){
+      const g=j2g(jy,jm,d); const gDate=new Date(g[0],g[1]-1,g[2])
+      if(g2j(g[0],g[1],g[2])[1]!==jm) continue
+      const btn=document.createElement("button"); btn.className="btn btn-light"; btn.textContent=toFaDigits(String(d))
+      btn.onclick=()=>{input.value=toFaDigits(`${d} ${jp.months[jm-1]} ${jy}`); input.dataset.iso=gDate.toISOString().slice(0,10); hide()}
+      grid.append(btn)
+    }
+    pop.append(grid)
+  }
+  function show(){
+    const r=input.getBoundingClientRect()
+    pop.style.top=window.scrollY+r.bottom+6+"px"
+    pop.style.left=r.left+"px"
+    document.body.append(pop)
+    const d=new Date(); render(d.getFullYear(),d.getMonth()+1)
+    document.addEventListener("mousedown",onDoc,true)
+  }
+  function hide(){ if(pop.parentNode) pop.parentNode.removeChild(pop); document.removeEventListener("mousedown",onDoc,true) }
+  function onDoc(e){ if(!pop.contains(e.target) && e.target!==input) hide() }
+  input.addEventListener("click",show)
+})();
+
+/* تخمین هزینه */
+const baseRates={
+  elderly:180000, patient:200000, hospital:200000, nursing:320000, personalCare:190000, housekeeping:150000
+}
+function estimate(){
+  const t=document.getElementById("serviceType").value
+  const dur=+document.getElementById("duration").value||0
+  const sh=document.getElementById("shift").value
+  if(!t||!dur||!sh){ document.getElementById("estCost").textContent="—"; return }
+  let rate=baseRates[t]||180000
+  if(sh==="night") rate*=1.2
+  if(sh==="holiday") rate*=1.35
+  let total=rate*(dur===24?16:dur) // شبانه‌روزی با ضریب استراحت
+  const out=new Intl.NumberFormat("fa-IR").format(Math.round(total))
+  document.getElementById("estCost").textContent=out+" تومان"
+}
+
+/* اعتبارسنجی فرم‌ها و غیرفعال‌سازی دکمه‌ها */
+function setBtnState(form,btn){
+  const valid=form.checkValidity()
+  btn.disabled=!valid
+}
+function initForm(formId,btnId,alertId,phoneId){
+  const form=document.getElementById(formId), btn=document.getElementById(btnId), alert=document.getElementById(alertId)
+  form.addEventListener("input",()=>setBtnState(form,btn))
+  form.addEventListener("change",()=>setBtnState(form,btn))
+  form.addEventListener("submit",e=>{
+    e.preventDefault()
+    if(!form.checkValidity()){ form.classList.add("was-validated"); return }
+    alert.classList.remove("d-none")
+    btn.disabled=true
+    setTimeout(()=>{alert.classList.add("d-none"); btn.disabled=false; form.reset(); estimate();},2500)
+  })
+  if(phoneId){
+    const ph=document.getElementById(phoneId)
+    ph.addEventListener("input",()=>{
+      ph.value=formatPhone(ph.value)
+      if(isValidMobile(ph.value.replace(/\s/g,""))){ ph.setCustomValidity(""); } else { ph.setCustomValidity("invalid") }
+      setBtnState(form,btn)
+    })
+  }
+}
+initForm("bookingForm","submitBtn","formAlert","phone")
+initForm("quickForm","quickBtn","quickAlert","qPhone")
+
+;["serviceType","duration","shift"].forEach(id=>document.getElementById(id).addEventListener("change",estimate))
+
+/* اسلایدر نظرات */
+;(function(){
+  const track=document.getElementById("testiTrack")
+  const slides=Array.from(track.children)
+  const dots=document.getElementById("testiDots")
+  let idx=0
+  slides.forEach((_,i)=>{const b=document.createElement("button"); b.setAttribute("aria-label","اسلاید "+toFaDigits(String(i+1))); b.onclick=()=>go(i); dots.append(b)})
+  function go(i){ idx=i%slides.length; track.style.transform=`translateX(-${idx*100}%)`; dots.querySelectorAll("button").forEach((d,k)=>d.setAttribute("aria-current",k===idx)) }
+  function next(){ go((idx+1)%slides.length) }
+  go(0)
+  setInterval(next,5000)
+})()
+
+/* چیپ‌های نقشه */
+document.querySelectorAll(".chip").forEach(ch=>{
+  ch.addEventListener("click",()=>{
+    const pressed=ch.getAttribute("aria-pressed")==="true"
+    ch.setAttribute("aria-pressed", String(!pressed))
+  })
+})
+
+/* دکمه بازگشت به بالا */
+const btt=document.getElementById("backToTop")
+window.addEventListener("scroll",()=>{ if(window.scrollY>600){btt.classList.add("show")}else{btt.classList.remove("show")} })
+btt.addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}))
+
+/* کلیدهای دسترسی */
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){ const open=document.querySelector(".modal.show"); if(open) bootstrap.Modal.getInstance(open).hide() }
+})
+
+/* اسکیماهای ساختاریافته */
+const org={
+  "@context":"https://schema.org","@type":"HomeHealthCare","name":"خدمات پرستاری در منزل",
+  "areaServed":"Tehran","telephone":"+982100000000","url":location.href,
+  "logo":location.origin+"/logo.svg",
+  "aggregateRating":{"@type":"AggregateRating","ratingValue":"4.8","reviewCount":"196"},
+  "address":{"@type":"PostalAddress","addressCountry":"IR","addressLocality":"Tehran"},
+  "sameAs":["https://instagram.com/carebrand"]
+}
+const faq={
+ "@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"هزینه دقیق چطور محاسبه می‌شود؟","acceptedAnswer":{"@type":"Answer","text":"بر اساس نوع خدمت، مدت، شیفت و مهارت."}},
+  {"@type":"Question","name":"اگر از نیرو راضی نبودیم چه می‌شود؟","acceptedAnswer":{"@type":"Answer","text":"امکان جایگزینی سریع طبق SLA وجود دارد."}},
+  {"@type":"Question","name":"پوشش بیمه چگونه است؟","acceptedAnswer":{"@type":"Answer","text":"در خدمات واجد شرایط، امکان استفاده از بیمه پایه/تکمیلی وجود دارد."}}
+ ]
+}
+const reviews={
+ "@context":"https://schema.org","@type":"ItemList","itemListElement":[
+  {"@type":"Review","author":{"@type":"Person","name":"مریم الف."},"reviewBody":"خیالم راحت شد.","reviewRating":{"@type":"Rating","ratingValue":"5"}},
+  {"@type":"Review","author":{"@type":"Person","name":"آقای س."},"reviewBody":"پانسمان تخصصی خوب.","reviewRating":{"@type":"Rating","ratingValue":"5"}}
+ ]
+}
+;[org,faq,reviews].forEach(o=>{const s=document.createElement("script"); s.type="application/ld+json"; s.textContent=JSON.stringify(o); document.head.appendChild(s)})
+
+/* راهنمایی لحظه‌ای */
+;[["serviceType","نوع خدمت را انتخاب کنید"],["city","منطقه دقیق‌تر فرایند اعزام را سریع می‌کند"],["dateFa","تاریخ دقیق انتخاب شود"],["time","ساعت حضور را مشخص کنید"],["duration","مدت مورد نیاز را تعیین کنید"],["shift","روز/شب/تعطیل"],["phone","شماره معتبر برای هماهنگی"]].forEach(([id,msg])=>{
+  const el=document.getElementById(id)
+  el.addEventListener("focus",()=>{el.setAttribute("aria-description",msg)})
+})
+
+/* اعداد فارسی نمایشی */
+document.querySelectorAll(".kpi strong").forEach(s=>s.textContent=toFaDigits(s.textContent))
+</script>
+
+<!-- چک‌لیست لایت‌هاوس: 
+- Performance: تصاویر lazy، فونت swap، اسکریپت‌ها انتهای بدنه
+- Accessibility: Label/aria/focus واضح
+- Best Practices: HTTPS/CDN معتبر
+- SEO: title/description/H1/H2، اسکیما JSON-LD، alt تصاویر
+-->
+</body>
+</html>
+```25
