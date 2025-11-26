@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="fa-IR" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دکتر سیاوش دهقان | جراح ستون فقرات و دیسک</title>
+    <meta name="description" content="جراحی کم‌تهاجمی ستون فقرات توسط دکتر سیاوش دهقان - بازگشت 100% به زندگی طبیعی">
+    <meta property="og:title" content="دکتر سیاوش دهقان | جراح ستون فقرات و دیسک">
+    <meta property="og:description" content="جراحی کم‌تهاجمی ستون فقرات توسط دکتر سیاوش دهقان - بازگشت 100% به زندگی طبیعی">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #7c3aed;
+            --accent: #f59e0b;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --success: #10b981;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+            --shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazir', system-ui, -apple-system, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.7;
+        }
+
+        .hero-section {
+            background: var(--gradient);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            padding: 6rem 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-bg-pattern {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background: 
+                radial-gradient(circle at 10% 20%, white 2px, transparent 2px),
+                radial-gradient(circle at 80% 80%, white 3px, transparent 3px);
+            background-size: 50px 50px;
+        }
+
+        .hero-image-container {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transform: perspective(1000px) rotateY(-5deg);
+            transition: var(--transition);
+        }
+
+        .hero-image-container:hover {
+            transform: perspective(1000px) rotateY(0deg);
+        }
+
+        .stats-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .stats-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.15);
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: none;
+            height: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.15);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: -40px auto 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            border: none;
+        }
+
+        .testimonial-card::before {
+            content: """;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 5rem;
+            color: var(--primary);
+            opacity: 0.1;
+            font-family: serif;
+        }
+
+        .cta-section {
+            background: var(--gradient);
+            color: white;
+            border-radius: 30px;
+            padding: 4rem 2rem;
+            margin: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--light);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .feature-icon:hover {
+            transform: scale(1.1);
+            background: var(--primary);
+            color: white;
+        }
+
+        .floating-element {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); }
+            70% { box-shadow: 0 0 0 20px rgba(37, 99, 235, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+        }
+
+        .gradient-text {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            right: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        .btn-custom {
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-custom::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn-custom:hover::before {
+            right: 100%;
+        }
+
+        .btn-primary-custom {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .btn-primary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-outline-custom {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .btn-outline-custom:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        .navbar-custom {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav-link-custom {
+            color: var(--dark);
+            font-weight: 500;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-link-custom::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            right: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: var(--transition);
+            transform: translateX(50%);
+        }
+
+        .nav-link-custom:hover::after {
+            width: 100%;
+        }
+
+        .form-custom {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .form-control-custom {
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+            padding: 12px 16px;
+            transition: var(--transition);
+        }
+
+        .form-control-custom:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .contact-info-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--light);
+            color: var(--primary);
+            transition: var(--transition);
+            margin: 0 5px;
+        }
+
+        .social-icon:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .footer-custom {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-to-top:hover {
+            transform: translateY(-5px);
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 3rem 0;
+            }
+            
+            .cta-section {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-4" href="#">
+                <span class="gradient-text">دکتر سیاوش دهقان</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item mx-2"><a class="nav-link nav-link-custom" href="#home">خانه</a></li>
+                    <li class="nav-item mx-2"><a class="nav-link nav-link-custom" href="#services">خدمات</a></li>
+                    <li class="nav-item mx-2"><a class="nav-link nav-link-custom" href="#about">درباره</a></li>
+                    <li class="nav-item mx-2"><a class="nav-link nav-link-custom" href="#testimonials">نظرات</a></li>
+                    <li class="nav-item mx-2"><a class="nav-link nav-link-custom" href="#contact">تماس</a></li>
+                </ul>
+                <a href="#contact" class="btn btn-custom btn-primary-custom ms-lg-3 mt-2 mt-lg-0">رزرو نوبت فوری</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-bg-pattern"></div>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 hero-content">
+                    <h1 class="display-4 fw-bold mb-4">
+                        بازگشت 100% به زندگی طبیعی<br>
+                        <span class="gradient-text">بدون درد ستون فقرات</span>
+                    </h1>
+                    <p class="lead mb-4 opacity-90">
+                        جراحی کم‌تهاجمی ستون فقرات توسط دکتر سیاوش دهقان - متخصص جراحی مغز و اعصاب با بیش از 15 سال تجربه در زمینه جراحی‌های پیشرفته ستون فقرات.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3 mb-5">
+                        <a href="#contact" class="btn btn-custom btn-primary-custom pulse-animation">
+                            <i class="bi bi-calendar-check me-2"></i>رزرو نوبت فوری
+                        </a>
+                        <a href="tel:+982100000000" class="btn btn-custom btn-outline-custom">
+                            <i class="bi bi-telephone me-2"></i>تماس تلفنی
+                        </a>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-md-4 col-6">
+                            <div class="stats-card text-center">
+                                <h3 class="mb-1">1500+</h3>
+                                <small>عمل موفق</small>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-6">
+                            <div class="stats-card text-center">
+                                <h3 class="mb-1">98%</h3>
+                                <small>رضایت کامل</small>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-6">
+                            <div class="stats-card text-center">
+                                <h3 class="mb-1">24h</h3>
+                                <small>بهبودی سریع</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mt-5 mt-lg-0">
+                    <div class="hero-image-container floating-element">
+                        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=700&q=80" alt="دکتر سیاوش دهقان" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="py-5">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="section-title">خدمات تخصصی</h2>
+                <p class="text-muted lead">جدیدترین روش‌های جراحی کم‌تهاجمی</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="bi bi-back fs-3 text-white"></i>
+                        </div>
+                        <div class="card-body text-center px-4 pb-4">
+                            <h4 class="card-title mb-3">جراحی دیسک کمر</h4>
+                            <p class="card-text text-muted mb-4">
+                                رفع فشار اعصاب کمر با روش‌های کم‌تهاجمی و بازیابی کامل در عرض 24 ساعت.
+                            </p>
+                            <a href="#contact" class="btn btn-custom btn-outline-primary">مشاوره رایگان</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="bi bi-phone fs-3 text-white"></i>
+                        </div>
+                        <div class="card-body text-center px-4 pb-4">
+                            <h4 class="card-title mb-3">جراحی دیسک گردن</h4>
+                            <p class="card-text text-muted mb-4">
+                                درمان اختلالات گردن و بازگشت به زندگی بدون درد در کوتاه‌ترین زمان ممکن.
+                            </p>
+                            <a href="#contact" class="btn btn-custom btn-outline-primary">مشاوره رایگان</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="bi bi-heart-pulse fs-3 text-white"></i>
+                        </div>
+                        <div class="card-body text-center px-4 pb-4">
+                            <h4 class="card-title mb-3">کم‌تهاجمی ستون فقرات</h4>
+                            <p class="card-text text-muted mb-4">
+                                روش‌های نوین جراحی با حداقل تهاجم و حداکثر نتیجه در کوتاه‌ترین زمان.
+                            </p>
+                            <a href="#contact" class="btn btn-custom btn-outline-primary">مشاوره رایگان</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="py-5 bg-light">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="section-title">چرا دکتر سیاوش دهقان؟</h2>
+                <p class="text-muted lead">تفاوت ما با سایرین</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-3 col-6 text-center">
+                    <div class="feature-icon mx-auto mb-3">
+                        <i class="bi bi-lightning"></i>
+                    </div>
+                    <h5>عمل در 30 دقیقه</h5>
+                    <small class="text-muted">حداقل زمان جراحی</small>
+                </div>
+                <div class="col-md-3 col-6 text-center">
+                    <div class="feature-icon mx-auto mb-3">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+                    <h5>99% موفقیت</h5>
+                    <small class="text-muted">رضایت کامل بیماران</small>
+                </div>
+                <div class="col-md-3 col-6 text-center">
+                    <div class="feature-icon mx-auto mb-3">
+                        <i class="bi bi-currency-dollar"></i>
+                    </div>
+                    <h5>ضمانت بازگشت وجه</h5>
+                    <small class="text-muted">در صورت عدم رضایت</small>
+                </div>
+                <div class="col-md-3 col-6 text-center">
+                    <div class="feature-icon mx-auto mb-3">
+                        <i class="bi bi-headset"></i>
+                    </div>
+                    <h5>پشتیبانی 24/7</h5>
+                    <small class="text-muted">همراهی در هر مرحله</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="py-5">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-lg-5 mb-5 mb-lg-0">
+                    <div class="position-relative">
+                        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=600&q=80" alt="دکتر سیاوش دهقان" class="img-fluid rounded-4 shadow">
+                        <div class="position-absolute bottom-0 start-0 m-4">
+                            <div class="bg-white rounded-pill px-4 py-2 shadow">
+                                <i class="bi bi-award text-warning me-2"></i>
+                                <strong>عضو افتخاری جراحی ستون فقرات</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <h2 class="section-title mb-4">درباره دکتر سیاوش دهقان</h2>
+                    <p class="lead mb-4">
+                        متخصص جراحی مغز و اعصاب با بیش از 15 سال تجربه در زمینه جراحی‌های پیشرفته ستون فقرات و دیسک کمر و گردن.
+                    </p>
+                    <p class="mb-4 text-muted">
+                        دارنده مدرک فوق تخصصی از دانشگاه تهران و دوره‌های تخصصی در آلمان و آمریکا. پیشرو در استفاده از جدیدترین روش‌های جراحی کم‌تهاجمی.
+                    </p>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-4">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                <span>15 سال تجربه</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                <span>1500+ عمل موفق</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                <span>بیمارستان‌های تهران</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#contact" class="btn btn-custom btn-primary-custom">
+                        <i class="bi bi-calendar-plus me-2"></i>رزرو نوبت مشاوره
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="py-5 bg-light">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="section-title">تجربیات بیماران</h2>
+                <p class="text-muted lead">نظرات واقعی بیماران</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-primary bg-opacity-10 rounded-circle p-2 me-3">
+                                <i class="bi bi-person text-primary"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0">مریم محمدی</h6>
+                                <small class="text-muted">45 سال</small>
+                            </div>
+                        </div>
+                        <p class="mb-3">
+                            "بعد از 5 سال درد کمر، با یک عمل 30 دقیقه‌ای دکتر سیاوش دهقان، کاملاً بهبود یافتم. نتیجه فوق‌العاده!"
+                        </p>
+                        <div class="text-warning">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-primary bg-opacity-10 rounded-circle p-2 me-3">
+                                <i class="bi bi-person text-primary"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0">احمد رضایی</h6>
+                                <small class="text-muted">38 سال</small>
+                            </div>
+                        </div>
+                        <p class="mb-3">
+                            "جراحی دیسک گردن توسط دکتر سیاوش دهقان بی‌درد و سریع بود. یک هفته بعد به کارم برگشتم."
+                        </p>
+                        <div class="text-warning">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-primary bg-opacity-10 rounded-circle p-2 me-3">
+                                <i class="bi bi-person text-primary"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0">زهرا احمدی</h6>
+                                <small class="text-muted">52 سال</small>
+                            </div>
+                        </div>
+                        <p class="mb-3">
+                            "دکتر سیاوش دهقان نه تنها متخصص بزرگی هستند، بلکه انسانی بسیار محبت‌آمیز و مسئولیت‌پذیر."
+                        </p>
+                        <div class="text-warning">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-half"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="container">
+        <div class="cta-section text-center">
+            <h2 class="display-5 fw-bold mb-3">آماده‌اید بدون درد زندگی کنید؟</h2>
+            <p class="lead mb-4">اولین قدم را با رزرو نوبت مشاوره رایگان بردارید</p>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                <a href="#contact" class="btn btn-custom btn-outline-light">
+                    <i class="bi bi-calendar-check me-2"></i>رزرو نوبت فوری
+                </a>
+                <a href="https://wa.me/989123456789" class="btn btn-custom btn-success">
+                    <i class="bi bi-whatsapp me-2"></i>تماس از طریق واتساپ
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-5">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="section-title">رزرو نوبت / تماس</h2>
+                <p class="text-muted lead">فرم زیر را پر کنید یا مستقیماً با ما تماس بگیرید</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-7">
+                    <div class="form-custom">
+                        <form id="bookingForm">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-500">نام و نام خانوادگی</label>
+                                    <input type="text" class="form-control form-control-custom" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-500">موبایل</label>
+                                    <input type="tel" class="form-control form-control-custom" pattern="09[0-9]{9}" placeholder="09123456789" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-500">خدمت مورد نظر</label>
+                                    <select class="form-select form-control-custom" required>
+                                        <option value="">انتخاب کنید</option>
+                                        <option value="دیسک کمر">جراحی دیسک کمر</option>
+                                        <option value="دیسک گردن">جراحی دیسک گردن</option>
+                                        <option value="ستون فقرات">کم‌تهاجمی ستون فقرات</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-500">تاریخ تمایل به مراجعه</label>
+                                    <input type="date" class="form-control form-control-custom">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label fw-500">پیام</label>
+                                    <textarea class="form-control form-control-custom" rows="4" placeholder="توضیحات اضافی..."></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="terms" required>
+                                        <label class="form-check-label" for="terms">
+                                            قوانین و مقررات را می‌پذیرم و اطلاعات من محرمانه خواهد ماند
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-custom btn-primary-custom w-100 py-3">
+                                        <i class="bi bi-send-check me-2"></i>ارسال درخواست و رزرو نوبت
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="contact-info-card h-100">
+                        <h4 class="mb-4">اطلاعات تماس</h4>
+                        <div class="d-flex align-items-start mb-4">
+                            <div class="feature-icon flex-shrink-0 me-3">
+                                <i class="bi bi-geo-alt"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">آدرس مطب</h6>
+                                <p class="text-muted mb-0">تهران، خیابان ولیعصر، بالاتر از میدان ونک، پلاک 1234</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start mb-4">
+                            <div class="feature-icon flex-shrink-0 me-3">
+                                <i class="bi bi-clock"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">ساعات کاری</h6>
+                                <p class="text-muted mb-0">شنبه تا چهارشنبه: 8:00 تا 18:00<br>پنجشنبه: 10:00 تا 14:00</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start mb-4">
+                            <div class="feature-icon flex-shrink-0 me-3">
+                                <i class="bi bi-telephone"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">شماره تماس</h6>
+                                <p class="text-muted mb-0">021-00000000<br>09123456789 (واتساپ)</p>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <h6 class="mb-3">راه‌های ارتباطی سریع</h6>
+                            <div class="d-flex justify-content-center">
+                                <a href="https://wa.me/989123456789" class="social-icon">
+                                    <i class="bi bi-whatsapp"></i>
+                                </a>
+                                <a href="https://t.me/dr_siaosh" class="social-icon">
+                                    <i class="bi bi-telegram"></i>
+                                </a>
+                                <a href="https://instagram.com/dr_siaosh" class="social-icon">
+                                    <i class="bi bi-instagram"></i>
+                                </a>
+                                <a href="mailto:dr@siaosh.com" class="social-icon">
+                                    <i class="bi bi-envelope"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <div class="bg-secondary rounded" style="height: 200px; display: flex; align-items: center; justify-content: center;">
+                                <i class="bi bi-map text-white fs-1"></i>
+                            </div>
+                            <small class="text-muted d-block mt-2 text-center">نمایش مسیر روی نقشه</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-custom">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-4">
+                    <h4 class="text-white mb-4">دکتر سیاوش دهقان</h4>
+                    <p class="text-muted mb-4">
+                        متخصص جراحی ستون فقرات و دیسک کمر و گردن با بیش از 15 سال تجربه در زمینه جراحی‌های کم‌تهاجمی.
+                    </p>
+                    <div class="d-flex">
+                        <a href="https://instagram.com" class="social-icon bg-dark me-2">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a href="https://telegram.org" class="social-icon bg-dark me-2">
+                            <i class="bi bi-telegram"></i>
+                        </a>
+                        <a href="https://wa.me" class="social-icon bg-dark me-2">
+                            <i class="bi bi-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h5 class="text-white mb-4">خدمات</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">جراحی دیسک کمر</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">جراحی دیسک گردن</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">کم‌تهاجمی ستون فقرات</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">مشاوره رایگان</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h5 class="text-white mb-4">لینک‌های مفید</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#about" class="text-muted text-decoration-none">درباره ما</a></li>
+                        <li class="mb-2"><a href="#testimonials" class="text-muted text-decoration-none">نظرات بیماران</a></li>
+                        <li class="mb-2"><a href="#contact" class="text-muted text-decoration-none">تماس با ما</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">سوالات متداول</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <h5 class="text-white mb-4">اطلاعات تماس</h5>
+                    <div class="text-muted mb-2">
+                        <i class="bi bi-geo-alt me-2"></i>
+                        تهران، خیابان ولیعصر
+                    </div>
+                    <div class="text-muted mb-2">
+                        <i class="bi bi-telephone me-2"></i>
+                        021-00000000
+                    </div>
+                    <div class="text-muted mb-2">
+                        <i class="bi bi-envelope me-2"></i>
+                        dr@siaosh.com
+                    </div>
+                </div>
+            </div>
+            <hr class="my-5 bg-secondary">
+            <div class="text-center">
+                <p class="text-muted mb-2">© 2025 دکتر سیاوش دهقان. تمامی حقوق محفوظ است.</p>
+                <small class="text-muted">
+                    این وب‌سایت صرفاً جهت اطلاع‌رسانی است و جایگزین ویزیت پزشکی نمی‌باشد.
+                </small>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top -->
+    <div class="scroll-to-top" id="scrollTop">
+        <i class="bi bi-arrow-up"></i>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form validation
+        const form = document.getElementById('bookingForm');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('درخواست شما با موفقیت ثبت شد. به زودی با شما تماس خواهیم گرفت.');
+                form.reset();
+            });
+        }
+
+        // Scroll to top button
+        const scrollTopBtn = document.getElementById('scrollTop');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar-custom');
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
+            } else {
+                navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            }
+        });
+
+        // Animation on scroll
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.service-card, .testimonial-card, .stats-card').forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="fa-IR" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جراح مغز و اعصاب | ارزیابی دیسک کمر و گردن | دکتر سیاوش دهقان</title>
+    <meta name="description" content="ارزیابی دقیق مدارک، گزینه‌های غیرجراحی، و در صورت نیاز جراحی منتخب. رزرو ۶۰ثانیه‌ای یا ارسال MRI/CT.">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Physician",
+      "name": "دکتر سیاوش دهقان",
+      "medicalSpecialty": ["Neurosurgery", "SpineSurgery"],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "تهران",
+        "addressCountry": "IR"
+      },
+      "telephone": "+9821-00000000",
+      "url": "https://example.com"
+    }
+    </script>
+    
+    <style>
+        :root {
+            --brand: #0D6EFD;
+            --dark: #1F2937;
+            --text: #374151;
+            --bg: #F8FAFC;
+            --card: #FFFFFF;
+        }
+        
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: var(--text);
+            background-color: var(--bg);
+            line-height: 1.7;
+        }
+        
+        /* استایل‌های سفارشی برای RTL */
+        .rtl-text {
+            direction: rtl;
+            text-align: right;
+        }
+        
+        /* هیرو */
+        .hero-section {
+            background-color: var(--bg);
+            padding: 4rem 0;
+        }
+        
+        .hero-img {
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        /* دکمه‌های CTA */
+        .btn-primary {
+            background-color: var(--brand);
+            border-color: var(--brand);
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+        }
+        
+        .btn-primary:hover, .btn-primary:focus {
+            background-color: #0b5ed7;
+            border-color: #0a58ca;
+        }
+        
+        .btn-outline-primary {
+            color: var(--brand);
+            border-color: var(--brand);
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+        }
+        
+        .btn-outline-primary:hover, .btn-outline-primary:focus {
+            background-color: var(--brand);
+            color: white;
+        }
+        
+        /* کارت‌ها */
+        .service-card, .symptom-card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            height: 100%;
+        }
+        
+        .service-card:hover, .symptom-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* نوار موبایل ثابت */
+        .mobile-cta-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            padding: 0.75rem;
+            z-index: 1030;
+            display: none;
+        }
+        
+        .mobile-cta-bar .btn {
+            flex: 1;
+            margin: 0 0.25rem;
+            padding: 0.75rem;
+            font-size: 0.9rem;
+        }
+        
+        /* هدر چسبنده */
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            z-index: 1020;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        /* بخش روند کار */
+        .process-step {
+            position: relative;
+            padding-right: 2rem;
+        }
+        
+        .process-step:not(:last-child):after {
+            content: "";
+            position: absolute;
+            top: 2.5rem;
+            right: 1rem;
+            bottom: -2.5rem;
+            width: 2px;
+            background-color: #e9ecef;
+        }
+        
+        .process-number {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            background-color: var(--brand);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        /* بخش داستان‌گویی */
+        .story-section img, .story-section video {
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        /* اثبات اجتماعی */
+        .proof-item {
+            text-align: center;
+            padding: 1.5rem;
+        }
+        
+        .proof-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--brand);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* FAQ */
+        .faq-item {
+            border-bottom: 1px solid #e9ecef;
+            padding: 1.5rem 0;
+        }
+        
+        .faq-question {
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-answer {
+            margin-top: 1rem;
+            display: none;
+        }
+        
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        
+        /* فرم */
+        .form-section {
+            background-color: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        /* فوتر */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+        
+        /* حالت‌های focus */
+        .btn:focus-visible, .form-control:focus-visible, .form-select:focus-visible {
+            outline: 2px solid var(--brand);
+            outline-offset: 2px;
+        }
+        
+        /* نمایش نوار موبایل فقط در موبایل */
+        @media (max-width: 768px) {
+            .mobile-cta-bar {
+                display: flex;
+            }
+            
+            .hero-section {
+                padding: 2rem 0;
+            }
+            
+            .hero-img {
+                margin-top: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- هدر چسبنده -->
+    <header class="sticky-header py-2">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <a class="navbar-brand fw-bold" href="#">دکتر سیاوش دهقان</a>
+                <nav class="d-none d-md-block">
+                    <ul class="nav">
+                        <li class="nav-item"><a class="nav-link" href="#home">خانه</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#services">خدمات</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#process">روند</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#faq">سوالات</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#booking">رزرو</a></li>
+                    </ul>
+                </nav>
+                <div class="d-none d-md-flex gap-2">
+                    <button class="btn btn-primary" onclick="openBookingModal()">رزرو ۶۰ثانیه‌ای</button>
+                    <a class="btn btn-outline-primary" href="https://wa.me/98912XXXXXXX?text=سلام، برای رزرو ۶۰ ثانیه‌ای راهنمایی می‌خوام" target="_blank" onclick="trackCTA('whatsapp', 'header')">واتس‌اپ</a>
+                </div>
+                <button class="d-md-none btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
+                    <i class="bi bi-list"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- منوی آف‌کنواس برای موبایل -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title">منو</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item"><a class="nav-link" href="#home" data-bs-dismiss="offcanvas">خانه</a></li>
+                <li class="nav-item"><a class="nav-link" href="#services" data-bs-dismiss="offcanvas">خدمات</a></li>
+                <li class="nav-item"><a class="nav-link" href="#process" data-bs-dismiss="offcanvas">روند</a></li>
+                <li class="nav-item"><a class="nav-link" href="#faq" data-bs-dismiss="offcanvas">سوالات</a></li>
+                <li class="nav-item"><a class="nav-link" href="#booking" data-bs-dismiss="offcanvas">رزرو</a></li>
+            </ul>
+            <div class="mt-3 d-grid gap-2">
+                <button class="btn btn-primary" onclick="openBookingModal()" data-bs-dismiss="offcanvas">رزرو ۶۰ثانیه‌ای</button>
+                <a class="btn btn-outline-primary" href="https://wa.me/98912XXXXXXX?text=سلام، برای رزرو ۶۰ ثانیه‌ای راهنمایی می‌خوام" target="_blank" onclick="trackCTA('whatsapp', 'mobile_nav')">واتس‌اپ</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- هیرو -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-5 fw-bold mb-4">ارزیابی دقیق دیسک کمر و گردن. تصمیم‌گیری مرحله‌ای.</h1>
+                    <p class="lead mb-4">اول مدارک را می‌بینیم. اگر درمان غیرجراحی پاسخ نداد، گزینه جراحی منتخب را بررسی می‌کنیم.</p>
+                    <div class="d-flex flex-wrap gap-3 mb-4">
+                        <button class="btn btn-primary btn-lg" onclick="openBookingModal()">رزرو ۶۰ثانیه‌ای</button>
+                        <a class="btn btn-outline-primary btn-lg" href="https://wa.me/98912XXXXXXX?text=سلام، برای رزرو ۶۰ ثانیه‌ای راهنمایی می‌خوام" target="_blank" onclick="trackCTA('whatsapp', 'hero')">واتس‌اپ</a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iNTAwIiBoZWlnaHQ9IjQwMCIgZmlsbD0iI2YxZjVmOSIvPgogIDxjaXJjbGUgY3g9IjI1MCIgY3k9IjIwMCIgcj0iMTUwIiBmaWxsPSIjZThlY2VmIi8+CiAgPGNpcmNsZSBjeD0iMjUwIiBjeT0iMTUwIiByPSI1MCIgZmlsbD0iI2NjY2NjYyIvPgogIDxwYXRoIGQ9Ik0yMDAgMjUwIEE1MCA1MCAwIDAgMSAzMDAgMjUwIiBzdHJva2U9IiNjY2NjY2MiIHN0cm9rZS13aWR0aD0iMyIgZmlsbD0ibm9uZSIvPgo8L3N2Zz4K" alt="پرتره پزشک" class="img-fluid hero-img" width="500" height="400" loading="eager">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- خودمسیری علائم -->
+    <section class="py-5 bg-white">
+        <div class="container">
+            <h2 class="text-center mb-5">علائم خود را انتخاب کنید</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card symptom-card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">درد کمر</h5>
+                            <ul class="card-text">
+                                <li>درد پایین کمر که به باسن یا ران انتشار دارد</li>
+                                <li>دردی که با نشستن یا ایستادن طولانی بدتر می‌شود</li>
+                                <li>احساس سفتی در ناحیه کمر</li>
+                            </ul>
+                            <button class="btn btn-outline-primary w-100" onclick="scrollToBooking()">این مورد را دارم</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card symptom-card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">گردن‌درد و گزگز دست</h5>
+                            <ul class="card-text">
+                                <li>درد گردن که به شانه‌ها یا دست‌ها انتشار دارد</li>
+                                <li>احساس گزگز یا سوزن سوزن شدن در دست‌ها</li>
+                                <li>ضعف در دست‌ها یا کاهش مهارت حرکتی</li>
+                            </ul>
+                            <button class="btn btn-outline-primary w-100" onclick="scrollToBooking()">این مورد را دارم</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card symptom-card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">بی‌حسی و ضعف</h5>
+                            <ul class="card-text">
+                                <li>بی‌حسی یا کاهش حس در پاها یا دست‌ها</li>
+                                <li>ضعف عضلانی پیشرونده</li>
+                                <li>مشکل در راه رفتن یا حفظ تعادل</li>
+                            </ul>
+                            <button class="btn btn-outline-primary w-100" onclick="scrollToBooking()">این مورد را دارم</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- خدمات کم‌تهاجمی -->
+    <section id="services" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">خدمات منتخب کم‌تهاجمی</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card service-card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">کم‌تهاجمی دیسک کمر</h5>
+                            <p class="card-text">روش‌های پیشرفته برای درمان مشکلات دیسک کمر با حداقل تهاجم.</p>
+                            <h6 class="mt-3">برای چه کسانی مناسب است:</h6>
+                            <ul>
+                                <li>افراد با فتق دیسک که به درمان‌های غیرجراحی پاسخ نداده‌اند</li>
+                                <li>کسانی که می‌خواهند دوره نقاهت کوتاه‌تری داشته باشند</li>
+                                <li>بیمارانی که شرایط عمومی برای جراحی باز را ندارند</li>
+                            </ul>
+                            <button class="btn btn-outline-primary w-100 mt-3" onclick="scrollToBooking()">ارزیابی مناسب‌بودن</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card service-card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">کم‌تهاجمی دیسک گردن</h5>
+                            <p class="card-text">درمان مشکلات دیسک گردن با کمترین آسیب به بافت‌های سالم.</p>
+                            <h6 class="mt-3">برای چه کسانی مناسب است:</h6>
+                            <ul>
+                                <li>افراد با فتق دیسک گردن که دچار علائم عصبی شده‌اند</li>
+                                <li>کسانی که از دردهای مزمن گردن رنج می‌برند</li>
+                                <li>بیمارانی که می‌خواهند سریع‌تر به فعالیت‌های روزمره بازگردند</li>
+                            </ul>
+                            <button class="btn btn-outline-primary w-100 mt-3" onclick="scrollToBooking()">ارزیابی مناسب‌بودن</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card service-card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">تنگی کانال</h5>
+                            <p class="card-text">روش‌های کم‌تهاجمی برای بازکردن فضای کانال نخاعی.</p>
+                            <h6 class="mt-3">برای چه کسانی مناسب است:</h6>
+                            <ul>
+                                <li>افراد با تنگی کانال نخاعی که دچار علائم عصبی شده‌اند</li>
+                                <li>کسانی که در راه رفتن دچار مشکل شده‌اند</li>
+                                <li>بیمارانی که می‌خواهند از جراحی باز وسیع جلوگیری کنند</li>
+                            </ul>
+                            <button class="btn btn-outline-primary w-100 mt-3" onclick="scrollToBooking()">ارزیابی مناسب‌بودن</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- داستان‌گویی تصویری -->
+    <section class="py-5 bg-white">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-4">
+                    <h2 class="mb-4">تجربه درمانی متفاوت</h2>
+                    <p>در کلینیک ما، تمرکز بر ارائه مراقبت‌های شخصی‌شده با استفاده از پیشرفته‌ترین تکنیک‌های کم‌تهاجمی است.</p>
+                    <p>هدف ما کاهش درد و بهبود کیفیت زندگی با حداقل دوره نقاهت است.</p>
+                </div>
+                <div class="col-lg-8">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2YxZjVmOSIvPgogIDxyZWN0IHg9IjUwIiB5PSI1MCIgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNlOGVjZWYiLz4KICA8Y2lyY2xlIGN4PSIxNTAiIGN5PSIxNTAiIHI9IjMwIiBmaWxsPSIjY2NjY2NjIi8+CiAgPGNpcmNsZSBjeD0iMjUwIiBjeT0iMTUwIiByPSIzMCIgZmlsbD0iI2NjY2NjYyIvPgo8L3N2Zz4K" alt="اتاق عمل" class="img-fluid rounded" width="400" height="300" loading="lazy">
+                        </div>
+                        <div class="col-md-6">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2YxZjVmOSIvPgogIDxyZWN0IHg9IjUwIiB5PSI1MCIgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNmOGZhZmMiLz4KICA8cmVjdCB4PSIxMDAiIHk9IjEwMCIgd2lkdGg9IjIwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNlOGVjZWYiLz4KICA8Y2lyY2xlIGN4PSIxNTAiIGN5PSIxNTAiIHI9IjE1IiBmaWxsPSIjY2NjY2NjIi8+CiAgPGNpcmNsZSBjeD0iMjAwIiBjeT0iMTUwIiByPSIxNSIgZmlsbD0iI2NjY2NjYyIvPgo8L3N2Zz4K" alt="اتاق ویزیت" class="img-fluid rounded" width="400" height="300" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="ratio ratio-16x9">
+                            <video controls poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQwIiBoZWlnaHQ9IjM2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iNjQwIiBoZWlnaHQ9IjM2MCIgZmlsbD0iI2YxZjVmOSIvPgogIDxwb2x5Z29uIHBvaW50cz0iMzIwLDE4MCA0MDAsMjQwIDMyMCwzMDAiIGZpbGw9IiNjY2NjY2MiLz4KPC9zdmc+Cg==">
+                                <source src="#" type="video/mp4">
+                                مرورگر شما از پخش ویدئو پشتیبانی نمی‌کند.
+                            </video>
+                        </div>
+                        <p class="text-muted mt-2 text-center">ویدئو ۴۵ ثانیه‌ای: چه انتظاری داشته باشید</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- اثبات اجتماعی -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">تجربه و تخصص</h2>
+            <div class="row text-center">
+                <div class="col-md-4 proof-item">
+                    <div class="proof-number">+۱۰ سال</div>
+                    <div class="proof-text">تجربه تخصصی</div>
+                </div>
+                <div class="col-md-4 proof-item">
+                    <div class="proof-number">۳</div>
+                    <div class="proof-text">مرکز درمانی همکار</div>
+                </div>
+                <div class="col-md-4 proof-item">
+                    <div class="proof-number">۲</div>
+                    <div class="proof-text">روش کم‌تهاجمی رایج</div>
+                </div>
+            </div>
+            
+            <div class="mt-5 text-center">
+                <h4 class="mb-4">همکار مراکز معتبر</h4>
+                <div class="d-flex flex-wrap justify-content-center gap-4">
+                    <div class="bg-light rounded p-3">بیمارستان x</div>
+                    <div class="bg-light rounded p-3">مرکز تخصصی y</div>
+                    <div class="bg-light rounded p-3">کلینیک z</div>
+                </div>
+            </div>
+            
+            <div class="mt-5">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="ratio ratio-16x9">
+                            <video controls poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQwIiBoZWlnaHQ9IjM2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iNjQwIiBoZWlnaHQ9IjM2MCIgZmlsbD0iI2YxZjVmOSIvPgogIDxjaXJjbGUgY3g9IjMyMCIgY3k9IjE4MCIgcj0iODAiIGZpbGw9IiNlOGVjZWYiLz4KICA8Y2lyY2xlIGN4PSIzMjAiIGN5PSIxODAiIHI9IjQwIiBmaWxsPSIjY2NjY2NjIi8+Cjwvc3ZnPgo=">
+                                <source src="#" type="video/mp4">
+                                مرورگر شما از پخش ویدئو پشتیبانی نمی‌کند.
+                            </video>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>تجربه بیماران</h4>
+                        <p class="lead">"بعد از سال‌ها درد کمر، با روش کم‌تهاجمی درمان شدم و ظرف دو هفته به کار بازگشتم."</p>
+                        <p class="text-muted">- بیمار با مجوز کتبی</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- روند کار -->
+    <section id="process" class="py-5 bg-white">
+        <div class="container">
+            <h2 class="text-center mb-5">روند کار شفاف</h2>
+            <div class="row">
+                <div class="col-lg-3 col-md-6 process-step">
+                    <div class="process-number">۱</div>
+                    <h5>ثبت درخواست</h5>
+                    <p>فرم را پر کنید یا مدارک خود را ارسال نمایید.</p>
+                </div>
+                <div class="col-lg-3 col-md-6 process-step">
+                    <div class="process-number">۲</div>
+                    <h5>ارزیابی مدارک</h5>
+                    <p>مدارک شما توسط تخصصی‌ترین تیم بررسی می‌شود.</p>
+                </div>
+                <div class="col-lg-3 col-md-6 process-step">
+                    <div class="process-number">۳</div>
+                    <h5>درمان انتخابی</h5>
+                    <p>بهترین گزینه درمانی با توجه به شرایط شما پیشنهاد می‌شود.</p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="process-number">۴</div>
+                    <h5>پیگیری</h5>
+                    <p>پس از درمان، پیگیری مستمر برای اطمینان از بهبودی کامل.</p>
+                </div>
+            </div>
+            <div class="text-center mt-5">
+                <a href="#faq" class="btn btn-link me-3">مدارک لازم</a>
+                <a href="#faq" class="btn btn-link">سوالات پرتکرار</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">سوالات متداول</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>زمان بازگشت به کار پس از درمان چقدر است؟</span>
+                            <i class="bi bi-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>بسته به نوع روش درمانی و شرایط فردی، معمولاً بین ۲ روز تا ۲ هفته است. در روش‌های کم‌تهاجمی، این زمان کوتاه‌تر است.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>آیا همه بیماران نیاز به جراحی دارند؟</span>
+                            <i class="bi bi-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>خیر، اغلب بیماران نیاز به جراحی ندارند. ابتدا درمان‌های غیرجراحی را بررسی می‌کنیم و تنها در صورت لزوم، جراحی پیشنهاد می‌شود.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>مراقبت‌های بعد از درمان چیست؟</span>
+                            <i class="bi bi-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>پس از درمان، برنامه‌ای شخصی‌شده شامل استراحت، فعالیت‌های مجاز، ورزش‌های تجویز شده و ویزیت‌های پیگیری ارائه می‌شود.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>هزینه تقریبی و پوشش بیمه چگونه است؟</span>
+                            <i class="bi bi-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>هزینه بسته به نوع درمان متفاوت است. بسیاری از روش‌ها تحت پوشش بیمه‌های پایه و تکمیلی هستند. پس از ارزیابی مدارک، هزینه دقیق اعلام می‌شود.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- فرم رزرو -->
+    <section id="booking" class="py-5 bg-white">
+        <div class="container">
+            <h2 class="text-center mb-5">فرم رزرو نهایی</h2>
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="form-section">
+                        <form id="bookingForm" onsubmit="submitBookingForm(event)">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">نام و نام‌خانوادگی</label>
+                                <input type="text" class="form-control" id="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">شماره موبایل</label>
+                                <input type="tel" class="form-control" id="phone" pattern="^09\d{9}$" required>
+                                <div class="form-text">مثال: 09123456789</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="service" class="form-label">خدمت درخواستی</label>
+                                <select class="form-select" id="service" required>
+                                    <option value="" selected disabled>لطفا انتخاب کنید</option>
+                                    <option value="consultation">مشاوره اولیه</option>
+                                    <option value="back">ارزیابی دیسک کمر</option>
+                                    <option value="neck">ارزیابی دیسک گردن</option>
+                                    <option value="canal">ارزیابی تنگی کانال</option>
+                                    <option value="other">سایر</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="time" class="form-label">زمان ترجیحی تماس</label>
+                                <select class="form-select" id="time" required>
+                                    <option value="" selected disabled>لطفا انتخاب کنید</option>
+                                    <option value="morning">صبح (۹-۱۲)</option>
+                                    <option value="afternoon">ظهر (۱۲-۱۶)</option>
+                                    <option value="evening">عصر (۱۶-۲۰)</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">پیام (اختیاری)</label>
+                                <textarea class="form-control" id="message" rows="3"></textarea>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="terms" required>
+                                <label class="form-check-label" for="terms">قوانین و شرایط را می‌پذیرم</label>
+                            </div>
+                            <div class="alert alert-info">
+                                <small>ارسال این فرم به‌منزلهٔ نوبت قطعی نیست.</small>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">ثبت درخواست</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-4 mt-4 mt-lg-0">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">اطلاعات تماس</h5>
+                            <p class="card-text">
+                                <i class="bi bi-geo-alt-fill me-2"></i> تهران، خیابان نمونه، پلاک ۱۲۳<br>
+                                <i class="bi bi-clock-fill me-2"></i> شنبه تا چهارشنبه: ۹-۱۷<br>
+                                <i class="bi bi-telephone-fill me-2"></i> ۰۲۱-۱۲۳۴۵۶۷۸
+                            </p>
+                            <div class="mb-3">
+                                <div id="map-placeholder" class="bg-light rounded p-4 text-center text-muted">
+                                    نقشه اینجا نمایش داده می‌شود
+                                </div>
+                            </div>
+                            <a class="btn btn-outline-primary w-100" href="https://wa.me/98912XXXXXXX?text=سلام، برای رزرو ۶۰ ثانیه‌ای راهنمایی می‌خوام" target="_blank" onclick="trackCTA('whatsapp', 'booking_sidebar')">
+                                <i class="bi bi-whatsapp me-2"></i> واتس‌اپ
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ماژول آپلود مدارک (مودال) -->
+    <div class="modal fade" id="uploadModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">ارسال MRI/CT برای ارزیابی اولیه</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="uploadForm" onsubmit="submitUploadForm(event)">
+                        <div class="mb-3">
+                            <label for="uploadName" class="form-label">نام و نام‌خانوادگی</label>
+                            <input type="text" class="form-control" id="uploadName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="uploadPhone" class="form-label">شماره موبایل</label>
+                            <input type="tel" class="form-control" id="uploadPhone" pattern="^09\d{9}$" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="condition" class="form-label">نوع مشکل</label>
+                            <select class="form-select" id="condition" required>
+                                <option value="" selected disabled>لطفا انتخاب کنید</option>
+                                <option value="kamar">کمر</option>
+                                <option value="gardan">گردن</option>
+                                <option value="paresthesia">گزگز/بی‌حسی</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fileLink" class="form-label">لینک پرونده پزشکی</label>
+                            <input type="url" class="form-control" id="fileLink" placeholder="https://drive.google.com/...">
+                            <div class="form-text">فایل را در یک فضای ابری آپلود و لینک را وارد کنید.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">یا فایل را آپلود کنید</label>
+                            <input type="file" class="form-control" id="fileUpload" accept=".pdf,.jpg,.jpeg,.png,.zip,.rar,.dcm">
+                            <div class="form-text">حداکثر حجم: 25MB. فرمت‌های مجاز: PDF, JPG, JPEG, PNG, ZIP, RAR, DCM</div>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="uploadTerms" required>
+                            <label class="form-check-label" for="uploadTerms">قوانین و شرایط را می‌پذیرم</label>
+                        </div>
+                        <div class="alert alert-info">
+                            <small>
+                                <p class="mb-1">اگر فایل آماده نیست، لینک پرونده را بعدا در واتس‌اپ بفرستید.</p>
+                                <p class="mb-0">ارسال مدارک به‌معنای نوبت قطعی نیست.</p>
+                            </small>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">ارسال MRI/CT</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- مودال رزرو -->
+    <div class="modal fade" id="bookingModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">رزرو ۶۰ثانیه‌ای</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>برای رزرو سریع، لطفا یکی از گزینه‌های زیر را انتخاب کنید:</p>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary" onclick="scrollToBooking()" data-bs-dismiss="modal">پر کردن فرم رزرو</button>
+                        <a class="btn btn-outline-primary" href="https://wa.me/98912XXXXXXX?text=سلام، برای رزرو ۶۰ ثانیه‌ای راهنمایی می‌خوام" target="_blank" onclick="trackCTA('whatsapp', 'booking_modal')" data-bs-dismiss="modal">ارتباط از طریق واتس‌اپ</a>
+                        <button class="btn btn-outline-secondary" onclick="openUploadModal()" data-bs-dismiss="modal">ارسال مدارک (MRI/CT)</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نوار CTA موبایل -->
+    <div class="mobile-cta-bar d-md-none">
+        <button class="btn btn-primary" onclick="openBookingModal()">
+            <i class="bi bi-calendar-check me-1"></i> رزرو ۶۰ثانیه‌ای
+        </button>
+        <a class="btn btn-outline-primary" href="https://wa.me/98912XXXXXXX?text=سلام، برای رزرو ۶۰ ثانیه‌ای راهنمایی می‌خوام" target="_blank" onclick="trackCTA('whatsapp', 'mobilebar')">
+            <i class="bi bi-whatsapp me-1"></i> واتس‌اپ
+        </a>
+    </div>
+
+    <!-- فوتر -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>دکتر سیاوش دهقان</h5>
+                    <p>متخصص جراحی مغز و اعصاب و ستون فقرات</p>
+                    <p>ارزیابی دقیق، درمان مناسب</p>
+                </div>
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>لینک‌های مفید</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#home" class="text-light">خانه</a></li>
+                        <li><a href="#services" class="text-light">خدمات</a></li>
+                        <li><a href="#process" class="text-light">روند کار</a></li>
+                        <li><a href="#faq" class="text-light">سوالات متداول</a></li>
+                        <li><a href="#booking" class="text-light">رزرو نوبت</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>تماس با ما</h5>
+                    <p>
+                        <i class="bi bi-telephone-fill me-2"></i> <a href="tel:+982112345678" class="text-light">۰۲۱-۱۲۳۴۵۶۷۸</a><br>
+                        <i class="bi bi-whatsapp me-2"></i> <a href="https://wa.me/98912XXXXXXX" class="text-light" target="_blank">واتس‌اپ</a><br>
+                        <i class="bi bi-envelope-fill me-2"></i> <a href="mailto:info@example.com" class="text-light">info@example.com</a>
+                    </p>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p class="mb-0">© ۲۰۲۳ دکتر سیاوش دهقان. تمام حقوق محفوظ است.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap & Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // تابع برای ردیابی کلیک‌های CTA
+        function trackCTA(label, location) {
+            // شبیه‌سازی ارسال رویداد به GA4
+            console.log('GA4 Event: cta_click', { label, location });
+            
+            // در محیط واقعی:
+            // gtag('event', 'cta_click', {
+            //     label: label,
+            //     location: location
+            // });
+        }
+        
+        // تابع برای باز کردن مودال رزرو
+        function openBookingModal() {
+            trackCTA('book_60s', 'modal_open');
+            var bookingModal = new bootstrap.Modal(document.getElementById('bookingModal'));
+            bookingModal.show();
+        }
+        
+        // تابع برای باز کردن مودال آپلود
+        function openUploadModal() {
+            trackCTA('upload_open', 'modal');
+            var uploadModal = new bootstrap.Modal(document.getElementById('uploadModal'));
+            uploadModal.show();
+        }
+        
+        // تابع برای اسکرول به بخش رزرو
+        function scrollToBooking() {
+            document.getElementById('booking').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+        
+        // تابع برای toggle کردن FAQ
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            faqItem.classList.toggle('active');
+            
+            const icon = element.querySelector('i');
+            if (faqItem.classList.contains('active')) {
+                icon.classList.remove('bi-chevron-down');
+                icon.classList.add('bi-chevron-up');
+            } else {
+                icon.classList.remove('bi-chevron-up');
+                icon.classList.add('bi-chevron-down');
+            }
+        }
+        
+        // تابع ارسال فرم رزرو
+        function submitBookingForm(event) {
+            event.preventDefault();
+            
+            // شبیه‌سازی ارسال رویداد شروع فرم به GA4
+            console.log('GA4 Event: form_start', { form: 'booking' });
+            
+            // در محیط واقعی:
+            // gtag('event', 'form_start', {
+            //     form: 'booking'
+            // });
+            
+            // شبیه‌سازی ارسال فرم
+            setTimeout(() => {
+                // شبیه‌سازی ارسال رویداد موفقیت‌آمیز به GA4
+                console.log('GA4 Event: form_submit', { 
+                    form: 'booking', 
+                    success: true 
+                });
+                
+                // در محیط واقعی:
+                // gtag('event', 'form_submit', {
+                //     form: 'booking',
+                //     success: true
+                // });
+                
+                // نمایش پیام موفقیت
+                alert('درخواست شما ثبت شد. همکاران تا پایان امروز تماس می‌گیرند.');
+                document.getElementById('bookingForm').reset();
+            }, 1000);
+        }
+        
+        // تابع ارسال فرم آپلود
+        function submitUploadForm(event) {
+            event.preventDefault();
+            
+            // شبیه‌سازی ارسال رویداد شروع فرم به GA4
+            console.log('GA4 Event: form_start', { form: 'upload' });
+            
+            const condition = document.getElementById('condition').value;
+            const hasFile = document.getElementById('fileLink').value || document.getElementById('fileUpload').files.length > 0;
+            
+            // در محیط واقعی:
+            // gtag('event', 'form_start', {
+            //     form: 'upload'
+            // });
+            
+            // شبیه‌سازی ارسال فرم
+            setTimeout(() => {
+                // شبیه‌سازی ارسال رویداد موفقیت‌آمیز به GA4
+                console.log('GA4 Event: form_submit', { 
+                    form: 'upload', 
+                    success: true,
+                    has_file: hasFile,
+                    condition: condition
+                });
+                
+                // در محیط واقعی:
+                // gtag('event', 'form_submit', {
+                //     form: 'upload',
+                //     success: true,
+                //     has_file: hasFile,
+                //     condition: condition
+                // });
+                
+                // شبیه‌سازی ارسال doc_submit به GA4
+                console.log('GA4 Event: doc_submit', { 
+                    has_file: hasFile,
+                    condition: condition
+                });
+                
+                // در محیط واقعی:
+                // gtag('event', 'doc_submit', {
+                //     has_file: hasFile,
+                //     condition: condition
+                // });
+                
+                // نمایش پیام موفقیت و بستن مودال
+                alert('مدارک شما با موفقیت ارسال شد. به زودی با شما تماس خواهیم گرفت.');
+                document.getElementById('uploadForm').reset();
+                
+                var uploadModal = bootstrap.Modal.getInstance(document.getElementById('uploadModal'));
+                uploadModal.hide();
+            }, 1000);
+        }
+        
+        // ردیابی پخش ویدئو
+        document.addEventListener('DOMContentLoaded', function() {
+            const videos = document.querySelectorAll('video');
+            videos.forEach(video => {
+                video.addEventListener('play', function() {
+                    console.log('GA4 Event: video_play', { label: 'intro_45s' });
+                    
+                    // در محیط واقعی:
+                    // gtag('event', 'video_play', {
+                    //     label: 'intro_45s'
+                    // });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

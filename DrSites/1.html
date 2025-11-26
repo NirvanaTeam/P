@@ -1,0 +1,892 @@
+/index.html
+<!DOCTYPE html>
+<html lang="fa-IR" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دکتر سیاوش دهقان | جراحی مغز و اعصاب | تهران</title>
+    <meta name="description" content="جراحی‌های پیشرفته ستون فقرات با تکنیک‌های کم‌تهاجمی | نوبت‌دهی فوری">
+    <meta property="og:title" content="دکتر سیاوش دهقان | متخصص جراحی‌های کم‌تهاجمی ستون فقرات">
+    <meta property="og:description" content="جدیدترین متدهای درمان دیسک کمر و گردن بدون بستری طولانی">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #2d3748;
+            --accent: #3182ce;
+            --success: #38a169;
+            --warning: #d69e2e;
+            --light: #f7fafc;
+            --dark: #1a202c;
+            --gradient: linear-gradient(135deg, #1a365d 0%, #2d3748 100%);
+            --shadow: 0 20px 40px rgba(0,0,0,0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.7;
+            color: var(--secondary);
+            overflow-x: hidden;
+        }
+
+        .medical-gradient {
+            background: var(--gradient);
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Navigation */
+        .navbar {
+            transition: var(--transition);
+            padding: 1rem 0;
+        }
+
+        .navbar-scrolled {
+            background: rgba(26, 54, 93, 0.95) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+        }
+
+        .nav-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            background: linear-gradient(45deg, #fff, #a0aec0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            background: linear-gradient(135deg, rgba(26,54,93,0.9) 0%, rgba(45,55,72,0.8) 100%), 
+                        url('https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            background: var(--accent);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #fff, #e2e8f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary-custom {
+            background: var(--accent);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: 0 10px 30px rgba(49, 130, 206, 0.3);
+        }
+
+        .btn-primary-custom:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(49, 130, 206, 0.4);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: var(--light);
+            padding: 4rem 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 20px;
+            background: white;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: block;
+        }
+
+        /* Services */
+        .service-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid #e2e8f0;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--light);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            color: var(--accent);
+        }
+
+        /* Technology Section */
+        .tech-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 5rem 0;
+        }
+
+        .tech-badge {
+            background: rgba(255,255,255,0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+
+        .tech-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 15px;
+            transition: var(--transition);
+        }
+
+        .tech-item:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Booking Section */
+        .booking-section {
+            background: var(--light);
+            padding: 5rem 0;
+        }
+
+        .booking-card {
+            background: white;
+            border-radius: 25px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .booking-form {
+            padding: 3rem;
+        }
+
+        .form-control-custom {
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control-custom:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+        }
+
+        .booking-info {
+            background: var(--gradient);
+            color: white;
+            padding: 3rem;
+            height: 100%;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Floating Elements */
+        .floating-element {
+            position: absolute;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+            }
+            
+            .btn-primary-custom {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 10px;
+        }
+
+        /* Loading Animation */
+        .loading-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--accent);
+            z-index: 9999;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Bar -->
+    <div class="loading-bar" id="loadingBar"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top medical-gradient">
+        <div class="container">
+            <a class="navbar-brand nav-brand" href="#">دکتر دهقان</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" href="#home">صفحه اصلی</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">خدمات</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#technology">تکنولوژی‌ها</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">درباره من</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#booking">نوبت‌دهی</a></li>
+                </ul>
+                <a href="tel:+982100000000" class="btn btn-outline-light me-3">
+                    <i class="bi bi-telephone-fill"></i>
+                    ۰۲۱-۰۰۰۰۰۰۰۰
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <!-- Floating Elements -->
+        <div class="floating-element" style="width: 100px; height: 100px; top: 20%; left: 10%;"></div>
+        <div class="floating-element" style="width: 60px; height: 60px; top: 60%; right: 15%; animation-delay: -2s;"></div>
+        <div class="floating-element" style="width: 80px; height: 80px; bottom: 20%; left: 20%; animation-delay: -4s;"></div>
+        
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="hero-content">
+                        <span class="hero-badge">
+                            <i class="bi bi-star-fill me-2"></i>
+                            متخصص جراحی‌های کم‌تهاجمی
+                        </span>
+                        <h1 class="hero-title">
+                            پایان دردهای ستون فقرات با جدیدترین متدهای جراحی
+                        </h1>
+                        <p class="lead text-light mb-4">
+                            با استفاده از پیشرفته‌ترین تکنولوژی‌های روز دنیا، بدون بستری طولانی و با بالاترین نرخ موفقیت
+                        </p>
+                        <div class="cta-buttons">
+                            <a href="#booking" class="btn btn-primary-custom btn-lg">
+                                <i class="bi bi-calendar-check me-2"></i>
+                                رزرو نوبت فوری
+                            </a>
+                            <a href="#technology" class="btn btn-outline-light btn-lg">
+                                <i class="bi bi-play-circle me-2"></i>
+                                مشاهده تکنولوژی‌ها
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <span class="stat-number" data-count="1500">0</span>
+                        <span class="text-muted">جراحی موفق</span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <span class="stat-number" data-count="98">0</span>
+                        <span class="text-muted">درصد رضایت</span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <span class="stat-number" data-count="15">0</span>
+                        <span class="text-muted">سال تجربه</span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <span class="stat-number" data-count="24">0</span>
+                        <span class="text-muted">ساعت پشتیبانی</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="tech-badge">خدمات تخصصی</span>
+                <h2 class="display-5 fw-bold mb-3">روش‌های درمانی پیشرفته</h2>
+                <p class="text-muted lead">استفاده از مدرن‌ترین تکنیک‌های جراحی برای بازگشت سریع به زندگی عادی</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="bi bi-activity"></i>
+                        </div>
+                        <h4>جراحی آندوسکوپی دیسک</h4>
+                        <p class="text-muted mb-3">جراحی با حداقل برش و بدون آسیب به بافت‌های اطراف، با دوره نقاهت کوتاه</p>
+                        <ul class="list-unstyled mb-4">
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> برش کمتر از ۱ سانتی‌متر</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> ترخیص در همان روز</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> بازگشت سریع به کار</li>
+                        </ul>
+                        <a href="#booking" class="btn btn-outline-primary w-100">مشاوره رایگان</a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="bi bi-heart-pulse"></i>
+                        </div>
+                        <h4>لیزرتراپی ستون فقرات</h4>
+                        <p class="text-muted mb-3">درمان غیرتهاجمی با لیزرهای پیشرفته برای ترمیم بافت‌های آسیب‌دیده</p>
+                        <ul class="list-unstyled mb-4">
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> بدون نیاز به بیهوشی</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> جلسات درمانی کوتاه</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> عوارض جانبی حداقل</li>
+                        </ul>
+                        <a href="#booking" class="btn btn-outline-primary w-100">مشاوره رایگان</a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="bi bi-cpu"></i>
+                        </div>
+                        <h4>نویگیشن سه‌بعدی</h4>
+                        <p class="text-muted mb-3">جراحی با راهنمایی سیستم نویگیشن پیشرفته برای دقت میلی‌متری</p>
+                        <ul class="list-unstyled mb-4">
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> دقت ۹۹.۸ درصدی</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> کاهش خطای انسانی</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> نتایج قابل پیش‌بینی</li>
+                        </ul>
+                        <a href="#booking" class="btn btn-outline-primary w-100">مشاوره رایگان</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section id="technology" class="tech-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <span class="tech-badge">تکنولوژی‌های مدرن</span>
+                    <h2 class="display-5 fw-bold mb-4">مجهز به پیشرفته‌ترین سیستم‌های جراحی دنیا</h2>
+                    <p class="lead mb-4 opacity-75">
+                        استفاده از آخرین دستاوردهای تکنولوژی پزشکی برای ارائه بهترین نتایج درمانی با کمترین عوارض
+                    </p>
+                    
+                    <div class="tech-list">
+                        <div class="tech-item mb-3">
+                            <i class="bi bi-display fs-3 text-accent"></i>
+                            <div>
+                                <h5>سیستم فلوروسکوپی دیجیتال</h5>
+                                <p class="mb-0 opacity-75">تصویربرداری实时 با کمترین میزان پرتو</p>
+                            </div>
+                        </div>
+                        <div class="tech-item mb-3">
+                            <i class="bi bi-camera-video fs-3 text-accent"></i>
+                            <div>
+                                <h5>آندوسکوپ ۴K ultra HD</h5>
+                                <p class="mb-0 opacity-75">تصاویر با وضوح فوق العاده برای دقت بیشتر</p>
+                            </div>
+                        </div>
+                        <div class="tech-item mb-3">
+                            <i class="bi bi-motherboard fs-3 text-accent"></i>
+                            <div>
+                                <h5>سیستم مانیتورینگ حین عمل</h5>
+                                <p class="mb-0 opacity-75">پایش دقیق عملکرد عصبی در طول جراحی</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="tech-visual bg-dark rounded-3 p-4 text-center">
+                        <div class="placeholder-tech bg-secondary rounded-3 d-flex align-items-center justify-content-center" style="height: 400px;">
+                            <span class="text-white fs-4">نمایش تکنولوژی‌های پیشرفته</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5 bg-light">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <div class="about-visual position-relative">
+                        <div class="placeholder-about bg-primary rounded-3 d-flex align-items-center justify-content-center" style="height: 500px;">
+                            <span class="text-white fs-4">تصویر دکتر سیاوش دهقان</span>
+                        </div>
+                        <div class="experience-badge bg-warning text-dark p-3 rounded-3 position-absolute" style="bottom: -20px; left: -20px;">
+                            <div class="text-center">
+                                <div class="fs-2 fw-bold">۱۵+</div>
+                                <div class="small">سال تجربه</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="display-5 fw-bold mb-4">دکتر سیاوش دهقان</h2>
+                    <p class="lead text-muted mb-4">
+                        جراح و متخصص مغز و اعصاب، فارغ‌التحصیل از دانشگاه علوم پزشکی تهران با رتبه برتر. 
+                        دارای فلوشیپ تخصصی جراحی‌های کم‌تهاجمی ستون فقرات از مرکز پزشکی جانز هاپکینز آمریکا.
+                    </p>
+                    
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-award-fill text-primary fs-4 me-3"></i>
+                                <div>
+                                    <h6 class="mb-1">بورد تخصصی</h6>
+                                    <small class="text-muted">جراحی مغز و اعصاب</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-globe text-primary fs-4 me-3"></i>
+                                <div>
+                                    <h6 class="mb-1">مقالات بین‌المللی</h6>
+                                    <small class="text-muted">۲۵+ مقاله ISI</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="skills-progress">
+                        <div class="skill-item mb-3">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>جراحی آندوسکوپی</span>
+                                <span>۹۵%</span>
+                            </div>
+                            <div class="progress" style="height: 8px;">
+                                <div class="progress-bar bg-primary" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item mb-3">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>لیزرتراپی</span>
+                                <span>۹۲%</span>
+                            </div>
+                            <div class="progress" style="height: 8px;">
+                                <div class="progress-bar bg-primary" style="width: 92%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item mb-3">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>جراحی با نویگیشن</span>
+                                <span>۹۸%</span>
+                            </div>
+                            <div class="progress" style="height: 8px;">
+                                <div class="progress-bar bg-primary" style="width: 98%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="booking" class="booking-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="booking-card">
+                        <div class="row g-0">
+                            <div class="col-lg-7">
+                                <div class="booking-form">
+                                    <h3 class="fw-bold mb-4">درخواست مشاوره رایگان</h3>
+                                    <form id="consultationForm">
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control form-control-custom" placeholder="نام و نام خانوادگی" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="tel" class="form-control form-control-custom" placeholder="شماره تماس" pattern="[0-9]{11}" required>
+                                            </div>
+                                            <div class="col-12">
+                                                <select class="form-select form-control-custom" required>
+                                                    <option value="">خدمت مورد نظر</option>
+                                                    <option value="endoscopic">جراحی آندوسکوپی دیسک</option>
+                                                    <option value="laser">لیزرتراپی ستون فقرات</option>
+                                                    <option value="navigation">جراحی با نویگیشن</option>
+                                                    <option value="consultation">مشاوره تخصصی</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-12">
+                                                <textarea class="form-control form-control-custom" rows="4" placeholder="شرح مختصر مشکل (اختیاری)"></textarea>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="consent" required>
+                                                    <label class="form-check-label small" for="consent">
+                                                        با قوانین و شرایط حریم خصوصی موافقم
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <button type="submit" class="btn btn-primary-custom w-100 py-3">
+                                                    <i class="bi bi-send-check me-2"></i>
+                                                    ارسال درخواست مشاوره
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="booking-info">
+                                    <h4 class="fw-bold mb-4">اطلاعات تماس</h4>
+                                    
+                                    <div class="info-item">
+                                        <i class="bi bi-geo-alt-fill fs-4"></i>
+                                        <div>
+                                            <h6>آدرس مطب</h6>
+                                            <p class="mb-0 opacity-75">تهران، خیابان ولیعصر، بیمارستان مهراد</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="info-item">
+                                        <i class="bi bi-telephone-fill fs-4"></i>
+                                        <div>
+                                            <h6>تلفن تماس</h6>
+                                            <p class="mb-0 opacity-75">۰۲۱-۰۰۰۰۰۰۰۰</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="info-item">
+                                        <i class="bi bi-clock-fill fs-4"></i>
+                                        <div>
+                                            <h6>ساعات کاری</h6>
+                                            <p class="mb-0 opacity-75">شنبه تا چهارشنبه: ۱۶-۲۰</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="info-item">
+                                        <i class="bi bi-whatsapp fs-4"></i>
+                                        <div>
+                                            <h6>پیام در واتس‌اپ</h6>
+                                            <p class="mb-0 opacity-75">پاسخگویی ۲۴ ساعته</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mt-5">
+                                        <h6 class="mb-3">پاسخ‌دهی سریع</h6>
+                                        <p class="small opacity-75">
+                                            درخواست‌های مشاوره در کمتر از ۲ ساعت پاسخ داده می‌شوند. 
+                                            برای موارد اورژانسی مستقیماً تماس بگیرید.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="medical-gradient text-light py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h5 class="fw-bold mb-3">دکتر سیاوش دهقان</h5>
+                    <p class="opacity-75">
+                        متخصص جراحی‌های کم‌تهاجمی مغز و اعصاب و ستون فقرات با استفاده از پیشرفته‌ترین تکنولوژی‌های روز دنیا
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="text-light me-3"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-light me-3"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" class="text-light"><i class="bi bi-telegram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h6 class="fw-bold mb-3">لینک‌های سریع</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#home" class="text-light opacity-75 text-decoration-none">صفحه اصلی</a></li>
+                        <li class="mb-2"><a href="#services" class="text-light opacity-75 text-decoration-none">خدمات</a></li>
+                        <li class="mb-2"><a href="#technology" class="text-light opacity-75 text-decoration-none">تکنولوژی‌ها</a></li>
+                        <li class="mb-2"><a href="#booking" class="text-light opacity-75 text-decoration-none">نوبت‌دهی</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h6 class="fw-bold mb-3">خدمات تخصصی</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-light opacity-75 text-decoration-none">جراحی آندوسکوپی دیسک</a></li>
+                        <li class="mb-2"><a href="#" class="text-light opacity-75 text-decoration-none">لیزرتراپی ستون فقرات</a></li>
+                        <li class="mb-2"><a href="#" class="text-light opacity-75 text-decoration-none">جراحی با نویگیشن</a></li>
+                        <li class="mb-2"><a href="#" class="text-light opacity-75 text-decoration-none">مشاوره تخصصی</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h6 class="fw-bold mb-3">تماس با ما</h6>
+                    <div class="mb-3">
+                        <i class="bi bi-geo-alt-fill me-2"></i>
+                        <span class="opacity-75">تهران، بیمارستان مهراد</span>
+                    </div>
+                    <div class="mb-3">
+                        <i class="bi bi-telephone-fill me-2"></i>
+                        <span class="opacity-75">۰۲۱-۰۰۰۰۰۰۰۰</span>
+                    </div>
+                    <div>
+                        <i class="bi bi-envelope-fill me-2"></i>
+                        <span class="opacity-75">info@example.com</span>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4 opacity-25">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0 opacity-75 small">© ۱۴۰۲ دکتر سیاوش دهقان. تمام حقوق محفوظ است.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0 opacity-75 small">
+                        <i class="bi bi-exclamation-triangle me-1"></i>
+                        این اطلاعات جنبه معرفی داشته و جایگزین مشاوره پزشکی نمی‌شود.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Loading Bar
+        window.addEventListener('load', function() {
+            const loadingBar = document.getElementById('loadingBar');
+            loadingBar.style.width = '100%';
+            setTimeout(() => {
+                loadingBar.style.opacity = '0';
+            }, 500);
+        });
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+            }
+        });
+
+        // Animate Stats Counter
+        function animateCounter() {
+            const counters = document.querySelectorAll('.stat-number');
+            const speed = 200;
+            
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-count');
+                const count = +counter.innerText;
+                const increment = target / speed;
+                
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(animateCounter, 1);
+                } else {
+                    counter.innerText = target;
+                }
+            });
+        }
+
+        // Intersection Observer for Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.classList.contains('stats-section')) {
+                        animateCounter();
+                    }
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.service-card, .stat-card, .tech-item');
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        });
+
+        // Form Submission
+        document.getElementById('consultationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simple validation
+            const phone = this.querySelector('input[type="tel"]');
+            const phonePattern = /^09[0-9]{9}$/;
+            
+            if (!phonePattern.test(phone.value)) {
+                alert('لطفاً شماره موبایل معتبر وارد کنید.');
+                return;
+            }
+            
+            // Simulate successful submission
+            alert('درخواست مشاوره شما با موفقیت ثبت شد. به زودی با شما تماس گرفته خواهد شد.');
+            this.reset();
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
