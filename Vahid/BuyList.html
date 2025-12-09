@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لیست تجهیزات دفتر</title>
+    
+    <!-- Bootstrap 5 RTL -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Vazirmatn Font -->
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --gray-color: #6b7280;
+        }
+        
+        * {
+            font-family: 'Vazirmatn', sans-serif;
+        }
+        
+        body {
+            background-color: #f8fafc;
+            padding-bottom: 100px;
+        }
+        
+        .header-section {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            padding: 40px 0;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .header-section h1 {
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+        
+        .header-section p {
+            opacity: 0.9;
+            margin-bottom: 0;
+        }
+        
+        .stats-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stats-card .icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 24px;
+        }
+        
+        .stats-card .number {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+        
+        .stats-card .label {
+            color: var(--gray-color);
+            font-size: 14px;
+        }
+        
+        .category-section {
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .category-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .category-header:hover {
+            background: #f9fafb;
+        }
+        
+        .category-header .icon-box {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+        }
+        
+        .category-header h3 {
+            margin: 0;
+            font-weight: 700;
+            font-size: 18px;
+            flex-grow: 1;
+        }
+        
+        .category-header .badge {
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+        
+        .category-header .collapse-icon {
+            transition: transform 0.3s;
+        }
+        
+        .category-header.collapsed .collapse-icon {
+            transform: rotate(-90deg);
+        }
+        
+        .category-body {
+            padding: 0;
+        }
+        
+        .table {
+            margin-bottom: 0;
+        }
+        
+        .table thead th {
+            background: #f9fafb;
+            border-bottom: 2px solid #e5e7eb;
+            padding: 15px;
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--gray-color);
+            white-space: nowrap;
+        }
+        
+        .table tbody td {
+            padding: 15px;
+            vertical-align: middle;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        
+        .table tbody tr:hover {
+            background: #f9fafb;
+        }
+        
+        .table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .item-name {
+            font-weight: 500;
+            color: #1f2937;
+        }
+        
+        .item-qty {
+            color: var(--gray-color);
+            font-size: 13px;
+        }
+        
+        .form-check-input {
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+            border: 2px solid #d1d5db;
+        }
+        
+        .form-check-input:checked {
+            border-color: transparent;
+        }
+        
+        .check-now:checked {
+            background-color: var(--success-color);
+        }
+        
+        .check-later:checked {
+            background-color: var(--warning-color);
+        }
+        
+        .check-have:checked {
+            background-color: var(--primary-color);
+        }
+        
+        .check-no:checked {
+            background-color: var(--danger-color);
+        }
+        
+        .col-check {
+            text-align: center;
+            width: 80px;
+        }
+        
+        .floating-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 50px;
+            box-shadow: 0 10px 40px rgba(37, 99, 235, 0.4);
+            transition: all 0.3s;
+        }
+        
+        .floating-btn:hover {
+            transform: translateX(-50%) translateY(-3px);
+            box-shadow: 0 15px 50px rgba(37, 99, 235, 0.5);
+        }
+        
+        .progress-bar-custom {
+            height: 8px;
+            border-radius: 4px;
+            background: #e5e7eb;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        
+        .progress-bar-custom .fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+        
+        .legend {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--gray-color);
+        }
+        
+        .legend-item .dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+        }
+        
+        .modal-content {
+            border-radius: 20px;
+            border: none;
+        }
+        
+        .modal-header {
+            border-bottom: 1px solid #e5e7eb;
+            padding: 20px 25px;
+        }
+        
+        .modal-body {
+            padding: 25px;
+        }
+        
+        .modal-footer {
+            border-top: 1px solid #e5e7eb;
+            padding: 20px 25px;
+        }
+        
+        .summary-box {
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-size: 14px;
+            line-height: 2;
+            white-space: pre-wrap;
+            direction: rtl;
+            text-align: right;
+        }
+        
+        .whatsapp-btn {
+            background: #25d366;
+            border-color: #25d366;
+            font-weight: 600;
+        }
+        
+        .whatsapp-btn:hover {
+            background: #1da851;
+            border-color: #1da851;
+        }
+        
+        @media (max-width: 768px) {
+            .table thead th,
+            .table tbody td {
+                padding: 10px 8px;
+                font-size: 12px;
+            }
+            
+            .col-check {
+                width: 50px;
+            }
+            
+            .form-check-input {
+                width: 18px;
+                height: 18px;
+            }
+            
+            .floating-btn {
+                padding: 12px 25px;
+                font-size: 15px;
+            }
+            
+            .stats-card {
+                margin-bottom: 15px;
+            }
+            
+            .header-section {
+                padding: 25px 0;
+            }
+            
+            .header-section h1 {
+                font-size: 24px;
+            }
+        }
+        
+        .select-all-row {
+            background: #fef3c7 !important;
+        }
+        
+        .select-all-row td {
+            padding: 10px 15px !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1><i class="bi bi-building me-2"></i>لیست تجهیزات دفتر</h1>
+                    <p><i class="bi bi-geo-alt me-1"></i>مرکز کنترل و مدیریت خدمات پرستاری و آمبولانس</p>
+                </div>
+                <div class="col-md-4 text-md-start mt-3 mt-md-0">
+                    <span class="badge bg-light text-dark fs-6">
+                        <i class="bi bi-box-seam me-1"></i>
+                        <span id="totalItems">89</span> قلم کالا
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        
+        <!-- Stats Cards -->
+        <div class="row mb-4">
+            <div class="col-6 col-md-3 mb-3">
+                <div class="stats-card">
+                    <div class="icon" style="background: rgba(16, 185, 129, 0.1); color: var(--success-color);">
+                        <i class="bi bi-cart-check"></i>
+                    </div>
+                    <div class="number" id="statNow" style="color: var(--success-color);">0</div>
+                    <div class="label">خرید الان</div>
+                    <div class="progress-bar-custom">
+                        <div class="fill" id="progressNow" style="background: var(--success-color); width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3 mb-3">
+                <div class="stats-card">
+                    <div class="icon" style="background: rgba(245, 158, 11, 0.1); color: var(--warning-color);">
+                        <i class="bi bi-clock-history"></i>
+                    </div>
+                    <div class="number" id="statLater" style="color: var(--warning-color);">0</div>
+                    <div class="label">بعداً</div>
+                    <div class="progress-bar-custom">
+                        <div class="fill" id="progressLater" style="background: var(--warning-color); width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3 mb-3">
+                <div class="stats-card">
+                    <div class="icon" style="background: rgba(37, 99, 235, 0.1); color: var(--primary-color);">
+                        <i class="bi bi-check2-circle"></i>
+                    </div>
+                    <div class="number" id="statHave" style="color: var(--primary-color);">0</div>
+                    <div class="label">داریم</div>
+                    <div class="progress-bar-custom">
+                        <div class="fill" id="progressHave" style="background: var(--primary-color); width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3 mb-3">
+                <div class="stats-card">
+                    <div class="icon" style="background: rgba(239, 68, 68, 0.1); color: var(--danger-color);">
+                        <i class="bi bi-x-circle"></i>
+                    </div>
+                    <div class="number" id="statNo" style="color: var(--danger-color);">0</div>
+                    <div class="label">نمیخوایم</div>
+                    <div class="progress-bar-custom">
+                        <div class="fill" id="progressNo" style="background: var(--danger-color); width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Legend -->
+        <div class="legend">
+            <div class="legend-item">
+                <div class="dot" style="background: var(--success-color);"></div>
+                <span>خرید الان</span>
+            </div>
+            <div class="legend-item">
+                <div class="dot" style="background: var(--warning-color);"></div>
+                <span>بعداً</span>
+            </div>
+            <div class="legend-item">
+                <div class="dot" style="background: var(--primary-color);"></div>
+                <span>داریم</span>
+            </div>
+            <div class="legend-item">
+                <div class="dot" style="background: var(--danger-color);"></div>
+                <span>نمیخوایم</span>
+            </div>
+        </div>
+
+        <!-- Categories -->
+        <div id="categoriesContainer"></div>
+
+    </div>
+
+    <!-- Floating Button -->
+    <button class="btn btn-primary floating-btn" data-bs-toggle="modal" data-bs-target="#summaryModal">
+        <i class="bi bi-check2-all me-2"></i>تکمیل لیست
+    </button>
+
+    <!-- Summary Modal -->
+    <div class="modal fade" id="summaryModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">
+                        <i class="bi bi-file-text me-2 text-primary"></i>خلاصه لیست خرید
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="summary-box" id="summaryText"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" onclick="copyToClipboard()">
+                        <i class="bi bi-clipboard me-2"></i>کپی متن
+                    </button>
+                    <button type="button" class="btn btn-success whatsapp-btn" onclick="sendToWhatsApp()">
+                        <i class="bi bi-whatsapp me-2"></i>ارسال به واتساپ
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3">
+        <div id="copyToast" class="toast" role="alert">
+            <div class="toast-body text-center fw-bold text-success">
+                <i class="bi bi-check-circle me-2"></i>کپی شد!
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Data
+        const categories = [
+            {
+                id: 'it',
+                name: 'تجهیزات IT و الکترونیک',
+                icon: 'bi-pc-display',
+                color: '#3b82f6',
+                items: [
+                    { name: 'تلفن سانترال IP', qty: '۱ ست' },
+                    { name: 'پرینتر چندکاره (اسکن/کپی/پرینت)', qty: '۱' },
+                    { name: 'UPS (منبع تغذیه اضطراری)', qty: '۲-۳' },
+                    { name: 'دوربین مداربسته + DVR', qty: '۳-۴' },
+                    { name: 'هارد اکسترنال/فلش ۱۲۸GB+', qty: '۲' },
+                    { name: 'دستگاه حضور و غیاب', qty: '۱' },
+                    { name: 'هدست تلفن', qty: '۲' }
+                ]
+            },
+            {
+                id: 'entrance',
+                name: 'ورودی و راهرو',
+                icon: 'bi-door-open',
+                color: '#8b5cf6',
+                items: [
+                    { name: 'پادری با لوگو', qty: '۱' },
+                    { name: 'جارختی ایستاده', qty: '۲' },
+                    { name: 'ساعت دیواری بزرگ', qty: '۱' }
+                ]
+            },
+            {
+                id: 'hall',
+                name: 'سالن اصلی (منشی + انتظار)',
+                icon: 'bi-people',
+                color: '#06b6d4',
+                items: [
+                    { name: 'میز جلومبلی', qty: '۱' },
+                    { name: 'جاکارت ویزیتی', qty: '۱' },
+                    { name: 'گلدان (طبیعی/مصنوعی)', qty: '۲-۳' },
+                    { name: 'ساعت دیواری بزرگ', qty: '۱' },
+                    { name: 'سطل زباله کوچک', qty: '۱' },
+                    { name: 'دماسنج دیواری', qty: '۱' },
+                    { name: 'جا دستمال کاغذی رومیزی', qty: '۱' },
+                    { name: 'دستمال کاغذی', qty: '۲ بسته' }
+                ]
+            },
+            {
+                id: 'management',
+                name: 'اتاق مدیریت',
+                icon: 'bi-person-workspace',
+                color: '#f59e0b',
+                items: [
+                    { name: 'کتابخانه کوچک', qty: '۱' },
+                    { name: 'گاوصندوق کوچک', qty: '۱' },
+                    { name: 'تابلو نقاشی/عکس', qty: '۱' },
+                    { name: 'پرچم رومیزی با لوگو', qty: '۱' },
+                    { name: 'چراغ LED مطالعه', qty: '۱' },
+                    { name: 'ست رومیزی (جاقلمی/جاکاغذی)', qty: '۱' },
+                    { name: 'وایت‌برد یا شیشه‌برد', qty: '۱' },
+                    { name: 'نقشه شهر/منطقه', qty: '۱' },
+                    { name: 'سطل زباله کوچک', qty: '۱' }
+                ]
+            },
+            {
+                id: 'accounting',
+                name: 'اتاق حسابداری + مارکتینگ',
+                icon: 'bi-calculator',
+                color: '#10b981',
+                items: [
+                    { name: 'فایل ۳ کشو (فلزی با قفل)', qty: '۱' },
+                    { name: 'ماشین حساب بزرگ', qty: '۱' },
+                    { name: 'وایت‌برد مگنتی', qty: '۱' },
+                    { name: 'رینگ لایت', qty: '۱' },
+                    { name: 'پایه موبایل', qty: '۱' },
+                    { name: 'میکروفون USB', qty: '۱' },
+                    { name: 'زیرپایی طبی', qty: '۲' },
+                    { name: 'پشتی طبی صندلی', qty: '۲' },
+                    { name: 'سطل زباله کوچک', qty: '۱' }
+                ]
+            },
+            {
+                id: 'kitchen',
+                name: 'آبدارخانه',
+                icon: 'bi-cup-hot',
+                color: '#ec4899',
+                items: [
+                    { name: 'یخچال کوچک/هتلی', qty: '۱' },
+                    { name: 'مایکروفر', qty: '۱' },
+                    { name: 'اجاق گاز کوچک', qty: '۱' },
+                    { name: 'کتری برقی/چای‌ساز', qty: '۱' },
+                    { name: 'موکاپات', qty: '۱' },
+                    { name: 'سرویس استکان و نعلبکی', qty: '۱ ست (۱۲ نفره)' },
+                    { name: 'سرویس فنجان', qty: '۱ ست (۶ تایی)' },
+                    { name: 'ماگ با لوگو شرکت', qty: '۶-۱۰' },
+                    { name: 'لیوان یکبار مصرف', qty: '۱ بسته' },
+                    { name: 'زیرلیوانی', qty: '۱ ست' },
+                    { name: 'سینی پذیرایی', qty: '۲' },
+                    { name: 'سطل زباله دربدار', qty: '۱' },
+                    { name: 'عود + جاعودی', qty: '۱' }
+                ]
+            },
+            {
+                id: 'bathroom',
+                name: 'سرویس بهداشتی',
+                icon: 'bi-droplet',
+                color: '#0ea5e9',
+                items: [
+                    { name: 'آینه دیواری', qty: '۱' },
+                    { name: 'جا مایع دستشویی دیواری', qty: '۱' },
+                    { name: 'مایع دستشویی', qty: '۱' },
+                    { name: 'جا دستمال کاغذی دیواری', qty: '۱' },
+                    { name: 'دستمال کاغذی رولی', qty: '۲' },
+                    { name: 'خوشبوکننده هوا', qty: '۱' },
+                    { name: 'برس توالت + جا', qty: '۱' },
+                    { name: 'سطل زباله پدالی', qty: '۱' }
+                ]
+            },
+            {
+                id: 'cleaning',
+                name: 'نظافت و بهداشت',
+                icon: 'bi-stars',
+                color: '#14b8a6',
+                items: [
+                    { name: 'جارو', qty: '۱' },
+                    { name: 'تی و سطل', qty: '۱' },
+                    { name: 'خاک‌انداز', qty: '۱' },
+                    { name: 'دستمال نظافت', qty: '۵-۱۰' },
+                    { name: 'کیسه زباله (۳ سایز)', qty: '۳ بسته' },
+                    { name: 'دستکش نظافت', qty: '۲ جفت' },
+                    { name: 'کیف تمیزکننده تجهیزات', qty: '۱' }
+                ]
+            },
+            {
+                id: 'detergent',
+                name: 'مواد شوینده',
+                icon: 'bi-moisture',
+                color: '#6366f1',
+                items: [
+                    { name: 'مایع ظرفشویی', qty: '۱' },
+                    { name: 'اسکاچ', qty: '۳' },
+                    { name: 'دستکش ظرفشویی', qty: '۱ جفت' },
+                    { name: 'مایع شیشه‌پاک', qty: '۱' },
+                    { name: 'شوینده چندمنظوره', qty: '۱' }
+                ]
+            },
+            {
+                id: 'stationery',
+                name: 'لوازم التحریر',
+                icon: 'bi-pencil',
+                color: '#f97316',
+                items: [
+                    { name: 'کاغذ A4', qty: '۵ بسته' },
+                    { name: 'کاغذ A5', qty: '۲ بسته' },
+                    { name: 'خودکار', qty: '۲۰' },
+                    { name: 'جاخودکاری', qty: '۴' },
+                    { name: 'منگنه + سوزن', qty: '۲' },
+                    { name: 'زونکن', qty: '۱۰' },
+                    { name: 'پوشه/کاور شفاف', qty: '۵۰' },
+                    { name: 'فایل پلاستیکی', qty: '۱۰' },
+                    { name: 'سینی کاغذ رومیزی', qty: '۳' },
+                    { name: 'لیبل', qty: '۲ بسته' },
+                    { name: 'چسب نواری', qty: '۳' },
+                    { name: 'قیچی', qty: '۲' }
+                ]
+            },
+            {
+                id: 'electrical',
+                name: 'برق و سیم‌کشی',
+                icon: 'bi-lightning-charge',
+                color: '#eab308',
+                items: [
+                    { name: 'سه‌راهی برق (با محافظ)', qty: '۵' },
+                    { name: 'سیم رابط ۵ متری', qty: '۳' }
+                ]
+            },
+            {
+                id: 'safety',
+                name: 'ایمنی',
+                icon: 'bi-shield-check',
+                color: '#ef4444',
+                items: [
+                    { name: 'جعبه کمک‌های اولیه', qty: '۱' },
+                    { name: 'کپسول آتش‌نشانی', qty: '۱' }
+                ]
+            },
+            {
+                id: 'branding',
+                name: 'برندینگ و چاپ',
+                icon: 'bi-palette',
+                color: '#a855f7',
+                items: [
+                    { name: 'کارت ویزیت', qty: '۵۰۰' },
+                    { name: 'سربرگ', qty: '۵۰۰' },
+                    { name: 'مُهر شرکت', qty: '۲' },
+                    { name: 'فاکتور رسمی', qty: '۵ دسته' }
+                ]
+            }
+        ];
+
+        let itemCounter = 0;
+        const totalItems = categories.reduce((sum, cat) => sum + cat.items.length, 0);
+
+        // Render categories
+        function renderCategories() {
+            const container = document.getElementById('categoriesContainer');
+            let html = '';
+
+            categories.forEach((category, catIndex) => {
+                html += `
+                    <div class="category-section">
+                        <div class="category-header" data-bs-toggle="collapse" data-bs-target="#collapse${category.id}">
+                            <div class="icon-box" style="background: ${category.color};">
+                                <i class="bi ${category.icon}"></i>
+                            </div>
+                            <h3>${category.name}</h3>
+                            <span class="badge" style="background: ${category.color}20; color: ${category.color};">
+                                ${category.items.length} قلم
+                            </span>
+                            <i class="bi bi-chevron-down collapse-icon"></i>
+                        </div>
+                        <div class="collapse show" id="collapse${category.id}">
+                            <div class="category-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 50px;">#</th>
+                                                <th>نام کالا</th>
+                                                <th style="width: 100px;">تعداد</th>
+                                                <th class="col-check text-success">خرید الان</th>
+                                                <th class="col-check text-warning">بعداً</th>
+                                                <th class="col-check text-primary">داریم</th>
+                                                <th class="col-check text-danger">نمیخوایم</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="select-all-row">
+                                                <td colspan="3" class="fw-bold text-muted">
+                                                    <i class="bi bi-check2-square me-1"></i>انتخاب همه
+                                                </td>
+                                                <td class="col-check">
+                                                    <input type="checkbox" class="form-check-input check-now" 
+                                                           onchange="selectAll('${category.id}', 'now', this.checked)">
+                                                </td>
+                                                <td class="col-check">
+                                                    <input type="checkbox" class="form-check-input check-later" 
+                                                           onchange="selectAll('${category.id}', 'later', this.checked)">
+                                                </td>
+                                                <td class="col-check">
+                                                    <input type="checkbox" class="form-check-input check-have" 
+                                                           onchange="selectAll('${category.id}', 'have', this.checked)">
+                                                </td>
+                                                <td class="col-check">
+                                                    <input type="checkbox" class="form-check-input check-no" 
+                                                           onchange="selectAll('${category.id}', 'no', this.checked)">
+                                                </td>
+                                            </tr>
+                                            ${category.items.map((item, index) => {
+                                                itemCounter++;
+                                                return `
+                                                    <tr data-category="${category.id}" data-item="${index}">
+                                                        <td class="text-muted">${itemCounter}</td>
+                                                        <td class="item-name">${item.name}</td>
+                                                        <td class="item-qty">${item.qty}</td>
+                                                        <td class="col-check">
+                                                            <input type="checkbox" class="form-check-input check-now" 
+                                                                   name="item_${category.id}_${index}" value="now"
+                                                                   onchange="handleCheck(this, '${category.id}', ${index})">
+                                                        </td>
+                                                        <td class="col-check">
+                                                            <input type="checkbox" class="form-check-input check-later" 
+                                                                   name="item_${category.id}_${index}" value="later"
+                                                                   onchange="handleCheck(this, '${category.id}', ${index})">
+                                                        </td>
+                                                        <td class="col-check">
+                                                            <input type="checkbox" class="form-check-input check-have" 
+                                                                   name="item_${category.id}_${index}" value="have"
+                                                                   onchange="handleCheck(this, '${category.id}', ${index})">
+                                                        </td>
+                                                        <td class="col-check">
+                                                            <input type="checkbox" class="form-check-input check-no" 
+                                                                   name="item_${category.id}_${index}" value="no"
+                                                                   onchange="handleCheck(this, '${category.id}', ${index})">
+                                                        </td>
+                                                    </tr>
+                                                `;
+                                            }).join('')}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+            document.getElementById('totalItems').textContent = totalItems;
+
+            // Add collapse event listeners
+            document.querySelectorAll('.category-header').forEach(header => {
+                header.addEventListener('click', function() {
+                    this.classList.toggle('collapsed');
+                });
+            });
+        }
+
+        // Handle checkbox selection
+        function handleCheck(checkbox, categoryId, itemIndex) {
+            const row = checkbox.closest('tr');
+            const checkboxes = row.querySelectorAll('input[type="checkbox"]');
+            
+            if (checkbox.checked) {
+                checkboxes.forEach(cb => {
+                    if (cb !== checkbox) {
+                        cb.checked = false;
+                    }
+                });
+            }
+            
+            updateStats();
+        }
+
+        // Select all in category
+        function selectAll(categoryId, type, checked) {
+            const rows = document.querySelectorAll(`tr[data-category="${categoryId}"]`);
+            
+            rows.forEach(row => {
+                const checkboxes = row.querySelectorAll('input[type="checkbox"]');
+                checkboxes.forEach(cb => cb.checked = false);
+                
+                if (checked) {
+                    const targetCheckbox = row.querySelector(`.check-${type === 'now' ? 'now' : type === 'later' ? 'later' : type === 'have' ? 'have' : 'no'}`);
+                    if (targetCheckbox) {
+                        targetCheckbox.checked = true;
+                    }
+                }
+            });
+            
+            updateStats();
+        }
+
+        // Update statistics
+        function updateStats() {
+            let now = 0, later = 0, have = 0, no = 0;
+            
+            document.querySelectorAll('tr[data-category]').forEach(row => {
+                if (row.querySelector('.check-now:checked')) now++;
+                if (row.querySelector('.check-later:checked')) later++;
+                if (row.querySelector('.check-have:checked')) have++;
+                if (row.querySelector('.check-no:checked')) no++;
+            });
+            
+            document.getElementById('statNow').textContent = now;
+            document.getElementById('statLater').textContent = later;
+            document.getElementById('statHave').textContent = have;
+            document.getElementById('statNo').textContent = no;
+            
+            document.getElementById('progressNow').style.width = (now / totalItems * 100) + '%';
+            document.getElementById('progressLater').style.width = (later / totalItems * 100) + '%';
+            document.getElementById('progressHave').style.width = (have / totalItems * 100) + '%';
+            document.getElementById('progressNo').style.width = (no / totalItems * 100) + '%';
+        }
+
+        // Generate summary
+        function generateSummary() {
+            let summary = '🏢 لیست تجهیزات دفتر\n';
+            summary += '━━━━━━━━━━━━━━━━━━━━━━\n\n';
+            
+            const sections = {
+                now: { title: '🛒 خرید الان:', items: [] },
+                later: { title: '⏳ خرید بعدی:', items: [] },
+                have: { title: '✅ موجود:', items: [] },
+                no: { title: '❌ نیاز نداریم:', items: [] }
+            };
+            
+            categories.forEach(category => {
+                category.items.forEach((item, index) => {
+                    const row = document.querySelector(`tr[data-category="${category.id}"][data-item="${index}"]`);
+                    if (row) {
+                        if (row.querySelector('.check-now:checked')) {
+                            sections.now.items.push(`• ${item.name} (${item.qty})`);
+                        }
+                        if (row.querySelector('.check-later:checked')) {
+                            sections.later.items.push(`• ${item.name} (${item.qty})`);
+                        }
+                        if (row.querySelector('.check-have:checked')) {
+                            sections.have.items.push(`• ${item.name} (${item.qty})`);
+                        }
+                        if (row.querySelector('.check-no:checked')) {
+                            sections.no.items.push(`• ${item.name} (${item.qty})`);
+                        }
+                    }
+                });
+            });
+            
+            Object.values(sections).forEach(section => {
+                if (section.items.length > 0) {
+                    summary += section.title + '\n';
+                    summary += section.items.join('\n') + '\n\n';
+                }
+            });
+            
+            summary += '━━━━━━━━━━━━━━━━━━━━━━\n';
+            summary += `📊 خلاصه: خرید الان (${sections.now.items.length}) | بعداً (${sections.later.items.length}) | داریم (${sections.have.items.length}) | نمیخوایم (${sections.no.items.length})`;
+            
+            return summary;
+        }
+
+        // Copy to clipboard
+        function copyToClipboard() {
+            const summary = generateSummary();
+            navigator.clipboard.writeText(summary).then(() => {
+                const toast = new bootstrap.Toast(document.getElementById('copyToast'));
+                toast.show();
+            });
+        }
+
+        // Send to WhatsApp
+        function sendToWhatsApp() {
+            const summary = generateSummary();
+            const phone = '989334479527';
+            const url = `https://wa.me/${phone}?text=${encodeURIComponent(summary)}`;
+            window.open(url, '_blank');
+        }
+
+        // Modal event
+        document.getElementById('summaryModal').addEventListener('show.bs.modal', function() {
+            document.getElementById('summaryText').textContent = generateSummary();
+        });
+
+        // Initialize
+        renderCategories();
+    </script>
+
+</body>
+</html>
