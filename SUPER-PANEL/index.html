@@ -1,0 +1,1926 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Command Center | سوپر پنل مدیریت</title>
+    
+    <!-- Bootstrap 5 RTL -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Google Fonts - Vazirmatn -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <!-- ============================================== -->
+    <!-- PRELOADER -->
+    <!-- ============================================== -->
+    <div id="preloader">
+        <div class="loader-container">
+            <div class="loader-ring"></div>
+            <div class="loader-ring"></div>
+            <div class="loader-ring"></div>
+            <div class="loader-core"></div>
+            <span class="loader-text">Command Center</span>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- MAIN WRAPPER -->
+    <!-- ============================================== -->
+    <div class="main-wrapper" id="mainWrapper">
+        
+        <!-- ============================================== -->
+        <!-- SIDEBAR -->
+        <!-- ============================================== -->
+        <aside class="sidebar" id="sidebar">
+            <!-- Sidebar Header -->
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <div class="logo-icon">
+                        <i class="bi bi-command"></i>
+                    </div>
+                    <div class="logo-text">
+                        <span class="logo-title">Command Center</span>
+                        <span class="logo-version">v2.4.1</span>
+                    </div>
+                </div>
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="bi bi-chevron-right"></i>
+                </button>
+            </div>
+
+            <!-- Sidebar Search -->
+            <div class="sidebar-search">
+                <div class="search-input-wrapper">
+                    <i class="bi bi-search"></i>
+                    <input type="text" placeholder="جستجوی سریع... (Ctrl+K)" id="globalSearch">
+                    <kbd>⌘K</kbd>
+                </div>
+            </div>
+
+            <!-- Sidebar Navigation -->
+            <nav class="sidebar-nav">
+                <!-- Main Menu -->
+                <div class="nav-section">
+                    <span class="nav-section-title">منوی اصلی</span>
+                    
+                    <a href="#" class="nav-item active" data-page="dashboard">
+                        <i class="bi bi-grid-1x2-fill"></i>
+                        <span>داشبورد</span>
+                        <span class="nav-badge pulse">Live</span>
+                    </a>
+                    
+                    <a href="#" class="nav-item" data-page="accounts">
+                        <i class="bi bi-person-badge-fill"></i>
+                        <span>اکانت‌ها</span>
+                        <span class="nav-badge">12</span>
+                    </a>
+                    
+                    <a href="#" class="nav-item" data-page="platforms">
+                        <i class="bi bi-boxes"></i>
+                        <span>پلتفرم‌ها</span>
+                        <span class="nav-badge success">8</span>
+                    </a>
+                    
+                    <a href="#" class="nav-item" data-page="plugins">
+                        <i class="bi bi-puzzle-fill"></i>
+                        <span>پلاگین‌ها</span>
+                        <span class="nav-badge warning">47</span>
+                    </a>
+                </div>
+
+                <!-- Automation Menu -->
+                <div class="nav-section">
+                    <span class="nav-section-title">اتوماسیون</span>
+                    
+                    <a href="#" class="nav-item" data-page="workflows">
+                        <i class="bi bi-diagram-3-fill"></i>
+                        <span>ورک‌فلوها</span>
+                        <span class="nav-badge success">23</span>
+                    </a>
+                    
+                    <a href="#" class="nav-item" data-page="triggers">
+                        <i class="bi bi-lightning-charge-fill"></i>
+                        <span>تریگرها</span>
+                        <span class="nav-badge">156</span>
+                    </a>
+                    
+                    <a href="#" class="nav-item" data-page="scheduler">
+                        <i class="bi bi-calendar3"></i>
+                        <span>زمان‌بندی</span>
+                        <span class="nav-badge info">18</span>
+                    </a>
+                    
+                    <a href="#" class="nav-item" data-page="queue">
+                        <i class="bi bi-collection-fill"></i>
+                        <span>صف پردازش</span>
+                        <span class="nav-badge warning pulse">34</span>
+                    </a>
+                </div>
+
+                <!-- APIs & AI Menu -->
+                <div class="nav-section">
+                    <span class="nav-section-title">API و هوش مصنوعی</span>
+                    
+                    <a href="#" class="nav-item" data-page="apis">
+                        <i class="bi bi-cloud-fill"></i>
+                        <span>مدیریت API</span>
+                        <span class="nav-badge">64</span>
+                    </a>
+                    
+                    <a href="#" class="nav-item" data-page="ai-providers">
+                        <i class="bi bi-robot"></i>
+                        <span>سرویس‌های AI</span>
+                        <span class="nav-badge success">5</span>
+                    </a>
+                    
+                    <a href="#" class="nav-item" data-page="prompts">
+                        <i class="bi bi-chat-square-text-fill"></i>
+                        <span>کتابخانه پرامپت</span>
+                        <span class="nav-badge">89</span>
+                    </a>
+                    
+                    <a href="#" class="nav-item" data-page="playground">
+                        <i class="bi bi-play-circle-fill"></i>
+                        <span>آزمایشگاه AI</span>
+                    </a>
+                </div>
+
+                <!-- Content Menu -->
+                <div class="nav-section">
+                    <span class="nav-section-title">مدیریت محتوا</span>
+                    
+                    <a href="#" class="nav-item" data-page="content-calendar">
+                        <i class="bi bi-calendar-event-fill"></i>
+                        <span>تقویم محتوا</span>
+                        <span class="nav-badge info">42</span>
+                    </a>
+                    
+                    <a href="#" class="nav-item" data-page="media-library">
+                        <i class="bi bi-images"></i>
+                        <span>کتابخانه رسانه</span>
+                        <span class="nav-badge">1.2K</span>
+                    </a>
+                    
+                    <a href="#" class="nav-item" data-page="campaigns">
+                        <i class="bi bi-megaphone-fill"></i>
+                        <span>کمپین‌ها</span>
+                        <span class="nav-badge success">7</span>
+                    </a>
+                </div>
+
+                <!-- Analytics Menu -->
+                <div class="nav-section">
+                    <span class="nav-section-title">آنالیتیکس</span>
+                    
+                    <a href="#" class="nav-item" data-page="analytics">
+                        <i class="bi bi-graph-up-arrow"></i>
+                        <span>آمار و گزارش‌ها</span>
+                    </a>
+                    
+                    <a href="#" class="nav-item" data-page="logs">
+                        <i class="bi bi-terminal-fill"></i>
+                        <span>لاگ‌ها</span>
+                        <span class="nav-badge warning">New</span>
+                    </a>
+                    
+                    <a href="#" class="nav-item" data-page="monitoring">
+                        <i class="bi bi-activity"></i>
+                        <span>مانیتورینگ</span>
+                        <span class="nav-status online"></span>
+                    </a>
+                </div>
+
+                <!-- System Menu -->
+                <div class="nav-section">
+                    <span class="nav-section-title">سیستم</span>
+                    
+                    <a href="#" class="nav-item" data-page="users">
+                        <i class="bi bi-people-fill"></i>
+                        <span>کاربران</span>
+                        <span class="nav-badge">4</span>
+                    </a>
+                    
+                    <a href="#" class="nav-item" data-page="settings">
+                        <i class="bi bi-gear-fill"></i>
+                        <span>تنظیمات</span>
+                    </a>
+                    
+                    <a href="#" class="nav-item" data-page="backup">
+                        <i class="bi bi-cloud-arrow-up-fill"></i>
+                        <span>پشتیبان‌گیری</span>
+                    </a>
+                    
+                    <a href="#" class="nav-item" data-page="developer">
+                        <i class="bi bi-code-slash"></i>
+                        <span>توسعه‌دهنده</span>
+                    </a>
+                </div>
+            </nav>
+
+            <!-- Sidebar Footer -->
+            <div class="sidebar-footer">
+                <div class="system-status">
+                    <div class="status-item">
+                        <i class="bi bi-cpu-fill"></i>
+                        <div class="status-bar">
+                            <div class="status-fill" style="width: 34%"></div>
+                        </div>
+                        <span>34%</span>
+                    </div>
+                    <div class="status-item">
+                        <i class="bi bi-memory"></i>
+                        <div class="status-bar">
+                            <div class="status-fill warning" style="width: 67%"></div>
+                        </div>
+                        <span>67%</span>
+                    </div>
+                </div>
+                <div class="sidebar-user">
+                    <div class="user-avatar">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=admin" alt="Admin">
+                        <span class="user-status online"></span>
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name">محمد احمدی</span>
+                        <span class="user-role">مدیر سیستم</span>
+                    </div>
+                    <button class="btn-icon" id="userMenuBtn">
+                        <i class="bi bi-three-dots-vertical"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ============================================== -->
+        <!-- MAIN CONTENT -->
+        <!-- ============================================== -->
+        <main class="main-content" id="mainContent">
+            
+            <!-- ============================================== -->
+            <!-- TOP HEADER -->
+            <!-- ============================================== -->
+            <header class="top-header">
+                <div class="header-right">
+                    <button class="btn-icon mobile-menu-toggle" id="mobileMenuToggle">
+                        <i class="bi bi-list"></i>
+                    </button>
+                    
+                    <div class="breadcrumb-container">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><i class="bi bi-house-fill"></i></li>
+                                <li class="breadcrumb-item active">داشبورد</li>
+                            </ol>
+                        </nav>
+                        <h1 class="page-title">داشبورد مدیریت</h1>
+                    </div>
+                </div>
+                
+                <div class="header-left">
+                    <!-- Quick Actions -->
+                    <div class="quick-actions">
+                        <button class="btn-action" data-bs-toggle="tooltip" title="افزودن سریع">
+                            <i class="bi bi-plus-lg"></i>
+                        </button>
+                        <button class="btn-action" data-bs-toggle="tooltip" title="همگام‌سازی">
+                            <i class="bi bi-arrow-repeat"></i>
+                        </button>
+                        <button class="btn-action" data-bs-toggle="tooltip" title="ترمینال">
+                            <i class="bi bi-terminal"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Notifications -->
+                    <div class="dropdown notification-dropdown">
+                        <button class="btn-icon notification-btn" data-bs-toggle="dropdown">
+                            <i class="bi bi-bell-fill"></i>
+                            <span class="notification-count">7</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end notification-menu">
+                            <div class="notification-header">
+                                <h6>اعلان‌ها</h6>
+                                <button class="btn-link">خواندن همه</button>
+                            </div>
+                            <div class="notification-list">
+                                <a href="#" class="notification-item unread">
+                                    <div class="notification-icon success">
+                                        <i class="bi bi-check-circle-fill"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <p>ورک‌فلو «پاسخگوی خودکار» با موفقیت اجرا شد</p>
+                                        <span class="notification-time">۲ دقیقه پیش</span>
+                                    </div>
+                                </a>
+                                <a href="#" class="notification-item unread">
+                                    <div class="notification-icon warning">
+                                        <i class="bi bi-exclamation-triangle-fill"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <p>اعتبار API OpenRouter در حال اتمام است</p>
+                                        <span class="notification-time">۱۵ دقیقه پیش</span>
+                                    </div>
+                                </a>
+                                <a href="#" class="notification-item unread">
+                                    <div class="notification-icon info">
+                                        <i class="bi bi-info-circle-fill"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <p>۳ پیام جدید در تلگرام دریافت شد</p>
+                                        <span class="notification-time">۳۴ دقیقه پیش</span>
+                                    </div>
+                                </a>
+                                <a href="#" class="notification-item">
+                                    <div class="notification-icon danger">
+                                        <i class="bi bi-x-circle-fill"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <p>اتصال به اکانت اینستاگرام قطع شد</p>
+                                        <span class="notification-time">۱ ساعت پیش</span>
+                                    </div>
+                                </a>
+                                <a href="#" class="notification-item">
+                                    <div class="notification-icon success">
+                                        <i class="bi bi-cloud-arrow-up-fill"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <p>پشتیبان‌گیری خودکار تکمیل شد</p>
+                                        <span class="notification-time">۳ ساعت پیش</span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="notification-footer">
+                                <a href="#">مشاهده همه اعلان‌ها</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Theme Toggle -->
+                    <button class="btn-icon theme-toggle" id="themeToggle" data-bs-toggle="tooltip" title="تغییر تم">
+                        <i class="bi bi-moon-fill"></i>
+                    </button>
+                    
+                    <!-- Fullscreen -->
+                    <button class="btn-icon fullscreen-toggle" id="fullscreenToggle" data-bs-toggle="tooltip" title="تمام‌صفحه">
+                        <i class="bi bi-arrows-fullscreen"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- ============================================== -->
+            <!-- PAGE CONTENT - DASHBOARD -->
+            <!-- ============================================== -->
+            <div class="page-content" id="pageContent">
+                
+                <!-- Live Status Bar -->
+                <div class="live-status-bar">
+                    <div class="status-ticker">
+                        <div class="ticker-item">
+                            <span class="ticker-dot success"></span>
+                            <span>تلگرام: آنلاین (۴ اکانت)</span>
+                        </div>
+                        <div class="ticker-item">
+                            <span class="ticker-dot success"></span>
+                            <span>واتساپ: آنلاین (۲ اکانت)</span>
+                        </div>
+                        <div class="ticker-item">
+                            <span class="ticker-dot warning"></span>
+                            <span>اینستاگرام: محدودیت نرخ (۳ اکانت)</span>
+                        </div>
+                        <div class="ticker-item">
+                            <span class="ticker-dot success"></span>
+                            <span>OpenRouter: فعال ($۱۲.۴۷ اعتبار)</span>
+                        </div>
+                        <div class="ticker-item">
+                            <span class="ticker-dot success"></span>
+                            <span>صف پردازش: ۳۴ تسک در انتظار</span>
+                        </div>
+                        <div class="ticker-item">
+                            <span class="ticker-dot info"></span>
+                            <span>آخرین همگام‌سازی: ۲ دقیقه پیش</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card gradient-primary">
+                        <div class="stat-icon">
+                            <i class="bi bi-send-fill"></i>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-value" data-count="15847">0</span>
+                            <span class="stat-label">پیام ارسالی امروز</span>
+                        </div>
+                        <div class="stat-trend up">
+                            <i class="bi bi-arrow-up"></i>
+                            <span>۲۳.۵٪</span>
+                        </div>
+                        <div class="stat-chart">
+                            <svg viewBox="0 0 100 30">
+                                <polyline points="0,25 10,22 20,24 30,18 40,20 50,12 60,15 70,8 80,10 90,5 100,8" fill="none" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card gradient-success">
+                        <div class="stat-icon">
+                            <i class="bi bi-check-circle-fill"></i>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-value" data-count="2341">0</span>
+                            <span class="stat-label">تسک اجرا شده</span>
+                        </div>
+                        <div class="stat-trend up">
+                            <i class="bi bi-arrow-up"></i>
+                            <span>۱۲.۸٪</span>
+                        </div>
+                        <div class="stat-chart">
+                            <svg viewBox="0 0 100 30">
+                                <polyline points="0,20 15,18 30,22 45,15 60,10 75,12 100,5" fill="none" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card gradient-warning">
+                        <div class="stat-icon">
+                            <i class="bi bi-robot"></i>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-value" data-count="8924">0</span>
+                            <span class="stat-label">پاسخ AI</span>
+                        </div>
+                        <div class="stat-trend up">
+                            <i class="bi bi-arrow-up"></i>
+                            <span>۴۵.۲٪</span>
+                        </div>
+                        <div class="stat-chart">
+                            <svg viewBox="0 0 100 30">
+                                <polyline points="0,28 20,25 40,20 60,18 80,10 100,5" fill="none" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card gradient-info">
+                        <div class="stat-icon">
+                            <i class="bi bi-people-fill"></i>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-value" data-count="4521">0</span>
+                            <span class="stat-label">کاربر فعال</span>
+                        </div>
+                        <div class="stat-trend down">
+                            <i class="bi bi-arrow-down"></i>
+                            <span>۳.۱٪</span>
+                        </div>
+                        <div class="stat-chart">
+                            <svg viewBox="0 0 100 30">
+                                <polyline points="0,10 20,12 40,8 60,15 80,18 100,20" fill="none" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card gradient-purple">
+                        <div class="stat-icon">
+                            <i class="bi bi-diagram-3-fill"></i>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-value" data-count="23">0</span>
+                            <span class="stat-label">ورک‌فلو فعال</span>
+                        </div>
+                        <div class="stat-trend neutral">
+                            <i class="bi bi-dash"></i>
+                            <span>۰٪</span>
+                        </div>
+                        <div class="stat-chart">
+                            <svg viewBox="0 0 100 30">
+                                <polyline points="0,15 25,15 50,15 75,15 100,15" fill="none" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card gradient-danger">
+                        <div class="stat-icon">
+                            <i class="bi bi-exclamation-triangle-fill"></i>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-value" data-count="3">0</span>
+                            <span class="stat-label">خطای امروز</span>
+                        </div>
+                        <div class="stat-trend down">
+                            <i class="bi bi-arrow-down"></i>
+                            <span>۸۷.۵٪</span>
+                        </div>
+                        <div class="stat-chart">
+                            <svg viewBox="0 0 100 30">
+                                <polyline points="0,5 20,8 40,15 60,18 80,22 100,25" fill="none" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Dashboard Grid -->
+                <div class="dashboard-grid">
+                    
+                    <!-- Active Accounts Widget -->
+                    <div class="dashboard-card accounts-widget">
+                        <div class="card-header">
+                            <h3><i class="bi bi-person-badge-fill"></i> اکانت‌های متصل</h3>
+                            <div class="card-actions">
+                                <button class="btn-sm btn-outline" data-bs-toggle="modal" data-bs-target="#addAccountModal">
+                                    <i class="bi bi-plus"></i> افزودن
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="accounts-list">
+                                <!-- Telegram Account 1 -->
+                                <div class="account-item online">
+                                    <div class="account-icon telegram">
+                                        <i class="bi bi-telegram"></i>
+                                    </div>
+                                    <div class="account-info">
+                                        <span class="account-name">ربات فروشگاه</span>
+                                        <span class="account-detail">@ShopBot • +98 912 *** 4567</span>
+                                    </div>
+                                    <div class="account-stats">
+                                        <span class="stat"><i class="bi bi-chat-dots"></i> ۲۳۴</span>
+                                        <span class="stat"><i class="bi bi-people"></i> ۱.۲K</span>
+                                    </div>
+                                    <div class="account-status">
+                                        <span class="status-badge online">آنلاین</span>
+                                    </div>
+                                    <div class="account-actions">
+                                        <button class="btn-icon-sm"><i class="bi bi-gear"></i></button>
+                                        <button class="btn-icon-sm"><i class="bi bi-three-dots"></i></button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Telegram Account 2 -->
+                                <div class="account-item online">
+                                    <div class="account-icon telegram">
+                                        <i class="bi bi-telegram"></i>
+                                    </div>
+                                    <div class="account-info">
+                                        <span class="account-name">پشتیبانی ۲۴/۷</span>
+                                        <span class="account-detail">@Support24Bot • +98 936 *** 8901</span>
+                                    </div>
+                                    <div class="account-stats">
+                                        <span class="stat"><i class="bi bi-chat-dots"></i> ۸۹</span>
+                                        <span class="stat"><i class="bi bi-people"></i> ۳۴۵</span>
+                                    </div>
+                                    <div class="account-status">
+                                        <span class="status-badge online">آنلاین</span>
+                                    </div>
+                                    <div class="account-actions">
+                                        <button class="btn-icon-sm"><i class="bi bi-gear"></i></button>
+                                        <button class="btn-icon-sm"><i class="bi bi-three-dots"></i></button>
+                                    </div>
+                                </div>
+                                
+                                <!-- WhatsApp Account -->
+                                <div class="account-item online">
+                                    <div class="account-icon whatsapp">
+                                        <i class="bi bi-whatsapp"></i>
+                                    </div>
+                                    <div class="account-info">
+                                        <span class="account-name">واتساپ کسب‌وکار</span>
+                                        <span class="account-detail">+98 912 *** 1234</span>
+                                    </div>
+                                    <div class="account-stats">
+                                        <span class="stat"><i class="bi bi-chat-dots"></i> ۵۶</span>
+                                        <span class="stat"><i class="bi bi-people"></i> ۸۷</span>
+                                    </div>
+                                    <div class="account-status">
+                                        <span class="status-badge online">آنلاین</span>
+                                    </div>
+                                    <div class="account-actions">
+                                        <button class="btn-icon-sm"><i class="bi bi-gear"></i></button>
+                                        <button class="btn-icon-sm"><i class="bi bi-three-dots"></i></button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Instagram Account -->
+                                <div class="account-item warning">
+                                    <div class="account-icon instagram">
+                                        <i class="bi bi-instagram"></i>
+                                    </div>
+                                    <div class="account-info">
+                                        <span class="account-name">صفحه رسمی برند</span>
+                                        <span class="account-detail">@mybrand_official • ۴۵.۲K فالوور</span>
+                                    </div>
+                                    <div class="account-stats">
+                                        <span class="stat"><i class="bi bi-heart"></i> ۱.۲K</span>
+                                        <span class="stat"><i class="bi bi-chat"></i> ۲۳۴</span>
+                                    </div>
+                                    <div class="account-status">
+                                        <span class="status-badge warning">محدودیت</span>
+                                    </div>
+                                    <div class="account-actions">
+                                        <button class="btn-icon-sm"><i class="bi bi-gear"></i></button>
+                                        <button class="btn-icon-sm"><i class="bi bi-three-dots"></i></button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Discord Account -->
+                                <div class="account-item online">
+                                    <div class="account-icon discord">
+                                        <i class="bi bi-discord"></i>
+                                    </div>
+                                    <div class="account-info">
+                                        <span class="account-name">سرور کامیونیتی</span>
+                                        <span class="account-detail">MyBrand Community • ۲.۱K عضو</span>
+                                    </div>
+                                    <div class="account-stats">
+                                        <span class="stat"><i class="bi bi-chat-dots"></i> ۱۲۳</span>
+                                        <span class="stat"><i class="bi bi-people"></i> ۲.۱K</span>
+                                    </div>
+                                    <div class="account-status">
+                                        <span class="status-badge online">آنلاین</span>
+                                    </div>
+                                    <div class="account-actions">
+                                        <button class="btn-icon-sm"><i class="bi bi-gear"></i></button>
+                                        <button class="btn-icon-sm"><i class="bi bi-three-dots"></i></button>
+                                    </div>
+                                </div>
+                                
+                                <!-- X/Twitter Account -->
+                                <div class="account-item offline">
+                                    <div class="account-icon twitter">
+                                        <i class="bi bi-twitter-x"></i>
+                                    </div>
+                                    <div class="account-info">
+                                        <span class="account-name">حساب توییتر</span>
+                                        <span class="account-detail">@mybrand • ۱۲.۵K فالوور</span>
+                                    </div>
+                                    <div class="account-stats">
+                                        <span class="stat"><i class="bi bi-heart"></i> ۰</span>
+                                        <span class="stat"><i class="bi bi-chat"></i> ۰</span>
+                                    </div>
+                                    <div class="account-status">
+                                        <span class="status-badge offline">آفلاین</span>
+                                    </div>
+                                    <div class="account-actions">
+                                        <button class="btn-icon-sm"><i class="bi bi-gear"></i></button>
+                                        <button class="btn-icon-sm"><i class="bi bi-three-dots"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Active Workflows Widget -->
+                    <div class="dashboard-card workflows-widget">
+                        <div class="card-header">
+                            <h3><i class="bi bi-diagram-3-fill"></i> ورک‌فلوهای فعال</h3>
+                            <div class="card-actions">
+                                <button class="btn-sm btn-outline">
+                                    <i class="bi bi-plus"></i> جدید
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="workflows-list">
+                                <!-- Workflow 1 -->
+                                <div class="workflow-item active">
+                                    <div class="workflow-status running">
+                                        <div class="pulse-ring"></div>
+                                    </div>
+                                    <div class="workflow-info">
+                                        <span class="workflow-name">پاسخگوی هوشمند تلگرام</span>
+                                        <span class="workflow-detail">
+                                            <i class="bi bi-telegram"></i> Telegram →
+                                            <i class="bi bi-robot"></i> GPT-4 →
+                                            <i class="bi bi-reply"></i> Reply
+                                        </span>
+                                    </div>
+                                    <div class="workflow-stats">
+                                        <span class="stat">۱,۲۳۴ اجرا</span>
+                                        <span class="stat success">۹۹.۲٪ موفق</span>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                
+                                <!-- Workflow 2 -->
+                                <div class="workflow-item active">
+                                    <div class="workflow-status running">
+                                        <div class="pulse-ring"></div>
+                                    </div>
+                                    <div class="workflow-info">
+                                        <span class="workflow-name">زمان‌بندی پست اینستاگرام</span>
+                                        <span class="workflow-detail">
+                                            <i class="bi bi-clock"></i> Scheduler →
+                                            <i class="bi bi-images"></i> Media →
+                                            <i class="bi bi-instagram"></i> Post
+                                        </span>
+                                    </div>
+                                    <div class="workflow-stats">
+                                        <span class="stat">۸۹ اجرا</span>
+                                        <span class="stat success">۱۰۰٪ موفق</span>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                
+                                <!-- Workflow 3 -->
+                                <div class="workflow-item active">
+                                    <div class="workflow-status running">
+                                        <div class="pulse-ring"></div>
+                                    </div>
+                                    <div class="workflow-info">
+                                        <span class="workflow-name">فشرده‌ساز فایل تلگرام</span>
+                                        <span class="workflow-detail">
+                                            <i class="bi bi-file-earmark"></i> File →
+                                            <i class="bi bi-file-zip"></i> Compress →
+                                            <i class="bi bi-send"></i> Send
+                                        </span>
+                                    </div>
+                                    <div class="workflow-stats">
+                                        <span class="stat">۴۵۶ اجرا</span>
+                                        <span class="stat warning">۹۵.۸٪ موفق</span>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                
+                                <!-- Workflow 4 -->
+                                <div class="workflow-item active">
+                                    <div class="workflow-status running">
+                                        <div class="pulse-ring"></div>
+                                    </div>
+                                    <div class="workflow-info">
+                                        <span class="workflow-name">گزارش‌دهی روزانه</span>
+                                        <span class="workflow-detail">
+                                            <i class="bi bi-calendar"></i> Daily 9:00 →
+                                            <i class="bi bi-graph-up"></i> Collect →
+                                            <i class="bi bi-telegram"></i> Report
+                                        </span>
+                                    </div>
+                                    <div class="workflow-stats">
+                                        <span class="stat">۳۰ اجرا</span>
+                                        <span class="stat success">۱۰۰٪ موفق</span>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                
+                                <!-- Workflow 5 -->
+                                <div class="workflow-item paused">
+                                    <div class="workflow-status paused">
+                                        <i class="bi bi-pause-fill"></i>
+                                    </div>
+                                    <div class="workflow-info">
+                                        <span class="workflow-name">همگام‌سازی CRM</span>
+                                        <span class="workflow-detail">
+                                            <i class="bi bi-whatsapp"></i> Contact →
+                                            <i class="bi bi-database"></i> CRM →
+                                            <i class="bi bi-check"></i> Sync
+                                        </span>
+                                    </div>
+                                    <div class="workflow-stats">
+                                        <span class="stat">۱۲۳ اجرا</span>
+                                        <span class="stat">متوقف</span>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Providers Widget -->
+                    <div class="dashboard-card ai-widget">
+                        <div class="card-header">
+                            <h3><i class="bi bi-robot"></i> سرویس‌های AI</h3>
+                            <div class="card-actions">
+                                <button class="btn-sm btn-outline">
+                                    <i class="bi bi-gear"></i> تنظیمات
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="ai-providers-grid">
+                                <!-- OpenRouter -->
+                                <div class="ai-provider-card active">
+                                    <div class="provider-header">
+                                        <div class="provider-icon">
+                                            <img src="https://openrouter.ai/favicon.ico" alt="OpenRouter">
+                                        </div>
+                                        <div class="provider-info">
+                                            <span class="provider-name">OpenRouter</span>
+                                            <span class="provider-status online">فعال</span>
+                                        </div>
+                                    </div>
+                                    <div class="provider-stats">
+                                        <div class="provider-stat">
+                                            <span class="label">اعتبار</span>
+                                            <span class="value">$۱۲.۴۷</span>
+                                        </div>
+                                        <div class="provider-stat">
+                                            <span class="label">درخواست‌ها</span>
+                                            <span class="value">۸,۲۳۴</span>
+                                        </div>
+                                    </div>
+                                    <div class="provider-models">
+                                        <span class="model-tag">GPT-4o</span>
+                                        <span class="model-tag">Claude 3.5</span>
+                                        <span class="model-tag">+۱۵</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Google AI Studio -->
+                                <div class="ai-provider-card active">
+                                    <div class="provider-header">
+                                        <div class="provider-icon">
+                                            <i class="bi bi-google" style="color: #4285f4; font-size: 1.5rem;"></i>
+                                        </div>
+                                        <div class="provider-info">
+                                            <span class="provider-name">Google AI Studio</span>
+                                            <span class="provider-status online">فعال</span>
+                                        </div>
+                                    </div>
+                                    <div class="provider-stats">
+                                        <div class="provider-stat">
+                                            <span class="label">نوع</span>
+                                            <span class="value">رایگان</span>
+                                        </div>
+                                        <div class="provider-stat">
+                                            <span class="label">درخواست‌ها</span>
+                                            <span class="value">۲,۱۵۶</span>
+                                        </div>
+                                    </div>
+                                    <div class="provider-models">
+                                        <span class="model-tag">Gemini Pro</span>
+                                        <span class="model-tag">Gemini Flash</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Anthropic -->
+                                <div class="ai-provider-card">
+                                    <div class="provider-header">
+                                        <div class="provider-icon">
+                                            <span style="font-size: 1.5rem;">🅰️</span>
+                                        </div>
+                                        <div class="provider-info">
+                                            <span class="provider-name">Anthropic</span>
+                                            <span class="provider-status offline">غیرفعال</span>
+                                        </div>
+                                    </div>
+                                    <div class="provider-stats">
+                                        <div class="provider-stat">
+                                            <span class="label">اعتبار</span>
+                                            <span class="value">$۰.۰۰</span>
+                                        </div>
+                                        <div class="provider-stat">
+                                            <span class="label">درخواست‌ها</span>
+                                            <span class="value">۰</span>
+                                        </div>
+                                    </div>
+                                    <div class="provider-models">
+                                        <span class="model-tag disabled">Claude 3.5 Sonnet</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity Widget -->
+                    <div class="dashboard-card activity-widget">
+                        <div class="card-header">
+                            <h3><i class="bi bi-activity"></i> فعالیت‌های اخیر</h3>
+                            <div class="card-actions">
+                                <select class="form-select-sm">
+                                    <option>همه</option>
+                                    <option>تلگرام</option>
+                                    <option>واتساپ</option>
+                                    <option>اینستاگرام</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="activity-timeline">
+                                <div class="activity-item">
+                                    <div class="activity-time">۱۴:۳۲:۱۵</div>
+                                    <div class="activity-icon success">
+                                        <i class="bi bi-check"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <span class="activity-title">پیام AI ارسال شد</span>
+                                        <span class="activity-detail">تلگرام • ربات فروشگاه • کاربر: علی محمدی</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="activity-item">
+                                    <div class="activity-time">۱۴:۳۱:۴۸</div>
+                                    <div class="activity-icon info">
+                                        <i class="bi bi-robot"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <span class="activity-title">درخواست به GPT-4o</span>
+                                        <span class="activity-detail">OpenRouter • ۲۳۴ توکن • ۱.۲ ثانیه</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="activity-item">
+                                    <div class="activity-time">۱۴:۳۱:۴۵</div>
+                                    <div class="activity-icon">
+                                        <i class="bi bi-chat-text"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <span class="activity-title">پیام دریافت شد</span>
+                                        <span class="activity-detail">تلگرام • ربات فروشگاه • «سلام، قیمت محصول X چنده؟»</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="activity-item">
+                                    <div class="activity-time">۱۴:۳۰:۱۲</div>
+                                    <div class="activity-icon warning">
+                                        <i class="bi bi-exclamation-triangle"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <span class="activity-title">محدودیت نرخ</span>
+                                        <span class="activity-detail">اینستاگرام • صفحه رسمی برند • Rate limit reached</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="activity-item">
+                                    <div class="activity-time">۱۴:۲۸:۳۳</div>
+                                    <div class="activity-icon success">
+                                        <i class="bi bi-file-zip"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <span class="activity-title">فایل فشرده شد</span>
+                                        <span class="activity-detail">تلگرام • video.mp4 → video.zip (۳۴ MB)</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="activity-item">
+                                    <div class="activity-time">۱۴:۲۵:۱۱</div>
+                                    <div class="activity-icon success">
+                                        <i class="bi bi-instagram"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <span class="activity-title">پست منتشر شد</span>
+                                        <span class="activity-detail">اینستاگرام • صفحه رسمی برند • پست شماره ۱۲۳</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="activity-item">
+                                    <div class="activity-time">۱۴:۲۰:۰۰</div>
+                                    <div class="activity-icon info">
+                                        <i class="bi bi-calendar-check"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <span class="activity-title">تسک زمان‌بندی شده</span>
+                                        <span class="activity-detail">Scheduler • گزارش روزانه • اجرا در ۰۹:۰۰</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="activity-item">
+                                    <div class="activity-time">۱۴:۱۵:۴۵</div>
+                                    <div class="activity-icon">
+                                        <i class="bi bi-whatsapp"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <span class="activity-title">پیام دریافت شد</span>
+                                        <span class="activity-detail">واتساپ • +98 912 *** 5678 • «تاریخ»</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="#" class="view-all-link">مشاهده همه لاگ‌ها <i class="bi bi-arrow-left"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Active Plugins Widget -->
+                    <div class="dashboard-card plugins-widget">
+                        <div class="card-header">
+                            <h3><i class="bi bi-puzzle-fill"></i> پلاگین‌های محبوب</h3>
+                            <div class="card-actions">
+                                <button class="btn-sm btn-outline">
+                                    <i class="bi bi-grid"></i> همه
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="plugins-grid">
+                                <!-- Plugin 1 -->
+                                <div class="plugin-card">
+                                    <div class="plugin-icon">
+                                        <i class="bi bi-robot"></i>
+                                    </div>
+                                    <div class="plugin-info">
+                                        <span class="plugin-name">پاسخگوی AI</span>
+                                        <span class="plugin-usage">۸.۲K استفاده</span>
+                                    </div>
+                                    <label class="toggle-switch small">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                
+                                <!-- Plugin 2 -->
+                                <div class="plugin-card">
+                                    <div class="plugin-icon">
+                                        <i class="bi bi-calendar3"></i>
+                                    </div>
+                                    <div class="plugin-info">
+                                        <span class="plugin-name">تاریخ شمسی</span>
+                                        <span class="plugin-usage">۵.۴K استفاده</span>
+                                    </div>
+                                    <label class="toggle-switch small">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                
+                                <!-- Plugin 3 -->
+                                <div class="plugin-card">
+                                    <div class="plugin-icon">
+                                        <i class="bi bi-file-zip"></i>
+                                    </div>
+                                    <div class="plugin-info">
+                                        <span class="plugin-name">فشرده‌ساز فایل</span>
+                                        <span class="plugin-usage">۲.۱K استفاده</span>
+                                    </div>
+                                    <label class="toggle-switch small">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                
+                                <!-- Plugin 4 -->
+                                <div class="plugin-card">
+                                    <div class="plugin-icon">
+                                        <i class="bi bi-translate"></i>
+                                    </div>
+                                    <div class="plugin-info">
+                                        <span class="plugin-name">مترجم</span>
+                                        <span class="plugin-usage">۱.۸K استفاده</span>
+                                    </div>
+                                    <label class="toggle-switch small">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                
+                                <!-- Plugin 5 -->
+                                <div class="plugin-card">
+                                    <div class="plugin-icon">
+                                        <i class="bi bi-cloud-sun"></i>
+                                    </div>
+                                    <div class="plugin-info">
+                                        <span class="plugin-name">آب و هوا</span>
+                                        <span class="plugin-usage">۱.۲K استفاده</span>
+                                    </div>
+                                    <label class="toggle-switch small">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                
+                                <!-- Plugin 6 -->
+                                <div class="plugin-card">
+                                    <div class="plugin-icon">
+                                        <i class="bi bi-music-note-beamed"></i>
+                                    </div>
+                                    <div class="plugin-info">
+                                        <span class="plugin-name">جستجوی موزیک</span>
+                                        <span class="plugin-usage">۹۸۷ استفاده</span>
+                                    </div>
+                                    <label class="toggle-switch small">
+                                        <input type="checkbox">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                
+                                <!-- Plugin 7 -->
+                                <div class="plugin-card">
+                                    <div class="plugin-icon">
+                                        <i class="bi bi-currency-dollar"></i>
+                                    </div>
+                                    <div class="plugin-info">
+                                        <span class="plugin-name">نرخ ارز</span>
+                                        <span class="plugin-usage">۸۵۶ استفاده</span>
+                                    </div>
+                                    <label class="toggle-switch small">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                
+                                <!-- Plugin 8 -->
+                                <div class="plugin-card">
+                                    <div class="plugin-icon">
+                                        <i class="bi bi-qr-code"></i>
+                                    </div>
+                                    <div class="plugin-info">
+                                        <span class="plugin-name">ساخت QR Code</span>
+                                        <span class="plugin-usage">۶۴۵ استفاده</span>
+                                    </div>
+                                    <label class="toggle-switch small">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- API Status Widget -->
+                    <div class="dashboard-card api-status-widget">
+                        <div class="card-header">
+                            <h3><i class="bi bi-cloud-fill"></i> وضعیت API‌ها</h3>
+                            <div class="card-actions">
+                                <button class="btn-sm btn-icon" id="refreshApis">
+                                    <i class="bi bi-arrow-clockwise"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="api-status-list">
+                                <div class="api-status-item">
+                                    <div class="api-info">
+                                        <span class="api-name">OpenRouter</span>
+                                        <span class="api-endpoint">api/v1/chat/completions</span>
+                                    </div>
+                                    <div class="api-latency">
+                                        <span class="latency-value">۱۲۳ms</span>
+                                        <span class="latency-bar">
+                                            <span class="latency-fill good" style="width: 25%"></span>
+                                        </span>
+                                    </div>
+                                    <span class="api-status-badge online">عملیاتی</span>
+                                </div>
+                                
+                                <div class="api-status-item">
+                                    <div class="api-info">
+                                        <span class="api-name">Google AI</span>
+                                        <span class="api-endpoint">generativelanguage.googleapis.com</span>
+                                    </div>
+                                    <div class="api-latency">
+                                        <span class="latency-value">۸۹ms</span>
+                                        <span class="latency-bar">
+                                            <span class="latency-fill good" style="width: 18%"></span>
+                                        </span>
+                                    </div>
+                                    <span class="api-status-badge online">عملیاتی</span>
+                                </div>
+                                
+                                <div class="api-status-item">
+                                    <div class="api-info">
+                                        <span class="api-name">Telegram API</span>
+                                        <span class="api-endpoint">api.telegram.org</span>
+                                    </div>
+                                    <div class="api-latency">
+                                        <span class="latency-value">۴۵ms</span>
+                                        <span class="latency-bar">
+                                            <span class="latency-fill good" style="width: 10%"></span>
+                                        </span>
+                                    </div>
+                                    <span class="api-status-badge online">عملیاتی</span>
+                                </div>
+                                
+                                <div class="api-status-item">
+                                    <div class="api-info">
+                                        <span class="api-name">Instagram API</span>
+                                        <span class="api-endpoint">graph.instagram.com</span>
+                                    </div>
+                                    <div class="api-latency">
+                                        <span class="latency-value">۲۳۴ms</span>
+                                        <span class="latency-bar">
+                                            <span class="latency-fill warning" style="width: 50%"></span>
+                                        </span>
+                                    </div>
+                                    <span class="api-status-badge warning">کند</span>
+                                </div>
+                                
+                                <div class="api-status-item">
+                                    <div class="api-info">
+                                        <span class="api-name">Weather API</span>
+                                        <span class="api-endpoint">api.openweathermap.org</span>
+                                    </div>
+                                    <div class="api-latency">
+                                        <span class="latency-value">۱۵۶ms</span>
+                                        <span class="latency-bar">
+                                            <span class="latency-fill good" style="width: 32%"></span>
+                                        </span>
+                                    </div>
+                                    <span class="api-status-badge online">عملیاتی</span>
+                                </div>
+                                
+                                <div class="api-status-item">
+                                    <div class="api-info">
+                                        <span class="api-name">ZarinPal</span>
+                                        <span class="api-endpoint">api.zarinpal.com</span>
+                                    </div>
+                                    <div class="api-latency">
+                                        <span class="latency-value">—</span>
+                                        <span class="latency-bar">
+                                            <span class="latency-fill" style="width: 0%"></span>
+                                        </span>
+                                    </div>
+                                    <span class="api-status-badge offline">آفلاین</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Queue Status Widget -->
+                    <div class="dashboard-card queue-widget">
+                        <div class="card-header">
+                            <h3><i class="bi bi-collection-fill"></i> صف پردازش</h3>
+                            <div class="card-actions">
+                                <span class="queue-count">۳۴ تسک</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="queue-stats">
+                                <div class="queue-stat">
+                                    <div class="queue-stat-icon pending">
+                                        <i class="bi bi-hourglass-split"></i>
+                                    </div>
+                                    <div class="queue-stat-info">
+                                        <span class="queue-stat-value">۱۲</span>
+                                        <span class="queue-stat-label">در انتظار</span>
+                                    </div>
+                                </div>
+                                <div class="queue-stat">
+                                    <div class="queue-stat-icon processing">
+                                        <i class="bi bi-arrow-repeat"></i>
+                                    </div>
+                                    <div class="queue-stat-info">
+                                        <span class="queue-stat-value">۵</span>
+                                        <span class="queue-stat-label">در حال پردازش</span>
+                                    </div>
+                                </div>
+                                <div class="queue-stat">
+                                    <div class="queue-stat-icon completed">
+                                        <i class="bi bi-check-circle"></i>
+                                    </div>
+                                    <div class="queue-stat-info">
+                                        <span class="queue-stat-value">۲۳۴۱</span>
+                                        <span class="queue-stat-label">تکمیل شده</span>
+                                    </div>
+                                </div>
+                                <div class="queue-stat">
+                                    <div class="queue-stat-icon failed">
+                                        <i class="bi bi-x-circle"></i>
+                                    </div>
+                                    <div class="queue-stat-info">
+                                        <span class="queue-stat-value">۳</span>
+                                        <span class="queue-stat-label">ناموفق</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="queue-progress">
+                                <div class="progress-header">
+                                    <span>پیشرفت کلی</span>
+                                    <span>۹۸.۷٪</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill" style="width: 98.7%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="queue-items">
+                                <div class="queue-item processing">
+                                    <div class="queue-item-status">
+                                        <div class="spinner-border spinner-border-sm"></div>
+                                    </div>
+                                    <div class="queue-item-info">
+                                        <span class="queue-item-name">ارسال پیام به گروه</span>
+                                        <span class="queue-item-detail">تلگرام • ۱۲۳ عضو</span>
+                                    </div>
+                                    <span class="queue-item-progress">۴۵٪</span>
+                                </div>
+                                <div class="queue-item processing">
+                                    <div class="queue-item-status">
+                                        <div class="spinner-border spinner-border-sm"></div>
+                                    </div>
+                                    <div class="queue-item-info">
+                                        <span class="queue-item-name">پردازش تصویر</span>
+                                        <span class="queue-item-detail">AI Vision • ۳ تصویر</span>
+                                    </div>
+                                    <span class="queue-item-progress">۸۰٪</span>
+                                </div>
+                                <div class="queue-item pending">
+                                    <div class="queue-item-status">
+                                        <i class="bi bi-clock"></i>
+                                    </div>
+                                    <div class="queue-item-info">
+                                        <span class="queue-item-name">فشرده‌سازی ویدیو</span>
+                                        <span class="queue-item-detail">۱۲۰ MB • MP4</span>
+                                    </div>
+                                    <span class="queue-item-progress">در صف</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Scheduled Tasks Widget -->
+                    <div class="dashboard-card scheduled-widget">
+                        <div class="card-header">
+                            <h3><i class="bi bi-calendar3"></i> تسک‌های زمان‌بندی شده</h3>
+                            <div class="card-actions">
+                                <button class="btn-sm btn-outline">
+                                    <i class="bi bi-plus"></i> افزودن
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="scheduled-list">
+                                <div class="scheduled-item upcoming">
+                                    <div class="scheduled-time">
+                                        <span class="time">۱۵:۰۰</span>
+                                        <span class="date">امروز</span>
+                                    </div>
+                                    <div class="scheduled-info">
+                                        <span class="scheduled-name">پست اینستاگرام</span>
+                                        <span class="scheduled-detail">صفحه رسمی برند • تصویر محصول جدید</span>
+                                    </div>
+                                    <div class="scheduled-countdown">
+                                        <span class="countdown-value">۲۸ دقیقه</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="scheduled-item">
+                                    <div class="scheduled-time">
+                                        <span class="time">۱۸:۳۰</span>
+                                        <span class="date">امروز</span>
+                                    </div>
+                                    <div class="scheduled-info">
+                                        <span class="scheduled-name">ارسال خبرنامه</span>
+                                        <span class="scheduled-detail">تلگرام • کانال اصلی • ۱۲K عضو</span>
+                                    </div>
+                                    <div class="scheduled-countdown">
+                                        <span class="countdown-value">۴ ساعت</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="scheduled-item">
+                                    <div class="scheduled-time">
+                                        <span class="time">۰۹:۰۰</span>
+                                        <span class="date">فردا</span>
+                                    </div>
+                                    <div class="scheduled-info">
+                                        <span class="scheduled-name">گزارش روزانه</span>
+                                        <span class="scheduled-detail">Analytics • ارسال به ادمین‌ها</span>
+                                    </div>
+                                    <div class="scheduled-countdown">
+                                        <span class="countdown-value">۱۹ ساعت</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="scheduled-item">
+                                    <div class="scheduled-time">
+                                        <span class="time">۱۲:۰۰</span>
+                                        <span class="date">فردا</span>
+                                    </div>
+                                    <div class="scheduled-info">
+                                        <span class="scheduled-name">استوری اینستاگرام</span>
+                                        <span class="scheduled-detail">صفحه رسمی برند • ۳ استوری</span>
+                                    </div>
+                                    <div class="scheduled-countdown">
+                                        <span class="countdown-value">۲۲ ساعت</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Stats Chart -->
+                    <div class="dashboard-card chart-widget wide">
+                        <div class="card-header">
+                            <h3><i class="bi bi-graph-up"></i> نمودار فعالیت هفتگی</h3>
+                            <div class="card-actions">
+                                <div class="chart-legend">
+                                    <span class="legend-item"><span class="legend-color messages"></span> پیام‌ها</span>
+                                    <span class="legend-item"><span class="legend-color ai"></span> AI</span>
+                                    <span class="legend-item"><span class="legend-color tasks"></span> تسک‌ها</span>
+                                </div>
+                                <select class="form-select-sm">
+                                    <option>هفته جاری</option>
+                                    <option>هفته گذشته</option>
+                                    <option>ماه جاری</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container" id="weeklyChart">
+                                <div class="chart-bars">
+                                    <div class="chart-bar-group">
+                                        <div class="chart-bar messages" style="height: 65%"></div>
+                                        <div class="chart-bar ai" style="height: 45%"></div>
+                                        <div class="chart-bar tasks" style="height: 30%"></div>
+                                        <span class="chart-label">شنبه</span>
+                                    </div>
+                                    <div class="chart-bar-group">
+                                        <div class="chart-bar messages" style="height: 80%"></div>
+                                        <div class="chart-bar ai" style="height: 55%"></div>
+                                        <div class="chart-bar tasks" style="height: 40%"></div>
+                                        <span class="chart-label">یکشنبه</span>
+                                    </div>
+                                    <div class="chart-bar-group">
+                                        <div class="chart-bar messages" style="height: 70%"></div>
+                                        <div class="chart-bar ai" style="height: 60%"></div>
+                                        <div class="chart-bar tasks" style="height: 35%"></div>
+                                        <span class="chart-label">دوشنبه</span>
+                                    </div>
+                                    <div class="chart-bar-group">
+                                        <div class="chart-bar messages" style="height: 90%"></div>
+                                        <div class="chart-bar ai" style="height: 70%"></div>
+                                        <div class="chart-bar tasks" style="height: 50%"></div>
+                                        <span class="chart-label">سه‌شنبه</span>
+                                    </div>
+                                    <div class="chart-bar-group">
+                                        <div class="chart-bar messages" style="height: 85%"></div>
+                                        <div class="chart-bar ai" style="height: 65%"></div>
+                                        <div class="chart-bar tasks" style="height: 45%"></div>
+                                        <span class="chart-label">چهارشنبه</span>
+                                    </div>
+                                    <div class="chart-bar-group today">
+                                        <div class="chart-bar messages" style="height: 75%"></div>
+                                        <div class="chart-bar ai" style="height: 80%"></div>
+                                        <div class="chart-bar tasks" style="height: 55%"></div>
+                                        <span class="chart-label">پنجشنبه</span>
+                                    </div>
+                                    <div class="chart-bar-group">
+                                        <div class="chart-bar messages" style="height: 40%"></div>
+                                        <div class="chart-bar ai" style="height: 25%"></div>
+                                        <div class="chart-bar tasks" style="height: 20%"></div>
+                                        <span class="chart-label">جمعه</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ============================================== -->
+            <!-- FOOTER -->
+            <!-- ============================================== -->
+            <footer class="main-footer">
+                <div class="footer-right">
+                    <span>Command Center v2.4.1</span>
+                    <span class="separator">•</span>
+                    <span>آخرین بروزرسانی: ۱۴۰۴/۰۳/۲۵</span>
+                </div>
+                <div class="footer-left">
+                    <span class="server-time">
+                        <i class="bi bi-clock"></i>
+                        <span id="serverTime">۱۴:۳۲:۴۵</span>
+                    </span>
+                    <span class="separator">•</span>
+                    <span class="uptime">
+                        <i class="bi bi-arrow-up-circle"></i>
+                        Uptime: ۹۹.۹۷٪
+                    </span>
+                </div>
+            </footer>
+
+        </main>
+
+    </div>
+
+    <!-- ============================================== -->
+    <!-- MODALS -->
+    <!-- ============================================== -->
+
+    <!-- Add Account Modal -->
+    <div class="modal fade" id="addAccountModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="bi bi-plus-circle"></i>
+                        افزودن اکانت جدید
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="platform-selector">
+                        <label class="platform-option">
+                            <input type="radio" name="platform" value="telegram" checked>
+                            <div class="platform-card">
+                                <i class="bi bi-telegram"></i>
+                                <span>Telegram</span>
+                            </div>
+                        </label>
+                        <label class="platform-option">
+                            <input type="radio" name="platform" value="whatsapp">
+                            <div class="platform-card">
+                                <i class="bi bi-whatsapp"></i>
+                                <span>WhatsApp</span>
+                            </div>
+                        </label>
+                        <label class="platform-option">
+                            <input type="radio" name="platform" value="instagram">
+                            <div class="platform-card">
+                                <i class="bi bi-instagram"></i>
+                                <span>Instagram</span>
+                            </div>
+                        </label>
+                        <label class="platform-option">
+                            <input type="radio" name="platform" value="discord">
+                            <div class="platform-card">
+                                <i class="bi bi-discord"></i>
+                                <span>Discord</span>
+                            </div>
+                        </label>
+                        <label class="platform-option">
+                            <input type="radio" name="platform" value="twitter">
+                            <div class="platform-card">
+                                <i class="bi bi-twitter-x"></i>
+                                <span>X / Twitter</span>
+                            </div>
+                        </label>
+                        <label class="platform-option">
+                            <input type="radio" name="platform" value="tiktok">
+                            <div class="platform-card">
+                                <i class="bi bi-tiktok"></i>
+                                <span>TikTok</span>
+                            </div>
+                        </label>
+                    </div>
+                    
+                    <div class="account-form mt-4">
+                        <div class="form-group">
+                            <label class="form-label">نام اکانت</label>
+                            <input type="text" class="form-control" placeholder="مثال: ربات فروشگاه">
+                        </div>
+                        
+                        <div class="form-group mt-3">
+                            <label class="form-label">شماره تلفن</label>
+                            <input type="tel" class="form-control" placeholder="+98 912 345 6789" dir="ltr">
+                        </div>
+                        
+                        <div class="form-group mt-3">
+                            <label class="form-label">API ID <span class="text-muted">(اختیاری)</span></label>
+                            <input type="text" class="form-control" placeholder="از my.telegram.org دریافت کنید" dir="ltr">
+                        </div>
+                        
+                        <div class="form-group mt-3">
+                            <label class="form-label">API Hash <span class="text-muted">(اختیاری)</span></label>
+                            <input type="password" class="form-control" placeholder="••••••••••••" dir="ltr">
+                        </div>
+                        
+                        <div class="form-check mt-4">
+                            <input type="checkbox" class="form-check-input" id="autoConnect">
+                            <label class="form-check-label" for="autoConnect">
+                                اتصال خودکار پس از راه‌اندازی مجدد
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
+                    <button type="button" class="btn btn-primary">
+                        <i class="bi bi-plus"></i>
+                        افزودن اکانت
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Add Modal -->
+    <div class="modal fade" id="quickAddModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="bi bi-lightning-charge"></i>
+                        افزودن سریع
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="quick-add-options">
+                        <a href="#" class="quick-add-option" data-bs-toggle="modal" data-bs-target="#addAccountModal">
+                            <i class="bi bi-person-plus"></i>
+                            <span>اکانت جدید</span>
+                        </a>
+                        <a href="#" class="quick-add-option">
+                            <i class="bi bi-puzzle"></i>
+                            <span>پلاگین جدید</span>
+                        </a>
+                        <a href="#" class="quick-add-option">
+                            <i class="bi bi-diagram-3"></i>
+                            <span>ورک‌فلو جدید</span>
+                        </a>
+                        <a href="#" class="quick-add-option">
+                            <i class="bi bi-cloud"></i>
+                            <span>API جدید</span>
+                        </a>
+                        <a href="#" class="quick-add-option">
+                            <i class="bi bi-robot"></i>
+                            <span>سرویس AI</span>
+                        </a>
+                        <a href="#" class="quick-add-option">
+                            <i class="bi bi-calendar-plus"></i>
+                            <span>تسک زمان‌بندی</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Command Palette Modal -->
+    <div class="modal fade" id="commandPalette" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered command-palette-dialog">
+            <div class="modal-content">
+                <div class="command-palette-search">
+                    <i class="bi bi-search"></i>
+                    <input type="text" placeholder="جستجوی دستور، صفحه، یا اکشن..." id="commandSearch" autofocus>
+                    <kbd>ESC</kbd>
+                </div>
+                <div class="command-palette-results">
+                    <div class="command-group">
+                        <span class="command-group-title">صفحات</span>
+                        <a href="#" class="command-item">
+                            <i class="bi bi-grid-1x2"></i>
+                            <span>داشبورد</span>
+                            <kbd>G D</kbd>
+                        </a>
+                        <a href="#" class="command-item">
+                            <i class="bi bi-person-badge"></i>
+                            <span>اکانت‌ها</span>
+                            <kbd>G A</kbd>
+                        </a>
+                        <a href="#" class="command-item">
+                            <i class="bi bi-puzzle"></i>
+                            <span>پلاگین‌ها</span>
+                            <kbd>G P</kbd>
+                        </a>
+                    </div>
+                    <div class="command-group">
+                        <span class="command-group-title">اکشن‌ها</span>
+                        <a href="#" class="command-item">
+                            <i class="bi bi-plus-circle"></i>
+                            <span>افزودن اکانت جدید</span>
+                            <kbd>N A</kbd>
+                        </a>
+                        <a href="#" class="command-item">
+                            <i class="bi bi-arrow-repeat"></i>
+                            <span>همگام‌سازی همه</span>
+                            <kbd>⌘ S</kbd>
+                        </a>
+                        <a href="#" class="command-item">
+                            <i class="bi bi-gear"></i>
+                            <span>تنظیمات</span>
+                            <kbd>⌘ ,</kbd>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terminal Modal -->
+    <div class="modal fade" id="terminalModal" tabindex="-1">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content terminal-content">
+                <div class="terminal-header">
+                    <div class="terminal-title">
+                        <i class="bi bi-terminal"></i>
+                        <span>Command Center Terminal</span>
+                    </div>
+                    <div class="terminal-actions">
+                        <button class="btn-terminal" title="پاک کردن">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                        <button class="btn-terminal" title="کپی">
+                            <i class="bi bi-clipboard"></i>
+                        </button>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                </div>
+                <div class="terminal-body">
+                    <div class="terminal-output" id="terminalOutput">
+                        <div class="terminal-line">
+                            <span class="terminal-prompt">system@command-center:~$</span>
+                            <span class="terminal-text">welcome</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-text text-success">╔══════════════════════════════════════════════════════════════╗</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-text text-success">║     Welcome to Command Center Terminal v2.4.1               ║</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-text text-success">║     Type 'help' for available commands                       ║</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-text text-success">╚══════════════════════════════════════════════════════════════╝</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-prompt">system@command-center:~$</span>
+                            <span class="terminal-text">status --all</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-text text-info">Checking system status...</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-text">├── Accounts: <span class="text-success">12 connected</span></span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-text">├── Plugins: <span class="text-success">47 active</span></span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-text">├── Workflows: <span class="text-success">23 running</span></span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-text">├── Queue: <span class="text-warning">34 pending</span></span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-text">└── System: <span class="text-success">healthy</span></span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-prompt">system@command-center:~$</span>
+                            <span class="terminal-cursor">█</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="terminal-input-container">
+                    <span class="terminal-prompt">system@command-center:~$</span>
+                    <input type="text" class="terminal-input" id="terminalInput" placeholder="دستور را وارد کنید...">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Quick Panel -->
+    <div class="offcanvas offcanvas-start" id="settingsPanel" tabindex="-1">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title">
+                <i class="bi bi-gear"></i>
+                تنظیمات سریع
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="settings-section">
+                <h6>ظاهر</h6>
+                <div class="settings-option">
+                    <span>تم تاریک</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="darkModeToggle" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="settings-option">
+                    <span>سایدبار فشرده</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="compactSidebar">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="settings-option">
+                    <span>انیمیشن‌ها</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="enableAnimations" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="settings-section">
+                <h6>اعلان‌ها</h6>
+                <div class="settings-option">
+                    <span>اعلان دسکتاپ</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="settings-option">
+                    <span>صدای اعلان</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="settings-option">
+                    <span>اعلان ایمیل</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="settings-section">
+                <h6>عملکرد</h6>
+                <div class="settings-option">
+                    <span>بروزرسانی زنده</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="settings-option">
+                    <span>فاصله بروزرسانی</span>
+                    <select class="form-select form-select-sm">
+                        <option value="5">۵ ثانیه</option>
+                        <option value="10" selected>۱۰ ثانیه</option>
+                        <option value="30">۳۰ ثانیه</option>
+                        <option value="60">۱ دقیقه</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="settings-section">
+                <h6>زبان و منطقه</h6>
+                <div class="settings-option">
+                    <span>زبان</span>
+                    <select class="form-select form-select-sm">
+                        <option value="fa" selected>فارسی</option>
+                        <option value="en">English</option>
+                    </select>
+                </div>
+                <div class="settings-option">
+                    <span>منطقه زمانی</span>
+                    <select class="form-select form-select-sm">
+                        <option value="Asia/Tehran" selected>تهران (UTC+3:30)</option>
+                        <option value="UTC">UTC</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast Container -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toastContainer">
+        <!-- Toasts will be dynamically added here -->
+    </div>
+
+    <!-- Context Menu -->
+    <div class="context-menu" id="contextMenu">
+        <a href="#" class="context-menu-item">
+            <i class="bi bi-eye"></i>
+            <span>مشاهده جزئیات</span>
+        </a>
+        <a href="#" class="context-menu-item">
+            <i class="bi bi-pencil"></i>
+            <span>ویرایش</span>
+        </a>
+        <a href="#" class="context-menu-item">
+            <i class="bi bi-files"></i>
+            <span>کپی</span>
+        </a>
+        <div class="context-menu-divider"></div>
+        <a href="#" class="context-menu-item">
+            <i class="bi bi-arrow-clockwise"></i>
+            <span>بروزرسانی</span>
+        </a>
+        <a href="#" class="context-menu-item">
+            <i class="bi bi-download"></i>
+            <span>دانلود</span>
+        </a>
+        <div class="context-menu-divider"></div>
+        <a href="#" class="context-menu-item danger">
+            <i class="bi bi-trash"></i>
+            <span>حذف</span>
+        </a>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- SCRIPTS -->
+    <!-- ============================================== -->
+    
+    <!-- Bootstrap 5 Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom Scripts -->
+    <script src="script.js"></script>
+
+</body>
+</html>
