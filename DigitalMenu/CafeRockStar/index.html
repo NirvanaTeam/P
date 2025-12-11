@@ -80,35 +80,52 @@
         }
         
         /* صفحه اصلی */
-        .image-container {
+        .video-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            overflow: hidden;
             background-color: #000;
         }
         
-        .image-container img {
+        .background-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: cover;
+        }
+        
+        /* لایه overlay برای افزایش خوانایی متن */
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 0;
         }
         
         .content {
             height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end; /* تغییر این خط برای انتقال به پایین */
+            justify-content: flex-end;
             align-items: center;
             padding: 20px;
-            padding-bottom: 50px; /* فاصله از پایین صفحه */
+            padding-bottom: 50px;
             opacity: 0;
             transition: opacity 0.5s;
+            position: relative;
+            z-index: 1;
         }
         
         .content.show {
@@ -166,7 +183,7 @@
         /* نسخه موبایل */
         @media (max-width: 768px) {
             .content {
-                padding-bottom: 30px; /* فاصله کمتر در موبایل */
+                padding-bottom: 30px;
             }
             
             .nav-container {
@@ -183,6 +200,19 @@
             .nav-btn i {
                 font-size: 1.4rem;
             }
+            
+            .background-video {
+                /* تنظیمات برای موبایل */
+                transform: translate(-50%, -50%) scale(1.05);
+            }
+        }
+        
+        /* برای نمایش بهتر در دسکتاپ */
+        @media (min-width: 1200px) {
+            .background-video {
+                width: 100%;
+                height: 100%;
+            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -198,9 +228,14 @@
         </div>
     </div>
     
-    <!-- صفحه اصلی -->
-    <div class="image-container">
-        <img src="cafe-bg.jpg" alt="پس‌زمینه کافه TURKAY" id="bgImage">
+    <!-- صفحه اصلی با ویدیو -->
+    <div class="video-container">
+        <video class="background-video" autoplay loop muted playsinline>
+            <source src="cafe-bg.MP4" type="video/mp4">
+            <!-- Fallback برای مرورگرهایی که ویدیو را پشتیبانی نمی‌کنند -->
+            <img src="cafe-bg.jpg" alt="پس‌زمینه کافه TURKAY">
+        </video>
+        <div class="video-overlay"></div>
     </div>
     
     <div class="content" id="mainContent">
@@ -231,21 +266,31 @@
             const loadingScreen = document.getElementById('loadingScreen');
             const loadingBar = document.getElementById('loadingBar');
             const mainContent = document.getElementById('mainContent');
+            const video = document.querySelector('.background-video');
             
             // زمان شروع لودینگ
             const startTime = Date.now();
+            
+            // بررسی لود شدن ویدیو
+            video.addEventListener('loadeddata', function() {
+                // اگر ویدیو زودتر لود شود، پیشرفت را به 80% می‌بریم
+                const elapsed = Date.now() - startTime;
+                if (elapsed < 3000) {
+                    loadingBar.style.width = '80%';
+                }
+            });
             
             // شبیه‌سازی پیشرفت بارگذاری
             let progress = 0;
             const loadingInterval = setInterval(() => {
                 // محاسبه زمان سپری شده
                 const elapsed = Date.now() - startTime;
-                progress = Math.min(100, (elapsed / 3000) * 100); // 3 ثانیه = 3000 میلی‌ثانیه
+                progress = Math.min(100, (elapsed / 3000) * 100);
                 
                 loadingBar.style.width = progress + '%';
                 
                 // بعد از 3 ثانیه صفحه لودینگ را مخفی می‌کنیم
-                if (elapsed >= 3000) {
+                if (elapsed >= 5000) {
                     clearInterval(loadingInterval);
                     hideLoadingScreen();
                 }
@@ -258,8 +303,20 @@
                 setTimeout(() => {
                     loadingScreen.style.display = 'none';
                     mainContent.classList.add('show');
+                    // شروع پخش ویدیو
+                    video.play().catch(e => {
+                        console.log("اتوماتیک پلی بلاک شده، کاربر باید تعامل کند");
+                    });
                 }, 500);
             }
+            
+            // مدیریت خطای ویدیو
+            video.addEventListener('error', function() {
+                console.error('خطا در لود ویدیو');
+                // اگر ویدیو لود نشد، به حالت قبلی برمی‌گردیم
+                document.querySelector('.video-container').innerHTML = 
+                    '<img src="cafe-bg.jpg" alt="پس‌زمینه کافه TURKAY" style="width:100%;height:100%;object-fit:cover;">';
+            });
         });
     </script>
 </body>
