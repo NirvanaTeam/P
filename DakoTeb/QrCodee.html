@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>خدمات Home Care | مراقبت در منزل</title>
+
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:Vazir,Tahoma,sans-serif}
+    body{background:#fff;padding:10px;overflow-x:hidden;color:#333}
+
+    .menu-container{display:flex;height:100vh;gap:10px;position:relative}
+
+    /* Sidebar (Categories) */
+    .categories-sidebar{
+      width:120px;
+      background:#0b3c44;
+      border-radius:20px 0 0 20px;
+      padding:20px 10px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:10px;
+      box-shadow:6px 0 15px rgba(0,0,0,.12);
+      z-index:2;
+      overflow-y:auto;
+      border:1px solid rgba(255,255,255,.12)
+    }
+    .category-item{
+      width:100%;
+      padding:10px 6px;
+      cursor:pointer;
+      border-radius:14px;
+      transition:all .22s ease;
+      color:rgba(255,255,255,.9);
+      text-align:center;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.06);
+      user-select:none
+    }
+    .category-item:hover{transform:translateY(-2px);background:rgba(255,255,255,.10)}
+    .category-item.active{
+      background:rgba(14,165,167,.22);
+      border-color:rgba(14,165,167,.45);
+      box-shadow:0 10px 18px rgba(0,0,0,.10)
+    }
+    .category-icon{font-size:18px;margin-bottom:6px;color:#bff9fa}
+    .category-name{font-size:12px;font-weight:600;line-height:1.4}
+
+    /* Items container */
+    .items-container{
+      flex:1;
+      background:rgba(226, 247, 248, .65);
+      backdrop-filter:blur(2px);
+      border-radius:0 20px 20px 0;
+      padding:18px;
+      box-shadow:0 0 15px rgba(0,0,0,.08);
+      overflow-y:auto;
+      position:relative;
+      border:1px solid rgba(16,42,46,.12);
+      display:flex;
+      flex-direction:column
+    }
+    .items-content{flex:1}
+
+    /* Simple top actions (minimal) */
+    .top-actions{
+      display:flex;
+      gap:8px;
+      justify-content:flex-end;
+      flex-wrap:wrap;
+      margin-bottom:12px
+    }
+    .action-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius:12px;
+      border:1px solid rgba(16,42,46,.14);
+      background:#fff;
+      text-decoration:none;
+      color:#0b3c44;
+      font-weight:700;
+      font-size:12px
+    }
+    .action-btn.primary{
+      background:linear-gradient(135deg, rgba(14,165,167,.95), rgba(21,94,117,.95));
+      color:#fff;
+      border-color:rgba(14,165,167,.45)
+    }
+
+    .items-title{
+      font-size:20px;
+      margin-bottom:10px;
+      color:#0b3c44;
+      text-align:center;
+      padding-bottom:10px;
+      border-bottom:2px dashed rgba(14,165,167,.35);
+      font-weight:700
+    }
+    .items-english-title{
+      font-size:12px;
+      margin-bottom:16px;
+      color:#47656b;
+      text-align:center;
+      font-style:italic
+    }
+
+    .menu-items{
+      display:grid;
+      grid-template-columns:repeat(auto-fill, minmax(200px, 1fr));
+      gap:12px;
+      margin-bottom:16px
+    }
+
+    .menu-item{
+      background:#fff;
+      padding:12px;
+      border-radius:14px;
+      box-shadow:0 6px 14px rgba(0,0,0,.06);
+      transition:transform .2s ease, box-shadow .2s ease;
+      opacity:0;
+      transform:translateY(14px);
+      animation:fadeIn .5s forwards;
+      border:1px solid rgba(16,42,46,.10)
+    }
+    .menu-item:hover{transform:translateY(-2px);box-shadow:0 14px 22px rgba(0,0,0,.10)}
+    @keyframes fadeIn{to{opacity:1;transform:translateY(0)}}
+
+    .item-image{
+      width:100%;
+      height:110px;
+      object-fit:cover;
+      border-radius:10px;
+      margin-bottom:10px;
+      cursor:pointer;
+      transition:transform .2s ease;
+      border:1px solid rgba(16,42,46,.10)
+    }
+    .item-image:hover{transform:scale(1.02)}
+    .item-name{font-weight:800;font-size:13px;color:#102a2e;margin-bottom:6px;text-align:right;line-height:1.6}
+    .item-price{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      font-size:11.5px;
+      font-weight:800;
+      color:#155e75;
+      background:rgba(14,165,167,.10);
+      border:1px solid rgba(14,165,167,.18);
+      padding:5px 8px;
+      border-radius:999px
+    }
+    .item-description{
+      margin-top:8px;
+      font-size:11.5px;
+      color:#4f6469;
+      line-height:1.75;
+      text-align:right
+    }
+
+    .footer{
+      text-align:center;
+      padding:12px;
+      margin-top:auto;
+      background:#fff;
+      border-radius:10px;
+      border-top:1px solid rgba(16,42,46,.12);
+      font-size:12px;
+      color:#5b6b70
+    }
+
+    /* Image modal */
+    .image-modal{
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.82);
+      z-index:1000;
+      justify-content:center;
+      align-items:center;
+      padding:14px
+    }
+    .image-modal img{
+      max-width:95%;
+      max-height:90%;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:0 18px 40px rgba(0,0,0,.35)
+    }
+
+    @media (max-width:768px){
+      .menu-container{flex-direction:row;height:100vh}
+      .categories-sidebar{width:95px;padding:14px 8px}
+      .menu-items{grid-template-columns:repeat(auto-fill, minmax(170px, 1fr))}
+    }
+    @media (max-width:480px){
+      .categories-sidebar{width:84px}
+      .menu-items{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="menu-container">
+    <div class="categories-sidebar" id="categoriesSidebar">
+      <!-- دسته‌بندی‌ها توسط JS اضافه می‌شوند -->
+    </div>
+
+    <div class="items-container" id="itemsContainer">
+      <div class="items-content">
+
+        <div class="top-actions">
+          <a class="action-btn" href="tel:+982100000000"><i class="fa-solid fa-phone"></i>تماس</a>
+          <a class="action-btn primary" href="https://wa.me/989120000000" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i>واتساپ</a>
+        </div>
+
+        <h2 class="items-title" id="itemsTitle">خدمات مراقبت در منزل</h2>
+        <div class="items-english-title" id="itemsEnglishTitle"></div>
+
+        <div class="menu-items" id="menuItems"></div>
+      </div>
+
+      <div class="footer">
+        Home Care • مراقبت، بهیاری، پرستاری و توانبخشی در منزل
+      </div>
+    </div>
+  </div>
+
+  <div class="image-modal" id="imageModal">
+    <img id="modalImage" src="" alt="تصویر بزرگ شده">
+  </div>
+
+  <script>
+    // داده‌های خدمات (ساده، شبیه فایل اصلی شما)
+    const menuData = {
+      "پرستاری در منزل": {
+        english: "HOME NURSING",
+        items: [
+          {
+            name: "تزریقات و سرم‌تراپی در منزل",
+            price: "جلسه‌ای / اعزام سریع",
+            description: "انجام تزریق و سرم طبق دستور پزشک + کنترل علائم حیاتی در حین کار.",
+            image: "https://source.unsplash.com/900x700/?nurse,injection,home"
+          },
+          {
+            name: "پانسمان و مراقبت از زخم",
+            price: "جلسه‌ای / کنترل عفونت",
+            description: "پانسمان زخم‌های ساده تا مزمن (از جمله زخم بستر) با پیگیری روند بهبود.",
+            image: "https://source.unsplash.com/900x700/?wound,bandage,medical"
+          },
+          {
+            name: "پایش علائم حیاتی",
+            price: "ساعتی / دوره‌ای",
+            description: "فشار، قند، دما، اکسیژن خون و گزارش‌گیری برای تصمیم‌گیری بهتر خانواده/پزشک.",
+            image: "https://source.unsplash.com/900x700/?blood-pressure,monitor,health"
+          },
+          {
+            name: "مراقبت پس از عمل (Post-Op)",
+            price: "شیفتی / حساس",
+            description: "پایش وضعیت عمومی، پانسمان، اجرای دستورات درمانی و کاهش ریسک عوارض اولیه.",
+            image: "https://source.unsplash.com/900x700/?patient,home,care"
+          }
+        ]
+      },
+
+      "بهیاری و کمک‌پرستار": {
+        english: "NURSE AIDE",
+        items: [
+          {
+            name: "کمک در امور روزمره (ADL)",
+            price: "روزانه / شیفتی",
+            description: "کمک در بهداشت، تغذیه، جابجایی ایمن، نظم روزانه و همراهی در منزل.",
+            image: "https://source.unsplash.com/900x700/?caregiver,elderly,home"
+          },
+          {
+            name: "پیشگیری از زخم بستر و جابجایی",
+            price: "شیفتی / پرریسک",
+            description: "تغییر پوزیشن، مراقبت پوستی، کمک به نشستن/ایستادن و کاهش ریسک آسیب.",
+            image: "https://source.unsplash.com/900x700/?elderly,bed,care"
+          },
+          {
+            name: "همراه بیمار (منزل/بیمارستان)",
+            price: "شیفتی",
+            description: "حضور منظم، کمک‌های پایه، پیگیری نیازها و هماهنگی با خانواده.",
+            image: "https://source.unsplash.com/900x700/?hospital,patient,assistant"
+          }
+        ]
+      },
+
+      "مراقبت سالمند": {
+        english: "ELDERLY CARE",
+        items: [
+          {
+            name: "مراقبت شبانه‌روزی سالمند",
+            price: "۲۴ ساعته / شیفتی",
+            description: "پایش ایمنی، پیشگیری از سقوط، تغذیه و دارو، گزارش‌دهی منظم.",
+            image: "https://source.unsplash.com/900x700/?elderly,caretaker,home"
+          },
+          {
+            name: "مراقبت آلزایمر/دمانس",
+            price: "۲۴ ساعته / ایمنی",
+            description: "مدیریت ریسک‌های رفتاری، کنترل محیط، روتین‌سازی و کاهش حادثه.",
+            image: "https://source.unsplash.com/900x700/?dementia,elderly,care"
+          },
+          {
+            name: "مراقبت تسکینی (Palliative)",
+            price: "شیفتی / حمایتی",
+            description: "تمرکز بر راحتی، کنترل علائم آزاردهنده و حمایت از خانواده.",
+            image: "https://source.unsplash.com/900x700/?palliative,care,home"
+          }
+        ]
+      },
+
+      "توانبخشی": {
+        english: "REHAB",
+        items: [
+          {
+            name: "فیزیوتراپی در منزل",
+            price: "جلسه‌ای",
+            description: "برنامه تمرینی قابل اجرا در خانه + پایش پیشرفت و اصلاح تمرین‌ها.",
+            image: "https://source.unsplash.com/900x700/?physiotherapy,rehabilitation,home"
+          },
+          {
+            name: "توانبخشی پس از سکته",
+            price: "جلسه‌ای / پیگیرانه",
+            description: "تعادل، راه رفتن، تقویت عضلات و کاهش ریسک سقوط با تمرینات هدفمند.",
+            image: "https://source.unsplash.com/900x700/?stroke,rehab,therapy"
+          },
+          {
+            name: "کاردرمانی / گفتاردرمانی",
+            price: "جلسه‌ای / تخصصی",
+            description: "بهبود عملکرد روزمره و مهارت‌های ارتباطی (بسته به نیاز).",
+            image: "https://source.unsplash.com/900x700/?therapy,rehab,clinic"
+          }
+        ]
+      },
+
+      "آزمایش و تشخیص": {
+        english: "DIAGNOSTICS",
+        items: [
+          {
+            name: "نمونه‌گیری خون و آزمایش در منزل",
+            price: "در محل",
+            description: "مناسب سالمند/بیمار کم‌تحرک؛ کاهش رفت‌وآمد و پیگیری دوره‌ای.",
+            image: "https://source.unsplash.com/900x700/?blood,test,home"
+          },
+          {
+            name: "نوار قلب (ECG) در منزل",
+            price: "در محل",
+            description: "ثبت ECG در منزل برای پایش یا شرایطی که مراجعه حضوری سخت است.",
+            image: "https://source.unsplash.com/900x700/?ecg,heart,medical"
+          }
+        ]
+      },
+
+      "تجهیزات پزشکی": {
+        english: "EQUIPMENT",
+        items: [
+          {
+            name: "اجاره تخت بیمارستانی و تشک مواج",
+            price: "تحویل و نصب",
+            description: "برای بیماران کم‌تحرک/پرریسک زخم بستر؛ آموزش استفاده و نکات ایمنی.",
+            image: "https://source.unsplash.com/900x700/?hospital-bed,medical,home"
+          },
+          {
+            name: "اکسیژن‌ساز / کپسول اکسیژن",
+            price: "تحویل",
+            description: "تامین تجهیزات تنفسی با آموزش اولیه و هماهنگی برای پایش.",
+            image: "https://source.unsplash.com/900x700/?oxygen,concentrator,medical"
+          },
+          {
+            name: "ویلچر / واکر / عصا",
+            price: "تحویل",
+            description: "کمک‌حرکتی برای افزایش استقلال و کاهش ریسک سقوط.",
+            image: "https://source.unsplash.com/900x700/?wheelchair,walker,home"
+          }
+        ]
+      },
+
+      "مادر و کودک": {
+        english: "MOTHER & BABY",
+        items: [
+          {
+            name: "مراقبت پس از زایمان",
+            price: "روزانه / شیفتی",
+            description: "کمک به ریکاوری مادر، نظم خواب/تغذیه و مدیریت کارهای سبک.",
+            image: "https://source.unsplash.com/900x700/?mother,baby,home"
+          },
+          {
+            name: "پرستار کودک / نوزاد",
+            price: "شیفتی",
+            description: "مراقبت ایمن از کودک، روتین‌سازی و حمایت عملی از والدین.",
+            image: "https://source.unsplash.com/900x700/?newborn,baby-care,home"
+          }
+        ]
+      }
+    };
+
+    // آیکون‌های دسته‌بندی (Font Awesome)
+    const categoryIcons = {
+      "پرستاری در منزل": "fa-stethoscope",
+      "بهیاری و کمک‌پرستار": "fa-hand-holding-heart",
+      "مراقبت سالمند": "fa-person-cane",
+      "توانبخشی": "fa-wheelchair",
+      "آزمایش و تشخیص": "fa-vial",
+      "تجهیزات پزشکی": "fa-truck",
+      "مادر و کودک": "fa-baby"
+    };
+
+    // DOM
+    const categoriesSidebar = document.getElementById('categoriesSidebar');
+    const menuItems = document.getElementById('menuItems');
+    const itemsTitle = document.getElementById('itemsTitle');
+    const itemsEnglishTitle = document.getElementById('itemsEnglishTitle');
+    const imageModal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+
+    // ساخت دکمه‌های دسته‌بندی
+    Object.keys(menuData).forEach(category => {
+      const categoryItem = document.createElement('div');
+      categoryItem.className = 'category-item';
+      categoryItem.setAttribute('data-category', category);
+
+      const icon = categoryIcons[category] || "fa-circle";
+      categoryItem.innerHTML = `
+        <i class="fa-solid ${icon} category-icon"></i>
+        <div class="category-name">${category}</div>
+      `;
+
+      categoryItem.addEventListener('click', () => {
+        document.querySelectorAll('.category-item').forEach(item => item.classList.remove('active'));
+        categoryItem.classList.add('active');
+        updateItems(category);
+      });
+
+      categoriesSidebar.appendChild(categoryItem);
+    });
+
+    // دسته اول پیش‌فرض
+    const firstCategory = Object.keys(menuData)[0];
+    const firstBtn = document.querySelector(`.category-item[data-category="${firstCategory}"]`);
+    if (firstBtn) firstBtn.classList.add('active');
+    updateItems(firstCategory);
+
+    function updateItems(category) {
+      menuItems.innerHTML = '';
+      itemsTitle.textContent = category;
+      itemsEnglishTitle.textContent = menuData[category].english || "";
+
+      menuData[category].items.forEach((item, index) => {
+        const itemElement = document.createElement('div');
+        itemElement.className = 'menu-item';
+        itemElement.style.animationDelay = `${index * 0.08}s`;
+
+        const descriptionHTML = item.description
+          ? `<div class="item-description">${item.description}</div>`
+          : '';
+
+        itemElement.innerHTML = `
+          <img src="${item.image}" alt="${item.name}" class="item-image" onclick="openImageModal('${item.image}')">
+          <div class="item-name">${item.name}</div>
+          <div class="item-price"><i class="fa-solid fa-circle-info"></i>${item.price}</div>
+          ${descriptionHTML}
+        `;
+
+        menuItems.appendChild(itemElement);
+      });
+    }
+
+    // Image modal
+    window.openImageModal = function(imageSrc) {
+      modalImage.src = imageSrc;
+      imageModal.style.display = 'flex';
+    };
+    imageModal.addEventListener('click', () => {
+      imageModal.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
