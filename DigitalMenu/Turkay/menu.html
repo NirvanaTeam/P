@@ -70,10 +70,9 @@
         }
         
         .category-icon {
-            width: 30px;
-            height: 30px;
-            margin-bottom: 5px;
-            object-fit: contain;
+            font-size: 24px;
+            margin-bottom: 8px;
+            line-height: 1;
         }
         
         .category-name {
@@ -335,7 +334,7 @@ const menuData = {
     "وافل‌ها": {
         english: "WAFFLES",
         items: [
-            {name: "وافل بستنی", price: "199 تومان", image: "a1.jpg"}
+            {name: "وافل بستنی", price: "199 تومان", image: "a1.jpg"},
             {name: "وافل میوه", price: "160 تومان", image: "a2.jpg"}
         ]
     },
@@ -442,13 +441,15 @@ const menuData = {
 
         // آیکون‌های دسته‌بندی‌ها (از Font Awesome)
         const categoryIcons = {
-            "وافل‌ها": "fa-pancakes",
+            "وافل‌ها": "fa-stroopwafel",
+            "Food": "fa-utensils",
             "چای و دمنوش‌ها": "fa-mug-hot",
-            "نوشیدنی‌های گرم": "fa-coffee",
-            "شیک‌ها": "fa-glass-whiskey",
+            "نوشیدنی‌های گرم": "fa-mug-saucer",
+            "شیک‌ها": "fa-ice-cream",
             "آیس‌ها": "fa-snowflake",
-            "ماکتل‌ها": "fa-wine-glass-alt",
-            "آبمیوه‌های طبیعی": "fa-apple-alt",
+            "ماکتل‌ها": "fa-martini-glass",
+            "کروسان و‌ کیکها": "fa-cookie-bite",
+            "آبمیوه‌های طبیعی": "fa-apple-whole",
             "قلیون VIP": "fa-smoking"
         };
 
@@ -456,11 +457,11 @@ const menuData = {
         Object.keys(menuData).forEach(category => {
             const categoryItem = document.createElement('div');
             categoryItem.className = 'category-item';
+            const iconClass = categoryIcons[category] || "fa-circle";
             categoryItem.innerHTML = `
-                <i class="fas ${categoryIcons[category]} category-icon"></i>
+                <i class="fas ${iconClass} category-icon"></i>
                 <div class="category-name">${category}</div>
             `;
-            
             categoryItem.addEventListener('click', () => {
                 document.querySelectorAll('.category-item').forEach(item => {
                     item.classList.remove('active');
