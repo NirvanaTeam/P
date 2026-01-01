@@ -45,6 +45,17 @@
     }
 
     a{ text-decoration:none; }
+    #pageDimmer{
+      position:fixed;
+      inset:0;
+      background:rgba(255,255,255,.55);
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .24s ease;
+      z-index:1500;
+    }
+    body.is-dimmed #pageDimmer{ opacity:1; }
+
     .text-muted-2{ color:var(--muted); }
 
     .navbar-glass{
@@ -212,12 +223,25 @@
     }
 
     .ambulance-wrap{
+      position:relative;
       display:flex;
       justify-content:flex-start;
       align-items:center;
       padding:10px 0;
     }
+    .ambulance-wrap::before{
+      content:"";
+      position:absolute;
+      inset:-18px -26px;
+      border-radius:28px;
+      background:radial-gradient(circle at 45% 50%, rgba(255,255,255,.30) 0%, rgba(220,53,69,.18) 38%, rgba(255,255,255,0) 72%);
+      filter:blur(10px);
+      opacity:.9;
+      z-index:0;
+    }
     .ambulance-img{
+      position:relative;
+      z-index:1;
       width:min(440px, 92%);
       height:auto;
       filter:drop-shadow(0 18px 26px rgba(0,0,0,.35));
@@ -419,6 +443,8 @@
   </div>
 </nav>
 
+<div id="pageDimmer" aria-hidden="true"></div>
+
 <main>
   <section class="hero" aria-label="هدر اصلی">
     <picture class="hero-bg" aria-hidden="true">
@@ -440,7 +466,7 @@
 
         <div class="col-lg-5">
           <div class="ambulance-wrap">
-            <img id="ambulanceImg" class="ambulance-img" src="Ambulance.png" alt="تصویر آمبولانس امداد ایثار" width="880" height="520">
+            <img id="ambulanceImg" class="ambulance-img" src="ambulance.png" alt="تصویر آمبولانس امداد ایثار" width="880" height="520">
           </div>
         </div>
       </div>
@@ -804,44 +830,102 @@
   (function(){
     const btn = document.getElementById('requestBtn');
     const img = document.getElementById('ambulanceImg');
+    const dimmer = document.getElementById('pageDimmer');
+    const reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
     if (!btn || !img) return;
+
+    function setDim(on){
+      if (!dimmer) return;
+      document.body.classList.toggle('is-dimmed', !!on);
+    }
+
+    function smoothScrollTo(el, duration){
+      if (!el) return;
+      const nav = document.getElementById('mainNav');
+      const offset = (nav ? nav.offsetHeight : 0) + 12;
+      const targetY = el.getBoundingClientRect().top + window.scrollY - offset;
+      const startY = window.scrollY;
+      const diff = targetY - startY;
+      const start = performance.now();
+      const ease = (t) => 1 - Math.pow(1 - t, 3);
+      function step(now){
+        const t = Math.min(1, (now - start) / duration);
+        window.scrollTo(0, startY + diff * ease(t));
+        if (t < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
 
     function animateToButton(){
       const imgRect = img.getBoundingClientRect();
       const btnRect = btn.getBoundingClientRect();
 
+      const wrapper = document.createElement('div');
+      wrapper.style.position = 'fixed';
+      wrapper.style.left = imgRect.left + 'px';
+      wrapper.style.top = imgRect.top + 'px';
+      wrapper.style.width = imgRect.width + 'px';
+      wrapper.style.height = imgRect.height + 'px';
+      wrapper.style.margin = '0';
+      wrapper.style.zIndex = '2000';
+      wrapper.style.pointerEvents = 'none';
+      wrapper.style.transform = 'translate3d(0,0,0)';
+      wrapper.style.willChange = 'transform';
+
+      const glow = document.createElement('div');
+      glow.style.position = 'absolute';
+      glow.style.inset = '-14%';
+      glow.style.borderRadius = '28px';
+      glow.style.background = 'radial-gradient(circle at 45% 45%, rgba(255,255,255,.38) 0%, rgba(220,53,69,.22) 38%, rgba(255,255,255,0) 72%)';
+      glow.style.filter = 'blur(12px)';
+      glow.style.opacity = '.95';
+
       const clone = img.cloneNode(true);
       clone.removeAttribute('id');
-      clone.style.position = 'fixed';
-      clone.style.left = imgRect.left + 'px';
-      clone.style.top = imgRect.top + 'px';
-      clone.style.width = imgRect.width + 'px';
-      clone.style.height = imgRect.height + 'px';
+      clone.style.position = 'absolute';
+      clone.style.inset = '0';
+      clone.style.width = '100%';
+      clone.style.height = '100%';
       clone.style.margin = '0';
-      clone.style.zIndex = '2000';
-      clone.style.pointerEvents = 'none';
-      clone.style.transform = 'translate3d(0,0,0)';
-      document.body.appendChild(clone);
+      clone.style.objectFit = 'contain';
+      clone.style.filter = 'drop-shadow(0 18px 26px rgba(0,0,0,.30))';
+
+      wrapper.appendChild(glow);
+      wrapper.appendChild(clone);
+      document.body.appendChild(wrapper);
+
+      glow.animate(
+        [
+          { transform: 'scale(1)', opacity: .82 },
+          { transform: 'scale(1.06)', opacity: 1 },
+          { transform: 'scale(1)', opacity: .82 }
+        ],
+        { duration: 780, iterations: 2, easing: 'ease-in-out' }
+      );
 
       const dx = (btnRect.left + btnRect.width / 2) - (imgRect.left + imgRect.width / 2);
       const dy = (btnRect.top + btnRect.height / 2) - (imgRect.top + imgRect.height / 2);
 
       const t1x = dx * 0.55;
       const t1y = dy * 0.55;
-      const t2x = dx * 0.82;
-      const t2y = dy * 0.82;
+      const t2x = dx * 0.83;
+      const t2y = dy * 0.83;
 
-      const anim = clone.animate(
+      const duration = 1250;
+
+      const anim = wrapper.animate(
         [
-          { transform: 'translate3d(0,0,0) rotate(0deg) scale(1)', filter:'blur(0px)' },
-          { transform: `translate3d(${t1x}px, ${t1y}px, 0) rotate(-1.5deg) scale(.98)`, filter:'blur(.35px)' },
-          { transform: `translate3d(${t2x}px, ${t2y}px, 0) rotate(.8deg) scale(.95)`, filter:'blur(.25px)' },
-          { transform: `translate3d(${dx}px, ${dy}px, 0) rotate(0deg) scale(.93)`, filter:'blur(0px)' }
+          { transform: 'translate3d(0,0,0) rotate(0deg) scale(1)' },
+          { transform: `translate3d(${t1x}px, ${t1y}px, 0) rotate(-1.4deg) scale(.99)` },
+          { transform: `translate3d(${t2x}px, ${t2y}px, 0) rotate(.9deg) scale(.97)` },
+          { transform: `translate3d(${dx}px, ${dy}px, 0) rotate(0deg) scale(.95)` }
         ],
-        { duration: 900, easing: 'cubic-bezier(.15,.85,.15,1)', fill: 'forwards' }
+        { duration, easing: 'cubic-bezier(.15,.85,.15,1)', fill: 'forwards' }
       );
 
-      anim.onfinish = () => { setTimeout(() => clone.remove(), 180); };
+      anim.onfinish = () => { setTimeout(() => wrapper.remove(), 220); };
+
+      return duration;
     }
 
     btn.addEventListener('click', function(e){
@@ -849,13 +933,20 @@
       const target = href.startsWith('#') ? document.querySelector(href) : null;
       if (target) e.preventDefault();
 
-      animateToButton();
-
-      if (target) {
-        setTimeout(() => {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 220);
+      if (reduce){
+        if (target) target.scrollIntoView({ behavior: 'auto', block: 'start' });
+        return;
       }
+
+      setDim(true);
+      const moveDuration = animateToButton() || 1250;
+
+      if (target){
+        setTimeout(() => smoothScrollTo(target, 1250), 320);
+      }
+
+      const total = Math.max(moveDuration, target ? 1250 + 320 : 0) + 260;
+      setTimeout(() => setDim(false), total);
     });
   })();
 </script>
