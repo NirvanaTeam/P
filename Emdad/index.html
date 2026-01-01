@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="fa-IR" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>آمبولانس خصوصی امداد ایثار | اعزام فوری آمبولانس و انتقال بیمار</title>
+
+  <meta name="description" content="امداد ایثار؛ اعزام فوری آمبولانس شهری و بین‌شهری، آمبولانس ICU، انتقال بیمار و خدمات فوریت‌های پزشکی 24 ساعته با تیم حرفه‌ای.">
+  <meta name="robots" content="index,follow">
+  <meta name="author" content="Emdad Isar">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="آمبولانس خصوصی امداد ایثار | اعزام فوری آمبولانس">
+  <meta property="og:description" content="اعزام فوری آمبولانس شهری و بین‌شهری، آمبولانس ICU، انتقال بیمار و خدمات پزشکی 24 ساعته.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fa_IR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#dc3545">
+
+  <link rel="preload" href="Meem-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+
+  <style>
+    @font-face{
+      font-family:"Meem";
+      src:url("Meem-SemiBold.woff2") format("woff2");
+      font-weight:600;
+      font-style:normal;
+      font-display:swap;
+    }
+
+    :root{
+      --brand:#dc3545;
+      --ink:#111827;
+      --muted:#6b7280;
+      --card:#ffffff;
+      --line:rgba(17,24,39,.08);
+    }
+
+    body{
+      font-family:"Meem",sans-serif;
+      color:var(--ink);
+      scroll-behavior:smooth;
+      background:#fff;
+    }
+
+    a{ text-decoration:none; }
+    .text-muted-2{ color:var(--muted); }
+
+    .navbar-glass{
+      background:rgba(255,255,255,.88);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--line);
+      transition:background .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .navbar-glass.scrolled{
+      background:rgba(255,255,255,.96);
+      box-shadow:0 8px 24px rgba(0,0,0,.08);
+      border-bottom-color:rgba(17,24,39,.10);
+    }
+    .brand-logo{
+      width:40px;
+      height:40px;
+      object-fit:contain;
+      border-radius:10px;
+      background:rgba(220,53,69,.06);
+    }
+    .navbar-brand{
+      gap:.65rem;
+    }
+    .nav-link{
+      font-weight:600;
+      padding:.45rem .75rem;
+      border-radius:12px;
+    }
+    .nav-link:hover{
+      background:rgba(17,24,39,.04);
+    }
+
+    .navbar .container{
+      flex-wrap:nowrap;
+      gap:.75rem;
+    }
+
+    .navbar-nav{
+      gap:.25rem;
+      flex-wrap:nowrap;
+      align-items:center;
+      justify-content:flex-end;
+      min-width:0;
+    }
+    .navbar-nav > .nav-item{
+      flex:0 0 auto;
+    }
+
+    @media (max-width: 991.98px){
+      .navbar-nav{
+        overflow-x:auto;
+        -webkit-overflow-scrolling:touch;
+        scrollbar-width:none;
+      }
+      .navbar-nav::-webkit-scrollbar{ height:0; }
+      .nav-link{
+        padding:.4rem .6rem;
+      }
+      .nav-cta{
+        padding:.48rem .74rem;
+      }
+      .dropdown-menu{
+        position:fixed !important;
+        top:var(--navh,72px) !important;
+        inset-inline-start:12px !important;
+        inset-inline-end:12px !important;
+        width:auto !important;
+        max-height:calc(100vh - var(--navh,72px) - 12px) !important;
+        overflow:auto !important;
+        transform:none !important;
+      }
+    }
+
+    .dropdown-menu{
+      border:0;
+      box-shadow:0 16px 50px rgba(0,0,0,.12);
+      border-radius:16px;
+      padding:10px;
+      min-width:280px;
+    }
+    .dropdown-item{
+      border-radius:12px;
+      padding:.6rem .8rem;
+      font-weight:600;
+    }
+    .dropdown-item:active{
+      background:rgba(220,53,69,.12);
+      color:var(--ink);
+    }
+    .dropdown-header{
+      font-weight:700;
+      color:rgba(17,24,39,.72);
+    }
+
+    .nav-cta{
+      background:var(--brand);
+      color:#fff;
+      border-radius:14px;
+      padding:.55rem .9rem;
+      font-weight:700;
+      box-shadow:0 12px 30px rgba(220,53,69,.22);
+    }
+    .nav-cta:hover{
+      color:#fff;
+      filter:brightness(.98);
+    }
+
+    .hero{
+      position:relative;
+      background:#0b0f19;
+      color:#fff;
+      padding:150px 20px 110px;
+      min-height:72vh;
+      overflow:hidden;
+    }
+
+    .hero-bg{
+      position:absolute;
+      inset:0;
+      z-index:0;
+      display:block;
+    }
+    .hero-bg-img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      object-position:center;
+      display:block;
+    }
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:1;
+      background:
+        radial-gradient(1200px 800px at 20% 20%, rgba(220,53,69,.22), transparent 60%),
+        linear-gradient(rgba(0,0,0,.62), rgba(0,0,0,.62));
+    }
+    .hero > .container{
+      position:relative;
+      z-index:2;
+    }
+
+
+    .hero h1 span{ color:#ff4d4d; }
+    .hero-lead{ opacity:.92; }
+
+    .hero-card{
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:22px;
+      padding:30px 26px;
+      box-shadow:0 20px 70px rgba(0,0,0,.25);
+      max-width:680px;
+      margin-inline-start:auto;
+    }
+
+    .hero-grid{
+      --bs-gutter-x:4.75rem;
+      row-gap:2.25rem;
+    }
+    @media (min-width:992px){
+      .hero-grid{ --bs-gutter-x:6.25rem; }
+    }
+
+    .ambulance-wrap{
+      display:flex;
+      justify-content:flex-start;
+      align-items:center;
+      padding:10px 0;
+    }
+    .ambulance-img{
+      width:min(440px, 92%);
+      height:auto;
+      filter:drop-shadow(0 18px 26px rgba(0,0,0,.35));
+      user-select:none;
+      -webkit-user-drag:none;
+    }
+
+    .section-title{
+      font-weight:800;
+      letter-spacing:-.2px;
+    }
+    .section-sub{
+      color:var(--muted);
+      max-width:820px;
+      margin-inline:auto;
+    }
+
+    .soft-card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:18px;
+      box-shadow:0 14px 40px rgba(0,0,0,.06);
+    }
+
+    .service-card{
+      transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .service-card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 22px 60px rgba(0,0,0,.10);
+      border-color:rgba(220,53,69,.18);
+    }
+
+    .counter{
+      font-size:2rem;
+      font-weight:900;
+      color:var(--brand);
+    }
+
+    .step{
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
+      padding:18px 16px;
+    }
+    .step-badge{
+      width:38px;
+      height:38px;
+      border-radius:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(220,53,69,.12);
+      color:var(--brand);
+      font-weight:900;
+      flex:0 0 auto;
+    }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:.55rem .85rem;
+      border-radius:999px;
+      background:rgba(17,24,39,.04);
+      border:1px solid rgba(17,24,39,.06);
+      font-weight:700;
+      color:var(--ink);
+    }
+    .chip:hover{
+      border-color:rgba(220,53,69,.20);
+      background:rgba(220,53,69,.06);
+      color:var(--ink);
+    }
+
+    .faq .accordion-item{
+      border:1px solid var(--line);
+      border-radius:16px;
+      overflow:hidden;
+      box-shadow:0 12px 40px rgba(0,0,0,.06);
+      background:#fff;
+    }
+    .faq .accordion-button{
+      font-weight:800;
+    }
+    .faq .accordion-button:not(.collapsed){
+      color:var(--ink);
+      background:rgba(220,53,69,.06);
+    }
+
+    footer{
+      background:#0b0f19;
+      color:rgba(255,255,255,.70);
+    }
+
+    .btn-danger{
+      box-shadow:0 12px 30px rgba(220,53,69,.28);
+      border-radius:16px;
+      font-weight:800;
+    }
+    .btn-danger:active{ transform:translateY(1px); }
+    .btn-outline-light{
+      border-radius:16px;
+      font-weight:800;
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"امداد ایثار",
+    "logo":"emdad-isar-logo.webp"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {
+        "@type":"Question",
+        "name":"اعزام آمبولانس چقدر سریع انجام می‌شود؟",
+        "acceptedAnswer":{"@type":"Answer","text":"زمان اعزام به موقعیت، به ترافیک و محدوده بستگی دارد؛ هدف ما اعزام سریع و هماهنگی لحظه‌ای تا رسیدن تیم است."}
+      },
+      {
+        "@type":"Question",
+        "name":"چه خدماتی داخل آمبولانس ارائه می‌شود؟",
+        "acceptedAnswer":{"@type":"Answer","text":"بسته به نوع سرویس، تجهیزات استاندارد امدادی و در صورت نیاز خدمات پیشرفته مانند پایش علائم حیاتی و تیم درمانی ارائه می‌شود."}
+      },
+      {
+        "@type":"Question",
+        "name":"برای انتقال بین‌شهری چه مواردی لازم است؟",
+        "acceptedAnswer":{"@type":"Answer","text":"اطلاعات بیمار، مقصد، شرایط پزشکی و در صورت وجود توصیه پزشک معالج کمک می‌کند بهترین نوع آمبولانس و تیم همراه انتخاب شود."}
+      },
+      {
+        "@type":"Question",
+        "name":"آمبولانس ICU برای چه شرایطی مناسب است؟",
+        "acceptedAnswer":{"@type":"Answer","text":"برای بیمارانی که نیاز به مراقبت پیشرفته و نظارت دقیق دارند، آمبولانس ICU با تجهیزات تخصصی و امکان حضور کادر درمانی مناسب است."}
+      }
+    ]
+  }
+  </script>
+</head>
+
+<body>
+
+<nav class="navbar navbar-light navbar-glass fixed-top" id="mainNav">
+  <div class="container py-1 py-lg-2">
+    <a class="navbar-brand d-flex align-items-center fw-bold" href="/">
+      <img class="brand-logo" src="emdad-isar-logo.webp" alt="لوگوی امداد ایثار" width="40" height="40">
+      <span class="text-danger">امداد ایثار</span>
+    </a>
+
+    <ul class="navbar-nav flex-row ms-auto">
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">صفحات اصلی</a>
+        <ul class="dropdown-menu">
+          <li><h6 class="dropdown-header">صفحات اصلی</h6></li>
+          <li><a class="dropdown-item" href="/">خانه</a></li>
+          <li><a class="dropdown-item" href="/about/">درباره ما</a></li>
+          <li><a class="dropdown-item" href="/services/">خدمات</a></li>
+          <li><a class="dropdown-item" href="/pricing/">تعرفه‌ها</a></li>
+          <li><a class="dropdown-item" href="/reservation/">رزرو</a></li>
+          <li><a class="dropdown-item" href="/contact/">تماس</a></li>
+          <li><a class="dropdown-item" href="/blog/">بلاگ</a></li>
+        </ul>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">سرویس‌ها</a>
+        <ul class="dropdown-menu">
+          <li><h6 class="dropdown-header">سرویس‌ها</h6></li>
+          <li><a class="dropdown-item" href="/services/city-ambulance/">آمبولانس شهری</a></li>
+          <li><a class="dropdown-item" href="/services/intercity-ambulance/">آمبولانس بین‌شهری</a></li>
+          <li><a class="dropdown-item" href="/services/icu-ambulance/">آمبولانس ICU</a></li>
+          <li><a class="dropdown-item" href="/services/patient-transfer/">انتقال بیمار</a></li>
+        </ul>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">لوکیشن‌ها</a>
+        <ul class="dropdown-menu">
+          <li><h6 class="dropdown-header">لوکیشن‌ها</h6></li>
+          <li><a class="dropdown-item" href="/tehran/">تهران</a></li>
+          <li><a class="dropdown-item" href="/tehran/east/">تهران (شرق)</a></li>
+          <li><a class="dropdown-item" href="/tehran/tehranpars/">تهرانپارس</a></li>
+          <li><a class="dropdown-item" href="/karaj/">کرج</a></li>
+        </ul>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link nav-cta" href="#contact" id="navCta">تماس فوری</a>
+      </li>
+
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <section class="hero" aria-label="هدر اصلی">
+    <picture class="hero-bg" aria-hidden="true">
+      <source media="(max-width: 767.98px)" srcset="background-mobile.png">
+      <img class="hero-bg-img" src="background.png" alt="" width="1500" height="1000">
+    </picture>
+    <div class="container">
+      <div class="row align-items-center justify-content-between hero-grid">
+        <div class="col-lg-6">
+          <div class="hero-card text-center text-lg-end">
+            <h1 class="fw-bold mb-3">آمبولانس خصوصی <span>امداد ایثار</span></h1>
+            <p class="hero-lead fs-5 mb-4">اعزام فوری آمبولانس • خدمات پزشکی 24 ساعته • انتقال ایمن بیمار</p>
+            <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-lg-end align-items-center">
+              <a id="requestBtn" href="#contact" class="btn btn-danger btn-lg px-4">درخواست فوری آمبولانس</a>
+              <a href="/services/" class="btn btn-outline-light btn-lg px-4">مشاهده خدمات</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="ambulance-wrap">
+            <img id="ambulanceImg" class="ambulance-img" src="ambulance.png" alt="تصویر آمبولانس امداد ایثار" width="880" height="520">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5" id="services">
+    <div class="container">
+      <h2 class="section-title text-center mb-2">خدمات امداد ایثار</h2>
+      <p class="section-sub text-center mb-4">انتخاب سرویس متناسب با شرایط بیمار، مسیر و سطح مراقبت مورد نیاز.</p>
+
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+          <div class="soft-card service-card h-100 p-4 text-center">
+            <h3 class="h5 fw-bold mb-2">اعزام فوری</h3>
+            <p class="mb-0 text-muted-2">هماهنگی سریع و اعزام در کوتاه‌ترین زمان ممکن.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="soft-card service-card h-100 p-4 text-center">
+            <h3 class="h5 fw-bold mb-2">انتقال بیمار</h3>
+            <p class="mb-0 text-muted-2">انتقال ایمن به مراکز درمانی یا منزل با مراقبت لازم.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="soft-card service-card h-100 p-4 text-center">
+            <h3 class="h5 fw-bold mb-2">بین‌شهری</h3>
+            <p class="mb-0 text-muted-2">هماهنگی مسیر و توقف‌های ضروری با استانداردهای انتقال.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="soft-card service-card h-100 p-4 text-center">
+            <h3 class="h5 fw-bold mb-2">آمبولانس ICU</h3>
+            <p class="mb-0 text-muted-2">مناسب بیماران نیازمند مراقبت پیشرفته و پایش دقیق.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 d-flex flex-wrap gap-2 justify-content-center">
+        <a class="chip" href="/services/city-ambulance/">آمبولانس شهری</a>
+        <a class="chip" href="/services/intercity-ambulance/">آمبولانس بین‌شهری</a>
+        <a class="chip" href="/services/icu-ambulance/">آمبولانس ICU</a>
+        <a class="chip" href="/services/patient-transfer/">انتقال بیمار</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5 bg-light">
+    <div class="container text-center">
+      <h2 class="section-title mb-2">آمار و عملکرد</h2>
+      <p class="section-sub mb-4">تصویر کلی از سطح فعالیت و پوشش خدمات.</p>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="soft-card p-4 h-100">
+            <div class="counter" data-target="5000">0</div>
+            <div class="mt-2 fw-bold">ماموریت موفق</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="soft-card p-4 h-100">
+            <div class="counter" data-target="24">0</div>
+            <div class="mt-2 fw-bold">ساعت خدمات</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="soft-card p-4 h-100">
+            <div class="counter" data-target="15">0</div>
+            <div class="mt-2 fw-bold">سال تجربه</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5" id="why">
+    <div class="container">
+      <h2 class="section-title text-center mb-2">چرا امداد ایثار</h2>
+      <p class="section-sub text-center mb-4">تمرکز روی ایمنی انتقال، کیفیت مراقبت و تجربه بیمار.</p>
+
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+          <div class="soft-card h-100 p-4">
+            <h3 class="h5 fw-bold mb-2">تیم حرفه‌ای</h3>
+            <p class="mb-0 text-muted-2">هماهنگی دقیق و برخورد استاندارد با شرایط متنوع بیماران.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="soft-card h-100 p-4">
+            <h3 class="h5 fw-bold mb-2">پوشش شهری و بین‌شهری</h3>
+            <p class="mb-0 text-muted-2">برنامه‌ریزی مسیر و انتقال مطمئن با رعایت اصول مراقبت.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="soft-card h-100 p-4">
+            <h3 class="h5 fw-bold mb-2">تجهیزات و پایش</h3>
+            <p class="mb-0 text-muted-2">امکان انتخاب سطح تجهیز متناسب با وضعیت بیمار و سرویس.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="soft-card h-100 p-4">
+            <h3 class="h5 fw-bold mb-2">شفافیت سرویس</h3>
+            <p class="mb-0 text-muted-2">تعریف روشن سرویس، مسیر و نیازهای همراهی پیش از اعزام.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="soft-card h-100 p-4">
+            <h3 class="h5 fw-bold mb-2">پشتیبانی 24 ساعته</h3>
+            <p class="mb-0 text-muted-2">پاسخگویی و هماهنگی سریع در تمام ساعات شبانه‌روز.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="soft-card h-100 p-4">
+            <h3 class="h5 fw-bold mb-2">تمرکز بر ایمنی</h3>
+            <p class="mb-0 text-muted-2">اولویت با انتقال ایمن، آرام و کنترل‌شده برای بیمار است.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5 bg-light" id="process">
+    <div class="container">
+      <h2 class="section-title text-center mb-2">مراحل درخواست و اعزام</h2>
+      <p class="section-sub text-center mb-4">روال ساده برای ثبت درخواست و شروع اعزام.</p>
+
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <div class="soft-card step h-100">
+            <div class="step-badge">1</div>
+            <div>
+              <h3 class="h6 fw-bold mb-1">ثبت درخواست</h3>
+              <div class="text-muted-2">اطلاعات اولیه بیمار و مقصد را ثبت کنید.</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="soft-card step h-100">
+            <div class="step-badge">2</div>
+            <div>
+              <h3 class="h6 fw-bold mb-1">انتخاب سرویس مناسب</h3>
+              <div class="text-muted-2">براساس وضعیت بیمار، نوع آمبولانس تعیین می‌شود.</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="soft-card step h-100">
+            <div class="step-badge">3</div>
+            <div>
+              <h3 class="h6 fw-bold mb-1">اعزام و انتقال ایمن</h3>
+              <div class="text-muted-2">اعزام انجام می‌شود و مراقبت لازم در مسیر ادامه دارد.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 text-center">
+        <a href="/reservation/" class="btn btn-danger btn-lg px-4">رزرو و هماهنگی</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5" id="coverage">
+    <div class="container">
+      <h2 class="section-title text-center mb-2">پوشش مناطق</h2>
+      <p class="section-sub text-center mb-4">نمونه‌ای از صفحات لوکیشن برای دسترسی سریع.</p>
+
+      <div class="d-flex flex-wrap justify-content-center gap-2">
+        <a class="chip" href="/tehran/">تهران</a>
+        <a class="chip" href="/tehran/east/">تهران (شرق)</a>
+        <a class="chip" href="/tehran/tehranpars/">تهرانپارس</a>
+        <a class="chip" href="/karaj/">کرج</a>
+      </div>
+
+      <div class="row g-4 mt-3">
+        <div class="col-lg-6">
+          <div class="soft-card p-4 h-100">
+            <h3 class="h5 fw-bold mb-2">پوشش شهری</h3>
+            <p class="mb-0 text-muted-2">برای مسیرهای داخل شهر، اعزام سریع و هماهنگی مسیر انجام می‌شود.</p>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="soft-card p-4 h-100">
+            <h3 class="h5 fw-bold mb-2">پوشش بین‌شهری</h3>
+            <p class="mb-0 text-muted-2">در انتقال‌های طولانی، شرایط بیمار و توقف‌های ضروری از ابتدا برنامه‌ریزی می‌شود.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5 bg-light" id="pricing">
+    <div class="container">
+      <h2 class="section-title text-center mb-2">تعرفه و شفافیت</h2>
+      <p class="section-sub text-center mb-4">تعرفه‌ها به نوع سرویس، مسیر و سطح مراقبت بستگی دارد.</p>
+
+      <div class="row g-4 justify-content-center">
+        <div class="col-lg-8">
+          <div class="soft-card p-4 p-lg-5 text-center">
+            <h3 class="h5 fw-bold mb-2">برآورد سریع قبل از اعزام</h3>
+            <p class="text-muted-2 mb-4">با ثبت اطلاعات اولیه، سرویس پیشنهادی و برآورد کلی قابل ارائه است.</p>
+            <a href="/pricing/" class="btn btn-danger btn-lg px-4">مشاهده تعرفه‌ها</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5 faq" id="faq">
+    <div class="container">
+      <h2 class="section-title text-center mb-2">سوالات متداول</h2>
+      <p class="section-sub text-center mb-4">پاسخ‌های سریع برای تصمیم‌گیری بهتر.</p>
+
+      <div class="accordion" id="faqAcc">
+        <div class="accordion-item mb-3">
+          <h3 class="accordion-header" id="q1">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a1" aria-expanded="false" aria-controls="a1">
+              اعزام آمبولانس چقدر سریع انجام می‌شود؟
+            </button>
+          </h3>
+          <div id="a1" class="accordion-collapse collapse" aria-labelledby="q1" data-bs-parent="#faqAcc">
+            <div class="accordion-body text-muted-2">
+              زمان اعزام به موقعیت، به ترافیک و محدوده بستگی دارد؛ هدف ما اعزام سریع و هماهنگی لحظه‌ای تا رسیدن تیم است.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item mb-3">
+          <h3 class="accordion-header" id="q2">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a2" aria-expanded="false" aria-controls="a2">
+              چه خدماتی داخل آمبولانس ارائه می‌شود؟
+            </button>
+          </h3>
+          <div id="a2" class="accordion-collapse collapse" aria-labelledby="q2" data-bs-parent="#faqAcc">
+            <div class="accordion-body text-muted-2">
+              بسته به نوع سرویس، تجهیزات استاندارد امدادی و در صورت نیاز خدمات پیشرفته مانند پایش علائم حیاتی و تیم درمانی ارائه می‌شود.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item mb-3">
+          <h3 class="accordion-header" id="q3">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a3" aria-expanded="false" aria-controls="a3">
+              برای انتقال بین‌شهری چه مواردی لازم است؟
+            </button>
+          </h3>
+          <div id="a3" class="accordion-collapse collapse" aria-labelledby="q3" data-bs-parent="#faqAcc">
+            <div class="accordion-body text-muted-2">
+              اطلاعات بیمار، مقصد، شرایط پزشکی و در صورت وجود توصیه پزشک معالج کمک می‌کند بهترین نوع آمبولانس و تیم همراه انتخاب شود.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h3 class="accordion-header" id="q4">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a4" aria-expanded="false" aria-controls="a4">
+              آمبولانس ICU برای چه شرایطی مناسب است؟
+            </button>
+          </h3>
+          <div id="a4" class="accordion-collapse collapse" aria-labelledby="q4" data-bs-parent="#faqAcc">
+            <div class="accordion-body text-muted-2">
+              برای بیمارانی که نیاز به مراقبت پیشرفته و نظارت دقیق دارند، آمبولانس ICU با تجهیزات تخصصی و امکان حضور کادر درمانی مناسب است.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="py-5" style="background:var(--brand); color:#fff;">
+    <div class="container">
+      <h2 class="section-title text-center mb-2" style="color:#fff;">تماس فوری</h2>
+      <p class="section-sub text-center mb-4" style="color:rgba(255,255,255,.86);">برای اعزام سریع، اطلاعات تماس و توضیح کوتاه از وضعیت را ثبت کنید.</p>
+
+      <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-7">
+          <form id="contactForm" class="soft-card p-4 p-lg-5">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label fw-bold" for="name">نام</label>
+                <input id="name" class="form-control" type="text" placeholder="نام شما" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-bold" for="phone">شماره تماس</label>
+                <input id="phone" class="form-control" type="tel" inputmode="tel" placeholder="شماره تماس" required>
+              </div>
+              <div class="col-12">
+                <label class="form-label fw-bold" for="details">شرح وضعیت</label>
+                <textarea id="details" class="form-control" rows="4" placeholder="شرح کوتاه از وضعیت بیمار و مقصد" required></textarea>
+              </div>
+              <div class="col-12">
+                <button class="btn btn-danger w-100 btn-lg" type="submit">ارسال درخواست</button>
+              </div>
+              <div class="col-12">
+                <div id="formMsg" class="d-none fw-bold text-success">درخواست شما ثبت شد</div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="mt-4 text-center">
+        <a href="/contact/" class="btn btn-outline-light btn-lg px-4">صفحه تماس</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="py-4 text-center">
+  <div class="container">
+    <div class="fw-bold mb-1">© 2026 امداد ایثار</div>
+    <div class="text-muted-2" style="color:rgba(255,255,255,.65) !important;">آمبولانس خصوصی • خدمات پزشکی شبانه‌روزی</div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  (function(){
+    const nav = document.getElementById('mainNav');
+    const setState = () => { if (nav) nav.classList.toggle('scrolled', window.scrollY > 6); };
+    const setNavH = () => {
+      if (!nav) return;
+      document.documentElement.style.setProperty('--navh', nav.offsetHeight + 'px');
+    };
+    setState();
+    setNavH();
+    window.addEventListener('scroll', setState, { passive:true });
+    window.addEventListener('resize', setNavH, { passive:true });
+  })();
+
+  (function(){
+    document.querySelectorAll('.counter').forEach(counter => {
+      const target = Number(counter.dataset.target || 0);
+      let count = 0;
+      const step = Math.max(1, target / 110);
+      const timer = setInterval(() => {
+        count += step;
+        if (count >= target) {
+          counter.textContent = String(target);
+          clearInterval(timer);
+        } else {
+          counter.textContent = String(Math.floor(count));
+        }
+      }, 18);
+    });
+  })();
+
+  (function(){
+    const form = document.getElementById('contactForm');
+    const msg = document.getElementById('formMsg');
+    if (!form || !msg) return;
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      msg.classList.remove('d-none');
+      form.reset();
+      setTimeout(() => msg.classList.add('d-none'), 2200);
+    });
+  })();
+
+  (function(){
+    const btn = document.getElementById('requestBtn');
+    const img = document.getElementById('ambulanceImg');
+    if (!btn || !img) return;
+
+    function animateToButton(){
+      const imgRect = img.getBoundingClientRect();
+      const btnRect = btn.getBoundingClientRect();
+
+      const clone = img.cloneNode(true);
+      clone.removeAttribute('id');
+      clone.style.position = 'fixed';
+      clone.style.left = imgRect.left + 'px';
+      clone.style.top = imgRect.top + 'px';
+      clone.style.width = imgRect.width + 'px';
+      clone.style.height = imgRect.height + 'px';
+      clone.style.margin = '0';
+      clone.style.zIndex = '2000';
+      clone.style.pointerEvents = 'none';
+      clone.style.transform = 'translate3d(0,0,0)';
+      document.body.appendChild(clone);
+
+      const dx = (btnRect.left + btnRect.width / 2) - (imgRect.left + imgRect.width / 2);
+      const dy = (btnRect.top + btnRect.height / 2) - (imgRect.top + imgRect.height / 2);
+
+      const t1x = dx * 0.55;
+      const t1y = dy * 0.55;
+      const t2x = dx * 0.82;
+      const t2y = dy * 0.82;
+
+      const anim = clone.animate(
+        [
+          { transform: 'translate3d(0,0,0) rotate(0deg) scale(1)', filter:'blur(0px)' },
+          { transform: `translate3d(${t1x}px, ${t1y}px, 0) rotate(-1.5deg) scale(.98)`, filter:'blur(.35px)' },
+          { transform: `translate3d(${t2x}px, ${t2y}px, 0) rotate(.8deg) scale(.95)`, filter:'blur(.25px)' },
+          { transform: `translate3d(${dx}px, ${dy}px, 0) rotate(0deg) scale(.93)`, filter:'blur(0px)' }
+        ],
+        { duration: 900, easing: 'cubic-bezier(.15,.85,.15,1)', fill: 'forwards' }
+      );
+
+      anim.onfinish = () => { setTimeout(() => clone.remove(), 180); };
+    }
+
+    btn.addEventListener('click', function(e){
+      const href = btn.getAttribute('href') || '';
+      const target = href.startsWith('#') ? document.querySelector(href) : null;
+      if (target) e.preventDefault();
+
+      animateToButton();
+
+      if (target) {
+        setTimeout(() => {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 220);
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>
